@@ -15,6 +15,12 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('cs.antrian-ditangani') }}" :active="request()->routeIs('cs.antrian-ditangani')">
+                        {{ __('Antrian') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('cs.pcAntrian') }}" :active="request()->routeIs('cs.pcAntrian')">
+                        {{ __('PC-Antrian') }}
+                    </x-nav-link>
                 </div>
             </div>
 
