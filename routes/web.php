@@ -25,7 +25,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('page.dashboard.dashboard');
     })->name('dashboard');
     Route::group(['prefix' => 'cs', 'as' => 'cs.'],function(){
         Route::get('/antrian-ditangani', [AntrianController::class, 'index'])->name('antrian-ditangani');
