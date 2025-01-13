@@ -13,7 +13,7 @@ class PcAntrianController extends Controller
     public function index()
     {
         $antrian = antrian::where('user_id', Auth::user()?->id)->first();
-        return view('pages.customer-service.pc-antrian', compact('antrian'));
+        return view('customer-service.pc-antrian', compact('antrian'));
     }
 
     /**
