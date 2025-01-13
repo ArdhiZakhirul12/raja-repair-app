@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\dataService;
+use Auth;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -11,7 +13,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = dataService::where('user_id',Auth::user()->id)->get();
+
+        return view('customer-service.service.list',compact('services'));
     }
 
     /**
@@ -27,7 +31,17 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $auth = Auth::user();
+        $validated = $request->validate([
+            'nama_servis' => 'required|string|min:3',
+            'jenis_servis' => 'required',
+            'status' =>'1',
+            'harga' => 'required|integer',            
+        ]);        
+        $validated['user_id'] = $auth->id;
+        dataService::create($validated);
+        return redirect()->back();
     }
 
     /**
@@ -52,6 +66,24 @@ class ServiceController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+    public function updateStatus(Request $request)
+    {                
+        
+        // $validated = $request->validate([            
+        //     'status' => 'required',
+        // ]); 
+
+        $service = dataService::find($request->id);
+        if (isset($service)) {
+            $service->status = $request->status;
+            $service->save();
+            return response()->json(['success' => true, 'message' => 'berhasil mengubah status service']);
+        
+        }
+        
+        return response()->json(['success' => false, 'message' => 'Sparepart not found'], 404);
+
     }
 
     /**

@@ -24,6 +24,9 @@
                     <x-nav-link href="{{ route('cs.sparepart.index') }}" :active="request()->routeIs('cs.sparepart.index')">
                         {{ __('Data Sparepart') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('cs.service.index') }}" :active="request()->routeIs('cs.service.index')">
+                        {{ __('Data Servis') }}
+                    </x-nav-link>
                     <x-nav-link href="{{ route('cs.pcAntrian') }}" :active="request()->routeIs('cs.pcAntrian')">
                         {{ __('PC-Antrian') }}
                     </x-nav-link>

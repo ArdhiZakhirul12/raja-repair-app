@@ -72,14 +72,22 @@ class SparepartController extends Controller
         return redirect()->back()->with('msg','berhasil mengedit sparepart');
     }
     public function updateStatus(Request $request)
-    {
+    {                
         
-        $validated = $request->validate([
-            'status' => 'required'
-        ]); 
+        // $validated = $request->validate([            
+        //     'status' => 'required',
+        // ]); 
+
+        $sparepart = sparepart::find($request->id);
+        if (isset($sparepart)) {
+            $sparepart->status = $request->status;
+            $sparepart->save();
+            return response()->json(['success' => true, 'message' => 'berhasil mengubah status sparepart']);
         
-        sparepart::where('id', $request->id)->update($validated);
-        return redirect()->back()->with('msg','berhasil mengubah status sparepart');
+        }
+        
+        return response()->json(['success' => false, 'message' => 'Sparepart not found'], 404);
+
     }
 
     /**

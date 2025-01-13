@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AntrianController;
@@ -40,6 +41,12 @@ Route::middleware([
             Route::post('/store', [SparepartController::class, 'store'])->name('store');
             Route::put('/update', [SparepartController::class, 'update'])->name('update');
             Route::post('/update-status', [SparepartController::class, 'updateStatus'])->name('updateStatus');
+        });
+        Route::group(['prefix' => 'service', 'as' => 'service.'], function(){
+            Route::get('/', [ServiceController::class, 'index'])->name('index');
+            Route::post('/store', [ServiceController::class, 'store'])->name('store');
+            // Route::put('/update', [SparepartController::class, 'update'])->name('update');
+            Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
         Route::get('/antrian-ditangani', [AntrianController::class, 'index'])->name('antrian-ditangani');
         Route::get('/antrian', [PcAntrianController::class, 'index'])->name('pcAntrian');
