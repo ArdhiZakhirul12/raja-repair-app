@@ -15,7 +15,7 @@ class AntrianController extends Controller
     public function index()
     {           
         $antrian = antrian::with('user')->where('user_id', Auth::user()?->id)->first();        
-        return view('customer-service.antrian-ditangani', compact('antrian'));
+        return view('pages.customer-service.antrian-ditangani', compact('antrian'));
     }
 
 
