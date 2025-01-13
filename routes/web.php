@@ -28,7 +28,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('pages.dashboard.dashboard');
     })->name('dashboard');
     Route::group(['prefix' => 'cs', 'as' => 'cs.'],function(){
         Route::group(['prefix' => 'customer', 'as' => 'customer.'], function(){            

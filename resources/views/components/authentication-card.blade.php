@@ -1,9 +1,15 @@
-<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-    <div>
-        {{ $logo }}
-    </div>
-
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-        {{ $slot }}
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="flex bg-white shadow-md max-w-4xl max-h-4xl overflow-hidden rounded-lg">
+        <div class="w-2/4 px-12 py-20">
+            <div class="flex justify-center mb-4">
+            {{ $logo }}
+            </div>
+            {{ $slot }}
+        </div>
+        <div class="w-1/2">
+            <img src="{{ asset('images/login_bg.jpg') }}" class="w-full h-full object-cover" alt="login image">
+        </div>
     </div>
 </div>
+
+
