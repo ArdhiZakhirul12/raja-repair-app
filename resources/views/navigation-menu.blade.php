@@ -18,6 +18,12 @@
                     <x-nav-link href="{{ route('cs.antrian-ditangani') }}" :active="request()->routeIs('cs.antrian-ditangani')">
                         {{ __('Antrian') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('cs.customer.index') }}" :active="request()->routeIs('cs.customer.index')">
+                        {{ __('Data Pelanggan') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('cs.sparepart.index') }}" :active="request()->routeIs('cs.sparepart.index')">
+                        {{ __('Data Sparepart') }}
+                    </x-nav-link>
                     <x-nav-link href="{{ route('cs.pcAntrian') }}" :active="request()->routeIs('cs.pcAntrian')">
                         {{ __('PC-Antrian') }}
                     </x-nav-link>

@@ -32,15 +32,18 @@ class AntrianController extends Controller
      */
     public function store(Request $request)
     {
-
+        $cekAntrian = antrian::where('user_id',Auth::user()?->id)->first();        
+        if ($cekAntrian) {
+        return redirect()->back();        
+        }
         antrian::create([
             'user_id' => Auth::user()?->id,
-            'antrian' => 1,
+            'antrian' => 0,
             'ditangani' => 0, 
             'status' => 'buka',
         ]);
 
-        return redirect()->route('cs.antrian-ditangani');
+        return redirect()->back();
     }
 
     /**
