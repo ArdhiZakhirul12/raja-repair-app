@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('no_hp');
             $table->string('nama');
             $table->text('alamat')->nullable();
+            $table->integer('servis')->default(0);
             $table->timestamps();
         });
     }

@@ -46,7 +46,12 @@
             </form>
             <div class="flex items-center justify-center h-screen bg-gray-100">
                 <div class="bg-white shadow-xl rounded-lg p-6 w-full max-w-md">
-                    @if ($antrian->status == 'tutup')                        
+                    @if (!isset($antrian))                        
+                    
+                        <button id="next-button" class="bg-blue-500 text-white px-4 py-2 rounded" onclick="mulai()">Mulai
+                            Antrian</button>
+                    
+                    @elseif ($antrian->status == 'tutup')
                     <h1 class="text-2xl font-bold text-center mb-4">Mohon maaf antrian sudah tutup, kembali lagi besok</h1>
                     @else                                        
                     <!-- Logout Form -->
@@ -54,7 +59,7 @@
                     <h1 class="text-2xl font-bold text-center mb-4">Klik "Ambil Antrian" untuk mendapatkan antrian</h1>
                     <!-- Display Current Number -->
                     <div class="bg-gray-100 p-6 rounded-lg shadow-md text-center">
-                        <h2 id="current-number" class="text-4xl font-bold">{{ $antrian->antrian }}</h2>
+                        <h2 id="current-number" class="text-4xl font-bold">{{ $antrian?->antrian }}</h2>
                     </div>
                     <!-- Action Buttons -->
                     <div class="flex justify-center mt-4 space-x-4">
@@ -72,6 +77,33 @@
 
     @livewireScripts
 </body>
+
+<script>
+    function mulai() {
+            // Membuat form dinamis untuk POST
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "{{ route('cs.antrian.store') }}";
+
+            // Menambahkan token CSRF
+            var csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = '{{ csrf_token() }}';
+            form.appendChild(csrfToken);
+
+            // Menambahkan elemen lainnya jika perlu
+            // var input = document.createElement('input');
+            // input.type = 'hidden';
+            // input.name = 'key';
+            // input.value = 'value';
+            // form.appendChild(input);
+
+            // Menambahkan form ke body dan mengirimnya
+            document.body.appendChild(form);
+            form.submit();
+        }
+</script>
 <script>
     let currentNumber = {{ $antrian->antrian ?? 0 }};
     let id = {{ $antrian->id ?? 0 }};
