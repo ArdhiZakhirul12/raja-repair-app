@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama_servis');
             $table->enum('jenis_servis', ['hardware', 'software']);
             $table->integer('harga');
+            $table->enum('status',[1,0]);
             $table->timestamps();
         });
     }
