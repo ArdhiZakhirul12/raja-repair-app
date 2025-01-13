@@ -129,7 +129,7 @@
                         </div>
                     </div>
                    </a>
-                   <a href="">
+                   <a href="{{ route('cs.customer.index') }}" :active="request()->routeIs('cs.customer.index')">
                     <div class="flex items-center justify-between p-4">
                         <div class="flex items-center">
                             <i class="fa fa-user"></i>
@@ -137,7 +137,7 @@
                         </div>
                     </div></a>
 
-                    <a href="">
+                    <a href="{{ route('cs.service.index') }}" :active="request()->routeIs('cs.service.index')">
                     <div class="flex items-center justify-between p-4">
                         <div class="flex items-center">
                             <i class="fa fa-screwdriver-wrench"></i>
@@ -154,7 +154,7 @@
                         </div>
                     </div></a>
 
-                    <a href="">
+                    <a href="{{ route('cs.sparepart.index') }}" :active="request()->routeIs('cs.sparepart.index')">
                     <div class="flex items-center justify-between p-4">
                         <div class="flex items-center">
                             <i class="fa fa-toolbox"></i>
