@@ -54,7 +54,7 @@
                     <h1 class="text-2xl font-bold text-center mb-4">Klik "Ambil Antrian" untuk mendapatkan antrian</h1>
                     <!-- Display Current Number -->
                     <div class="bg-gray-100 p-6 rounded-lg shadow-md text-center">
-                        <h2 id="current-number" class="text-4xl font-bold">{{ $antrian->antrian }}</h2>
+                        <h2 id="current-number" class="text-4xl font-bold">{{ $antrian?->antrian }}</h2>
                     </div>
                     <!-- Action Buttons -->
                     <div class="flex justify-center mt-4 space-x-4">

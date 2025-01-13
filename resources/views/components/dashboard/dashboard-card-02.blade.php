@@ -48,8 +48,8 @@
         <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-1">Sales</div>
         <div class="flex items-start">
             <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">
+                Rp.1200
                 {{-- ${{ number_format($dataFeed->sumDataSet(2, 1), 0) }} --}}
-                88888
             </div>
             <div class="text-sm font-medium text-red-700 px-1.5 bg-red-500/20 rounded-full">-14%</div>
         </div>
