@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
+use App\Http\Controllers\TeknisiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\PcAntrianController;
@@ -48,6 +49,13 @@ Route::middleware([
             // Route::put('/update', [SparepartController::class, 'update'])->name('update');
             Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
+        Route::group(['prefix' => 'teknisi', 'as' => 'teknisi.'], function(){
+            Route::get('/', [TeknisiController::class, 'index'])->name('index');
+            Route::post('/store', [TeknisiController::class, 'store'])->name('store');
+            Route::put('/update', [TeknisiController::class, 'update'])->name('update');
+            // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
+        });
+
         Route::get('/antrian-ditangani', [AntrianController::class, 'index'])->name('antrian-ditangani');
         Route::get('/antrian', [PcAntrianController::class, 'index'])->name('pcAntrian');
         Route::post('/update-pc-antrian', [PcAntrianController::class, 'update'])->name('pcAntrian.update');

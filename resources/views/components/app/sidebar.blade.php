@@ -146,7 +146,7 @@
                     </div></a>
                     <a href="{{ route('cs.antrian-ditangani') }}" :active="request()->routeIs('cs.antrian-ditangani')">
                    
-                    <a href="">
+                    <a href="{{ route('cs.teknisi.index') }}" :active="request()->routeIs('cs.sparepart.index')">
                     <div class="flex items-center justify-between p-4">
                         <div class="flex items-center">
                             <i class="fa fa-user-gear"></i>
