@@ -52,20 +52,33 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
+            <div class="mb-4 sm:mb-5 ">
+                <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
+                    Data Servis
+                </h1>
+            </div>
+            <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
                 <div class="p-6">
-                    <button 
-                        class="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                        onclick="document.getElementById('add-service-modal').classList.remove('hidden')"
-                    >
-                        Tambah servis
-                    </button> 
-                    <span class="ml-auto text-gray-700 font-medium">
-                        Total servis: {{ count($services) }}
-                    </span>              
-                    <!-- Pencarian -->
-                    <input type="text" id="search" placeholder="Cari servis..." class="mb-4 p-2 border border-gray-300 rounded w-full" onkeyup="searchTable()">
+                <div class="flex justify-between mb-4">
+                         <!-- Pencarian -->
+                         <input type="text" id="search" placeholder="Cari servis..." class="p-2 border border-gray-300 rounded" onkeyup="searchTable()">
+                         <div>
+                             <button 
+                             class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mr-4"
+                             onclick="document.getElementById('add-service-modal').classList.remove('hidden')"
+                         >
+                             Tambah servis
+                         </button> 
+                         <span class="ml-auto text-gray-700 font-medium dark:text-slate-300">
+                             Total servis: {{ count($services) }}
+                         </span>            
+                         </div>      
+                </div>
+
+
+                <hr class="my-4 border-t border-gray-300">
+                   
 
                     <!-- Tabel Pelanggan -->
                     <table class="min-w-full table-auto" id="customers-table">
