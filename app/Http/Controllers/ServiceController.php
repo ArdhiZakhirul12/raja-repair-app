@@ -41,7 +41,7 @@ class ServiceController extends Controller
         ]);        
         $validated['user_id'] = $auth->id;
         dataService::create($validated);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data service berhasil ditambahkan!');;
     }
 
     /**
