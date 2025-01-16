@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\teknisi;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class TeknisiController extends Controller
@@ -39,7 +39,7 @@ class TeknisiController extends Controller
         ]);        
         $validated['user_id'] = $auth->id;
         teknisi::create($validated);
-        return redirect()->back()->with('msg','berhasil menambahkan data teknisi');
+        return redirect()->back()->with('success','berhasil menambahkan data teknisi');
     }
 
     /**
