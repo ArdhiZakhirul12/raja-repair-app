@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spareparts', function (Blueprint $table) {
+        Schema::create('hp_models', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('code');
-            $table->string('nama_sparepart');
-            $table->integer('harga');
-            $table->enum('status',[1,0]);
-            $table->integer('terjual')->default(0);
+            $table->foreignId('hp_merk_id')->constrained()->onDelete('cascade');
+            $table->string('model');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('spareparts');
+        Schema::dropIfExists('hp_models');
     }
 };

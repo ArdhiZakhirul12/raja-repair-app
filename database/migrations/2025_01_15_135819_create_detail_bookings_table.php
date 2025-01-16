@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spareparts', function (Blueprint $table) {
+        Schema::create('detail_bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('code');
-            $table->string('nama_sparepart');
+            $table->foreignId('booking_id')->constrained()->onDelete('cascade');
+            $table->foreignId('data_service_id')->constrained()->onDelete('cascade');
             $table->integer('harga');
-            $table->enum('status',[1,0]);
-            $table->integer('terjual')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('spareparts');
+        Schema::dropIfExists('detail_bookings');
     }
 };
