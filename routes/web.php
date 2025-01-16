@@ -6,6 +6,7 @@ use App\Http\Controllers\SparepartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\PcAntrianController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::group(['prefix' => 'cs', 'as' => 'cs.'],function(){
         Route::group(['prefix' => 'customer', 'as' => 'customer.'], function(){            
             Route::get('/', [CustomerController::class, 'index'])->name('index');

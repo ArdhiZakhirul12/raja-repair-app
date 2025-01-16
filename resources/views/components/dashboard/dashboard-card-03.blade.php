@@ -48,8 +48,9 @@
         </header>
      
         <div class="flex items-center">
-            <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">
-                1500
+            <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">2
+                {{-- {{ $totalTeknisi }} --}}
+                {{-- ${{ number_format($dataFeed->sumDataSet(2, 1), 0) }} --}}
                 {{-- ${{ number_format($dataFeed->sumDataSet(3, 1), 0) }} --}}
             </div>
             {{-- <div class="text-sm font-medium text-green-700 px-1.5 bg-green-500/20 rounded-full">+29%</div> --}}

@@ -48,8 +48,8 @@
         </header>
 
         <div class="flex items-center">
-            <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">
-                1200
+            <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">2
+                {{-- {{ $totalCustomer }} --}}
                 {{-- ${{ number_format($dataFeed->sumDataSet(2, 1), 0) }} --}}
             </div>
             {{-- <div class="text-sm font-medium text-red-700 px-1.5 bg-red-500/20 rounded-full">-14%</div> --}}
