@@ -61,19 +61,94 @@
         @endif
 
 
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
+
+            <div class="py-1">
+                <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
+        
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>
+                                    <div
+                                        class="flex top-5 right-5 bg-red-200 bg-opacity-50  px-6 py-3 mb-2 rounded shadow-lg z-50 transition-opacity duration-10 border border-red-800">
+                                        <img src="{{ asset('images/error_smg.png') }}" alt="error mssg" class="w-6 h-6 mr-4" >
+                                        <p>{{ $error }}</p>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session('success'))
+                <div id="notification"
+                    class="fixed top-5 right-5 bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity duration-10">
+                    <p>{{ session('success') }}</p>
+                </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const notification = document.getElementById('notification');
+                    if (notification) {
+                        notification.classList.add('opacity-0');
+                        setTimeout(() => {
+                            notification.classList.remove('opacity-0');
+                            notification.classList.add('opacity-100');
+                        }, 100);
+        
+                        setTimeout(() => {
+                            notification.classList.remove('opacity-100');
+                            notification.classList.add('opacity-0');
+                        }, 2000);
+        
+                        setTimeout(() => {
+                            notification.remove();
+                        }, 3000);
+                    }
+                });
+            </script>
+            <style>
+                #notification {
+                    transition: opacity 1s ease-in-out;
+                }
+                .opacity-0 {
+                    opacity: 0;
+                }
+                .opacity-100 {
+                    opacity: 1;
+                }
+            </style>
+            @endif
+
+
+
+            <div class="mb-4 sm:mb-5 ">
+                <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
+                    Data Sparepart
+                </h1>
+            </div>
+            <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
                 <div class="p-6">
-                    <button class="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                        onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
-                        Tambah Sparepart
-                    </button>
-                    <span class="ml-auto text-gray-700 font-medium">
-                        Total Sparepart : {{ count($spareparts) }}
-                    </span>
-                    <!-- Pencarian -->
-                    <input type="text" id="search" placeholder="Cari sparepart..."
-                        class="mb-4 p-2 border border-gray-300 rounded w-full" onkeyup="searchTable()">
+                        <div class="flex justify-between mb-4">
+                            <!-- Pencarian -->
+                        <input type="text" id="search" placeholder="Cari sparepart..."
+                        class="p-2 border border-gray-300 rounded" onkeyup="searchTable()">
+
+                        <div>
+                            <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mr-4"
+                            onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
+                            Tambah Sparepart
+                        </button>
+                        <span class="ml-auto text-gray-700 font-medium dark:text-slate-300">
+                            Total Sparepart : {{ count($spareparts) }}
+                        </span>
+                        </div>
+                        </div>
+
+
+                        <hr class="my-4 border-t border-gray-300">
+                  
+                
 
                     <!-- Tabel Pelanggan -->
                     <table class="min-w-full table-auto" id="spareparts-table">

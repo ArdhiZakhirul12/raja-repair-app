@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\customer;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -34,12 +34,23 @@ class CustomerController extends Controller
         $auth = Auth::user();
         $validated = $request->validate([
             'nama' => 'required|string|min:3',
-            'no_hp' => 'required|numeric|digits_between:11,13',
+            'no_hp' => ['required','numeric','digits_between:11,13',
+            function ($attribute, $value, $fail) {
+                // Cek apakah nomor HP mengandung angka saja
+                if (!preg_match('/^08[0-9]+$/', $value)) {
+                    $fail('Nomor HP harus dimulai dengan "08" dan hanya berisi angka.');
+                }
+            },
+        ],
             'alamat' => 'nullable',
-        ]);        
+        ]);
+        
+        
+
+
         $validated['user_id'] = $auth->id;
         customer::create($validated);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data pelanggan berhasil ditambahkan!');
     }
 
     /**

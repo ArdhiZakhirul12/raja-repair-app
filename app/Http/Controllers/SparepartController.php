@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\sparepart;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class SparepartController extends Controller
@@ -38,7 +38,7 @@ class SparepartController extends Controller
         ]);        
         $validated['user_id'] = $auth->id;
         sparepart::create($validated);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Sparepart berhasil ditambahkan!');;;
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\dataService;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -41,7 +41,7 @@ class ServiceController extends Controller
         ]);        
         $validated['user_id'] = $auth->id;
         dataService::create($validated);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data service berhasil ditambahkan!');;
     }
 
     /**
