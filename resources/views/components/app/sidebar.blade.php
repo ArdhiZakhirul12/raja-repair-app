@@ -157,10 +157,18 @@
                     <a href="{{ route('cs.sparepart.index') }}" :active="request()->routeIs('cs.sparepart.index')">
                     <div class="flex items-center justify-between p-4">
                         <div class="flex items-center">
-                            <i class="fa fa-toolbox"></i>
-                            <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sparepart</span>
+                            <i class="fa fa-square-check"></i>
+                            <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">CS</span>
                         </div>
                     </div></a>
+
+                    <a href="{{ route('cs.sparepart.index') }}" :active="request()->routeIs('cs.sparepart.index')">
+                        <div class="flex items-center justify-between p-4">
+                            <div class="flex items-center">
+                                <i class="fa fa-toolbox"></i>
+                                <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sparepart</span>
+                            </div>
+                        </div></a>
 
 
 

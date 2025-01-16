@@ -35,7 +35,7 @@
 
         </div>
         
-        <x-child data="2"/>
+
         
     
         <!-- Cards -->
@@ -43,7 +43,7 @@
             
       
          
-            <x-dashboard.dashboard-card-01 data = "2"/>
+            <x-dashboard.dashboard-card-01/>
 
             <!-- Line chart (Acme Advanced) -->
             <x-dashboard.dashboard-card-02  />
