@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class dataService extends Model
+class hpModel extends Model
 {
     use HasFactory;
+
     protected $guarded = ['id'];
 
-    public function user()
+    public function booking()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(booking::class);
     }
-    public function detailBooking()
+    public function hpMerk()
     {
-        return $this->hasMany(detailBooking::class);
+        return $this->belongsTo(hpMerk::class);
     }
-    
 }
