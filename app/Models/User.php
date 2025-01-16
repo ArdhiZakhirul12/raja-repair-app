@@ -71,4 +71,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(dataService::class);
     }
+    public function teknisis()
+    {
+        return $this->hasMany(teknisi::class);
+    }
 }
