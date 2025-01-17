@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\dataService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 class ServiceController extends Controller
 {
     /**
@@ -13,9 +13,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = dataService::where('user_id',Auth::user()->id)->get();
+        $services = dataService::where('user_id', Auth::user()->id)->get();
 
-        return view('customer-service.service.list',compact('services'));
+        return view('customer-service.service.list', compact('services'));
     }
 
     /**
@@ -31,17 +31,27 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $auth = Auth::user();
         $validated = $request->validate([
             'nama_servis' => 'required|string|min:3',
+            'code' => [
+                'required',
+                'string',
+                'min:3',
+                Rule::unique('data_services', 'code')->where(function ($query) {
+                    return $query->where('user_id', auth()->id());
+                }),
+            ],
+
             'jenis_servis' => 'required',
-            'status' =>'1',
-            'harga' => 'required|integer',            
-        ]);        
+            'status' => '1',
+            'harga' => 'required|integer',
+        ]);
         $validated['user_id'] = $auth->id;
         dataService::create($validated);
-        return redirect()->back()->with('success', 'Data service berhasil ditambahkan!');;
+        return redirect()->back()->with('success', 'Data service berhasil ditambahkan!');
+        ;
     }
 
     /**
@@ -65,11 +75,27 @@ class ServiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'nama_servis' => 'required|string|min:3',
+            'code' => [
+                'required',
+                'string',
+                'min:3',
+                Rule::unique('data_services', 'code')->where(function ($query) {
+                    return $query->where('user_id', auth()->id());
+                }),
+            ],
+
+            'jenis_servis' => 'required',
+            'harga' => 'required|integer',
+        ]);
+        
+        dataService::where('id', $request->id)->update($validated);
+        return redirect()->back()->with('msg','berhasil mengedit service');
     }
     public function updateStatus(Request $request)
-    {                
-        
+    {
+
         // $validated = $request->validate([            
         //     'status' => 'required',
         // ]); 
@@ -79,9 +105,9 @@ class ServiceController extends Controller
             $service->status = $request->status;
             $service->save();
             return response()->json(['success' => true, 'message' => 'berhasil mengubah status service']);
-        
+
         }
-        
+
         return response()->json(['success' => false, 'message' => 'Sparepart not found'], 404);
 
     }
