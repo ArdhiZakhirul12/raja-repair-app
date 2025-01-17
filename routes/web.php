@@ -34,6 +34,7 @@ Route::middleware([
     Route::group(['prefix' => 'cs', 'as' => 'cs.'],function(){
         Route::group(['prefix' => 'customer', 'as' => 'customer.'], function(){            
             Route::get('/', [CustomerController::class, 'index'])->name('index');
+            Route::get('/get-customers', [CustomerController::class, 'getCustomers'])->name('getCustomers');
             Route::post('/store', [CustomerController::class, 'store'])->name('store');
         }); 
 

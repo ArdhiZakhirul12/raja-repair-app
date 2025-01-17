@@ -281,7 +281,19 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert(data.message);
+                        const notification = document.createElement('div');
+                        notification.id = 'notification';
+                        notification.className = 'fixed top-5 right-5 bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity duration-10';
+                        notification.innerHTML = `<p>${data.message}</p>`;
+                        document.body.appendChild(notification);
+
+                        setTimeout(() => {
+                            notification.classList.add('opacity-0');
+                        }, 2000);
+
+                        setTimeout(() => {
+                            notification.remove();
+                        }, 3000);
                     } else {
                         alert('Failed to update status');
                     }

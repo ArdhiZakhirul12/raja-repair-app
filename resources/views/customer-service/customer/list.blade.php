@@ -4,6 +4,42 @@
             {{ __('Data Pelanggan') }}
         </h2>
     </x-slot> --}}
+    <style>
+        /* Gaya Header Table */
+#customers-table thead {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#customers-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Styling Pagination */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 5px 10px;
+    margin: 2px;
+    background: #007bff;
+    color: white !important;
+    border-radius: 5px;
+}
+
+/* Atur agar pagination tetap rata kanan */
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+}
+
+/* Atur agar search box tetap rata kanan */
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #0056b3;
+}
+    </style>
 
     <div class="py-12">
         <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
@@ -64,16 +100,23 @@
 
 
 
-            <div class="mb-4 sm:mb-5 ">
+            <div class="flex justify-between mb-4 sm:mb-5">
                 <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                     Data Pelanggan
                 </h1>
+                <button 
+                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                onclick="document.getElementById('add-customer-modal').classList.remove('hidden')"
+            >
+                Tambah Pelanggan
+            </button> 
             </div>
             <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
                 <div class="p-6">
-                    <div class="flex justify-between mb-4">
-                        <input type="text" id="search" placeholder="Cari pelanggan..." class="p-2 border border-gray-300 rounded" onkeyup="searchTable()">
-                        <div class="flex items-center">
+
+                    {{-- <div class="flex justify-between mb-4"> --}}
+                        {{-- <input type="text" id="search" placeholder="Cari pelanggan..." class="p-2 border border-gray-300 rounded" onkeyup="searchTable()"> --}}
+                        {{-- <div class="flex items-center">
                             <button 
                                 class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mr-4"
                                 onclick="document.getElementById('add-customer-modal').classList.remove('hidden')"
@@ -81,25 +124,54 @@
                                 Tambah Pelanggan
                             </button> 
                             <span class="text-gray-700 font-medium dark:text-slate-300" >
-                                Total Pelanggan : {{ count($customers) }}
+                                Total Pelanggan : 
+                                {{ count($customers) }}
                             </span>            
-                        </div>      
+                        </div>       --}}
+                    {{-- </div> --}}
+                    
+
+                    {{-- <hr class="my-4 border-t border-gray-300"> --}}
+                    <div class="flex justify-content-between mb-2">
+                        <div id="custom-buttons"></div>
+                        <div id="custom-search"></div>
                     </div>
                     
 
-                    <hr class="my-4 border-t border-gray-300">
-                    
-
                     <!-- Tabel Pelanggan -->
-                    <table class="min-w-full table-auto" id="customers-table">
-                        <thead>
+                    <table class="min-w-full table-auto table table-striped table-hover rounded-lg overflow-hidden" id="customers-table">
+                        <thead >
                             <tr>
-                                <th class="px-4 py-2 text-left bg-white border" onclick="sortTable(0)">Nama</th>
-                                <th class="px-4 py-2 text-left bg-white border" onclick="sortTable(1)">No HP</th>                                
-                                <th class="px-4 py-2 text-left bg-white border" onclick="sortTable(2)">Alamat</th>
+                                <th class="px-4 py-2 text-left bg-blue">
+
+                                    <div class="flex items-center">
+                                        Nama
+                                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                  </svg></a>
+                                    </div>
+                                </th>
+                                <th class="px-4 py-2 text-left bg-gray-200">
+                                    <div class="flex items-center">
+                                        No HP
+                                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                  </svg></a>
+                                    </div>    
+                                </th>                                
+                                <th class="px-4 py-2 text-left bg-gray-200">
+
+                                    <div class="flex items-center">
+                                        Alamat
+                                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                  </svg></a>
+                                    </div>
+                                </th>
+                                <th class="px-4 py-2 text-left bg-gray-200">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        {{-- <tbody>
                             @foreach ($customers as $customer)
                                 <tr>
                                     <td class="border px-4 py-2">{{ $customer->nama }}</td>                                    
@@ -107,7 +179,7 @@
                                     <td class="border px-4 py-2">{{ $customer->alamat }}</td>
                                 </tr>
                             @endforeach
-                        </tbody>
+                        </tbody> --}}
                     </table>
                 </div>
             </div>
@@ -138,7 +210,75 @@
             </form>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+    {{-- <script
+    src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/2.2.1/js/dataTables.dataTables.min.js"></script> --}}
+
     <script>
+        
+         $(document).ready(function() {
+            $('#customers-table').DataTable({
+  dom: '<"row mb-3" <"col-md-6"B> <"col-md-16"l> <"col-md-6 text-end"f>> t <"row py-2"<"col-md-6"i><"col-md-6 text-end"p>>',
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route("cs.customer.getCustomers") }}',
+                columns: [
+                    { data: 'nama', name: 'nama' },
+                    { data: 'no_hp', name: 'no_hp' },
+                    { data: 'alamat', name: 'alamat' },
+           
+                ],
+                buttons: ['excel', 'pdf', 'print'],
+     
+                initComplete: function () {
+        $("#custom-buttons").html($(".dt-buttons").html());
+        $("#custom-search").html($(".dataTables_filter").html());
+
+        $(".dt-buttons, .dataTables_filter").remove();
+    },
+                language: {
+            search: "Cari:",
+            lengthMenu: "Tampilkan _MENU_ data per halaman",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+            paginate: {
+                first: "Awal",
+                last: "Akhir",
+                next: "Next",
+                previous: "Previous"
+            }
+        },
+    //             dom: 'Bfrtip', // Tambahkan tombol di atas tabel
+    // buttons: [
+    //     {
+    //         extend: 'excelHtml5',
+    //         text: '📊 Export Excel',
+    //         className: 'btn btn-success'
+    //     },
+    //     {
+    //         extend: 'pdfHtml5',
+    //         text: '📄 Export PDF',
+    //         className: 'btn btn-danger'
+    //     },
+    //     {
+    //         extend: 'print',
+    //         text: '🖨 Print',
+    //         className: 'btn btn-primary'
+    //     }
+    // ],
+                lengthMenu: [10, 25, 50, 100], // Dropdown jumlah data per halaman
+        pageLength: 10, // Default 10 baris per halaman
+        order: [[0, 'desc']], // Urutkan berdasarkan kolom ID (desc)
+                
+            });
+        });
+
         // Fungsi untuk mencari di tabel
         function searchTable() {
             const searchInput = document.getElementById("search").value.toLowerCase();
@@ -188,5 +328,18 @@
                 }
             }
         }
+
+       
+
+//         $(document).ready(function){
+//             let settings = {columns: [{data: 'Nama'},{data: 'No Hp'},{data: 'Alamat'}], }
+//             let oTab = new DataTable($('#customers-table'), settings);
+//             $.ajax({url: 'route('list')'}
+// method: 'get').done(function(response){ oTab.data.clear();
+// oTab.draw();
+// oTab.rows.add(response);
+// oTab.draw();})
+//         }
     </script>
+
 </x-app-layout>
