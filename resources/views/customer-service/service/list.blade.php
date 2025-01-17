@@ -147,16 +147,18 @@
                         <thead>
                             <tr>
                                 <th class="px-4 py-2 text-left" onclick="sortTable(0)">Nama</th>
-                                <th class="px-4 py-2 text-left" onclick="sortTable(1)">jenis</th>                                
-                                <th class="px-4 py-2 text-left" onclick="sortTable(2)">status</th>                                
-                                <th class="px-4 py-2 text-left" onclick="sortTable(3)">harga</th>
-                                <th class="px-4 py-2 text-left" onclick="sortTable(3)">aksi</th>
+                                <th class="px-4 py-2 text-left" onclick="sortTable(1)">Kode</th>
+                                <th class="px-4 py-2 text-left" onclick="sortTable(2)">jenis</th>                                
+                                <th class="px-4 py-2 text-left" onclick="sortTable(3)">status</th>                                
+                                <th class="px-4 py-2 text-left" onclick="sortTable(4)">harga</th>
+                                <th class="px-4 py-2 text-left" onclick="sortTable(5)">aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($services as $service)
                                 <tr>
                                     <td class="border px-4 py-2">{{ $service->nama_servis }}</td>                                    
+                                    <td class="border px-4 py-2">{{ $service->code }}</td>                                    
                                     <td class="border px-4 py-2">{{ $service->jenis_servis }}</td>
                                     <td class="border px-4 py-2">
                                         <!-- Toggle Switch -->
@@ -168,6 +170,17 @@
                                         </label>
                                     </td>
                                     <td class="border px-4 py-2">{{ $service->harga }}</td>
+                                    <td class="border px-4 py-2">
+                                        <button class="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                                            data-id="{{ $service->id }}" 
+                                            data-nama="{{ $service->nama_service }}"
+                                            data-code="{{ $service->code }}"
+                                            data-no_hp="{{ $service->no_hp }}"
+                                            data-alamat="{{ $service->alamat }}"
+                                             onclick="openEditModal(this)">
+                                            edit Servis
+                                        </button>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -186,6 +199,11 @@
                 <div class="mb-4">
                     <label for="nama_sparepart" class="block text-sm font-medium text-gray-700">Nama Service</label>
                     <input type="text" name="nama_servis" id="nama_servis"
+                        class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="code" class="block text-sm font-medium text-gray-700">Kode</label>
+                    <input type="text" name="code" id="code"
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="mb-4">

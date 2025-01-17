@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('kode_pesanan');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('teknisi_id')->constrained()->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->string('no_hp_alternatif')->nullable();
             $table->foreignId('hp_model_id')->constrained()->onDelete('cascade');
             $table->foreignId('metode_pembayaran_id')->constrained()->onDelete('cascade')->nullable();

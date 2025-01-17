@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
@@ -53,6 +54,13 @@ Route::middleware([
             Route::get('/', [TeknisiController::class, 'index'])->name('index');
             Route::post('/store', [TeknisiController::class, 'store'])->name('store');
             Route::put('/update', [TeknisiController::class, 'update'])->name('update');
+            // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
+        });
+        Route::group(['prefix' => 'booking', 'as' => 'booking.'], function(){
+            Route::get('/create', [BookingController::class, 'create'])->name('create');
+            Route::post('/store', [BookingController::class, 'store'])->name('store');
+            Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
+            // Route::put('/update', [BookingController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
 

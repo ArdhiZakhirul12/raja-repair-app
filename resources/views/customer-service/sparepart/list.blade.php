@@ -155,15 +155,17 @@
                         <thead>
                             <tr>
                                 <th class="px-4 py-2 text-left" onclick="sortTable(0)">Nama</th>
-                                <th class="px-4 py-2 text-left" onclick="sortTable(1)">Harga</th>
-                                <th class="px-4 py-2 text-left" onclick="sortTable(2)">Status</th>
-                                <th class="px-4 py-2 text-left" onclick="sortTable(2)">action</th>
+                                <th class="px-4 py-2 text-left" onclick="sortTable(1)">Kode</th>
+                                <th class="px-4 py-2 text-left" onclick="sortTable(2)">Harga</th>
+                                <th class="px-4 py-2 text-left" onclick="sortTable(3)">Status</th>
+                                <th class="px-4 py-2 text-left" onclick="sortTable(4)">action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($spareparts as $sparepart)
                                 <tr>
                                     <td class="border px-4 py-2">{{ $sparepart->nama_sparepart }}</td>
+                                    <td class="border px-4 py-2">{{ $sparepart->code }}</td>
                                     <td class="border px-4 py-2">Rp{{ $sparepart->harga }},-</td>
                                     <td class="border px-4 py-2">
                                         <!-- Toggle Switch -->
@@ -200,6 +202,11 @@
                 <div class="mb-4">
                     <label for="nama_sparepart" class="block text-sm font-medium text-gray-700">Nama Sparepart</label>
                     <input type="text" name="nama_sparepart" id="nama_sparepart"
+                        class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="code" class="block text-sm font-medium text-gray-700">Kode</label>
+                    <input type="text" name="code" id="code"
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="mb-4">
