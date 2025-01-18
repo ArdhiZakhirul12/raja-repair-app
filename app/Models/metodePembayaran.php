@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class dataService extends Model
+class metodePembayaran extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
@@ -14,9 +14,8 @@ class dataService extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function detailBooking()
+    public function booking()
     {
-        return $this->hasMany(detailBooking::class);
+        return $this->hasMany(hpMerk::class);
     }
-    
 }

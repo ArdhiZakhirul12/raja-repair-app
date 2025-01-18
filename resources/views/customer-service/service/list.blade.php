@@ -140,6 +140,7 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden" id="services-table">
                         <thead>
                             <tr>
+
                                 <th><input type="checkbox" id="select-all"></th>
                                 <th scope="col" class="px-6 py-3" >
                                     <div class="flex items-center">
@@ -172,6 +173,7 @@
                             </tr>
                         </thead>
                        
+
                     </table>
                 </div>
             </div>
@@ -197,7 +199,9 @@
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="mb-4">
+
                     <label for="jenis_servis" class="block text-sm font-medium text-gray-400">Jenis Service</label>
+
                     <select name="jenis_servis" id="jenis_servis" 
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                         <option value="" disabled selected>Pilih jenis service</option>

@@ -141,6 +141,7 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden" id="spareparts-table">
                         <thead>
                             <tr>
+
                                 <th><input type="checkbox" id="select-all"></th>
                                 <th  scope="col" class="px-6 py-3">
                                     <div class="flex items-center">
@@ -161,12 +162,14 @@
                                 <th  scope="col" class="px-6 py-3">Status</th>
                                 <th  scope="col" class="px-6 py-3">Terjual</th>
                                 <th  scope="col" class="px-6 py-3">action</th>
+
                             </tr>
                         </thead>
                         {{-- <tbody>
                             @foreach ($spareparts as $sparepart)
                                 <tr>
                                     <td class="border px-4 py-2">{{ $sparepart->nama_sparepart }}</td>
+                                    <td class="border px-4 py-2">{{ $sparepart->code }}</td>
                                     <td class="border px-4 py-2">Rp{{ $sparepart->harga }},-</td>
                                     <td class="border px-4 py-2">
                                         <!-- Toggle Switch -->
@@ -213,7 +216,9 @@
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="mb-4">
+
                     <label for="harga" class="block text-sm font-medium text-gray-400">harga</label>
+
                     <input type="text" name="harga" id="harga"
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>

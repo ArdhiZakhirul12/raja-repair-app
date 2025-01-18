@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\sparepart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
 use Yajra\DataTables\Facades\DataTables;
+
+use Illuminate\Validation\Rule;
+
 
 
 class SparepartController extends Controller
@@ -53,7 +57,15 @@ class SparepartController extends Controller
         $auth = Auth::user();
         $validated = $request->validate([
             'nama_sparepart' => 'required|string|min:3',
-            'harga' => 'required|integer',            
+            'harga' => 'required|integer',    
+            'code' => [
+                'required',
+                'string',
+                'min:3',
+                Rule::unique('spareparts', 'code')->where(function ($query) {
+                    return $query->where('user_id', auth()->id());
+                }),
+            ],        
         ]);        
         $validated['user_id'] = $auth->id;
         sparepart::create($validated);
@@ -84,7 +96,15 @@ class SparepartController extends Controller
         
         $validated = $request->validate([
             'nama_sparepart' => 'required|string|min:3',
-            'harga' => 'required|integer',            
+            'harga' => 'required|integer',    
+            'code' => [
+                'required',
+                'string',
+                'min:3',
+                Rule::unique('spareparts', 'code')->where(function ($query) {
+                    return $query->where('user_id', auth()->id());
+                }),
+            ],         
         ]); 
         
         sparepart::where('id', $request->id)->update($validated);
