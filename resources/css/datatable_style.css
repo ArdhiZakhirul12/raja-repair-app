@@ -193,3 +193,148 @@
 
 
 
+
+
+
+
+/* CSS FOR TEKNISI TABLE */
+
+#teknisi-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#teknisi-table thead {
+    background-color: rgb(234, 234, 234);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#teknisi-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#teknisi-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#teknisi-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#teknisi-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#teknisi-table th:nth-child(1),
+#teknisi-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#teknisi-table th:nth-child(2),
+#teknisi-table td:nth-child(2) {
+    width: 30%; /* Kolom kedua lebih besar */
+}
+
+#teknisi-table th:nth-child(3),
+#teknisi-table td:nth-child(3) {
+    width: 15%;
+}
+
+#teknisi-table th:nth-child(4),
+#teknisi-table td:nth-child(4) {
+    width: 35%;
+}
+
+#teknisi-table th:nth-child(5),
+#teknisi-table td:nth-child(5) {
+    width: 15%;
+}
+
+
+
+
+
+
+/* CSS FOR SPAREPART TABLE */
+#spareparts-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#spareparts-table thead {
+    background-color: rgb(234, 234, 234);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#spareparts-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#spareparts-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#spareparts-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#spareparts-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#spareparts-table th:nth-child(1),
+#spareparts-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#spareparts-table th:nth-child(2),
+#spareparts-table td:nth-child(2) {
+    width: 30%; /* Kolom kedua lebih besar */
+}
+
+#spareparts-table th:nth-child(3),
+#spareparts-table td:nth-child(3) {
+    width: 20%;
+}
+
+#spareparts-table th:nth-child(4),
+#spareparts-table td:nth-child(4) {
+    width: 20%;
+}
+
+#spareparts-table th:nth-child(5),
+#spareparts-table td:nth-child(5) {
+    width: 20%;
+}
+
+
+
+

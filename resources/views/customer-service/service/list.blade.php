@@ -134,7 +134,7 @@
    
 
 
-                   
+
 
                     <!-- Tabel Pelanggan -->
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden" id="services-table">
@@ -168,7 +168,7 @@
                                     </div>
                                 
                                 </th>
-                                <th scope="col" class="px-6 py-3" >aksi</th>
+                                <th scope="col" class="px-6 py-3"x >aksi</th>
                             </tr>
                         </thead>
                        

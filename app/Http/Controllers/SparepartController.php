@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\sparepart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class SparepartController extends Controller
 {
@@ -17,6 +19,23 @@ class SparepartController extends Controller
 
         return view('customer-service.sparepart.list',compact('spareparts'));
     }
+
+
+                  /**
+     * Get all sparepart data
+     */
+    public function getSpareparts()
+    {
+        $spareparts = sparepart::where('user_id',Auth::user()->id)->get();
+    
+        return DataTables::of($spareparts)
+            // ->addColumn('action', function ($teknisi) {
+            //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            // })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
 
     /**
      * Show the form for creating a new resource.
