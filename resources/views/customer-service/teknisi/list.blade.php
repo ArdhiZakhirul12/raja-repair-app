@@ -63,11 +63,11 @@
         </style>
         @endif
         
-        <div class="mb-4 sm:mb-5 ">
+        <div class="flex justify-between mb-4 sm:mb-5">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                 Data Teknisi
             </h1>
-            <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mr-4" 
+            <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
             onclick="document.getElementById('add-teknisi-modal').classList.remove('hidden')">
             Tambah Teknisi
         </button>
@@ -148,64 +148,75 @@
 
     <div id="add-teknisi-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div class="bg-white p-10 rounded-lg shadow-lg w-200 flex">
+            <div class="w-1/2">
+                <div class="flex justify-center">
+                    <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi" class="h-42 w-42 object-cover rounded-l-lg">
+                </div>
+                <p class="text-center text-sm  px-10 text-gray-400">Pastikan data yang ada masukkan sudah benar dan tidak ada form yang kosong</p>
+            </div>
+            <div class="w-1/2 p-4">
             <h2 class="text-xl font-semibold mb-4">Tambah Teknisi</h2>
             <form action="{{ route('cs.teknisi.store') }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
+                    <label for="nama" class="block text-sm font-medium text-gray-400">Nama</label>
                     <input type="text" name="nama" id="nama"
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="mb-4">
-                    <label for="no_hp" class="block text-sm font-medium text-gray-700">No WA</label>
+                    <label for="no_hp" class="block text-sm font-medium text-gray-400">No WA</label>
                     <input type="text" name="no_hp" id="no_hp"
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="mb-4">
-                    <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
+                    <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
                     <textarea name="alamat" id="alamat" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
                 </div>
                 <div class="flex justify-end">
                     <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
-                        onclick="document.getElementById('add-teknisi-modal').classList.add('hidden')">Batal</button>
+                        onclick="document.getElementById('add-teknisi-modal').classList.add('hidden')">Kembali</button>
                     <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
                 </div>
             </form>
+        </div>
         </div>
     </div>
 
     <div id="edit-teknisi-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
         
-        <div class="bg-white p-6 rounded-lg shadow-lg w-96 flex">
-            <div class="w-1/3">
-                <img src="{{ asset('images/edit_teknisi.png') }}" alt="Edit Teknisi" class="h-full w-full object-cover rounded-l-lg">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-200 flex">
+            <div class="w-1/2">
+                <div class="flex justify-center">
+                    <img src="{{ asset('images/edit_data.png') }}" alt="Edit Teknisi" class="h-42 w-42 object-cover rounded-l-lg">
+                </div>
+                <p class="text-center text-sm mt-2 px-10 text-gray-300">Pastikan data yang ada masukkan sudah benar dan tidak ada form yang kosong</p>
             </div>
-            <div class="w-2/3 p-4">
-                <h2 class="text-xl font-semibold mb-4">Edit Teknisi</h2>
-                <form action="{{ route('cs.teknisi.update') }}" method="POST">
-                    @method('PUT')
-                    @csrf
-                    <input type="hidden" id="id" name="id">
-                    <div class="mb-4">
-                        <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
+            <div class="w-1/2 p-4">
+            <h2 class="text-xl font-semibold mb-4">Edit Teknisi</h2>
+            <form action="{{ route('cs.teknisi.update') }}" method="POST">
+                @method('PUT')
+                @csrf
+                <input type="hidden" id="id" name="id">
+                <div class="mb-4">
+                        <label for="nama" class="block text-sm font-medium text-gray-400">Nama</label>
                         <input type="text" name="nama" id="nama"
                             class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                     </div>
                     <div class="mb-4">
-                        <label for="no_hp" class="block text-sm font-medium text-gray-700">No Hp</label>
+                        <label for="no_hp" class="block text-sm font-medium text-gray-400">No Hp</label>
                         <input type="text" name="no_hp" id="no_hp"
                             class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                     </div>
                     <div class="mb-4">
-                        <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
+                        <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
                         <input type="text" name="alamat" id="alamat"
                             class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                     </div>
                     <div class="flex justify-end">
                         <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
-                            onclick="document.getElementById('edit-teknisi-modal').classList.add('hidden')">Batal</button>
+                            onclick="document.getElementById('edit-teknisi-modal').classList.add('hidden')">Kembali</button>
                         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
                     </div>
                 </form>

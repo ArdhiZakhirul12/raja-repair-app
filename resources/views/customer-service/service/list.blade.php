@@ -180,17 +180,24 @@
 
     <div id="add-service-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div class="bg-white p-10 rounded-lg shadow-lg w-200 flex">
+            <div class="w-1/2">
+                <div class="flex justify-center">
+                    <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi" class="h-42 w-42 object-cover rounded-l-lg">
+                </div>
+                <p class="text-center text-sm  px-10 text-gray-400">Pastikan data yang ada masukkan sudah benar dan tidak ada form yang kosong</p>
+            </div>
+            <div class="w-1/2 p-4">
             <h2 class="text-xl font-semibold mb-4">Tambah Service</h2>
             <form action="{{ route('cs.service.store') }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label for="nama_sparepart" class="block text-sm font-medium text-gray-700">Nama Service</label>
+                    <label for="nama_sparepart" class="block text-sm font-medium text-gray-400">Nama Service</label>
                     <input type="text" name="nama_servis" id="nama_servis"
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="mb-4">
-                    <label for="jenis_servis" class="block text-sm font-medium text-gray-700">Jenis Service</label>
+                    <label for="jenis_servis" class="block text-sm font-medium text-gray-400">Jenis Service</label>
                     <select name="jenis_servis" id="jenis_servis" 
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                         <option value="" disabled selected>Pilih jenis service</option>
@@ -199,16 +206,17 @@
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label for="harga" class="block text-sm font-medium text-gray-700">harga</label>
+                    <label for="harga" class="block text-sm font-medium text-gray-400">harga</label>
                     <input type="text" name="harga" id="harga"
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="flex justify-end">
                     <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
-                        onclick="document.getElementById('add-service-modal').classList.add('hidden')">Batal</button>
+                        onclick="document.getElementById('add-service-modal').classList.add('hidden')">Kembali</button>
                     <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 
