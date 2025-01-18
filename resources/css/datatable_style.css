@@ -1,0 +1,195 @@
+/* GLOBAL CSS */
+.dataTable tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* bg-white */
+}
+
+/* Warna latar belakang baris genap */
+.dataTable tbody tr:nth-child(even) {
+    background-color: #f3f4f6; /* bg-gray-100 */
+  
+}
+
+/* Styling Pagination */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 2px;
+    background: #007bff;
+    color: white !important;
+    border-radius: 5px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 2px;
+    background: white;
+    color: gray !important;
+    border-radius: 5px;
+}
+
+/* Atur agar pagination tetap rata kanan */
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+}
+
+/* Atur agar search box tetap rata kanan */
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+}
+
+.btn-secondary {
+    background-color: #007bff;
+}
+.dataTables_length select {
+    width:70px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.dt-buttons {
+
+    float: right;
+}
+
+
+
+
+
+
+
+
+/* CUSTOMER TABLE CSS */
+
+#customers-table thead {
+    background-color: rgb(234, 234, 234);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+
+/* Atur lebar setiap kolom */
+#customers-table th:nth-child(1),
+#customers-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#customers-table th:nth-child(2),
+#customers-table td:nth-child(2) {
+    width: 35%; /* Kolom kedua lebih besar */
+}
+
+#customers-table th:nth-child(3),
+#customers-table td:nth-child(3) {
+    width: 20%;
+}
+
+#customers-table th:nth-child(4),
+#customers-table td:nth-child(4) {
+    width: 40%;
+}
+
+/* Gaya Hover Row */
+#customers-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#customers-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#customers-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#customers-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+
+
+
+
+
+
+
+/* CSS FOR SERVICE TABLE*/
+
+#services-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#services-table thead {
+    background-color: rgb(234, 234, 234);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#services-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#services-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#services-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#services-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#services-table th:nth-child(1),
+#services-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#services-table th:nth-child(2),
+#services-table td:nth-child(2) {
+    width: 35%; /* Kolom kedua lebih besar */
+}
+
+#services-table th:nth-child(3),
+#services-table td:nth-child(3) {
+    width: 20%;
+}
+
+#services-table th:nth-child(4),
+#services-table td:nth-child(4) {
+    width: 20%;
+}
+
+#services-table th:nth-child(5),
+#services-table td:nth-child(5) {
+    width: 20%;
+}
+
+
+
+
+

@@ -1,122 +1,4 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Data Pelanggan') }}
-        </h2>
-    </x-slot> --}}
-    <style>
-        /* Gaya Header Table */
-#customers-table thead {
-    background-color: rgb(234, 234, 234);
-    color: rgb(111, 111, 111);
-    font-weight: bold;
-}
-
-.dataTable tbody tr:nth-child(odd) {
-    background-color: #ffffff; /* bg-white */
-}
-
-/* Warna latar belakang baris genap */
-.dataTable tbody tr:nth-child(even) {
-    background-color: #f3f4f6; /* bg-gray-100 */
-  
-}
-
-/* Atur lebar setiap kolom */
-#customers-table th:nth-child(1),
-#customers-table td:nth-child(1) {
-    width: 5%; /* Kolom pertama lebih kecil */
-}
-
-#customers-table th:nth-child(2),
-#customers-table td:nth-child(2) {
-    width: 35%; /* Kolom kedua lebih besar */
-}
-
-#customers-table th:nth-child(3),
-#customers-table td:nth-child(3) {
-    width: 20%;
-}
-
-#customers-table th:nth-child(4),
-#customers-table td:nth-child(4) {
-    width: 40%;
-}
-
-/* Gaya Hover Row */
-#customers-table tbody tr:hover {
-    background-color: #f2f2f2;
-}
-
-#customers-table tbody tr td {
-    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
-}
-
-/* Styling Pagination */
-.dataTables_wrapper .dataTables_paginate .paginate_button.current{
-    cursor: pointer;
-    padding: 5px 10px;
-    margin: 2px;
-    background: #007bff;
-    color: white !important;
-    border-radius: 5px;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button{
-    cursor: pointer;
-    padding: 5px 10px;
-    margin: 2px;
-    background: white;
-    color: gray !important;
-    border-radius: 5px;
-}
-
-/* Atur agar pagination tetap rata kanan */
-.dataTables_wrapper .dataTables_paginate {
-    float: right;
-}
-
-/* Atur agar search box tetap rata kanan */
-.dataTables_wrapper .dataTables_filter {
-    float: right;
-}
-
-/* .dataTables_wrapper .dataTables_paginate .paginate_button:hover .current {
-    background: #007bff;
-} */
-
-.btn-secondary {
-    background-color: #007bff;
-}
-
-#customers-table_filter input {
-    width: 200px;
-    border-radius: 5px;
-    padding: 6px;
-    border: 1px solid #ced4da;
-
-    
-}
-#customers-table_filter {
-    margin-right: 20px
-}
-
-#custom-table-length {
-    margin-left: 10px
-}
-
-.dataTables_length select {
-    width:70px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-}
-
-
-.dt-buttons {
-
-    float: right;
-}
-    </style>
 
     <div class="py-12">
         <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
@@ -191,24 +73,7 @@
             <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
                 <div class="p-6">
 
-                    {{-- <div class="flex justify-between mb-4"> --}}
-                        {{-- <input type="text" id="search" placeholder="Cari pelanggan..." class="p-2 border border-gray-300 rounded" onkeyup="searchTable()"> --}}
-                        {{-- <div class="flex items-center">
-                            <button 
-                                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mr-4"
-                                onclick="document.getElementById('add-customer-modal').classList.remove('hidden')"
-                            >
-                                Tambah Pelanggan
-                            </button> 
-                            <span class="text-gray-700 font-medium dark:text-slate-300" >
-                                Total Pelanggan : 
-                                {{ count($customers) }}
-                            </span>            
-                        </div>       --}}
-                    {{-- </div> --}}
-                    
 
-                    {{-- <hr class="my-4 border-t border-gray-300"> --}}
                     <div class="flex justify-content-between mb-2">
                         <div id="custom-search"></div>
                        
@@ -263,7 +128,7 @@
 </div>
                     
 
-                    <!-- Tabel Pelanggan -->
+                 
                     
                 </div>
             </div>
@@ -295,37 +160,27 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    {{-- <script
-    src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/2.2.1/js/dataTables.dataTables.min.js"></script> --}}
+
+
 
     <script>
-        
+        //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
          $(document).ready(function() {
             $('#customers-table').DataTable({
-dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
+                dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route("cs.customer.getCustomers") }}',
                 columns: [
                     {
-            data: 'id',
-            render: function (data) {
-                return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-            },
-            orderable: false,
-            searchable: false
-        },
-                    // {data : 'id', name: 'id'},
+                        data: 'id',
+                        render: function (data) {
+                            return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                        },
+                        orderable: false,
+                        searchable: false
+                    },
+                   
                     { data: 'nama', name: 'nama', render: function(data, type, row) {
                         return `<a href="/customer/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
                 
@@ -352,7 +207,7 @@ dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"co
     ],
      
 
-                language: {
+            language: {
             search: "Cari: ",
             lengthMenu: "Show _MENU_ Data",
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
@@ -364,21 +219,9 @@ dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"co
             }
         },
 
-                lengthMenu: [10, 25, 50, 100], // Dropdown jumlah data per halaman
-        pageLength: 10, // Default 10 baris per halaman
+                lengthMenu: [10, 25, 50, 100],
+        pageLength: 10, 
         order: [[0, 'desc']], 
-    //                     initComplete: function () {
-    //                 $(".dt-buttons,.dataTables_length, .dataTables_filter").hide();
-    //     $("#custom-buttons").html($(".dt-buttons").html());
-    //     $("#custom-table-length").html($(".dataTables_length").html());
-        
-    //     $("#custom-search").html($(".dataTables_filter").html());
-     
-   
-
-   
-    // },// Urutkan berdasarkan kolom ID (desc)
-                
             });
         });
 
@@ -431,18 +274,6 @@ dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"co
                 }
             }
         }
-
-       
-
-//         $(document).ready(function){
-//             let settings = {columns: [{data: 'Nama'},{data: 'No Hp'},{data: 'Alamat'}], }
-//             let oTab = new DataTable($('#customers-table'), settings);
-//             $.ajax({url: 'route('list')'}
-// method: 'get').done(function(response){ oTab.data.clear();
-// oTab.draw();
-// oTab.rows.add(response);
-// oTab.draw();})
-//         }
     </script>
 
 </x-app-layout>

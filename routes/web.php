@@ -46,6 +46,7 @@ Route::middleware([
         });
         Route::group(['prefix' => 'service', 'as' => 'service.'], function(){
             Route::get('/', [ServiceController::class, 'index'])->name('index');
+            Route::get('/get-services', [ServiceController::class, 'getServices'])->name('getServices');
             Route::post('/store', [ServiceController::class, 'store'])->name('store');
             // Route::put('/update', [SparepartController::class, 'update'])->name('update');
             Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
