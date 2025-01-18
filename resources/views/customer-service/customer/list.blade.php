@@ -7,14 +7,48 @@
     <style>
         /* Gaya Header Table */
 #customers-table thead {
-    background-color: #007bff;
-    color: white;
+    background-color: rgb(234, 234, 234);
+    color: rgb(111, 111, 111);
     font-weight: bold;
+}
+
+.dataTable tbody tr:nth-child(odd) {
+    background-color: #f3f4f6; /* bg-gray-100 */
+}
+
+/* Warna latar belakang baris genap */
+.dataTable tbody tr:nth-child(even) {
+    background-color: #ffffff; /* bg-white */
+}
+
+/* Atur lebar setiap kolom */
+#customers-table th:nth-child(1),
+#customers-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#customers-table th:nth-child(2),
+#customers-table td:nth-child(2) {
+    width: 35%; /* Kolom kedua lebih besar */
+}
+
+#customers-table th:nth-child(3),
+#customers-table td:nth-child(3) {
+    width: 20%;
+}
+
+#customers-table th:nth-child(4),
+#customers-table td:nth-child(4) {
+    width: 40%;
 }
 
 /* Gaya Hover Row */
 #customers-table tbody tr:hover {
     background-color: #f2f2f2;
+}
+
+#customers-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
 }
 
 /* Styling Pagination */
@@ -39,6 +73,30 @@
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background: #0056b3;
 }
+
+.btn-secondary {
+    background-color: #0462b5;
+}
+
+#custom-search input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#custom-table-length select {
+    width:70px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
     </style>
 
     <div class="py-12">
@@ -133,54 +191,61 @@
 
                     {{-- <hr class="my-4 border-t border-gray-300"> --}}
                     <div class="flex justify-content-between mb-2">
-                        <div id="custom-buttons"></div>
                         <div id="custom-search"></div>
+                       
+                      <div class="flex">
+                      
+                        <div id="custom-buttons"></div>
+                        <div id="custom-table-length"></div>
+                       
+
+                      </div>
+                     
+                       
                     </div>
+
+                    
+<div >
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden" id="customers-table">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+     
+            <tr>
+                <th><input type="checkbox" id="select-all"></th>
+                <th scope="col" class="px-6 py-3">
+                    <div class="flex items-center">
+                        Nama
+                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+  </svg></a>
+                    </div>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    <div class="flex items-center">
+                        Nomor HP
+                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+  </svg></a>
+                    </div>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    <div class="flex items-center">
+                        Alamat
+                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+  </svg></a>
+                    </div>
+                </th>
+                <th>Aksi</th>
+           
+            </tr>
+        </thead>
+       
+    </table>
+</div>
                     
 
                     <!-- Tabel Pelanggan -->
-                    <table class="min-w-full table-auto table table-striped table-hover rounded-lg overflow-hidden" id="customers-table">
-                        <thead >
-                            <tr>
-                                <th class="px-4 py-2 text-left bg-blue">
-
-                                    <div class="flex items-center">
-                                        Nama
-                                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                  </svg></a>
-                                    </div>
-                                </th>
-                                <th class="px-4 py-2 text-left bg-gray-200">
-                                    <div class="flex items-center">
-                                        No HP
-                                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                  </svg></a>
-                                    </div>    
-                                </th>                                
-                                <th class="px-4 py-2 text-left bg-gray-200">
-
-                                    <div class="flex items-center">
-                                        Alamat
-                                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                  </svg></a>
-                                    </div>
-                                </th>
-                                <th class="px-4 py-2 text-left bg-gray-200">Aksi</th>
-                            </tr>
-                        </thead>
-                        {{-- <tbody>
-                            @foreach ($customers as $customer)
-                                <tr>
-                                    <td class="border px-4 py-2">{{ $customer->nama }}</td>                                    
-                                    <td class="border px-4 py-2">{{ $customer->no_hp }}</td>
-                                    <td class="border px-4 py-2">{{ $customer->alamat }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody> --}}
-                    </table>
+                    
                 </div>
             </div>
         </div>
@@ -217,6 +282,9 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     {{-- <script
     src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/2.2.1/js/dataTables.dataTables.min.js"></script> --}}
@@ -225,27 +293,58 @@
         
          $(document).ready(function() {
             $('#customers-table').DataTable({
-  dom: '<"row mb-3" <"col-md-6"B> <"col-md-16"l> <"col-md-6 text-end"f>> t <"row py-2"<"col-md-6"i><"col-md-6 text-end"p>>',
+  dom: '<"row mb-3" <"col-md-6"B> <"col-md-16"l> <"col-md-6 text-end"f>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route("cs.customer.getCustomers") }}',
                 columns: [
-                    { data: 'nama', name: 'nama' },
+                    {
+            data: 'id',
+            render: function (data) {
+                return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+            },
+            orderable: false,
+            searchable: false
+        },
+                    // {data : 'id', name: 'id'},
+                    { data: 'nama', name: 'nama', render: function(data, type, row) {
+                        return `<a href="/customer/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
+                
+                    }},
                     { data: 'no_hp', name: 'no_hp' },
                     { data: 'alamat', name: 'alamat' },
-           
+                    {
+            data: 'id',
+            render: function (data) {
+                return `<a href="/customer/edit/${data}" class="text-blue-500 hover:text-blue-700">
+                            <i class="fas fa-edit"></i>
+                        </a>`;
+            },
+            orderable: false,
+            searchable: false
+        }
                 ],
-                buttons: ['excel', 'pdf', 'print'],
+                buttons: [
+
+ 
+        { extend: 'excel', text: 'Excel' },
+        { extend: 'pdf', text: 'PDF' },
+        { extend: 'print', text: 'Print' }
+    ],
      
                 initComplete: function () {
         $("#custom-buttons").html($(".dt-buttons").html());
+        $("#custom-table-length").html($(".dataTables_length").html());
+        
         $("#custom-search").html($(".dataTables_filter").html());
+     
+   
 
-        $(".dt-buttons, .dataTables_filter").remove();
+        $(".dt-buttons,.dataTables_length, .dataTables_filter").remove();
     },
                 language: {
-            search: "Cari:",
-            lengthMenu: "Tampilkan _MENU_ data per halaman",
+            search: "Cari: ",
+            lengthMenu: "Show _MENU_ Data",
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
             paginate: {
                 first: "Awal",
@@ -254,24 +353,7 @@
                 previous: "Previous"
             }
         },
-    //             dom: 'Bfrtip', // Tambahkan tombol di atas tabel
-    // buttons: [
-    //     {
-    //         extend: 'excelHtml5',
-    //         text: '📊 Export Excel',
-    //         className: 'btn btn-success'
-    //     },
-    //     {
-    //         extend: 'pdfHtml5',
-    //         text: '📄 Export PDF',
-    //         className: 'btn btn-danger'
-    //     },
-    //     {
-    //         extend: 'print',
-    //         text: '🖨 Print',
-    //         className: 'btn btn-primary'
-    //     }
-    // ],
+
                 lengthMenu: [10, 25, 50, 100], // Dropdown jumlah data per halaman
         pageLength: 10, // Default 10 baris per halaman
         order: [[0, 'desc']], // Urutkan berdasarkan kolom ID (desc)
