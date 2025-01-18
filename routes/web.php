@@ -35,23 +35,27 @@ Route::middleware([
     Route::group(['prefix' => 'cs', 'as' => 'cs.'],function(){
         Route::group(['prefix' => 'customer', 'as' => 'customer.'], function(){            
             Route::get('/', [CustomerController::class, 'index'])->name('index');
+            Route::get('/get-customers', [CustomerController::class, 'getCustomers'])->name('getCustomers');
             Route::post('/store', [CustomerController::class, 'store'])->name('store');
         }); 
 
         Route::group(['prefix' => 'sparepart', 'as' => 'sparepart.'], function(){
             Route::get('/', [SparepartController::class, 'index'])->name('index');
+            Route::get('/get-getSpareparts', [SparepartController::class, 'getSpareparts'])->name('getSpareparts');
             Route::post('/store', [SparepartController::class, 'store'])->name('store');
             Route::put('/update', [SparepartController::class, 'update'])->name('update');
             Route::post('/update-status', [SparepartController::class, 'updateStatus'])->name('updateStatus');
         });
         Route::group(['prefix' => 'service', 'as' => 'service.'], function(){
             Route::get('/', [ServiceController::class, 'index'])->name('index');
+            Route::get('/get-services', [ServiceController::class, 'getServices'])->name('getServices');
             Route::post('/store', [ServiceController::class, 'store'])->name('store');
             // Route::put('/update', [SparepartController::class, 'update'])->name('update');
             Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
         Route::group(['prefix' => 'teknisi', 'as' => 'teknisi.'], function(){
             Route::get('/', [TeknisiController::class, 'index'])->name('index');
+            Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
             Route::post('/store', [TeknisiController::class, 'store'])->name('store');
             Route::put('/update', [TeknisiController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');

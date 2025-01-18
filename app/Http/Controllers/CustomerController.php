@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\customer;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -13,10 +14,25 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = customer::where('user_id',Auth::user()->id)->get();
+        
+        // $customers = customer::where('user_id',Auth::user()->id)->get();
 
-        return view('customer-service.customer.list',compact('customers'));
+        // return view('customer-service.customer.list',compact('customers'));
+        return view('customer-service.customer.list');
     }
+
+
+    public function getCustomers()
+{
+    $customers = customer::where('user_id',Auth::user()->id)->get();
+
+    return DataTables::of($customers)
+        ->addColumn('action', function ($customer) {
+            return '<a href="/customer/edit/'.$customer->id.'" class="btn btn-sm btn-primary">Edit</a>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+}
 
     /**
      * Show the form for creating a new resource.

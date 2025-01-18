@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\dataService;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -13,9 +14,28 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = dataService::where('user_id', Auth::user()->id)->get();
 
-        return view('customer-service.service.list', compact('services'));
+        // $services = dataService::where('user_id',Auth::user()->id)->get();
+
+        return view('customer-service.service.list');
+    }
+
+
+
+          /**
+     * Get all service data
+     */
+    public function getServices()
+    {
+        $services = dataService::where('user_id',Auth::user()->id)->get();
+    
+        return DataTables::of($services)
+            ->addColumn('action', function ($service) {
+                return '<a href="/service/edit/'.$service->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+
     }
 
     /**
@@ -53,6 +73,9 @@ class ServiceController extends Controller
         return redirect()->back()->with('success', 'Data service berhasil ditambahkan!');
         ;
     }
+
+
+    
 
     /**
      * Display the specified resource.
@@ -111,6 +134,9 @@ class ServiceController extends Controller
         return response()->json(['success' => false, 'message' => 'Sparepart not found'], 404);
 
     }
+
+
+    
 
     /**
      * Remove the specified resource from storage.
