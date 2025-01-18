@@ -13,12 +13,13 @@
 }
 
 .dataTable tbody tr:nth-child(odd) {
-    background-color: #f3f4f6; /* bg-gray-100 */
+    background-color: #ffffff; /* bg-white */
 }
 
 /* Warna latar belakang baris genap */
 .dataTable tbody tr:nth-child(even) {
-    background-color: #ffffff; /* bg-white */
+    background-color: #f3f4f6; /* bg-gray-100 */
+  
 }
 
 /* Atur lebar setiap kolom */
@@ -52,11 +53,20 @@
 }
 
 /* Styling Pagination */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    cursor: pointer;
     padding: 5px 10px;
     margin: 2px;
     background: #007bff;
     color: white !important;
+    border-radius: 5px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 2px;
+    background: white;
+    color: gray !important;
     border-radius: 5px;
 }
 
@@ -70,33 +80,42 @@
     float: right;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background: #0056b3;
-}
+/* .dataTables_wrapper .dataTables_paginate .paginate_button:hover .current {
+    background: #007bff;
+} */
 
 .btn-secondary {
-    background-color: #0462b5;
+    background-color: #007bff;
 }
 
-#custom-search input {
+#customers-table_filter input {
     width: 200px;
     border-radius: 5px;
     padding: 6px;
     border: 1px solid #ced4da;
+
     
+}
+#customers-table_filter {
+    margin-right: 20px
 }
 
 #custom-table-length {
     margin-left: 10px
 }
 
-#custom-table-length select {
+.dataTables_length select {
     width:70px;
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ced4da;
 }
 
+
+.dt-buttons {
+
+    float: right;
+}
     </style>
 
     <div class="py-12">
@@ -163,7 +182,7 @@
                     Data Pelanggan
                 </h1>
                 <button 
-                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                 onclick="document.getElementById('add-customer-modal').classList.remove('hidden')"
             >
                 Tambah Pelanggan
@@ -293,7 +312,7 @@
         
          $(document).ready(function() {
             $('#customers-table').DataTable({
-  dom: '<"row mb-3" <"col-md-6"B> <"col-md-16"l> <"col-md-6 text-end"f>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
+dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route("cs.customer.getCustomers") }}',
@@ -332,16 +351,7 @@
         { extend: 'print', text: 'Print' }
     ],
      
-                initComplete: function () {
-        $("#custom-buttons").html($(".dt-buttons").html());
-        $("#custom-table-length").html($(".dataTables_length").html());
-        
-        $("#custom-search").html($(".dataTables_filter").html());
-     
-   
 
-        $(".dt-buttons,.dataTables_length, .dataTables_filter").remove();
-    },
                 language: {
             search: "Cari: ",
             lengthMenu: "Show _MENU_ Data",
@@ -356,7 +366,18 @@
 
                 lengthMenu: [10, 25, 50, 100], // Dropdown jumlah data per halaman
         pageLength: 10, // Default 10 baris per halaman
-        order: [[0, 'desc']], // Urutkan berdasarkan kolom ID (desc)
+        order: [[0, 'desc']], 
+    //                     initComplete: function () {
+    //                 $(".dt-buttons,.dataTables_length, .dataTables_filter").hide();
+    //     $("#custom-buttons").html($(".dt-buttons").html());
+    //     $("#custom-table-length").html($(".dataTables_length").html());
+        
+    //     $("#custom-search").html($(".dataTables_filter").html());
+     
+   
+
+   
+    // },// Urutkan berdasarkan kolom ID (desc)
                 
             });
         });
