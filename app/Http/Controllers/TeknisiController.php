@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\teknisi;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
+
 
 class TeknisiController extends Controller
 {
@@ -13,9 +15,25 @@ class TeknisiController extends Controller
      */
     public function index()
     {        
-        $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
+        // $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
 
-        return view('customer-service.teknisi.list', compact('teknisis'));
+        return view('customer-service.teknisi.list');
+    }
+
+
+              /**
+     * Get all service data
+     */
+    public function getTechnicians()
+    {
+        $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
+    
+        return DataTables::of($teknisis)
+            // ->addColumn('action', function ($teknisi) {
+            //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            // })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**
@@ -39,7 +57,7 @@ class TeknisiController extends Controller
         ]);        
         $validated['user_id'] = $auth->id;
         teknisi::create($validated);
-        return redirect()->back()->with('msg','berhasil menambahkan data teknisi');
+        return redirect()->back()->with('success','berhasil menambahkan data teknisi');
     }
 
     /**
