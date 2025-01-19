@@ -216,6 +216,11 @@
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="mb-4">
+                    <label for="code" class="block text-sm font-medium text-gray-400">code</label>
+                    <input type="text" name="code" id="code"
+                        class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                </div>
+                <div class="mb-4">
 
                     <label for="harga" class="block text-sm font-medium text-gray-400">harga</label>
 
