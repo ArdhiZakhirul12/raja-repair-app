@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\HpController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\TeknisiController;
@@ -58,6 +59,14 @@ Route::middleware([
             Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
             Route::post('/store', [TeknisiController::class, 'store'])->name('store');
             Route::put('/update', [TeknisiController::class, 'update'])->name('update');
+            // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
+        });
+        Route::group(['prefix' => 'hp', 'as' => 'hp.'], function(){
+            Route::get('/', [HpController::class, 'index'])->name('index');
+            // Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
+            Route::post('/merk-store', [HpController::class, 'merkStore'])->name('merkStore');
+            Route::post('/model-store', [HpController::class, 'modelStore'])->name('modelStore');
+            // Route::put('/update', [TeknisiController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
         Route::group(['prefix' => 'booking', 'as' => 'booking.'], function(){

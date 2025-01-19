@@ -15,7 +15,7 @@ class TeknisiController extends Controller
      */
     public function index()
     {        
-        // $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
+        $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
 
         return view('customer-service.teknisi.list');
     }
