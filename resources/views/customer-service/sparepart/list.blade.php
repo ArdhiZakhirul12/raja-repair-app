@@ -59,13 +59,7 @@
                 <p>{{ session('msg') }}</p>
             </div>
         @endif
-
-
-        <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
-
-            
-              
-        
+        <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">    
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>

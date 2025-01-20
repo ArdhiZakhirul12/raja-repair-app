@@ -63,6 +63,16 @@
             <main class="grow">
                 {{ $slot }}
             </main>
+            <footer class="border-t text-center p-6 text-sm text-gray-600 bg-white">
+                <span>
+                  {{-- Copyright &copy; <script>document.write(new Date().getFullYear());</script>  --}}
+                  Designed with ❤️ | <a href="https://impach.com/">IMPACH OFFICIAL</a>
+                  {{-- All rights reserved. --}}
+                </span>
+              </footer>
+              
+              
+              
 
         </div>
 
@@ -79,6 +89,7 @@
  
 
 </body>
+
 
 
 </html>
