@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HpController;
+use App\Http\Controllers\MetodePembayaranController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\TeknisiController;
@@ -73,6 +74,13 @@ Route::middleware([
             Route::get('/create', [BookingController::class, 'create'])->name('create');
             Route::post('/store', [BookingController::class, 'store'])->name('store');
             Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
+            // Route::put('/update', [BookingController::class, 'update'])->name('update');
+            // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
+        });
+        Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function(){
+            Route::get('/', [MetodePembayaranController::class, 'index'])->name('index');
+            Route::post('/store', [MetodePembayaranController::class, 'store'])->name('store');
+            // Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
             // Route::put('/update', [BookingController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
