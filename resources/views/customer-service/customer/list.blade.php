@@ -60,9 +60,9 @@
 
 
             <div class="flex justify-between mb-4 sm:mb-5">
-                <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
+                <h4 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100">
                     Data Pelanggan
-                </h1>
+                </h4>
                 <button 
                 class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                 onclick="document.getElementById('add-customer-modal').classList.remove('hidden')"

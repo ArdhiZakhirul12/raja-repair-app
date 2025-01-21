@@ -59,13 +59,7 @@
                 <p>{{ session('msg') }}</p>
             </div>
         @endif
-
-
-        <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
-
-            
-              
-        
+        <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">    
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -213,6 +207,11 @@
                 <div class="mb-4">
                     <label for="nama_sparepart" class="block text-sm font-medium text-gray-400">Nama Sparepart</label>
                     <input type="text" name="nama_sparepart" id="nama_sparepart"
+                        class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="code" class="block text-sm font-medium text-gray-400">code</label>
+                    <input type="text" name="code" id="code"
                         class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                 </div>
                 <div class="mb-4">

@@ -69,7 +69,7 @@ class SparepartController extends Controller
         ]);        
         $validated['user_id'] = $auth->id;
         sparepart::create($validated);
-        return redirect()->back()->with('success', 'Data Sparepart berhasil ditambahkan!');;;
+        return redirect()->back()->with('success', 'Data Sparepart berhasil ditambahkan!');
     }
 
     /**

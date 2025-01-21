@@ -6,6 +6,7 @@ use App\Models\customer;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
 {
@@ -57,6 +58,9 @@ class CustomerController extends Controller
                     $fail('Nomor HP harus dimulai dengan "08" dan hanya berisi angka.');
                 }
             },
+            Rule::unique('customers', 'no_hp')->where(function ($query) {
+                return $query->where('user_id', auth()->id());
+            }),
         ],
             'alamat' => 'nullable',
         ]);

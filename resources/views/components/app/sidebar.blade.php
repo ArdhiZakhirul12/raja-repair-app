@@ -169,11 +169,19 @@
                         </div>
                     </li>
 
-                   <a href="">
+                   <a href="{{ route('cs.hp.index') }}" :active="request()->routeIs('cs.hp.index')">
                     <div class="flex items-center justify-between p-4">
                         <div class="flex items-center">
                             <i class="fa fa-layer-group"></i>
-                            <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Booking</span>
+                            <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">HP</span>
+                        </div>
+                    </div>
+                   </a>
+                   <a href="{{ route('cs.pembayaran.index') }}" :active="request()->routeIs('cs.pembayaran.index')">
+                    <div class="flex items-center justify-between p-4">
+                        <div class="flex items-center">
+                            <i class="fa fa-layer-group"></i>
+                            <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Metode Pembayaran</span>
                         </div>
                     </div>
                    </a>
