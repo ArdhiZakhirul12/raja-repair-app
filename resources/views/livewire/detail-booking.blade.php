@@ -1,0 +1,3 @@
+<div>
+ @dd($bookings)
+</div>

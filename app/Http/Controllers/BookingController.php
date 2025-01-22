@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\booking;
 use App\Models\customer;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        $bookings = booking::with(['sparepart_booking','detailBooking'])->where('user_id', auth()->id())->get();
+        return view('customer-service.booking.list', compact('bookings'));
     }
 
     /**
@@ -40,7 +42,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('customer-service.booking.detail');
     }
 
     /**
@@ -48,7 +50,8 @@ class BookingController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // $bookings = booking::with(['sparepart_booking','detailBooking'])->where('user_id', auth()->id())->get();
+        return view('customer-service.booking.detail', ['id' => $id]);
     }
 
     /**
