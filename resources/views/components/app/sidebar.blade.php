@@ -136,11 +136,20 @@
                             </ul>
                         </div>
                     </li>
+
+
+
+
                     <li class="pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if(in_array(Request::segment(2), ['antrian-ditangani'])){{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }}@endif" x-data="{ open: {{ in_array(Request::segment(1), ['dashboard']) ? 1 : 0 }} }">
                         <a class="block text-gray-800 dark:text-gray-100 truncate transition @if(!in_array(Request::segment(2), ['antrian-ditangani'])){{ 'hover:text-gray-900 dark:hover:text-white' }}@endif" href="#0" @click.prevent="open = !open; sidebarExpanded = true">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <i class="fa fa-user-group"></i>
+                                    {{-- <i class="fa fa-user-group"></i> --}}
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      
+                                        <image id="image0_50_219" width="20" height="20" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEzElEQVR4nO2cTYgcVRCAX9QY//Dn4B/+oSIGRDwI/osSEBdjMlWjc1AEFWEPogYRieAhKh686sHfiwiKBBU9GNCos121u0lkSaIExQVRosluV81sEjf+/7S82YksuDvdO9szr2emPqhb7/brj5rXr97UG+cMwzAMwzAMwzAMwzAMwzCMkHxXvfc4YdggjDuU8bAyJj0eh4VxuxA+MrllaFUhsqtWxXOV4YsCyOlMEOz2zxg8k7WfJc+THTSzhWFDcAldipjw4YCicUcRJHQjhGBbMNHKMBtaQPcCZnOVl+ypHBtT+XolfFAIXlaCD5XxS2X4VgjqwjgjBH/7m+d640Fg73jleOXy3U2pmZdnzsjGvonbT1CGJ3ymtvNxckY6Mlq6URj3LmfeckZrNILHhfHP5b4gnLEwSfWmY4TwpbzexM74PweqpVOF4dMsAoXxgDC+LwRPCsFdfpqJR+Hig7z2NP/i/O+TEXzJ1d1IzatpLl8kjF+lC4atMlq+zS/xsiSrFuDhCyO6PgrXKoO0/CeE017wUmcCLcDDF0J0THinEvzSWjLsnuHK+UuV7An94IUQ3dgfblZwi4UQvjv10S0nujbRQRbt51chfD39D+H5JNl0VLuSPQMr2q8KhOCzVhcLwe9xVLrP5YAOoujGyoLg6xTJdeXSzXlI9gyc6MbKgiBufSFM6uj6S12O6KCJVsbfWl0gBB/7giVPyZ5BFN3qgleTieGVrgNoAR4+uGhh+EsZN3ZC8BF00EUL4U/tVHpLRXMYvE8IvxytRXCV3x/36/oarb/aLz/TpsSgooXg++mR0uWdluxZtmSCD3SsvNotQsx4hTD8UDjRQjg+vW3dma5LaLuDJtylEa7Jcg8vuyiZfeSB3/INLa6L6JIzGPfFhPcvtSJVhhcKIVoINiWJW9E5pYsJyJzBPyvj0+3uq9QYrymE6FBoegb/o4ybZ8bKFyznPnG1clJoyYUVLQTbfMWax318sRVacgFFw6RSCfK8z9yXFyY6aWZw3e+Bd6IKFcYXB160EPyhjK/sp8rprgMow5V+a3egRQvBezJSvqRT/99LVob9oQUHF91JlOCeoh3TcP3E5JahVc19jqRIIYSHXL8wFa27UBknQkstXCN6nkiEa33vdWihi0WN4SHXyySbK0cr47PNKjIpZBDuytq9VUimxvAMYfwkuMgUybXxyjmuV4mj0nVC8GNwkQsGzPotZz9d9HQmK8NwWhHS7N/eGGJXsueJ/S4cwdtpGeUz3R9YCj3enkTHyquFYE+6ZKzG1cpZocfbk6g/8ZVS5flVhzA851chocfbt1WeMBysMWLo8fYk9ah0nq+mMrzhd/q+wdDj7Uk0wjXpvYCNTH5j/pkYIyNJ4lb4JVlaA7wy/CpcesDEtsH0XNtwy97sZnzTrQafviKZGF6pXH6s2VKQJvmd2vahk0OPuaeY2Vo5pfk7SqnHnK3Ky4DvKvJtZnW+47I4Kt+qBM8oIWX9Hq/RncRwg+sHwm/C4GIxIhGe7fqFAghNFpgqnuq7Ki+0WJ0fhOQ7QF0/ElwuN3bcPtcISn29rRlOMIgyvJZXj13h6Xy24iFlmJr7GUl4Uwgf9ccflnvy1jAMwzAMwzAMwzAMwzAMw3C9xL8zapdMmRr3rgAAAABJRU5ErkJggg=="/>
+                                    
+                                        </svg>
                                     <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Transaksi Servis</span>
                                 </div>
                                 <!-- Icon -->
@@ -155,38 +164,62 @@
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-8 mt-1 @if(!in_array(Request::segment(2), ['antrian-ditangani'])){{ 'hidden' }}@endif" :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate " href="{{ route('cs.booking.create') }}" :active="request()->routeIs('cs.booking.create')">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Buat transaksi</span>
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate " href="       RUTE UNTUK LIST PEMESANAN      ">
+                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">List Pemesanan</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate " href="{{ route('cs.pcAntrian') }}" :active="request()->routeIs('cs.pcAntrian')">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Layar</span>
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate " href="{{ route('cs.booking.create') }}" :active="request()->routeIs('cs.booking.create')">
+                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Buat Pesanan</span>
                                     </a>
                                 </li>
                                
                             </ul>
                         </div>
                     </li>
+                  
+
+
+
+                    {{-- <a href="{{ route('cs.booking.create') }}" :active="request()->routeIs('cs.booking.create')">
+                        <div class="flex items-center justify-between p-3">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      
+                                    <image id="image0_50_219" width="20" height="20" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEzElEQVR4nO2cTYgcVRCAX9QY//Dn4B/+oSIGRDwI/osSEBdjMlWjc1AEFWEPogYRieAhKh686sHfiwiKBBU9GNCos121u0lkSaIExQVRosluV81sEjf+/7S82YksuDvdO9szr2emPqhb7/brj5rXr97UG+cMwzAMwzAMwzAMwzAMwzCMkHxXvfc4YdggjDuU8bAyJj0eh4VxuxA+MrllaFUhsqtWxXOV4YsCyOlMEOz2zxg8k7WfJc+THTSzhWFDcAldipjw4YCicUcRJHQjhGBbMNHKMBtaQPcCZnOVl+ypHBtT+XolfFAIXlaCD5XxS2X4VgjqwjgjBH/7m+d640Fg73jleOXy3U2pmZdnzsjGvonbT1CGJ3ymtvNxckY6Mlq6URj3LmfeckZrNILHhfHP5b4gnLEwSfWmY4TwpbzexM74PweqpVOF4dMsAoXxgDC+LwRPCsFdfpqJR+Hig7z2NP/i/O+TEXzJ1d1IzatpLl8kjF+lC4atMlq+zS/xsiSrFuDhCyO6PgrXKoO0/CeE017wUmcCLcDDF0J0THinEvzSWjLsnuHK+UuV7An94IUQ3dgfblZwi4UQvjv10S0nujbRQRbt51chfD39D+H5JNl0VLuSPQMr2q8KhOCzVhcLwe9xVLrP5YAOoujGyoLg6xTJdeXSzXlI9gyc6MbKgiBufSFM6uj6S12O6KCJVsbfWl0gBB/7giVPyZ5BFN3qgleTieGVrgNoAR4+uGhh+EsZN3ZC8BF00EUL4U/tVHpLRXMYvE8IvxytRXCV3x/36/oarb/aLz/TpsSgooXg++mR0uWdluxZtmSCD3SsvNotQsx4hTD8UDjRQjg+vW3dma5LaLuDJtylEa7Jcg8vuyiZfeSB3/INLa6L6JIzGPfFhPcvtSJVhhcKIVoINiWJW9E5pYsJyJzBPyvj0+3uq9QYrymE6FBoegb/o4ybZ8bKFyznPnG1clJoyYUVLQTbfMWax318sRVacgFFw6RSCfK8z9yXFyY6aWZw3e+Bd6IKFcYXB160EPyhjK/sp8rprgMow5V+a3egRQvBezJSvqRT/99LVob9oQUHF91JlOCeoh3TcP3E5JahVc19jqRIIYSHXL8wFa27UBknQkstXCN6nkiEa33vdWihi0WN4SHXyySbK0cr47PNKjIpZBDuytq9VUimxvAMYfwkuMgUybXxyjmuV4mj0nVC8GNwkQsGzPotZz9d9HQmK8NwWhHS7N/eGGJXsueJ/S4cwdtpGeUz3R9YCj3enkTHyquFYE+6ZKzG1cpZocfbk6g/8ZVS5flVhzA851chocfbt1WeMBysMWLo8fYk9ah0nq+mMrzhd/q+wdDj7Uk0wjXpvYCNTH5j/pkYIyNJ4lb4JVlaA7wy/CpcesDEtsH0XNtwy97sZnzTrQafviKZGF6pXH6s2VKQJvmd2vahk0OPuaeY2Vo5pfk7SqnHnK3Ky4DvKvJtZnW+47I4Kt+qBM8oIWX9Hq/RncRwg+sHwm/C4GIxIhGe7fqFAghNFpgqnuq7Ki+0WJ0fhOQ7QF0/ElwuN3bcPtcISn29rRlOMIgyvJZXj13h6Xy24iFlmJr7GUl4Uwgf9ccflnvy1jAMwzAMwzAMwzAMwzAMw3C9xL8zapdMmRr3rgAAAABJRU5ErkJggg=="/>
+                                
+                                    </svg>
+                                <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Transaksi Servis</span>
+                            </div>
+                        </div>
+                       </a> --}}
 
                    <a href="{{ route('cs.hp.index') }}" :active="request()->routeIs('cs.hp.index')">
-                    <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center justify-between p-3">
                         <div class="flex items-center">
-                            <i class="fa fa-layer-group"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        
+                                <image id="image0_50_215" width="20" height="20" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF1UlEQVR4nO2dTWwbRRTHR4D4LAgaFfyeXSJRe2ax1ArUK1KPfByBHigfKaHpiYLEBTWAciTcIC13UAGJSjSloCqZcWQOqIA4pJwCXFC/QOJAgXIJSih6G9uJnB3vxt6dnVnPXxopWu/OvP3l+fnN1y5jXl5eXvmrOTp6qxTwqhTwneL4jxJ43YkS2grfKgGvnK1Wb2E2q1ktV6SAH3KHJgYtcJ7uhVnsyQWAjB3YVno2hYvUbzaAoyfr9Zuj2qPjUsBk9/nze+67Y9Px/mEfYbYpjMkpg27Wd2zr1ebXYuTOqPO7j/ddOHzDbJPkeC1t0FLAZG+Pxje6zyfY3cf7bp/j38w26YxNcq3k8HrqYWcd1lTW9hvVoIYqjq8pgSspQl6hOk3Zb0xpGNrg5T1SwIdSwKU+oa8oARclhw+UqOw2bb8ROWOo6/Y7Y6jr9jtjqOv2O2OoRorDI1KAst5+10HrgDPbVBTQbcmgtE9x/IrZpqKBtlYetCF50IbkQRuSB21IHrQhuQRaCTzVsZHjZ8wluQJ6irEbpICr66DhDzrGXJEtoFUVH1YcPp8XeDDq8waHl7pt1J0rBb5IdVGdzBbZAFquTWGttjx1WQkcP1ep3DZXr1RlDSYImhT4X4Sdq1Lgacnh0EJ15y66hs6XHP5d/xwmmQ2yAbTi+EnMxEDfRXL8iNkgG0BLUd6fGeig9CSzQTaAVgGOZQVaCXiW2aC8QasARxSHn7MLHfDjXL2y3dT9WAn6y93336M4fp+dN3e8epH+oWxYQCuObymBJ5QoPSV56XnJ4adYSBwvSI4zUsCjCwIFLR2jQn/TMcXxGM2gJ/HseV56jtpeswHfzOIecwetKE9up3BJvvICLqsADp9k7MZknZnyfsXxly14+up8AHtZ4UBzOJMcMs7Grd+LUrh2jzoqyds5zYoGWq711pYThIp3B+lah97N8b34dmBZ17N0PkY3IrrR3Z6cxvgF1RHn2UYhmwbdrO/Y1iMmX+onXMSEkSu69mgBPisqaPlgudbDy8ZTb4/DIV17NDbCigpaBXBYE5cvJMkutiqqs7XwcvM3qAYTrLAezeGLyJvmOMMykhJwPPeMwxToKcoEaPgyeqjzuuKlx+LqaO0UeEdx+LUVe6d1uwo2StbKT2jukXL6cWOTB1mDVgI+pdmQnqlWgDyBndMR107HXUc9yJg0j2w7ldb95ggaB95cFNZDnrw55Pw2SKaTdah0FfSVzXEWLsddd7a6/a6hAC0FzmYYOt6Ou25oQkenpyZwXDuolPDHMIRNnp3Wj2GAY4X5MdwobbeY4zGWkaSA9zX3mL0X5wVa0ox2ZHtwMYsOS3Mfu0nXYaFxF1ZU0AvVnbt07WVx49qeKJXavQ+k3Z41oM/shdt17VEGQQNBabUVZhsRKeFQDCo1YoZJKYanOEwaN9GQ+iCWFaDnBR5MMvBPg/YpDPzPxLUT2hLgGCsaaLWFKSY6t58wQuFCN3AVHa5wlhXOo2v40Bb3if9OD22hzCFRqKiVX+gVk4dmcpbUesLMCVqmpQQcUAKX4r2O0jM43uClx+c4BNRdp0J/U2eE8mRdCtdVlmQAz3SWGwRwlJmUSdDdao6O3u0X0BiSCnAk0UKa/svS0C8JayuMr5mBhgPMBuUZOtpqiPLTWYH2y3Y3SHH8ODPQfiH6pmyks7WCOjf0kMD21gqaSNUMsa5trajBBJ1L14TDsesdoxXj2YXNoaOdZ4dANb21rWwWouNUF9XJbJEtoONEw6hKwJ+dkCDgqt/+lpH8hk6v4oQO5+VBG5IHbUgetCF50IZUNNCq9fw7ZpuKAlr5BwxmK//ITENy5hvpjKGu2++Moa7b74yhrtvvjKGu2++Moa7bn8ULb1T+5S82DK9wUnkXG1/hRO8BzB2MSLfIAF5mtmlt5hjO5w1HpVZgMckmolxEL1ssBmxYbNQqZWazWp59hOKbSz+QkuM1yeEchQtrPdnLy4sNmf4H0SmC69RtODYAAAAASUVORK5CYII="/>
+                           
+                                </svg>
                             <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">HP</span>
                         </div>
                     </div>
                    </a>
                    <a href="{{ route('cs.pembayaran.index') }}" :active="request()->routeIs('cs.pembayaran.index')">
-                    <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center justify-between p-3">
                         <div class="flex items-center">
-                            <i class="fa fa-layer-group"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                              
+                                <image id="image0_50_217" width="20" height="20" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEeklEQVR4nO2cS4hcRRRAKypRET+4Mir4IZCk730zqCBxoaMw0/dOBvwgLW50IxL8jJnue3ta8NOIOxF0IfhBAro2bk0UjOhCBRcKKmZhFDGKmk2c4F9baibR+dSbdA/1+lPvHribppq6dbr6vqp6j+ecYRiGYRiGYRiGYRhGSZloX3YWNWAPC37ICsdZsVOugOOk+AEJPsSzW88sRDLPZ5eSwCeDHywOS3zsncSfySa5E5Qdc2YvlovBz6DOkMZsNNFLNXngA+oMY5DC+/FEKy4MekA8vLEQU3T41xT8nRTmJ5vbLvbBkrX8Z7Ha84hE4aK9qDVtJWtFa6+jEYWLprntW1a33aWVi2K15xGJwkX7v//qtjP18UtitecRicJFB0uB4sPR2utoROGiFy9kkrV6uRhyD+1HJQoXbYEmmm1GY3L/BCsdaqI7g56FNqN18OKGrnS4ksEmuj+Y6D5RCtFchhxKMcguMNF9ImnR1TqMs+Dj6yyvnqRmdnU/cklSNCuOseLBrtezAu9yY8dVBeeUlmgSuIsV/uh58yDwJwvcU1ReSYmmBhAJ/t2z5P/jn6rC7UXklozoWruymRW/yenvOxJ8ZvG5N4H7WeFpVjgcntl4dLJ1zfmx80tGNAneEerHCw49ejXRnjiDBB4N5wdzsfNLSfRLayQrHGq33Wnrfk/x5UB++2Pnl4xoFnwjUAZe624JCG+tCIW90fNLRTQJHgjM6C997XZDQDKiWWFvTl/7Qs+E9JtkRE8r3J3XFyn8QgKvk+JulkrlVHW7CJIRXavvPNsv4/L6Wykej7Hg26TwBAncWKvVTncFk4xoD2k2uZFdISl8S4qPTcnYOa4gkhJ9UjYJft+r7BMz/euizjySE+3h2a3nscIjLPBVz8IFj87MZVe6yCQpejk0vwNIKw+w4qss8IU/z+hC+D4XmeRFr6Zar1zIzaxGgq/kPSRJCn/dsmf8AheR0oleDrXGL2fBT0P5VZtwk4tIqUV7qvOVa4OiIx+XJiGamtn1rPDRysCDzrlNp/ruzc1t5wbLRwMoZo5JiJ6SMdzorGTF20Lfjb3ySEK0c25T6NB/aQcId+ZtuX0dZoUfAhfDQ5HzS0a0Y6nUc5drfj0t+BwJNKuCD7LiU/5NA3ntp7Vyb/T8UhFda1c2k+J7ubK7DniziEOnZESfXCOTwDsblezPtP3F0RVAUqL/uxe4+EaFtbU3v7TgEVa4r8jj0+RELy8l0w281dfmdSQ/S4Iz/sdxBZOs6NLlUIpBdoGJ7hOlED0MmOg+YaJTEU2CP4c68C81cSVh0r+NIbRBUjwWrZMTt49CnTRcSWAFzdmJfh6tE1J4MWc39quXHXqFTyrQ3PYtVUEhxd/CpQOej9bZ0lHkxs4eUo9dkt3gYuJPxAY9KB6+2F/ITVAS+HEIBtcZiijo2ZEl2YrXkeJPAx+kDjYWJ1w92+mKZErGrihzGSHBA/7f7foFN3GCBV7wy5vE3126QIqf+dVF9AufYRiGYRiGYRiGYRiGG03+Bbc104DvEL5dAAAAAElFTkSuQmCC"/>
+                          
+                                </svg>
                             <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Metode Pembayaran</span>
                         </div>
                     </div>
                    </a>
                    <a href="{{ route('cs.customer.index') }}" :active="request()->routeIs('cs.customer.index')">
-                    <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center justify-between p-3">
                         <div class="flex items-center">
                             <i class="fa fa-user text-blue-500"></i>
                             <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Customer</span>
@@ -194,7 +227,7 @@
                     </div></a>
 
                     <a href="{{ route('cs.service.index') }}" :active="request()->routeIs('cs.service.index')">
-                    <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center justify-between p-3">
                         <div class="flex items-center">
                             {{-- <i class="fa fa-screwdriver-wrench"></i> --}}
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20    " height="20    " viewBox="0 0 20    20    " fill="none">
@@ -209,7 +242,7 @@
                     <a href="{{ route('cs.antrian-ditangani') }}" :active="request()->routeIs('cs.antrian-ditangani')">
                    
                     <a href="{{ route('cs.teknisi.index') }}" :active="request()->routeIs('cs.sparepart.index')">
-                    <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center justify-between p-3">
                         <div class="flex items-center">
 
          
@@ -234,7 +267,7 @@
                     </div></a> --}}
 
                     <a href="{{ route('cs.sparepart.index') }}" :active="request()->routeIs('cs.sparepart.index')">
-                        <div class="flex items-center justify-between p-4">
+                        <div class="flex items-center justify-between p-3">
                             <div class="flex items-center">
                                 {{-- <i class="fa fa-toolbox"></i> --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" fill="none">

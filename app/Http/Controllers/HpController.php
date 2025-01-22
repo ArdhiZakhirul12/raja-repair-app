@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\hpMerk;
 use App\Models\hpModel;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
 class HpController extends Controller
@@ -21,6 +22,52 @@ class HpController extends Controller
         $models = HpModel::whereIn('hp_merk_id', $merkIds)->get();
 
         return view('customer-service.hp.list',compact('merks','models'));
+        // return view('customer-service.hp.list');
+    }
+
+
+
+                      /**
+     * Get all model data
+     */
+    public function getHpModel()
+    {
+        $merks = hpMerk::where('user_id',auth()->id())->get();
+        $merkIds = $merks->pluck('id'); // Mengambil hanya ID
+
+        // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
+        $models = HpModel::whereIn('hp_merk_id', $merkIds)->get();
+
+    
+        return DataTables::of($models)
+            // ->addColumn('action', function ($teknisi) {
+            //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            // })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+
+
+
+                          /**
+     * Get all merk data
+     */
+    public function getHpMerk()
+    {
+        $merks = hpMerk::where('user_id',auth()->id())->get();
+        // $merkIds = $merks->pluck('id'); // Mengambil hanya ID
+
+        // // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
+        // $models = HpModel::whereIn('hp_merk_id', $merkIds)->get();
+
+    
+        return DataTables::of($merks)
+            // ->addColumn('action', function ($teknisi) {
+            //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            // })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**

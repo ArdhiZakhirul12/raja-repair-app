@@ -30,10 +30,10 @@ class BookingForm extends Component
     public $searchModel = '';
 
     public $imei;
-    public $service_id;
-    public $harga_service;
-    public $harga_sparepart;
-    public $sparepart_id;
+    public $service_id = [];
+    public $harga_service = [];
+    public $harga_sparepart = [];
+    public $sparepart_id = [];
     public $services;
     public $spareparts;
     public $customer;
@@ -74,6 +74,7 @@ class BookingForm extends Component
 
     public function submit()
     {
+        // dd($this);
         $validated = $this->validate([
             'nohp' => [
                 'required',
