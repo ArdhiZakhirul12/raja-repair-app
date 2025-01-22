@@ -64,6 +64,8 @@ Route::middleware([
         });
         Route::group(['prefix' => 'hp', 'as' => 'hp.'], function(){
             Route::get('/', [HpController::class, 'index'])->name('index');
+            Route::get('/merk-getall', [HpController::class, 'getHpMerk'])->name('getHpMerk');
+            Route::get('/model-getall', [HpController::class, 'getHpModel'])->name('getHpModel');
             // Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
             Route::post('/merk-store', [HpController::class, 'merkStore'])->name('merkStore');
             Route::post('/model-store', [HpController::class, 'modelStore'])->name('modelStore');
