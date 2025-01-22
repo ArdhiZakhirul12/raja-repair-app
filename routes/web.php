@@ -73,8 +73,10 @@ Route::middleware([
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
         Route::group(['prefix' => 'booking', 'as' => 'booking.'], function(){
+            Route::get('/', [BookingController::class, 'index'])->name('index');
             Route::get('/create', [BookingController::class, 'create'])->name('create');
             Route::post('/store', [BookingController::class, 'store'])->name('store');
+            Route::get('/{id}', [BookingController::class, 'show'])->name('show');
             Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
             // Route::put('/update', [BookingController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
