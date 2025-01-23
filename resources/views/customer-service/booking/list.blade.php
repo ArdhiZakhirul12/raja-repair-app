@@ -1,5 +1,5 @@
 <x-app-layout>
-    
+
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between mb-4 sm:mb-5">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
@@ -48,7 +48,7 @@
                             </th>
                             <th scope="col" class="px-6 py-3">Imei</th>
                             <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">action</th>
+                            <th scope="col" class="px-6 py-3">  </th>
 
                         </tr>
                     </thead>
@@ -123,7 +123,7 @@
                                             data-nama="${row.nama_sparepart}"
                                             data-harga="${row.harga}"
                                             onclick="window.location.href='{{ route('cs.booking.displayDetail') }}'">
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-eye"></i>
                 </button>`;
                         },
                         orderable: false,
