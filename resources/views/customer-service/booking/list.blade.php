@@ -22,8 +22,8 @@
                     id="booking-table">
                     <thead>
                         <tr>
-                            {{-- <th scope="col" class="px-6 py-3"></th>
-                            <th scope="col" class="px-6 py-3">ID</th> --}}
+                            <th scope="col" class="px-6 py-3"></th>
+                 
                             <th scope="col" class="px-6 py-3">Kode</th>
 
                             <th scope="col" class="px-6 py-3">
@@ -68,14 +68,21 @@
                 ajax: '{{ route('cs.booking.getBooking') }}',
                 columns: [
 
-
+                {
+                        data: 'id',
+                        render: function(data) {
+                            return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                        },
+                        orderable: false,
+                        searchable: false
+                    },
                     {
                         data: 'kode_pesanan',
                         name: 'kode_pesanan',
                         render: function(data, type, row) {
                             let url = "{{ route('cs.booking.show', ['id' => '__ID__']) }}";
                             url = url.replace('__ID__', row.id);
-                            return `<a href="${url}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
+                            return `<a href="${url}" class="text-black-900 hover:text-black-400 font-bold">${data}</a>`;
 
                         }
                     },
@@ -83,7 +90,7 @@
                         data: 'user_id',
                         name: 'user_id',
                         render: function(data, type, row) {
-                            return `<a href="" class="text-black hover:text-black-500 ">${row.user.name}</a>`;
+                            return `<a href="" class="text-black-500 hover:text-black-500 ">${row.user.name}</a>`;
 
                         }
                     },
@@ -98,14 +105,22 @@
                         name: 'hp_model_id',
                         render: function(data, type, row) {
                             // console.log(row);
-                            return `<a href='' class="text-black hover:text-black-500 font-bold">${row.hp_model.model}</a>`;
+                            return `<a href='' class="text-black-900 hover:text-black-500 font-bold">${row.hp_model.model}</a>`;
                         }
                     },
 
                     {
                         data: 'status',
                         name: 'status',
-
+                        render: function(data, type, row) {
+                            let bgColor = '';
+                            if (data.toLowerCase() === 'diproses') {
+                                bgColor = 'bg-blue-500 text-white';
+                            } else if (data.toLowerCase() === 'selesai') {
+                                bgColor = 'bg-green-500 text-white';
+                            }
+                            return `<span class="px-2 py-1 rounded ${bgColor}">${data}</span>`;
+                        }
                     },
 
 
