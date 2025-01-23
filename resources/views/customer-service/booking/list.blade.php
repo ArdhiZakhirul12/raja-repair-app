@@ -22,10 +22,10 @@
                     id="booking-table">
                     <thead>
                         <tr>
-                            <th scope="col" class="px-6 py-3"></th>
-                            <th scope="col" class="px-6 py-3">ID</th>
+                            {{-- <th scope="col" class="px-6 py-3"></th>
+                            <th scope="col" class="px-6 py-3">ID</th> --}}
                             <th scope="col" class="px-6 py-3">Kode</th>
-                    
+
                             <th scope="col" class="px-6 py-3">
                                 <div class="flex items-center">
                                     Nama
@@ -38,7 +38,7 @@
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 <div class="flex items-center">
-                                    No Hp
+                                    Kendala
                                     <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -46,9 +46,9 @@
                                         </svg></a>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">Imei</th>
+                            <th scope="col" class="px-6 py-3">Model Hp</th>
                             <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">  </th>
+                            <th scope="col" class="px-6 py-3"> aksi </th>
 
                         </tr>
                     </thead>
@@ -66,53 +66,49 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('cs.booking.getBooking') }}',
-                columns: [{
-                        data: 'id',
-                        render: function(data) {
-                            return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                        },
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'id',
-                        name: 'id',
-                        render: function(data, type, row) {
-                            return `<a href="/teknisi/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
+                columns: [
 
-                        }
-                    },
 
-         
                     {
                         data: 'kode_pesanan',
-                        name: 'kode_pesanan'
+                        name: 'kode_pesanan',
+                        render: function(data, type, row) {
+                            let url = "{{ route('cs.booking.show', ['id' => '__ID__']) }}";
+                            url = url.replace('__ID__', row.id);
+                            return `<a href="${url}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
+
+                        }
                     },
                     {
                         data: 'user_id',
                         name: 'user_id',
                         render: function(data, type, row) {
-                            return `<a href="/teknisi/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
+                            return `<a href="" class="text-black hover:text-black-500 ">${row.user.name}</a>`;
 
                         }
                     },
                     {
-                        data: 'no_hp_alternatif',
-                        name: 'no_hp_alternatif',
-                      
+                        data: 'kendala',
+                        name: 'kendala',
+
+
                     },
                     {
-                        data: 'imei',
-                        name: 'imei'
+                        data: 'hp_model_id',
+                        name: 'hp_model_id',
+                        render: function(data, type, row) {
+                            // console.log(row);
+                            return `<a href='' class="text-black hover:text-black-500 font-bold">${row.hp_model.model}</a>`;
+                        }
                     },
 
                     {
                         data: 'status',
                         name: 'status',
-                      
+
                     },
-             
-            
+
+
 
 
                     {
@@ -122,7 +118,7 @@
                                             data-id="${row.id}" 
                                             data-nama="${row.nama_sparepart}"
                                             data-harga="${row.harga}"
-                                            onclick="window.location.href='{{ route('cs.booking.displayDetail') }}'">
+                                           onclick="window.location.href='{{ route('cs.booking.show', ['id' => '__ID__']) }}'.replace('__ID__', ${row.id})">
                     <i class="fas fa-eye"></i>
                 </button>`;
                         },
@@ -137,10 +133,10 @@
                         extend: 'excel',
                         text: 'Excel'
                     },
-                    {
-                        extend: 'pdf',
-                        text: 'PDF'
-                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     text: 'PDF'
+                    // },
                     {
                         extend: 'print',
                         text: 'Print'

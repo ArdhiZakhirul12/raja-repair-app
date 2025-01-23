@@ -79,7 +79,7 @@ Route::middleware([
             Route::post('/store', [BookingController::class, 'store'])->name('store');
             Route::get('/{id}', [BookingController::class, 'show'])->name('show');
             Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
-            Route::get('/detail', [BookingController::class, 'displayDetail'])->name('displayDetail');
+            Route::get('/detail/{id}', [BookingController::class, 'displayDetail'])->name('displayDetail');
             // Route::put('/update', [BookingController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });

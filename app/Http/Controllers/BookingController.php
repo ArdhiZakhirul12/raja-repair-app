@@ -15,21 +15,18 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = booking::with(['sparepart_booking','detailBooking'])->where('user_id', auth()->id())->get();
+        $bookings = booking::with(['hpModel','sparepart_booking','detailBooking'])->where('user_id', auth()->id())->get();
+        // dd($bookings);
         return view('customer-service.booking.list', compact('bookings'));
     }
 
 
     
     public function getBooking()
-{
-    $bookings = booking::with(['sparepart_booking','detailBooking'])->where('user_id', auth()->id())->get();
-    // $customers = customer::where('user_id',Auth::user()->id)->get();
+{    
+    $bookings = booking::with(['hpModel','user','detailBooking'])->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();    
 
     return DataTables::of($bookings)
-        // ->addColumn('action', function ($customer) {
-        //     return '<a href="/customer/edit/'.$customer->id.'" class="btn btn-sm btn-primary">Edit</a>';
-        // })
         ->rawColumns(['action'])
         ->make(true);
 }
