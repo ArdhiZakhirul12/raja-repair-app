@@ -46,8 +46,9 @@
                                         </svg></a>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">Model Hp</th>
                             <th scope="col" class="px-6 py-3">Status</th>
+                            <th scope="col" class="px-6 py-3">Model Hp</th>
+                         
                             <th scope="col" class="px-6 py-3"> aksi </th>
 
                         </tr>
@@ -101,15 +102,6 @@
 
                     },
                     {
-                        data: 'hp_model_id',
-                        name: 'hp_model_id',
-                        render: function(data, type, row) {
-                            // console.log(row);
-                            return `<a href='' class="text-black-900 hover:text-black-500 font-bold">${row.hp_model.model}</a>`;
-                        }
-                    },
-
-                    {
                         data: 'status',
                         name: 'status',
                         render: function(data, type, row) {
@@ -122,6 +114,16 @@
                             return `<span class="px-2 py-1 rounded ${bgColor}">${data}</span>`;
                         }
                     },
+                    {
+                        data: 'hp_model_id',
+                        name: 'hp_model_id',
+                        render: function(data, type, row) {
+                            // console.log(row);
+                            return `<a href='' class="text-black-900 hover:text-black-500 font-bold">${row.hp_model.model}</a>`;
+                        }
+                    },
+
+   
 
 
 
