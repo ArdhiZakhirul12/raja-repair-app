@@ -1,7 +1,28 @@
 <div>
+    @if (session()->has('doneMsg'))
+    <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-semibold">Notifikasi</h3>
+                <button onclick="document.getElementById('popup').style.display='none'" class="text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="mt-4 text-gray-700">{{ session('doneMsg') }}</p>
+            <div class="mt-6 flex justify-end">
+                <button onclick="document.getElementById('popup').style.display='none'" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+@endif
+
     @if (session('success'))
         <div id="notification"
-            class="fixed top-5 right-5 bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity duration-10">
+            class="fixed top-5 right-5 bg-yellow-400 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity duration-10">
             <p>{{ session('success') }}</p>
         </div>
         <script>
@@ -44,16 +65,20 @@
             <h1 class="text-2xl md:text-2xl text-gray-800 dark:text-gray-100 font-bold">
                 Detail Transaksi Servis
             </h1>
+            @if ($booking->status == 'diproses')
+                
             <div>
                 <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                     wire:click="$set('isModalOpen', true)">
                     Edit Service
                 </button>
                 <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-                    onclick="document.getElementById('add-customer-modal').classList.remove('hidden')">
+                    wire:click="$set('isModalDone', true)">
                     Selesaikan
                 </button>
             </div>
+            @endif
+
 
 
 
@@ -63,7 +88,7 @@
     </button> --}}
         </div>
         <h1 class="mt-3 text-2md md:text-2md text-blue-700 dark:text-gray-100">
-            #{{ $booking->kode_pesanan }} 
+            #{{ $booking->kode_pesanan }}
             <span
                 class=" 
                 @if ($booking->status == 'diproses') bg-blue-500 text-white
@@ -127,37 +152,37 @@
                                     </tr>
                                 </thead>
                                 <tbody class="border-bottom">
-                                    @foreach ($booking->detailBooking as $item)
-                                        <tr class="">
-                                            <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th>
-                                            <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
-                                            <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }} </td>
-                                            <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
-                                        </tr>
-                                    @endforeach
-                                    @foreach ($booking->sparepart_booking as $item)
-                                        <tr class="">
-                                            <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th>
-                                            <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
-                                            <td class="px-4 py-2 text-gray-500">Sparepart </td>
-                                            <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
-                                        </tr>
-                                    @endforeach
-                                    <tr class="border-top">
-                                        <td></td>
-                                        <td></td>
-                                        <td class="px-4 text-right">
-                                            <h2 class="text-l font-semibold">Total :</h2>
-                                        </td>
-                                        <td class="px-4 py-2">
-                                            <h2 class="text-l font-semibold">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-            
-            </div>
-                </div>
+                                       @foreach ($booking->detailBooking as $item)
+                <tr class="">
+                    <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }} </td>
+                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                </tr>
+                @endforeach
+                @foreach ($booking->sparepart_booking as $item)
+                    <tr class="">
+                        <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th>
+                        <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
+                        <td class="px-4 py-2 text-gray-500">Sparepart </td>
+                        <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                    </tr>
+                @endforeach
+                <tr class="border-top ">
+                    <td></td>
+                    <td></td>
+                    <td class="px-4 text-right">
+                        <h2 class="text-l font-semibold">Total :</h2>
+                    </td>
+                    <td class="px-4 py-2">
+                        <h2 class="text-l font-semibold">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+
+    </div>
+</div>
 
 
 </div>
@@ -222,51 +247,73 @@
 
     <div class="bg-white rounded shadow-md p-4 mb-3">
         <div class="flex items-center ">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30"
-                fill="none">
-    
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30"
+                height="30" fill="none">
+
                 <image id="image0_26_74" width="30" height="30"
                     xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFZUlEQVR4nO2dXWgkRRDHS7mIioqniF+gvijooyFbtblAFB9ERBCN+AXiJ6I+6IN4hy9RQbwTFdQz3rpVGz/eTnxRFBSVexHF84TDU0RBFLnTeDHZ7k3UqJeR2j1FcjuzO5udne7Z/kHBPsxHzT893V091RWAQCAQCAQCgUAgEAikJ9p50TGGcZsROmCFonZmBPcboa16bA+3CCgqYJzARwpOW5snBdKT1JKPEJrppx5uEVC6Fflfa54USE8Quo9EldGRrIVOusdQ0ODyZUZoX9ZCW6ZvDJeuhGFjcRbPs4xvdRSoX0L/dwy+ucDlc2EYaHDpUsM4l06gfglNkWWar9fKl0NRiSI4yjJuNox/rxVomcfPWnv88st0dlqhu72OYVptBjnTcDQUTWTDNBMrEuPmtedYwS1phU57HcO4XX2DomAZn+kQbKyoSNoi1Votn1bSCt3TdZiegiJgmB5L3TIHbEbwEfAZI3iF9ofWATE7vAmrpkpXgY80qni6Efo5bxFt12LjL+0GUx8Gvw/yFs+m70LeB5+wVbwmb9Fsr8blq8EHounJDUboq9wFk14Nv9ZnANexVbo7f7FofVajO8F1/G7N1LSkhS4nMIKYt0i2T1av4ii4SmKYLb4ZPgfOTumEDuYvEPVtXu3kOoit4oV5i2P7LfZLYxeAaxjB2wontNAt4BpGcEcBhX4BXMMw7iqg0B+CaxjBLwoo9F5wDc2BK6DQP4JrGMbfCyc042/gGukfgvQT00PerQHnTT8+pAYyEHqpMnpmEHYAQi+HLqM3Qtfh8mDIrRyMQfnoFfsro8draGqF6nlPv+ygjXGxmd20k47LXOgirmnYtG+j4I5MRdakQJ3E5/2gNn9bzjRBMghNgxFaCV0HadfxImSNDgRW8HkdGBx4haPBGi7ot8SBDIZx9OQ4k2nU8Pq8fDaCj3fyEVwjjcBGtxUzbtNsfAdyBF8vhNDNlFjGXYbxUSulKVPD88EhrEycZgV/9V5oy3gvOI5m/Xsv9PxrpZPAcZIyrMA1vHG0DfUqneKN/9446rv/3jjqu/9G6FA7R31I6o6mJze0n4bSIXCNuGXTpdmxM8BxmnsSYyJBcA3LuKedsw3GG8Bx6lW6Kabr+Ay82R2rJRxeGTsVHEV9s4Lfxgj9NHiW7f+drmm4JLj6oj6pb3F+16tUAjcT0fHzBLEjHVy0jIQTpSxiBu//RbR7nExEV2yVNnXakmyYKnn7qT508HHV8HgZXEY3sCe2FEGbZ1iu91YfklszTYMP6Dpv0qtpGO/Pzzd6IKlrU9/BJ6zghBV6L0bouYM8fmIerVk3AcUI/a76DD5Sn5nYGPfV3ORQ4tIKPhnTVSwtzk6eDD5jmZ6NnYFU8ZKB+SE40a6eU2Gq0GjWqInNBcHvtdUPZhkUf4jpMpa1tggUAcs0nTDKf5xlf92cZTB9kjDDeBiKVQeavkwIDj6a2z55QiZ5ggm7xXRzfeHqTptaedwI/Zkg9qcLlU3n9Ot+WrHRCu1OCEpWdNkAiogVvKdDoDBvGG9dT+jbSiEo3570ZfvwH/YuKDKmQ/h72HZbxmvTfDRoLd6XpuKWawee0pU3UWV0xAi90YXYzRZuBcUK3bFYo4t1BhPNTh6rpr+1poZWi7FMtdaxna+pCTNDU+Y4qoyOWKFXuxK7n8ZU8+HTWv+LwgpuMYJ/ZS2wDsKGSw/CMFOvUinLOkw6hXO6bM+gu5KGlO7T/zzRR4EP6Cxn6LqKbtDgoc50s5Zv6KVL0XO0gmRdyjcWLhDJivrMxMYGl68zTE9Ypnc0stRWagT/aJn+pn2W6e3mMVKa8n4FLhAIBAKBQADWyz+oAe9kkGkpgAAAAABJRU5ErkJggg==" />
-    
+
             </svg>
             <h2 class="text-l font-semibold ">Teknisi</h2>
         </div>
         <hr class="my-2">
-        <label for="dataDropdown" class="block text-sm font-medium text-gray-400">List Data Teknisi</label>
-    
-        <select id="dataDropdown" name="dataDropdown"
-            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-            onchange="showSuccessDialog()">
-            <option>Data 1</option>
-            <option>Data 2</option>
-            <option>Data 3</option>
-        </select>
+        <div class="flex mb-2">
+            <i class="fa-solid fa- text-red-500 mr-4"></i>
+            <p class="text-blue-500">{{ $booking->teknisi->nama }}
+            </p>
+        </div>
+        <div class="flex mb-2">
+            <i class="fa-solid fa-phone text-green-500 mr-4"></i>
+            <p class="text-gray-500">{{ $booking->teknisi->no_hp }}
+            </p>
+        </div>
+
+        @if ($isEditTeknisi == true)
+
+            <select id="dataDropdown" name="dataDropdown"
+                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                wire:model="selectedTeknisi">>
+                <option selected>Pilih Teknisi</option>
+                @foreach ($teknisis as $item)
+                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                @endforeach
+            </select>
+            <button class="bg-gray-500 text-white my-2 px-2 py-1 rounded hover:bg-gray-600"
+                wire:click="$set('isEditTeknisi', false)">
+                Batal
+            </button>
+            <button class="bg-yellow-400 text-white my-2 px-2 py-1 rounded hover:bg-yellow-500"
+                wire:click="editTeknisi">
+                Simpan
+            </button>
+        @else
+        @if ($booking->status == 'diproses')
+
+            <button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                wire:click="$set('isEditTeknisi', true)">
+                Ubah Teknisi
+            </button>
+            @endif
+        @endif
+
+
     </div>
+</div>
+<!-- Success Dialog -->
+{{-- <div id="successDialog"
+    class="hidden fixed top-20 right-10 bg-green-500 text-white p-4 rounded shadow-md transition-opacity duration-1000">
+    Success! Data teknisi has been updated.
+</div>
 
-
-
-
-
-
-    
-    </div>
-   
-
-    <!-- Success Dialog -->
-    <div id="successDialog"
-        class="hidden fixed top-20 right-10 bg-green-500 text-white p-4 rounded shadow-md transition-opacity duration-1000">
-        Success! Data teknisi has been updated.
-    </div>
-
-    <script>
-        function showSuccessDialog() {
-            const dialog = document.getElementById('successDialog');
-            dialog.classList.remove('hidden');
-            setTimeout(() => {
-                dialog.classList.add('hidden');
-            }, 2000); // Hide after 2 seconds
-        }
-    </script>
+<script>
+    function showSuccessDialog() {
+        const dialog = document.getElementById('successDialog');
+        dialog.classList.remove('hidden');
+        setTimeout(() => {
+            dialog.classList.add('hidden');
+        }, 2000); // Hide after 2 seconds
+    }
+</script> --}}
 </div>
 
 
@@ -284,7 +331,7 @@
 
             <!-- Select Service -->
             <div class="flex items-center mb-4">
-                <select wire:model="selectedService" class="border rounded px-4 py-2 w-full">
+                <select wire:model="selectedService" required class="border rounded px-4 py-2 w-full">
                     <option value="" selected>-- Select Service --</option>
                     @foreach ($services as $service)
                         <option value="{{ $service['id'] }}">{{ $service['nama_servis'] }} -
@@ -343,7 +390,7 @@
             <!-- Save Button -->
             <div class="mt-4 flex justify-end">
                 <button wire:click="save" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-2">
-                    Save Changes
+                    Simpan
                 </button>
                 <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
                     wire:click="$set('isModalOpen', false)">
@@ -357,6 +404,128 @@
                     {{ session('message') }}
                 </div>
             @endif
+        </div>
+    </div>
+@endif
+@if ($isModalDone)
+    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white w-11/12 max-w-3xl rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b px-6 py-4">
+                <h2 class="text-lg font-bold">Kode Pesanan: <span class="text-blue-600">ORD123456</span></h2>
+                <button class="text-gray-500 hover:text-red-600" onclick="closeModal()">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 space-y-6 overflow-y-auto max-h-[75vh]">
+                <!-- Customer Data and Handphone Data Side by Side -->
+                <div class="flex space-x-4">
+                    <!-- Customer Data -->
+                    <div class="w-1/2">
+                        <h3 class="text-sm font-semibold mb-2">Data Customer</h3>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <p><strong>Nama:</strong> {{ $booking->customer->nama }}</p>
+                            <p><strong>alamat:</strong> {{ $booking->customer->alamat }}</p>
+                            <p><strong>Telepon:</strong> {{ $booking->customer->no_hp }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Handphone and Issue Data -->
+                    <div class="w-1/2">
+                        <h3 class="text-sm font-semibold mb-2">Data Handphone dan Kendala</h3>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <p><strong>Handphone:</strong> {{ $booking->hpModel->hpMerk->merk }}
+                                {{ $booking->hpModel->model }}</p>
+                            <p><strong>imei:</strong> {{ $booking->imei }}</p>
+                            <p><strong>Kendala:</strong> {{ $booking->kendala }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service and Sparepart Table -->
+                <div>
+                    <h3 class="text-sm font-semibold mb-2">Detail Service dan Sparepart</h3>
+                    <table class="w-full border-collapse border border-gray-300 text-sm">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="border border-gray-300 px-4 py-2 text-left">Deskripsi</th>
+                                {{-- <th class="border border-gray-300 px-4 py-2 text-right">Harga</th> --}}
+                                <th class="border border-gray-300 px-4 py-2 text-center">Tipe Servis</th>
+                                <th class="border border-gray-300 px-4 py-2 text-right">Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($booking->detailBooking as $item)
+                <tr class="">
+                    {{-- <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th> --}}
+                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
+                    <td class="px-4 py-2 text-gray-500 text-center">{{ $item->dataService->jenis_servis }} </td>
+                    <td class="px-4 py-2 text-gray-500 text-right">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                </tr>
+                @endforeach
+                @foreach ($booking->sparepart_booking as $item)
+                    <tr class="">
+                        {{-- <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th> --}}
+                        <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
+                        <td class="px-4 py-2 text-gray-500 text-center">Sparepart </td>
+                        <td class="px-4 py-2 text-gray-500 text-right">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                    </tr>
+                @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-gray-200 font-bold">
+                                <td class="border border-gray-300 px-4 py-2" colspan="2">Total</td>
+                                <td class="border border-gray-300 px-4 py-2 text-right">Rp{{number_format($total, 0, ',', '.')}},-</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Payment Section -->
+                <div>
+                    <h3 class="text-sm font-semibold mb-2">Pembayaran</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="amount-paid" class="block text-sm font-medium">Catatan</label>
+                            <input type="text" id="amount-paid" wire:model="catatan" class="w-full border-gray-300 rounded-lg shadow-sm"
+                                placeholder="Masukkan catatan">
+                            @error('catatan') 
+                                <span class="text-red-600 text-sm">{{ $message }}</span> 
+                            @enderror
+                        </div>
+                        <!-- Dropdown Metode Pembayaran -->
+                        <div>
+                            <label for="payment-method" class="block text-sm font-medium">Metode Pembayaran</label>
+                            <select id="payment-method" wire:model="metodeSelected" class="w-full border-gray-300 rounded-lg shadow-sm">
+                                <option value="">Pilih Metode</option>
+                                @foreach ($metode as $item)
+                                    <option value="{{ $item->id }}">{{ $item->metode }}</option>
+                                @endforeach
+                            </select>
+                            @error('metodeSelected') 
+                                <span class="text-red-600 text-sm">{{ $message }}</span> 
+                            @enderror
+                        </div>
+                
+                        <!-- Input Jumlah Bayar -->
+                        
+                        <div>
+                            <label for="amount-paid" class="block text-sm font-medium">Jumlah Bayar</label>
+                            <input type="number" id="amount-paid" wire:model="bayar" class="w-full border-gray-300 rounded-lg shadow-sm"
+                                placeholder="Masukkan jumlah bayar">
+                            @error('bayar') 
+                                <span class="text-red-600 text-sm">{{ $message }}</span> 
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Modal Footer -->
+            <div class="flex justify-end items-center border-t px-6 py-4">
+                <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg mr-2"
+                    wire:click="$set('isModalDone', false)">Batal</button>
+                <button wire:click="selesaikan" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Simpan</button>
+            </div>
         </div>
     </div>
 @endif
