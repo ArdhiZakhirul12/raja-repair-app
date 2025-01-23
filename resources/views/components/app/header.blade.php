@@ -3,7 +3,10 @@
         <div class="flex items-center justify-between h-16 {{ $variant === 'v2' || $variant === 'v3' ? '' : 'lg:border-b border-gray-200 dark:border-gray-700/60' }}">
             <!-- Header: Left side -->
             <div class="flex">
-                
+                <p class="text-sm">
+                    <span id="current-date">{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</span> - 
+                    <span id="current-time"></span>
+                </p>
                 <!-- Hamburger button -->
                 <button
                     class="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 lg:hidden"
@@ -47,3 +50,21 @@
         </div>
     </div>
 </header>
+<script>
+    function updateTime() {
+        const timeElement = document.getElementById('current-time');
+        const now = new Date();
+
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+
+        timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    // Inisialisasi waktu saat pertama kali dimuat
+    updateTime();
+
+    // Perbarui setiap 1 detik
+    setInterval(updateTime, 1000);
+</script>
