@@ -1,15 +1,59 @@
 <div>
+    @if (session('success'))
+        <div id="notification"
+            class="fixed top-5 right-5 bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity duration-10">
+            <p>{{ session('success') }}</p>
+        </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                notification.classList.add('opacity-0');
+                setTimeout(() => {
+                    notification.classList.remove('opacity-0');
+                    notification.classList.add('opacity-100');
+                }, 100);
+
+                setTimeout(() => {
+                    notification.classList.remove('opacity-100');
+                    notification.classList.add('opacity-0');
+                }, 2000);
+
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        });
+    </script>
+    <style>
+        #notification {
+            transition: opacity 1s ease-in-out;
+        }
+        .opacity-0 {
+            opacity: 0;
+        }
+        .opacity-100 {
+            opacity: 1;
+        }
+    </style>
+    @endif
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between my-2 sm:my-2">
             <h1 class="text-2xl md:text-2xl text-gray-800 dark:text-gray-100 font-bold">
                 Detail Transaksi Servis
-            </h1>            
-            <button 
-                class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-                onclick="document.getElementById('add-customer-modal').classList.remove('hidden')"
-            >
-                Selesaikan
-            </button> 
+            </h1>
+            <div>
+                <button 
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        wire:click="$set('isModalOpen', true)">
+        Edit Service
+                </button>
+                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+                    onclick="document.getElementById('add-customer-modal').classList.remove('hidden')">
+                    Selesaikan
+                </button>
+            </div>
+
 
 
             {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
@@ -107,7 +151,7 @@
                         <h2 class="mt-1
                             text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
                             Imei : {{ $booking->imei }}
-                        </h2>                                                
+                        </h2>
                     </div>
                     <div class="flex items-center mb-2">
                         {{-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -131,38 +175,42 @@
                               </tr>
                             </thead>
                             <tbody class="border-bottom">
-                                @foreach ($booking->detailBooking as $item)
-                                <tr class="">
-                                    <th class="px-4 py-2">{{$item->dataService->code}} </th>
-                                    <td class="px-4 py-2">{{$item->dataService->nama_servis}} </td>
-                                    <td class="px-4 py-2">{{$item->dataService->jenis_servis}} </td>
-                                    <td class="px-4 py-2">Rp{{number_format($item->harga, 0, ',', '.')}},- </td>
-                                  </tr>
-                                @endforeach                                                          
-                                @foreach ($booking->sparepart_booking as $item)
-                                <tr class="">
-                                    <th class="px-4 py-2">{{$item->sparepart->code}} </th>
-                                    <td class="px-4 py-2">{{$item->sparepart->nama_sparepart}} </td>
-                                    <td class="px-4 py-2">sparepart </td>
-                                    <td class="px-4 py-2">Rp{{number_format($item->harga, 0, ',', '.')}},- </td>
-                                  </tr>
-                                @endforeach      
-                                <tr class="border-top">
-                                    <td></td>    
-                                    <td></td>    
-                                    <td class="px-4 text-right"><h2 class="text-l font-semibold">Total :</h2></td>    
-                                    <td class="px-4 py-2"><h2 class="text-l font-semibold">Rp{{number_format($total, 0, ',', '.')}},-</h2></td>    
-                                </tr>                                                    
-                            </tbody>
-                          </table>
-                        
-                          
-                        
-                      
-                      
-                   
-                </div>
-    
+                                 @foreach ($booking->detailBooking as $item)
+                <tr class="">
+                    <th class="px-4 py-2">{{ $item->dataService->code }} </th>
+                    <td class="px-4 py-2">{{ $item->dataService->nama_servis }} </td>
+                    <td class="px-4 py-2">{{ $item->dataService->jenis_servis }} </td>
+                    <td class="px-4 py-2">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                </tr>
+                @endforeach
+                @foreach ($booking->sparepart_booking as $item)
+                    <tr class="">
+                        <th class="px-4 py-2">{{ $item->sparepart->code }} </th>
+                        <td class="px-4 py-2">{{ $item->sparepart->nama_sparepart }} </td>
+                        <td class="px-4 py-2">sparepart </td>
+                        <td class="px-4 py-2">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                    </tr>
+                @endforeach
+                <tr class="border-top">
+                    <td></td>
+                    <td></td>
+                    <td class="px-4 text-right">
+                        <h2 class="text-l font-semibold">Total :</h2>
+                    </td>
+                    <td class="px-4 py-2">
+                        <h2 class="text-l font-semibold">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+
+
+
+
+
+
+    </div>
+
 
 
 
@@ -206,4 +254,93 @@
 </div>
 </div>
 </div>
+@if ($isModalOpen)
+<div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
+        <!-- Close Button -->
+        <button 
+            class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            wire:click="$set('isModalOpen', false)">
+            ✕
+        </button>
+
+        <h2 class="text-lg font-bold mb-4">Edit Detail Service</h2>
+
+        <!-- Select Service -->
+        <div class="flex items-center mb-4">
+            <select wire:model="selectedService" class="border rounded px-4 py-2 w-full">
+                <option value="" selected>-- Select Service --</option>
+                @foreach($services as $service)
+                    <option value="{{ $service['id'] }}">{{ $service['nama_servis'] }} - Rp{{ $service['harga'] }}</option>
+                @endforeach
+            </select>
+            <button wire:click="addService" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Add Service
+            </button>
+        </div>
+
+        <!-- Services Table -->
+        <table class="w-full table-auto border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-4 py-2 text-left">Service Name</th>
+                    <th class="border px-4 py-2 text-left">Price</th>
+                    <th class="border px-4 py-2 text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($serviceOld as $service)
+                <tr>                        
+                    <td class="border px-4 py-2">{{ $service->dataService->nama_servis }}</td>
+                    <td class="border px-4 py-2">Rp{{ $service['harga'] }}</td>
+                    <td class="border px-4 py-2 text-center">
+                        <button wire:click="removeServiceOld({{ $service['id'] }})" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+                @endforeach
+                @forelse($addedServices as $service)
+                    <tr>                        
+                        <td class="border px-4 py-2">{{ $service->nama_servis }}</td>
+                        <td class="border px-4 py-2">Rp{{ $service['harga'] }}</td>
+                        <td class="border px-4 py-2 text-center">
+                            <button wire:click="removeService({{ $service['id'] }})" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                
+                @empty
+                    <tr>
+                        <td colspan="3" class="border px-4 py-2 text-center text-gray-500">No services added</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        <!-- Save Button -->
+        <div class="mt-4 flex justify-end">
+            <button 
+                wire:click="save" 
+                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-2">
+                Save Changes
+            </button>
+            <button 
+                class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+                wire:click="$set('isModalOpen', false)">
+                Cancel
+            </button>
+        </div>
+
+        <!-- Success Message -->
+        @if (session()->has('message'))
+            <div class="mt-4 p-2 bg-green-100 text-green-800 rounded">
+                {{ session('message') }}
+            </div>
+        @endif
+    </div>
 </div>
+@endif
+</div>
+
