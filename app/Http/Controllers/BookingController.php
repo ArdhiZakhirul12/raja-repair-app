@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\booking;
 use App\Models\customer;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -16,6 +18,21 @@ class BookingController extends Controller
         $bookings = booking::with(['sparepart_booking','detailBooking'])->where('user_id', auth()->id())->get();
         return view('customer-service.booking.list', compact('bookings'));
     }
+
+
+    
+    public function getBooking()
+{
+    $bookings = booking::with(['sparepart_booking','detailBooking'])->where('user_id', auth()->id())->get();
+    // $customers = customer::where('user_id',Auth::user()->id)->get();
+
+    return DataTables::of($bookings)
+        // ->addColumn('action', function ($customer) {
+        //     return '<a href="/customer/edit/'.$customer->id.'" class="btn btn-sm btn-primary">Edit</a>';
+        // })
+        ->rawColumns(['action'])
+        ->make(true);
+}
 
     /**
      * Show the form for creating a new resource.
@@ -35,6 +52,15 @@ class BookingController extends Controller
         }
         return response()->json(['exists' => false]);
     
+    }
+
+    
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function displayDetail()
+    {
+        return view('livewire.detail-booking');
     }
 
     /**
