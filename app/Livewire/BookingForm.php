@@ -124,9 +124,9 @@ class BookingForm extends Component
         }
 
         //membuat code pesanan
-        $dateTime = date("YmdHis"); // Waktu saat ini
-        $random = bin2hex(random_bytes(3)); // 6 karakter random
-        $kode_pesanan = "ORD" . $dateTime . $random;
+        $time = substr(time(), -5); // Mengambil 5 digit terakhir dari timestamp
+        $random = bin2hex(random_bytes(1)); // 2 karakter hex random
+        $kode_pesanan = strtoupper('ORD'.$time . $random);
 
         //membuat booking
         $createBook = booking::create(([
@@ -146,22 +146,22 @@ class BookingForm extends Component
         ]));
         if ($this->service_id != null) {
             $serviceIds = $validated['service_id'];
-            for($i = 0; $i < count($serviceIds); $i++)
-            detailBooking::create([
-                'booking_id' => $createBook['id'],
-                'data_service_id' => $serviceIds[$i],
-                'harga' => $this->harga_service[$i],
-            ]);
+            for ($i = 0; $i < count($serviceIds); $i++)
+                detailBooking::create([
+                    'booking_id' => $createBook['id'],
+                    'data_service_id' => $serviceIds[$i],
+                    'harga' => $this->harga_service[$i],
+                ]);
         }
 
         if ($this->sparepart_id != null) {
             $sparepartIds = $validated['sparepart_id'];
-            for($i = 0; $i < count($sparepartIds); $i++)
-            sparepart_booking::create([
-                'booking_id' => $createBook['id'],
-                'sparepart_id' => $sparepartIds[$i],
-                'harga' => $this->harga_sparepart[$i],
-            ]);
+            for ($i = 0; $i < count($sparepartIds); $i++)
+                sparepart_booking::create([
+                    'booking_id' => $createBook['id'],
+                    'sparepart_id' => $sparepartIds[$i],
+                    'harga' => $this->harga_sparepart[$i],
+                ]);
         }
 
 
