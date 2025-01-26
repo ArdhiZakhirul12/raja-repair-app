@@ -182,8 +182,174 @@
                 </table>
 
     </div>
+   
 </div>
 
+{{-- DESAI STRUK PEMBAYARAN --}}
+
+<div class="bg-white rounded shadow-md p-4 my-3 w-4/6 ">
+    <div class="struk-header">
+        <div class="logo-center justify-center text-center">
+            <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
+        </div>
+        <div class="address-center text-center">
+            <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
+            <p class="text-sm pb-2">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur
+                61257</p>
+            <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
+        </div>
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+        <div class="text-center">
+            <h3 class="text-l font-bold pb-3">#{{ $booking->kode_pesanan }}</h3>
+            <h3 class="text-l ">Pemesanan: 12-20-2024</h3>
+        </div>
+
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+      
+        <div class="flex p-3">
+            <div class="w-1/4 pr-3">
+                {{-- <p class="text-sm">Kode Pesanan</p> --}}
+                <p class="text-sm pb-2">Nama</p>
+                <p class="text-sm pb-2">No. HP</p>
+                {{-- <p class="text-sm">Alamat</p> --}}
+                <p class="text-sm pb-2">Kendala</p>
+                <p class="text-sm pb-2">Teknisi</p>
+            </div>
+            <div class="w-3/4">
+                {{-- <p class="text-sm pb-2">: {{ $booking->kode_pesanan }}</p> --}}
+                <p class="text-sm pb-2">: {{ $booking->customer->nama }}</p>
+                <p class="text-sm pb-2">: {{ $booking->customer->no_hp }}</p>
+                {{-- <p class="text-sm pb-2">: {{ $booking->customer->alamat }}</p> --}}
+                <p class="text-sm pb-2">: {{ $booking->kendala }}</p>
+                <p class="text-sm pb-2">: {{ $booking->teknisi->nama }}
+                <p class="text-sm pb-2">: {{ $booking->teknisi->no_hp }}
+            </div>
+        </div>
+     
+
+
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+        <table class=" rounded-lg overflow-hidden">
+            <thead class="border-b-2 ">
+                <tr>
+                    <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
+                    <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
+                    <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe</th>
+                    <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($booking->detailBooking as $item)
+                    <tr>
+                        <td class="px-4 py-2 text-gray-500">{{ $item->dataService->code }}</td>
+                        <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }}</td>
+                        <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }}</td>
+                        <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
+                    </tr>
+                @endforeach
+                
+                @foreach ($booking->sparepart_booking as $item)
+                    <tr>
+                        <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }}</td>
+                        <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }}</td>
+                        <td class="px-4 py-2 text-gray-500">Sparepart</td>
+                        <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
+                    </tr>
+                @endforeach
+                
+                <tr style="border-top: 2px dashed rgba(0, 0, 0, 0.14); margin: 20px 0;">
+                    <td><h2 class="text-l font-semibold mt-4">TOTAL :</h2></td>
+                    <td></td>
+                    <td class="px-4 text-right"></td>
+                    <td class="px-4 py-2">
+                        <h2 class="text-l font-semibold mt-4">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>Bayar</td>
+                    <td></td>
+                    <td></td>
+                    <td class="px-4 py-2">Rp.sekian</td>
+                </tr>
+                
+                <tr>
+                    <td>Kembali</td>
+                    <td></td>
+                    <td></td>
+                    <td class="px-4 py-2">Rp.sekian</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+        <div class="text-center">
+            <p class="text-sm">Terima kasih telah mempercayakan servis handphone anda kepada kami</p>
+            <p class="text-sm">Semoga handphone anda kembali normal dan berfungsi dengan baik</p></div>
+    </div>
+</div>
+
+
+{{-- DESAI STRUK SPK --}}
+
+<div class="bg-white rounded shadow-md p-4 my-3 w-4/6 ">
+    <div class="struk-header">
+        <div class="logo-center justify-center text-center">
+            <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
+        </div>
+        <div class="address-center text-center">
+            <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
+            <p class="text-sm pb-2 px-4">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur
+                61257</p>
+            <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
+        </div>
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+        <div class="text-center">
+            <h3 class="text-l font-bold pb-3">#{{ $booking->kode_pesanan }}</h3>
+            <h3 class="text-l ">Pemesanan: 12-20-2024</h3>
+        </div>
+
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+        <div class="flex p-3">
+            <div class="w-1/4 pr-3">
+                {{-- <p class="text-sm">Kode Pesanan</p> --}}
+                <p class="text-sm pb-2">Nama</p>
+                <p class="text-sm pb-2">No. HP</p>
+                {{-- <p class="text-sm">Alamat</p> --}}
+                <p class="text-sm pb-2">Kendala</p>
+                <p class="text-sm pb-2">Teknisi</p>
+            </div>
+            <div class="w-3/4">
+                {{-- <p class="text-sm pb-2">: {{ $booking->kode_pesanan }}</p> --}}
+                <p class="text-sm pb-2">: {{ $booking->customer->nama }}</p>
+                <p class="text-sm pb-2">: {{ $booking->customer->no_hp }}</p>
+                {{-- <p class="text-sm pb-2">: {{ $booking->customer->alamat }}</p> --}}
+                <p class="text-sm pb-2">: {{ $booking->kendala }}</p>
+                <p class="text-sm pb-2">: {{ $booking->teknisi->nama }}
+                <p class="text-sm pb-2">: {{ $booking->teknisi->no_hp }}
+            </div>
+        </div>
+     
+
+
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 5px 0;">
+        <div class="text-center py-2">
+            <h2 class="text-l font-semibold ">Kendala:</h2>
+            <p class="px-3 pb-4">Hp tidak mau menyala dan boot loop terus, pin password lupa, pengguna juga tidak paham</p>
+            <h2 class="text-s font-semibold pb-4">Teknisi : Subagiyo kirun</h2>
+            <h2 class="text-l font-bold ">Nomor Urut</h2>
+            <h2 class="text-7xl font-bold ">07</h2>
+        </div>
+       
+        
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+        <h2 class="text-center text-2xl py-2 text-l font-semibold ">Terimakasih</h2>
+    </div>
+</div>
 
 </div>
 <div class="w-3/6 pl-4 ">
