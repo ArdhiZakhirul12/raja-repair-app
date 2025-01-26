@@ -341,7 +341,25 @@
                                 </div>
                             </div>
                         </a>
+                    
 
+                        <a href="{{ route('cs.sparepart.index') }}"
+                        :active="request() - > routeIs('cs.sparepart.index')">
+                        <div class="flex items-center justify-between p-3">
+                            <div class="flex items-center">
+                                {{-- <i class="fa fa-toolbox"></i> --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="20" height="20" viewBox="0 0 20 20" fill="none">
+
+                                    <image id="image0_26_76" width="20" height="20"
+                                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADeklEQVR4nO2cy2sUQRCHWw8+LhIEUTzoJV7iY6sSFG+5xe3aaPSQP0HwIl4U9ZSjj0gQokchiHjISRSC6HZvEBL/A08SERPxQUDM46DESG8STUJ2M7uZ7Z7Z+X3QLMxOT1d/U1PzYBilAAAAAAAAACDLjPee3m003TSa3llNc+7XCN1wy0PH1jSUOjt3WSFjhRfXNyNUdP83cvxiof1CpDh17rxKM0Zy1zaSvEr21UaMu6jUNqtpwI0RZf2lWPie66eSxnBv2w4jdMcIfa4m00ZtmhdcSYkjNqP54cp2o6z/Pw4aVEnDaLodi2BZL5wej+Rbd9YbV1HzpdXbi9JnzVGmcxdVkrCaphoiWsrZPVY8e2x/rTEZ4cNGeGZrounn6+6OQyopNEyy/JM9aQvtHbXEZDQPrd9OfXOhRyozoqV8gpqxQj1R4nl1jg8aod9xiDZCv0py8oDKimi7lNkLtsDXN41H05WN+tc7FyN8WWVKtKzUTh5yVzqV46HnsYrW/ExlUbQtZzcNVIxH08eYM/qDyqxo4elK8RhN8/FmNM2rpr+8k0oZzZO1ijZCL9yJcqM+b/K0z2oerjDerGrqGxapKvpW5Xh4olI/I/zNFKh3zfoF6nXLK49H71VibsGdbB+ZrWnKjVX1ZKj5aYQdNWzO5I5WyeLVO+eJSgtRJKqYKOn27jh3bkk4r9KCT9F9fWq7EXobU4kac9tTacGnaMdogY4YTd+3ItnV7VIXt6o04Vu0o5jnE+4auC7JmidGdcdxlTZCiHaUenIt5Qf/muYiSp61mvtH8qf2qDQSSvQKL7va9hrhP5ue+HpyLSrNhBbtiCJapR2I9gREewKiPQHRnoBoT0C0JyDaExDtCYj2BERvkajPapNw+2tiiMH7s+nyS+VCD6zQj+U22MwvlI+Hmq8Rvl/LuxZpx4Sar9X8ZYND76tqUmyo+TbtY8akzReiGaIzkdFZawqiGaJtAjIRGS3h5aF0SHixqNEC0cGzziKjObgolA4JLxE1WpLTcMMiEL0YOgubIqNVk2Ih2g8Q7QmI9gREewKisyo6a01BNEO0TUAmIqMlvDyUDgkvFjVaIDp41llkNAcXhdIh4SUmo0aH+DKYJKsZ4U8eRHN/6Ina0E3z3YaLdl/pWv7S+HTwCYv3Nu3mXu1LZQAAAAAAAAAAAAAqA/wFIYhuUZ6HB7IAAAAASUVORK5CYII=" />
+
+                                </svg>
+                                <span
+                                    class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sparepart</span>
+                            </div>
+                        </div>
+                    </a>
 
 
 
