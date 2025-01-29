@@ -20,7 +20,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
    
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/datatable_style.css', 'resources/js/components/MultiSelect.js','resources\css\MultiSelect.css'])
+        @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/datatable_style.css', 'resources/js/components/MultiSelect.js','resources\css\MultiSelect.css','resource\css\form_style.css'])
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>

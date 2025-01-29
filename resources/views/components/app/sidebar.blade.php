@@ -342,13 +342,13 @@
                             </div>
                         </a>
                     
-
+{{-- 
                         <a href="{{ route('cs.sparepart.index') }}"
                         :active="request() - > routeIs('cs.sparepart.index')">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center">
                                 {{-- <i class="fa fa-toolbox"></i> --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                {{-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="20" height="20" viewBox="0 0 20 20" fill="none">
 
                                     <image id="image0_26_76" width="20" height="20"
@@ -359,7 +359,7 @@
                                     class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sparepart</span>
                             </div>
                         </div>
-                    </a>
+                    </a> --}}
 
 
 

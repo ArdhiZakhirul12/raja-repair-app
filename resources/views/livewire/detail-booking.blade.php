@@ -187,7 +187,7 @@
 
 {{-- DESAI STRUK PEMBAYARAN --}}
 
-<div class="bg-white rounded shadow-md p-4 my-3 w-4/6 " style="display:none" id="struk-pembayaran">
+<div class="bg-white rounded shadow-md p-4 my-3 " style="display:none;width:58mm;text-align: center;" id="struk-pembayaran">
     <div class="struk-header">
         <div class="logo-center justify-center text-center">
             <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
@@ -206,12 +206,38 @@
 
         <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
 
-        <div class="text-left">
+        {{-- <div class="text-left">
             <p class="text-sm pb-2">Nama      : {{ $booking->customer->nama }}</p>
             <p class="text-sm pb-2">No.HP     : {{ $booking->customer->no_hp }}</p>
             <p class="text-sm pb-2">Kendala   : {{ $booking->kendala }}</p>
             <p class="text-sm pb-2">Teknisi   : {{ $booking->teknisi->nama }}</p>
             <p class="text-sm pb-2">Hp Teknisi: {{ $booking->teknisi->no_hp }}</p>
+        </div> --}}
+
+        <div class="flex justify-center">
+            <table>
+                <tr>
+                    <td class="px-4 py-2">Nama</td>
+                    <td class="px-4 py-2">: {{ $booking->customer->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">No.HP</td>
+                    <td class="px-4 py-2">: {{ $booking->customer->no_hp }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">Kendala</td>
+                    <td class="px-4 py-2">: {{ $booking->kendala }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">Teknisi</td>
+                    <td class="px-4 py-2">: {{ $booking->teknisi->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2"></td>
+                    <td class="px-4 py-2">: {{ $booking->teknisi->no_hp }}</td>
+                </tr>
+            </table>
+
         </div>
 
      
@@ -286,7 +312,7 @@
 
 
 </div>
-<div class="w-3/6 pl-4 ">
+<div class="w-2/6 pl-4 ">
 
     <div class="bg-white rounded shadow-md p-4   mb-3">
         <div class="flex items-center">
@@ -389,10 +415,12 @@
         @else
         @if ($booking->status == 'diproses')
 
-            <button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-                wire:click="$set('isEditTeknisi', true)">
-                Ubah Teknisi
-            </button>
+            <div class="flex justify-end">
+                <button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                    wire:click="$set('isEditTeknisi', true)">
+                    Ubah Teknisi
+                </button>
+            </div>
             @endif
         @endif
 
@@ -655,7 +683,9 @@
             <div class="flex justify-end items-center border-t px-6 py-4">
                 <button class="bg-red-400 text-white px-4 py-2 rounded-lg mr-2"
                     wire:click="$set('isModalDone', false)">Kembali</button>
-                <button wire:click="selesaikan" onclick="printDiv('struk-pembayaran')" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Simpan</button>
+                <button wire:click="selesaikan" 
+                {{-- onclick="printDiv('struk-pembayaran')"  --}}
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg">Simpan</button>
             </div>
         </div>
     </div>
@@ -668,7 +698,24 @@
         let printContent = document.getElementById(divId).innerHTML;
         let originalContent = document.body.innerHTML;
 
-        document.body.innerHTML = printContent;  // Hanya menampilkan elemen yang dipilih
+        let style = `
+        <style>
+            @media print {
+                @page {
+                    size: 58mm portrait; /* Bisa juga 'A4 landscape' */
+                    margin: 1cm;
+                }
+                body {
+                    font-size: 12px;
+                }
+                #spk-print {
+                    width: 100%;
+                }
+            }
+        </style>
+    `;
+
+        document.body.innerHTML = style + printContent;  // Hanya menampilkan elemen yang dipilih
         window.print();  // Perintah print
         document.body.innerHTML = originalContent;  // Mengembalikan halaman ke tampilan awal
     }

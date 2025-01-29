@@ -34,7 +34,15 @@
                     <div class="w-1/2">
                         <label for="no_hp" class="block text-sm font-medium text-gray-400">Nomor HP</label>
                         <input type="text" id="nohp" wire:model="nohp"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            class="input_group mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        @if ($errors->has('nohp'))
+                            <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                            </svg>
+                            @error('nohp') <span>{{ $message }}</span> @enderror
+                        </div>
+                        @endif
                     </div>
 
                     <!-- Input Nama -->
@@ -42,6 +50,14 @@
                         <label for="nama" class="block text-sm font-medium text-gray-400">Nama</label>
                         <input type="text" id="nama" wire:model="nama"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        @if ($errors->has('nama'))
+                            <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                            </svg>
+                            @error('nama') <span>{{ $message }}</span> @enderror
+                        </div>
+                        @endif    
                     </div>
                 </div>
 
@@ -50,6 +66,15 @@
                     <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
                     <textarea id="alamat" wire:model="alamat" rows="3"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                    @if ($errors->has('alamat'))
+                        <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                        </svg>
+                        @error('alamat') <span>{{ $message }}</span> @enderror
+                    </div>
+                    @endif
+                
                 </div>
 
 
@@ -87,12 +112,32 @@
                                 </template>
                             </ul>
                         </div>
+                        @if ($errors->has('teknisiId'))
+                            <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                            </svg>
+                        @error('teknisiId') <span>{{ $message }}</span> @enderror
+                        </div>
+                      
+                    </div>
+                    @endif
+                    
+
                     </div>
                     <div class="w-1/2">
                         <label for="no_hp_alternatif" class="block text-sm font-medium text-gray-400">No Hp
                             Alternatif</label>
                         <input type="text" id="no_hp_alternatif" wire:model="no_hp_alternatif"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        @if ($errors->has('no_hp_alternatif'))
+                            <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                            </svg>
+                            @error('no_hp_alternatif') <span>{{ $message }}</span> @enderror
+                        </div>
+                        @endif
                     </div>
                 </div>
 
@@ -107,6 +152,14 @@
                     <label for="kendala" class="block text-sm font-medium text-gray-400">Kendala</label>
                     <textarea id="kendala" wire:model="kendala" rows="5"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                    @if ($errors->has('kendala'))
+                        <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                        </svg>
+                        @error('kendala') <span>{{ $message }}</span> @enderror
+                    </div>
+                    @endif
                 </div>
                 {{-- <!-- Tombol Submit -->
                     <div class="flex justify-end">
@@ -184,8 +237,6 @@
                         }
                     }">
 
-
-
                         <div class="flex space-x-4 mb-4">
                             <div class="w-1/2">
                                 <!-- Dropdown Merk HP -->
@@ -210,6 +261,14 @@
                                         </template>
                                     </ul>
                                 </div>
+                                @if ($errors->has('merkHpId'))
+                                    <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                        </svg>
+                                        @error('merkHpId') <span>{{ $message }}</span> @enderror
+                                    </div>
+                                @endif
                             </div>
 
 
@@ -238,6 +297,14 @@
                                         </template>
                                     </ul>
                                 </div>
+                                @if ($errors->has('modelHpId'))
+                                    <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                        </svg>
+                                        @error('modelHpId') <span>{{ $message }}</span> @enderror
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
@@ -248,6 +315,14 @@
                             <label for="imei" class="block text-sm font-medium text-gray-400">Imei</label>
                             <input type="text" id="imei" wire:model="imei"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                   @if ($errors->has('modelHpId'))
+                                    <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                        </svg>
+                                        @error('modelHpId') <span>{{ $message }}</span> @enderror
+                                    </div>
+                                @endif    
                         </div>
 
 
@@ -325,35 +400,40 @@
                         <div x-data="{
                             open: false,
                             search: '',
-                            selectedItems: [], // Menyimpan sparepart yang dipilih
-                            items: @js($spareparts), // Data sparepart yang dikirim dari controller
+                            selectedItems: [],
+                            items: @js($spareparts),
                             selectItem(item) {
-                                // Cek jika item sudah ada di selectedItems, jika sudah, hapus
                                 if (this.selectedItems.some(i => i.id === item.id)) {
                                     this.selectedItems = this.selectedItems.filter(i => i.id !== item.id);
                                 } else {
-                                    // Tambahkan item yang dipilih ke selectedItems
                                     this.selectedItems.push(item);
                                 }
-                                // Set state untuk mengupdate input field
                                 this.search = '';
-                                @this.set('sparepart_id', this.selectedItems.map(i => i.id)); // Kirim array ID ke Livewire
-                                @this.set('harga_sparepart', this.selectedItems.map(i => i.harga)); // Kirim array ID ke Livewire
-                        
+                                @this.set('sparepart_id', this.selectedItems.map(i => i.id));
+                                @this.set('harga_sparepart', this.selectedItems.map(i => i.harga));
                                 this.open = false;
                             },
                             get displayText() {
-                                // Menampilkan nama-nama sparepart yang dipilih
                                 return this.selectedItems.map(i => i.nama_sparepart).join(', ') || 'Pilih Sparepart';
                             }
                         }">
-                            <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih
-                                Sparepart</label>
+                            <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih Sparepart</label>
                             <input type="text" x-model="search" x-on:click="open = !open"
                                 x-on:input="open = true"
+                                wire:model.defer="sparepart_id"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="Cari Sparepart..." :value="displayText">
-
+                        
+                            <!-- Tampilkan error jika ada -->
+                            @error('sparepart_id')
+                            <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                </svg>
+                                <span>{{ $message }}</span>
+                            </div>
+                            @enderror
+                        
 
                             <!-- Dropdown -->
                             <div x-show="open" x-transition x-on:click.away="open = false"
@@ -376,22 +456,15 @@
                                 <label for="garansi_check" class="ml-2">Garansi</label>
                             </div>
 
-
-                            <!-- Tombol Submit -->
-
-
-
                         </div>
-
-
-
-
 
                     </div>
 
                 </div>
                 <div class="flex justify-end mr-4 mt-4">
-                    <button id="create-booking" onclick="printDiv('spk-print')" type="submit"
+                    <button 
+                    {{-- onclick="if (document.getElementById('nohp').value && document.getElementById('nama').value && document.getElementById('alamat').value && document.getElementById('no_hp_alternatif').value && document.getElementById('kendala').value && document.getElementById('imei').value) { printDiv('spk-print'); }"  --}}
+                    type="submit"
                         class="px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         Simpan
                     </button>
@@ -414,7 +487,8 @@
         </div>
         <div class="address-center text-center">
             <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
-            <p class="text-sm pb-2 px-4">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur
+            <p class="text-sm pb-2 px-4">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo,
+                Jawa Timur
                 61257</p>
             <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
         </div>
@@ -426,38 +500,73 @@
 
         <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
 
-        <div class="flex p-3">
+        {{-- <div class="flex p-3">
             <div class="w-1/4 pr-3">
-                {{-- <p class="text-sm">Kode Pesanan</p> --}}
+             
                 <p class="text-sm pb-2">Nama</p>
                 <p class="text-sm pb-2">No. HP</p>
-                {{-- <p class="text-sm">Alamat</p> --}}
+   
                 <p class="text-sm pb-2">Kendala</p>
                 <p class="text-sm pb-2">Teknisi</p>
             </div>
             <div class="w-3/4">
-                {{-- <p class="text-sm pb-2">: {{ $booking->kode_pesanan }}</p> --}}
+           
                 <p class="text-sm pb-2">: customer</p>
                 <p class="text-sm pb-2">: No HP</p>
-                {{-- <p class="text-sm pb-2">: {{ $booking->customer->alamat }}</p> --}}
+               
                 <p class="text-sm pb-2">: Kendala</p>
                 <p class="text-sm pb-2">: Teknisi</p>
                 <p class="text-sm pb-2">: No HP Teknisi</p>
             </div>
+        </div> --}}
+        <div class="flex justify-center">
+            <table>
+                <tr>
+                    <td class="px-4 py-2">Nama</td>
+                    <td class="px-4 py-2">
+                        {{-- : {{ $booking->customer->nama }} --}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">No.HP</td>
+                    <td class="px-4 py-2">
+                        {{-- : {{ $booking->customer->no_hp }} --}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">Kendala</td>
+                    <td class="px-4 py-2">
+                        {{-- : {{ $booking->kendala }} --}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">Teknisi</td>
+                    <td class="px-4 py-2">
+                        {{-- : {{ $booking->teknisi->nama }} --}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2"></td>
+                    <td class="px-4 py-2">
+                        {{-- : {{ $booking->teknisi->no_hp }} --}}
+                    </td>
+                </tr>
+            </table>
+
         </div>
-     
 
 
         <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 5px 0;">
         <div class="text-center py-2">
             <h2 class="text-l font-semibold ">Kendala:</h2>
-            <p class="px-3 pb-4">Hp tidak mau menyala dan boot loop terus, pin password lupa, pengguna juga tidak paham</p>
+            <p class="px-3 pb-4">Hp tidak mau menyala dan boot loop terus, pin password lupa, pengguna juga tidak paham
+            </p>
             <h2 class="text-s font-semibold pb-4">Teknisi : Subagiyo kirun</h2>
             <h2 class="text-l font-bold ">Nomor Urut</h2>
             <h2 class="text-7xl font-bold ">07</h2>
         </div>
-       
-        
+
+
         <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
         <h2 class="text-center text-2xl py-2 text-l font-semibold ">Terimakasih</h2>
     </div>
@@ -465,13 +574,17 @@
 
 
 <script>
+
+    window.addEventListener('print-invoice', () => {
+        printDiv('spk-print');
+    });
     function printDiv(divId) {
         let printContent = document.getElementById(divId).innerHTML;
         let originalContent = document.body.innerHTML;
 
-        document.body.innerHTML = printContent;  // Hanya menampilkan elemen yang dipilih
-        window.print();  // Perintah print
-        document.body.innerHTML = originalContent;  // Mengembalikan halaman ke tampilan awal
+        document.body.innerHTML = printContent; // Hanya menampilkan elemen yang dipilih
+        window.print(); // Perintah print
+        document.body.innerHTML = originalContent; // Mengembalikan halaman ke tampilan awal
     }
 </script>
 
