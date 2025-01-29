@@ -218,32 +218,32 @@
                     <div class="flex mb-2 mr-4">
                         <i class="fa-solid fa-phone mr-4 text-green-400"></i>
 
-                        <p class="text-gray-400">{{ $booking->customer->no_hp }} </p>
+                        <p class="text-gray-500">{{ $booking->customer->no_hp }} </p>
                     </div>
                 </div>
 
                 <div>
                     <div class="flex mb-2">
                         <i class="fa-solid fa-phone mr-4 text-yellow-400"></i>
-                        <p class="text-gray-400">{{ $booking->no_hp_alternatif }} </p>
+                        <p class="text-gray-500">{{ $booking->no_hp_alternatif }} </p>
                     </div>
                 </div>
 
 
             </div>
 
-            <div class="flex mb-2">
+            <div class="flex mb-2 items-center">
                 <i class="fa-solid fa-location-dot text-red-500 mr-4"></i>
-                <p class="text-gray-400">{{ $booking->customer->alamat }}
+                <p class="text-sm text-gray-300">{{ $booking->customer->alamat }}
                 </p>
             </div>
 
             {{-- <p>Pilih Teknisi</p> --}}
+            <hr class="my-3">
 
-
-            <div class="flex mb-2 ">
+            <div class="flex mb-2 items-center">
                 <i class="fa-solid fa-bars-progress text-orange-500 mr-3"></i>
-                <p class="text-gray-400">{{ $booking->kendala }}</p>
+                <p class="text-sm text-gray-400">{{ $booking->kendala }}</p>
             </div>
 
 
@@ -455,8 +455,9 @@
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow-md">
                             <p><span class="text-gray-400">Nama</span> <span class="ml-6">: {{ $booking->customer->nama }}</span></p>
-                            <p><span class="text-gray-400">Alamat</span> <span class="ml-4">: {{ $booking->customer->alamat }}</span></p>
-                            <p><span class="text-gray-400">Telepon</span> <span class="ml-2">: {{ $booking->customer->no_hp }}</span></p>
+                            
+                            <p class="mb-2"><span class="text-gray-400">Telepon</span> <span class="ml-2">: {{ $booking->customer->no_hp }}</span></p>
+                            <p class="text-sm text-gray-300"><span class="text-gray-400"><i class="fa-solid fa-location-dot" style="color: #ff0000;"></i></span> <span class="ml-4">{{ $booking->customer->alamat }}</span></p>
                         </div>
                     </div>
 
@@ -474,10 +475,20 @@
                             <h2 class="text-l font-semibold ">Data Handphone</h2>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow-md">
-                            <p><span class="text-gray-400">Handphone</span> <span class="ml-1">: {{ $booking->hpModel->hpMerk->merk }}
-                                {{ $booking->hpModel->model }}</span></p>
-                            <p><span class="text-gray-400">Kode Imei</span> <span class="ml-4">   : {{ $booking->imei }}</span></p>
-                            <p><span class="text-gray-400">Kendala</span> <span class="ml-7">: {{ $booking->kendala }}</span></p>
+                        <table>
+                            <tr>
+                                <td class="text-gray-400">Handphone</td>
+                                <td>: {{ $booking->hpModel->hpMerk->merk }} {{ $booking->hpModel->model }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-gray-400">Kode Imei</td>
+                                <td>: {{ $booking->imei }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-gray-400">Kendala</td>
+                                <td class="text-sm text-gray-400">: {{ $booking->kendala }}</td>
+                            </tr>
+                        </table>
                         </div>
                     </div>
                 </div>
@@ -542,8 +553,21 @@
                                     <option value="{{ $item->id }}">{{ $item->metode }}</option>
                                 @endforeach
                             </select>
-                            @error('metodeSelected') 
+                            {{-- @error('metodeSelected') 
                                 <span class="text-red-600 text-sm">{{ $message }}</span> 
+                            @enderror --}}
+                            @error('metodeSelected') 
+                            <div
+                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                </svg>
+                              
+                                    <span>{{ $message }}</span>
+                              
+                            </div>
                             @enderror
                         </div>
                 
@@ -553,8 +577,21 @@
                             <label for="amount-paid" class="block text-sm font-medium text-gray-400">Jumlah Bayar</label>
                             <input type="number" id="amount-paid" wire:model="bayar" class="w-full border-gray-300 rounded-lg shadow-sm"
                                 placeholder="Masukkan jumlah bayar">
-                            @error('bayar') 
+                            {{-- @error('bayar') 
                                 <span class="text-red-600 text-sm">{{ $message }}</span> 
+                            @enderror --}}
+                            @error('bayar') 
+                            <div
+                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                </svg>
+                              
+                                    <span>{{ $message }}</span>
+                              
+                            </div>
                             @enderror
                         </div>
                     </div>
