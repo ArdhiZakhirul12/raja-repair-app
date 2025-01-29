@@ -6,12 +6,13 @@
             <x-dashboard.dashboard-card-01 title="Pendapatan" total="{{ count($totalCustomers) }}"/>
             <x-dashboard.dashboard-card-01 title="Customer" total="{{ count($totalCustomers) }}"/>
             <x-dashboard.dashboard-card-01 title="Teknisi" total="{{ count($teknisis) }}"/>
-            <x-dashboard.dashboard-card-08/>
-            <x-dashboard.dashboard-card-08/>
-            <x-dashboard.dashboard-card-06/>
-            <x-dashboard.dashboard-card-06/>
-            <x-dashboard.dashboard-card-06/>
-            <x-dashboard.dashboard-card-06/>
+            <x-dashboard.dashboard-card-08 title="Pelayanan servis per bulan" total="0" :exMonths="$exMonths" :exSales="$exSales" />
+            <x-dashboard.dashboard-card-08 title="Pendapatan per bulan" total="0" :exMonths="$exMonths" :exSales="$exSales" />
+            {{-- <x-dashboard.dashboard-card-08 title="Pendapatan per bulan" total="0"/> --}}
+            <x-dashboard.dashboard-card-06 title="Pelayanan per teknisi" />
+            <x-dashboard.dashboard-card-06 title="10 brand terbanyak" />
+            <x-dashboard.dashboard-card-06 title="10 servis terbanyak" />
+            <x-dashboard.dashboard-card-06 title="Repeat Order" />
 
 
               {{-- <x-dashboard.dashboard-card-02/>

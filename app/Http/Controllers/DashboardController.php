@@ -13,12 +13,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $exMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+        $exSales = [100, 200, 150, 300, 250, 400];
         $totalCustomers = customer::where('user_id',Auth::user()->id)->get();
         $totalServices = dataService::where('user_id',Auth::user()->id)->get();
         $totalSpareparts = sparepart::where('user_id',Auth::user()->id)->get();
         $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
 
-        return view('customer-service/dashboard/dashboard', compact('totalCustomers', 'totalServices', 'totalSpareparts','teknisis'));
+        return view('customer-service/dashboard/dashboard', compact('totalCustomers', 'totalServices', 'totalSpareparts','teknisis','exMonths','exSales'));
     }
 
     /**
