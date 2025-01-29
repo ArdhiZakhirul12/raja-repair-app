@@ -1,6 +1,8 @@
+
 <div>
+
     @if (session()->has('doneMsg'))
-    <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+    <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50" id="popup">
         <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
             <div class="flex justify-between items-center">
                 <h3 class="text-lg font-semibold">Notifikasi</h3>
@@ -12,7 +14,7 @@
             </div>
             <p class="mt-4 text-gray-700">{{ session('doneMsg') }}</p>
             <div class="mt-6 flex justify-end">
-                <button onclick="document.getElementById('popup').style.display='none'" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                <button wire:click="closeAndPrint" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                     Tutup
                 </button>
             </div>
@@ -185,128 +187,7 @@
    
 </div>
 
-{{-- DESAI STRUK PEMBAYARAN --}}
 
-<div class="bg-white rounded shadow-md p-4 my-3 " style="display:none;width:58mm;text-align: center;" id="struk-pembayaran">
-    <div class="struk-header">
-        <div class="logo-center justify-center text-center">
-            <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
-        </div>
-        <div class="address-center text-center">
-            <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
-            <p class="text-sm pb-2">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur
-                61257</p>
-            <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
-        </div>
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-        <div class="text-center">
-            <h3 class="text-l font-bold pb-3">#{{ $booking->kode_pesanan }}</h3>
-            <h3 class="text-l ">Pemesanan: 12-20-2024</h3>
-        </div>
-
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-
-        {{-- <div class="text-left">
-            <p class="text-sm pb-2">Nama      : {{ $booking->customer->nama }}</p>
-            <p class="text-sm pb-2">No.HP     : {{ $booking->customer->no_hp }}</p>
-            <p class="text-sm pb-2">Kendala   : {{ $booking->kendala }}</p>
-            <p class="text-sm pb-2">Teknisi   : {{ $booking->teknisi->nama }}</p>
-            <p class="text-sm pb-2">Hp Teknisi: {{ $booking->teknisi->no_hp }}</p>
-        </div> --}}
-
-        <div class="flex justify-center">
-            <table>
-                <tr>
-                    <td class="px-4 py-2">Nama</td>
-                    <td class="px-4 py-2">: {{ $booking->customer->nama }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2">No.HP</td>
-                    <td class="px-4 py-2">: {{ $booking->customer->no_hp }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2">Kendala</td>
-                    <td class="px-4 py-2">: {{ $booking->kendala }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2">Teknisi</td>
-                    <td class="px-4 py-2">: {{ $booking->teknisi->nama }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2">: {{ $booking->teknisi->no_hp }}</td>
-                </tr>
-            </table>
-
-        </div>
-
-     
-
-
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-
-        <div class="flex justify-center">
-            <table class="rounded-lg overflow-hidden text-center">
-            <thead class="border-b-2">
-                <tr>
-                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
-                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
-                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe</th>
-                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($booking->detailBooking as $item)
-                <tr>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->code }}</td>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }}</td>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }}</td>
-                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
-                </tr>
-                @endforeach
-                
-                @foreach ($booking->sparepart_booking as $item)
-                <tr>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }}</td>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }}</td>
-                    <td class="px-4 py-2 text-gray-500">Sparepart</td>
-                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
-                </tr>
-                @endforeach
-                
-                <tr style="border-top: 2px dashed rgba(0, 0, 0, 0.14); margin: 20px 0;">
-                <td><h2 class="text-l font-semibold mt-4">TOTAL :</h2></td>
-                <td></td>
-                <td class="px-4 text-right"></td>
-                <td class="px-4 py-2">
-                    <h2 class="text-l font-semibold mt-4">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
-                </td>
-                </tr>
-                
-                <tr>
-                <td>Bayar</td>
-                <td></td>
-                <td></td>
-                <td class="px-4 py-2">Rp.sekian</td>
-                </tr>
-                
-                <tr>
-                <td>Kembali</td>
-                <td></td>
-                <td></td>
-                <td class="px-4 py-2">Rp.sekian</td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
-        
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-
-        <div class="text-center">
-            <p class="text-sm">Terima kasih telah mempercayakan servis handphone anda kepada kami</p>
-            <p class="text-sm">Semoga handphone anda kembali normal dan berfungsi dengan baik</p></div>
-    </div>
-</div>
 
 
 
@@ -690,32 +571,164 @@
         </div>
     </div>
 @endif
+
+
+{{-- DESAI STRUK PEMBAYARAN --}}
+
+<div class="bg-white rounded shadow-md p-4 my-3 " style="display:none;width:mm;text-align: center;" id="struk-pembayaran">
+    <div class="struk-header">
+        <div class="logo-center justify-center text-center">
+            <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
+        </div>
+        <div class="address-center text-center">
+            <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
+            <p class="text-sm pb-2">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur
+                61257</p>
+            <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
+        </div>
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+        <div class="text-center">
+            <h3 class="text-l font-bold pb-3">#{{ $booking->kode_pesanan }}</h3>
+            <h3 class="text-l ">Pemesanan: 12-20-2024</h3>
+        </div>
+
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+
+
+        <div class="flex justify-center">
+            <table>
+                <tr>
+                    <td class="px-4 py-2">Nama</td>
+                    <td class="px-4 py-2">: {{ $booking->customer->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">No.HP</td>
+                    <td class="px-4 py-2">: {{ $booking->customer->no_hp }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">Kendala</td>
+                    <td class="px-4 py-2">: {{ $booking->kendala }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">Teknisi</td>
+                    <td class="px-4 py-2">: {{ $booking->teknisi->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2"></td>
+                    <td class="px-4 py-2">: {{ $booking->teknisi->no_hp }}</td>
+                </tr>
+            </table>
+
+        </div>
+
+     
+
+
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+        <div class="flex justify-center">
+            <table class="rounded-lg overflow-hidden text-center">
+            <thead class="border-b-2">
+                <tr>
+                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
+                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
+                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe</th>
+                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($booking->detailBooking as $item)
+                <tr>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->code }}</td>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }}</td>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }}</td>
+                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
+                </tr>
+                @endforeach
+                
+                @foreach ($booking->sparepart_booking as $item)
+                <tr>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }}</td>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }}</td>
+                    <td class="px-4 py-2 text-gray-500">Sparepart</td>
+                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
+                </tr>
+                @endforeach
+                
+                <tr style="border-top: 2px dashed rgba(0, 0, 0, 0.14); margin: 20px 0;">
+                <td><h2 class="text-l font-semibold mt-4">TOTAL :</h2></td>
+                <td></td>
+                <td class="px-4 text-right"></td>
+                <td class="px-4 py-2">
+                    <h2 class="text-l font-semibold mt-4">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
+                </td>
+                </tr>
+                
+                <tr>
+                <td>Bayar</td>
+                <td></td>
+                <td></td>
+                <td class="px-4 py-2">Rp.sekian</td>
+                </tr>
+                
+                <tr>
+                <td>Kembali</td>
+                <td></td>
+                <td></td>
+                <td class="px-4 py-2">Rp.sekian</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+        <div class="text-center">
+            <p class="text-sm">Terima kasih telah mempercayakan servis handphone anda kepada kami</p>
+            <p class="text-sm">Semoga handphone anda kembali normal dan berfungsi dengan baik</p></div>
+    </div>
 </div>
 
 
+{{-- <style>
+    @media print {
+        /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
+        @page {
+            size: Legal;
+            margin: 10mm; /* Sesuaikan margin sesuai kebutuhan */
+        }
+
+        /* Sesuaikan elemen agar mengikuti ukuran kertas */
+        body {
+            transform: scale(1.4); /* Skala 140% */
+            transform-origin: top left; /* Pastikan skala dari kiri atas */
+        }
+
+        /* Kontainer yang akan dicetak */
+        #print-invoice {
+            width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+    }
+</style> --}}
+
+
+</div>
+
+
+
+
 <script>
+    window.addEventListener('print-invoice', () => {
+        printDiv('struk-pembayaran');
+    });
     function printDiv(divId) {
         let printContent = document.getElementById(divId).innerHTML;
         let originalContent = document.body.innerHTML;
 
-        let style = `
-        <style>
-            @media print {
-                @page {
-                    size: 58mm portrait; /* Bisa juga 'A4 landscape' */
-                    margin: 1cm;
-                }
-                body {
-                    font-size: 12px;
-                }
-                #spk-print {
-                    width: 100%;
-                }
-            }
-        </style>
-    `;
-
-        document.body.innerHTML = style + printContent;  // Hanya menampilkan elemen yang dipilih
+        document.body.innerHTML = printContent;  // Hanya menampilkan elemen yang dipilih
         window.print();  // Perintah print
         document.body.innerHTML = originalContent;  // Mengembalikan halaman ke tampilan awal
     }

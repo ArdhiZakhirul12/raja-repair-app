@@ -164,10 +164,13 @@ class BookingForm extends Component
                 ]);
         }
 
-        $this->dispatch('print-invoice');
+        
 
-
+        session()->flash('inputData', $createBook);  
         session()->flash('message', 'Booking berhasil dibuat.');
+        if (session()->has('message')) {
+            $this->dispatch('print-spk');
+        }
         $this->reset(); // Reset semua input
     }
     public function render()
