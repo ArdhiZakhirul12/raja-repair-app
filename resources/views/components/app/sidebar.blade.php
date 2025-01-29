@@ -38,9 +38,27 @@
                         aria-hidden="true">•••</span>
                     <span class="lg:hidden lg:sidebar-expanded:block 2xl:block">Pages</span>
                 </h3>
+
+                <a href="{{ route('dashboard') }}" :active="request() - > routeIs('dashboard')">
+                    <div class="flex items-center justify-between p-3">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="18" height="18" fill="none">
+
+                            <image id="image0_26_80" width="20" height="20"
+                                xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAENklEQVR4nO2cPWwURxTHJyixCEoENCiBjoY0KdKAkICGBrpQpaM0hMaKnJu3oVk6DA1CorHke3MG0VwTKUUkI9FhRQ5U4CaRHMf2e+evBBQlRIivQ2OMObw+dnZvv273/aSVLMvevfnf+Df/tW5HKUEQBEEQBKGD2tjqp4B0BQytauS/7Nf2e50/I/SIV184BIZ/B8PtzkMjzdaQj/Z6/srj++0PPWQAw083h7xxID3Xhkb85vRA5QOLg1df2q+R7nQNOHDQ3doYHYh1saoCjYXTgPSfe8hvZjf/D8hDqt3+IO8xFJrh64t7tOGfIgccdPdEbWxub97jKSQ1w19rQyuhIRpacf05e868x1UY/FHeAUhXo8zUSDMf6Xrla6DXpba5ute6XBv61+ENmoVG65iqGr5LbXurgF/f1yac20nVaqBXX9oPhieTDCbKG1eJGgiOtS3uHV+vKup7hjNcvOIsrqoM6EbrJCAtZl3HPNM6oZFbDipZhQafUv1KEWbWcNlrYNFcCWWrgUVe/b2y1MA0alveE+EHw1+oKtW2squt1IuNH2GxBkO3zjfm91WqtqUxjkLWQDsrNdJonrUtz79Mbbg5ZGZ3qTTpO7eluNakUgPtag2GL9jGULTallcN1IZeWMcn1p5sxbHhFbm25VsD+T7g/Jc9XVDjwhlt6LGLu7xxOqxKhjdOh928TY9tVvEuYuisW/V5faiSAhEyiBU2IP0hQatoQRuaiRE0P5KgVcQZzQ8jB60N3djKRaIO7pqFzSxy0N7Nud321rOjqN+2tU2C5rU8bBY2k45uPWEzU3E5f+PPzzvv7iRofmfxt9nYjFTSSNCcTctKKmi/OT0ASJfc/qHT88Fxb6Zym1hJXVgbGskg4M2L1Uhe480vaMxkJr97IC3mNV6V14Uh65ATfp0qbSRolqBBZnQQUUcIog4WdYCoI4ioIwRRB4s6QNQRRNQRgqiDRR0g6ggi6ghB1MGiDhB1BBF1hCDqYFEHiDqCiDpCEHWwqANEHUFEHSGIOljUAaKOIKKOEEQdLOqAMqnDZd8LlxcEBftIWJRzaKR/Ugt44wUh/1L1oMHwpEqbGtK5qgftGTqr0mbtA+QuT9KWNWjkqcHRex+pLPjeLH9md1isXNDIU3bsKkvsuwp1+tb66n0LZL8HrV+PbdI+FZvZTE4SiBGSNvTMbk/hNVqDjg/EOwddWiB6SH/XDB3f+P06HwGkZQk6waA18m9b7QGytreGoQcyo5MIGulnGJ3Z2e08/rXlTwDpR1FHL0EjXfX99rawvw67pdD6DjkvxdGbCAnkid3fSEXEQ/ombCMXVTXAMHcJg3Vj/mDs847TV4A018X1pKqG3urJWeSpJLZvs+fY8oYK6aKqGn5zemA9bLY1TSNf9s3s9qTO/11z/mN7zvUKGPtZcEEQBEEQBNVXvAIcNnYcwHfDSQAAAABJRU5ErkJggg==" />
+
+                        </svg>
+                            <span
+                                class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Dashboard</span>
+                        </div>
+                    </div>
+                </a>
+
+
                 <ul class="mt-3">
                     <!-- Dashboard -->
-                    <li class="pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if (in_array(Request::segment(1), ['dashboard'])) {{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }} @endif"
+                    {{-- <li class="pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if (in_array(Request::segment(1), ['dashboard'])) {{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }} @endif"
                         x-data="{ open: {{ in_array(Request::segment(1), ['dashboard']) ? 1 : 0 }} }">
                         <a class="block text-gray-800 dark:text-gray-100 truncate transition @if (!in_array(Request::segment(1), ['dashboard'])) {{ 'hover:text-gray-900 dark:hover:text-white' }} @endif"
                             href="#0" @click.prevent="open = !open; sidebarExpanded = true">
@@ -54,7 +72,7 @@
                                         <path d="M6.068 7.482A2.003 2.003 0 0 0 8 10a2 2 0 1 0-.518-3.932L3.707 2.293a1 1 0 0 0-1.414 1.414l3.775 3.775Z" />
                                     </svg> --}}
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="18" height="18" fill="none">
 
                                         <image id="image0_26_80" width="20" height="20"
@@ -74,14 +92,14 @@
                                     </svg>
                                 </div>
                             </div>
-                        </a>
-                        <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                        </a> --}}
+                        {{-- <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-8 mt-1 @if (!in_array(Request::segment(1), ['dashboard'])) {{ 'hidden' }} @endif"
                                 :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate  
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate   --}}
                                     {{-- @if (Route::is('dashboard')){{ '!text-violet-500' }}@endif" href="{{ route('dashboard') }} --}}
-                                    "
+                                    {{-- "
                                         href="{{ route('dashboard') }}" :active="request() - > routeIs('dashboard')">
                                         <span
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Main</span>
@@ -89,27 +107,27 @@
                                 </li>
                                 <li class="mb-1 last:mb-0">
                                     <a
-                                        class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate 
+                                        class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate  --}}
                                     {{-- @if (Route::is('analytics')){{ '!text-violet-500' }}@endif" href="{{ route('analytics') }} --}}
-                                    ">
+                                    {{-- ">
                                         <span
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Analytics</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
                                     <a
-                                        class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate 
+                                        class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate  --}}
                                     {{-- @if (Route::is('fintech')){{ '!text-violet-500' }}@endif" href="{{ route('fintech') }} --}}
-                                    ">
+                                    {{-- ">
                                         <span
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Fintech</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
 
-                    <li class="pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if (in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }} @endif"
+                    <li class="pl-4 pr-3 pb-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if (in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }} @endif"
                         x-data="{ open: {{ in_array(Request::segment(1), ['dashboard']) ? 1 : 0 }} }">
                         <a class="block text-gray-800 dark:text-gray-100 truncate transition @if (!in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'hover:text-gray-900 dark:hover:text-white' }} @endif"
                             href="#0" @click.prevent="open = !open; sidebarExpanded = true">
@@ -342,13 +360,13 @@
                             </div>
                         </a>
                     
-
+{{-- 
                         <a href="{{ route('cs.sparepart.index') }}"
                         :active="request() - > routeIs('cs.sparepart.index')">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center">
                                 {{-- <i class="fa fa-toolbox"></i> --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                {{-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="20" height="20" viewBox="0 0 20 20" fill="none">
 
                                     <image id="image0_26_76" width="20" height="20"
@@ -359,7 +377,7 @@
                                     class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sparepart</span>
                             </div>
                         </div>
-                    </a>
+                    </a> --}}
 
 
 

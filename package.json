@@ -19,6 +19,8 @@
         "chart.js": "^4.4.7",
         "chartjs-adapter-moment": "^1.0.1",
         "datatables.net-dt": "^2.2.1",
-        "flatpickr": "^4.6.13"
+        "flatpickr": "^4.6.13",
+        "html2canvas": "^1.4.1",
+        "jspdf": "^2.5.2"
     }
 }

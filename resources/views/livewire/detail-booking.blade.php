@@ -1,6 +1,8 @@
+
 <div>
+
     @if (session()->has('doneMsg'))
-    <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+    <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50" id="popup">
         <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
             <div class="flex justify-between items-center">
                 <h3 class="text-lg font-semibold">Notifikasi</h3>
@@ -12,7 +14,7 @@
             </div>
             <p class="mt-4 text-gray-700">{{ session('doneMsg') }}</p>
             <div class="mt-6 flex justify-end">
-                <button onclick="document.getElementById('popup').style.display='none'" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                <button wire:click="closeAndPrint" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                     Tutup
                 </button>
             </div>
@@ -185,174 +187,13 @@
    
 </div>
 
-{{-- DESAI STRUK PEMBAYARAN --}}
-
-<div class="bg-white rounded shadow-md p-4 my-3 w-4/6 ">
-    <div class="struk-header">
-        <div class="logo-center justify-center text-center">
-            <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
-        </div>
-        <div class="address-center text-center">
-            <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
-            <p class="text-sm pb-2">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur
-                61257</p>
-            <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
-        </div>
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-        <div class="text-center">
-            <h3 class="text-l font-bold pb-3">#{{ $booking->kode_pesanan }}</h3>
-            <h3 class="text-l ">Pemesanan: 12-20-2024</h3>
-        </div>
-
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-
-      
-        <div class="flex p-3">
-            <div class="w-1/4 pr-3">
-                {{-- <p class="text-sm">Kode Pesanan</p> --}}
-                <p class="text-sm pb-2">Nama</p>
-                <p class="text-sm pb-2">No. HP</p>
-                {{-- <p class="text-sm">Alamat</p> --}}
-                <p class="text-sm pb-2">Kendala</p>
-                <p class="text-sm pb-2">Teknisi</p>
-            </div>
-            <div class="w-3/4">
-                {{-- <p class="text-sm pb-2">: {{ $booking->kode_pesanan }}</p> --}}
-                <p class="text-sm pb-2">: {{ $booking->customer->nama }}</p>
-                <p class="text-sm pb-2">: {{ $booking->customer->no_hp }}</p>
-                {{-- <p class="text-sm pb-2">: {{ $booking->customer->alamat }}</p> --}}
-                <p class="text-sm pb-2">: {{ $booking->kendala }}</p>
-                <p class="text-sm pb-2">: {{ $booking->teknisi->nama }}
-                <p class="text-sm pb-2">: {{ $booking->teknisi->no_hp }}
-            </div>
-        </div>
-     
 
 
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-
-        <table class=" rounded-lg overflow-hidden">
-            <thead class="border-b-2 ">
-                <tr>
-                    <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
-                    <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
-                    <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe</th>
-                    <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($booking->detailBooking as $item)
-                    <tr>
-                        <td class="px-4 py-2 text-gray-500">{{ $item->dataService->code }}</td>
-                        <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }}</td>
-                        <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }}</td>
-                        <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
-                    </tr>
-                @endforeach
-                
-                @foreach ($booking->sparepart_booking as $item)
-                    <tr>
-                        <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }}</td>
-                        <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }}</td>
-                        <td class="px-4 py-2 text-gray-500">Sparepart</td>
-                        <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
-                    </tr>
-                @endforeach
-                
-                <tr style="border-top: 2px dashed rgba(0, 0, 0, 0.14); margin: 20px 0;">
-                    <td><h2 class="text-l font-semibold mt-4">TOTAL :</h2></td>
-                    <td></td>
-                    <td class="px-4 text-right"></td>
-                    <td class="px-4 py-2">
-                        <h2 class="text-l font-semibold mt-4">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>Bayar</td>
-                    <td></td>
-                    <td></td>
-                    <td class="px-4 py-2">Rp.sekian</td>
-                </tr>
-                
-                <tr>
-                    <td>Kembali</td>
-                    <td></td>
-                    <td></td>
-                    <td class="px-4 py-2">Rp.sekian</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-
-        <div class="text-center">
-            <p class="text-sm">Terima kasih telah mempercayakan servis handphone anda kepada kami</p>
-            <p class="text-sm">Semoga handphone anda kembali normal dan berfungsi dengan baik</p></div>
-    </div>
-</div>
 
 
-{{-- DESAI STRUK SPK --}}
-
-<div class="bg-white rounded shadow-md p-4 my-3 w-4/6 ">
-    <div class="struk-header">
-        <div class="logo-center justify-center text-center">
-            <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
-        </div>
-        <div class="address-center text-center">
-            <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
-            <p class="text-sm pb-2 px-4">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur
-                61257</p>
-            <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
-        </div>
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-        <div class="text-center">
-            <h3 class="text-l font-bold pb-3">#{{ $booking->kode_pesanan }}</h3>
-            <h3 class="text-l ">Pemesanan: 12-20-2024</h3>
-        </div>
-
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-
-        <div class="flex p-3">
-            <div class="w-1/4 pr-3">
-                {{-- <p class="text-sm">Kode Pesanan</p> --}}
-                <p class="text-sm pb-2">Nama</p>
-                <p class="text-sm pb-2">No. HP</p>
-                {{-- <p class="text-sm">Alamat</p> --}}
-                <p class="text-sm pb-2">Kendala</p>
-                <p class="text-sm pb-2">Teknisi</p>
-            </div>
-            <div class="w-3/4">
-                {{-- <p class="text-sm pb-2">: {{ $booking->kode_pesanan }}</p> --}}
-                <p class="text-sm pb-2">: {{ $booking->customer->nama }}</p>
-                <p class="text-sm pb-2">: {{ $booking->customer->no_hp }}</p>
-                {{-- <p class="text-sm pb-2">: {{ $booking->customer->alamat }}</p> --}}
-                <p class="text-sm pb-2">: {{ $booking->kendala }}</p>
-                <p class="text-sm pb-2">: {{ $booking->teknisi->nama }}
-                <p class="text-sm pb-2">: {{ $booking->teknisi->no_hp }}
-            </div>
-        </div>
-     
-
-
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 5px 0;">
-        <div class="text-center py-2">
-            <h2 class="text-l font-semibold ">Kendala:</h2>
-            <p class="px-3 pb-4">Hp tidak mau menyala dan boot loop terus, pin password lupa, pengguna juga tidak paham</p>
-            <h2 class="text-s font-semibold pb-4">Teknisi : Subagiyo kirun</h2>
-            <h2 class="text-l font-bold ">Nomor Urut</h2>
-            <h2 class="text-7xl font-bold ">07</h2>
-        </div>
-       
-        
-        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
-        <h2 class="text-center text-2xl py-2 text-l font-semibold ">Terimakasih</h2>
-    </div>
-</div>
 
 </div>
-<div class="w-3/6 pl-4 ">
+<div class="w-2/6 pl-4 ">
 
     <div class="bg-white rounded shadow-md p-4   mb-3">
         <div class="flex items-center">
@@ -377,32 +218,32 @@
                     <div class="flex mb-2 mr-4">
                         <i class="fa-solid fa-phone mr-4 text-green-400"></i>
 
-                        <p class="text-gray-400">{{ $booking->customer->no_hp }} </p>
+                        <p class="text-gray-500">{{ $booking->customer->no_hp }} </p>
                     </div>
                 </div>
 
                 <div>
                     <div class="flex mb-2">
                         <i class="fa-solid fa-phone mr-4 text-yellow-400"></i>
-                        <p class="text-gray-400">{{ $booking->no_hp_alternatif }} </p>
+                        <p class="text-gray-500">{{ $booking->no_hp_alternatif }} </p>
                     </div>
                 </div>
 
 
             </div>
 
-            <div class="flex mb-2">
+            <div class="flex mb-2 items-center">
                 <i class="fa-solid fa-location-dot text-red-500 mr-4"></i>
-                <p class="text-gray-400">{{ $booking->customer->alamat }}
+                <p class="text-sm text-gray-300">{{ $booking->customer->alamat }}
                 </p>
             </div>
 
             {{-- <p>Pilih Teknisi</p> --}}
+            <hr class="my-3">
 
-
-            <div class="flex mb-2 ">
+            <div class="flex mb-2 items-center">
                 <i class="fa-solid fa-bars-progress text-orange-500 mr-3"></i>
-                <p class="text-gray-400">{{ $booking->kendala }}</p>
+                <p class="text-sm text-gray-400">{{ $booking->kendala }}</p>
             </div>
 
 
@@ -455,10 +296,12 @@
         @else
         @if ($booking->status == 'diproses')
 
-            <button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-                wire:click="$set('isEditTeknisi', true)">
-                Ubah Teknisi
-            </button>
+            <div class="flex justify-end">
+                <button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                    wire:click="$set('isEditTeknisi', true)">
+                    Ubah Teknisi
+                </button>
+            </div>
             @endif
         @endif
 
@@ -493,30 +336,39 @@
                 ✕
             </button>
 
-            <h2 class="text-lg font-bold mb-4">Edit Detail Service</h2>
+            <div class="flex mb-4 items-center">
+                <i class="fa-solid fa-pen-to-square mr-2" style="color: #74C0FC;"></i>
+                <h2 class="text-lg font-bold">Edit Detail Service</h2>
+            </div>
+
+            
 
             <!-- Select Service -->
             <div class="flex items-center mb-4">
-                <select wire:model="selectedService" required class="border rounded px-4 py-2 w-full">
-                    <option value="" selected>-- Select Service --</option>
-                    @foreach ($services as $service)
-                        <option value="{{ $service['id'] }}">{{ $service['nama_servis'] }} -
-                            Rp{{ $service['harga'] }}</option>
-                    @endforeach
-                </select>
-                <button wire:click="addService"
-                    class="ml-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                    Add Service
-                </button>
+                <div class="flex-grow">
+                    <select wire:model="selectedService" required class="border rounded px-4 py-2 w-full">
+                        <option value="" selected>-- Select Service --</option>
+                        @foreach ($services as $service)
+                            <option value="{{ $service['id'] }}">{{ $service['nama_servis'] }} -
+                                Rp{{ $service['harga'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="ml-2">
+                    <button wire:click="addService"
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Add Service
+                    </button>
+                </div>
             </div>
 
             <!-- Services Table -->
-            <table class="w-full table-auto border-collapse border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-100">
+            <table class="w-full table-auto border-collapse border border-gray-300 min-w-full rounded-lg overflow-hidden">
+                <thead >
+                    <tr class="bg-blue-100">
                         <th class="border px-4 py-2 text-left">Service Name</th>
                         <th class="border px-4 py-2 text-left">Price</th>
-                        <th class="border px-4 py-2 text-center">Action</th>
+                        <th class="border px-4 py-2 text-center"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -525,9 +377,10 @@
                             <td class="border px-4 py-2">{{ $service->dataService->nama_servis }}</td>
                             <td class="border px-4 py-2">Rp{{ $service['harga'] }}</td>
                             <td class="border px-4 py-2 text-center">
+                                
                                 <button wire:click="removeServiceOld({{ $service['id'] }})"
-                                    class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
-                                    Remove
+                                    class=" text-white px-3 py-1 rounded ">
+                                    <i class="fa-solid fa-trash-can" style="color: #ee5d5d;"></i>
                                 </button>
                             </td>
                         </tr>
@@ -538,8 +391,8 @@
                             <td class="border px-4 py-2">Rp{{ $service['harga'] }}</td>
                             <td class="border px-4 py-2 text-center">
                                 <button wire:click="removeService({{ $service['id'] }})"
-                                    class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
-                                    Remove
+                                    class=" text-white px-3 py-1 rounded">
+                                    <i class="fa-solid fa-trash-can" style="color: #ee5d5d;"></i>
                                 </button>
                             </td>
                         </tr>
@@ -555,13 +408,14 @@
 
             <!-- Save Button -->
             <div class="mt-4 flex justify-end">
+                <button class="bg-red-300 text-white px-4 py-2 rounded hover:bg-red-400 mr-2"
+                wire:click="$set('isModalOpen', false)">
+                Kembali
+            </button>
                 <button wire:click="save" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-2">
                     Simpan
                 </button>
-                <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
-                    wire:click="$set('isModalOpen', false)">
-                    Cancel
-                </button>
+
             </div>
 
             <!-- Success Message -->
@@ -578,8 +432,8 @@
         <div class="bg-white w-11/12 max-w-3xl rounded-lg shadow-lg">
             <!-- Modal Header -->
             <div class="flex justify-between items-center border-b px-6 py-4">
-                <h2 class="text-lg font-bold">Kode Pesanan: <span class="text-blue-600">ORD123456</span></h2>
-                <button class="text-gray-500 hover:text-red-600" onclick="closeModal()">&times;</button>
+                <h2 class="text-lg font-bold">Kode Pesanan: <span class="text-blue-600">#{{ $booking->kode_pesanan }}</span></h2>
+                <button class="text-gray-500 hover:text-red-600"  wire:click="$set('isModalDone', false)">&times;</button>
             </div>
 
             <!-- Modal Body -->
@@ -588,22 +442,53 @@
                 <div class="flex space-x-4">
                     <!-- Customer Data -->
                     <div class="w-1/2">
-                        <h3 class="text-sm font-semibold mb-2">Data Customer</h3>
-                        <div class="bg-gray-100 p-4 rounded-lg">
-                            <p><strong>Nama:</strong> {{ $booking->customer->nama }}</p>
-                            <p><strong>alamat:</strong> {{ $booking->customer->alamat }}</p>
-                            <p><strong>Telepon:</strong> {{ $booking->customer->no_hp }}</p>
+                        {{-- <h3 class="text-sm font-semibold mb-2">Data Customer</h3> --}}
+                        <div class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
+                                height="20" viewBox="0 0 20 20" fill="none" class="mr-2">
+                
+                                <image id="image0_76_221" width="20" height="20"
+                                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFIUlEQVR4nO2dW2gcZRSAT70j3sUK3luf1Af1QXySKlqsSlGKS/acTVooGsEblpo9ZxrLKCqIPkhVhKCQdvc/G9k3KxXqrUXESlFUKlYRbQXFS9EH6yWmauTfbJqYmsskM/PP/jMfnJc87M7/8e+Z/3oCUFBQUFBQUFBQUFBQUBCNB4e6LuZ6Za0YekEUd4ji16L0Mxs6JIq/suJ++3dWfJgb5Ssjfny+CQd6T2RD97DiB6I0GiVY8Y1qo3yZ6zZkm1FYxIp3iKEDUQVPkf2HKFZcNyeTyJaeM1lx+0IET5H9Nxu61XW7MkW1XjmPFb+IS/LhsL8MQ/ez4sr1te7FkGdE6XRR/Cx2yUdKH2bFzX2N8jmQy5xsaFvikv8r/FupV66CPMGKq1OVPCH7p35DF0IeuO/VFcez4jdORNuXpaGdkAcCQ3e6kjwe1UZ5OfiOKO5yLVqUXgefWV/rXpwByTZ9HFrXLJ0BvhIo3uZa8kR4PINkxafcC273asWnwVdY8a0Mid4OvsKKe1wLnhRfgq+InZ25FzwWhg6Ar3BrGTMzoofBV9jQQeeCDwf+Ar7Chj53L3gs7LOAr3CMC/wxpI43wVdEcWOGRD8CviKN8tXOBbcjUFwGPsOG9rqWzIpfhWF4FPgMG3rWtWhRfA58JjB0nd2ldi26tVNer1wLviKGtrqWPEn2y+ArnKG1Djb0MfgKG3rPteCJwF3gK6I04F5wOww9D74iijc7FzwejfIK8BlWfMe1ZDb0rj3EAz7TX+teIoofOZOs+CEPdV0EeYEVNzmQvAnyBiuuTF10o3wL5I2wWTpOFH9ITbSh73oHeo+FPCJKnF6Pxnshz3dWxNC+FHLznnDHsmMgz1Qb5eVJLjR5v4AUBTb0UIK5OXDdvqzdynopAclD3k9MolJqlo6OeWw9kNtRxlyIS/ScvizPSCG6EO0V0oE9uu/FtSeLodDem2RDf7KhH+3LfYOhKyCrSIeJtiuB0x+hwBEx1ANZRDpItJU8+8wWR7jWfTlkiaBeuT4u0UG9ck0as1p7/He2Z7FpBDJVq0Oj1+mYoXG7w8E1JyT93FVDN80mmw19D1kgrFdOsYVN4pI8qYHbuFk61bVsewAfnDIKi4J65fYkryzbc3aBoVVJT8VnlG3oE3B3sRPvTvPAoz14zop9QaN89nxffLNdbZ5eNm6ENIugiC1WYminGPorLcH/0+gRm1Kqindt2Lz63EijC0PDVmYk2YY+DZulkyBJgnrlUrtMyYq7xdA/7uROE61nmvkG7RFDuCiyDe1LbMe9OtR1iSg9kaX7KjJ9OnlsXuPkuci2GxqxS7YvNUOrsnA4RpKWHEF2rFQVb7QnM12LkzQlpyk7HFxzmigOupYmMUu2pYAibRgnKbt/qOv8LNxFEdeSJ8uOu6qNKC1t1wl1Lk6yIHlMdLyji3bhqdjWIyStMPTkTO3iLT0X2GoH8/v8VqdbCnEihp5xLk097smtB6p1LxkrKexenvjaky32KoJzceq55PYZud+dy1NP08U4onSDa3nic0+eEI2Pdojkx2fryXZ9el6/EsX9iV/JEEOvdYDkrTMt7mdecku0w8s9MjfJw0GzdFZHS7a4rI4rc5PxSkfm5KlkfcTBhtZ1dE/udFixVkhOAVF6P/PpwpP/I3CwkJww7Zdg0ZPT2GIr0kUKSL3yQJGTM1OEpXjxLRhWfHua8fFvY7tEqHaNfeHflHPY0N627AE7obEVZ1oTEEf3Dv8FYD/aWmoSqxwAAAAASUVORK5CYII=" />
+                
+                            </svg>
+                            <h2 class="text-l font-semibold">Data Pelanggan</h2>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <p><span class="text-gray-400">Nama</span> <span class="ml-6">: {{ $booking->customer->nama }}</span></p>
+                            
+                            <p class="mb-2"><span class="text-gray-400">Telepon</span> <span class="ml-2">: {{ $booking->customer->no_hp }}</span></p>
+                            <p class="text-sm text-gray-300"><span class="text-gray-400"><i class="fa-solid fa-location-dot" style="color: #ff0000;"></i></span> <span class="ml-4">{{ $booking->customer->alamat }}</span></p>
                         </div>
                     </div>
 
                     <!-- Handphone and Issue Data -->
                     <div class="w-1/2">
-                        <h3 class="text-sm font-semibold mb-2">Data Handphone dan Kendala</h3>
-                        <div class="bg-gray-100 p-4 rounded-lg">
-                            <p><strong>Handphone:</strong> {{ $booking->hpModel->hpMerk->merk }}
-                                {{ $booking->hpModel->model }}</p>
-                            <p><strong>imei:</strong> {{ $booking->imei }}</p>
-                            <p><strong>Kendala:</strong> {{ $booking->kendala }}</p>
+                        {{-- <h3 class="text-sm font-semibold mb-2">Data Handphone dan Kendala</h3> --}}
+                        <div class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="20" height="20" viewBox="0 0 20 20" fill="none">
+            
+                                <image id="image0_76_220" width="20" height="20"
+                                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADZUlEQVR4nO2dsWpUQRiFB8So+AQm+AKCjU9ha/EfUwhapZCIViZWW7gzmyApLFNIwNJOUPEF1CgBIWwQbJx/USNYSURItTLXILjJ7t69O5s7x50D0ywL+32HyT83xXCNycnJyUkr1xufTovV23D+rVj/E067Ka3AJNZvwvpblx9+PGUYc/X+5/OwfrvuMlF+vZdmZ86w7WSykrt/y260ZwxL4PROAqV1qyxxftGwRKx/R1u09ZuGJXB+r+7CUHn5PcOS+svSsZZhSd1FIRettZc4FTvaJBYWTnoBkHDSC4CEk14AJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMKZnMC1B7tnxemqOP0m1n+B1RV50j2RGme01CEg1l+A053Dv+tbKXFGzXELSFNv9L26YXU3Fc7oGVVAGu2Z8GceSoHTr2EXlrlTEkYFnN/o93u56J4UJfcUJFafDyq7/6jIo6Pbr7SDndwtW/bAUfHvbn6UD8MSRRdlO/8yXD4K35O1zhlYXR9esP8lLV0wQzJ1MxrOtwYVJ05foOkvlRsVuhPGyiQ4/4/D0OmzEiUOm8cb4YCcFGdyqSIgxZOHf1qp4JKjIgZnUqkqINXK/iArnYvHyZlMxhGQUcq2+niUURGTM4mMKyDDyq44KmJz1p4YAtK/7MqjYhKctSaWgDTaM2K9C/+Wi/XfYf3aOKNiUpy1hUUAJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMI5sgBIlmFJ3UUhF621l5h3tBtawj6svzu/qrNhSUuXis9y0XF3mbR0qXdEidXlXHTkoq80/bneosNnuejIRc+v6uyhHd3szOWiY48Oq8tHPN3cy0XHP6T2Q9nFQfhnJ4eSp/0w5H3hjTj9YVhSvLougdJQZVl9bVgS3g9Ye2Gu6urcNCwJ14rDK+sId/PWwvrWScOUgwOLp2yrW0c9q1OkuIPi/KI4fZPmAen3xOmrMC7odnJOTo6ZgvwGAxegPr5PH1wAAAAASUVORK5CYII=" />
+            
+                            </svg>
+                            <h2 class="text-l font-semibold ">Data Handphone</h2>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                        <table>
+                            <tr>
+                                <td class="text-gray-400">Handphone</td>
+                                <td>: {{ $booking->hpModel->hpMerk->merk }} {{ $booking->hpModel->model }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-gray-400">Kode Imei</td>
+                                <td>: {{ $booking->imei }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-gray-400">Kendala</td>
+                                <td class="text-sm text-gray-400">: {{ $booking->kendala }}</td>
+                            </tr>
+                        </table>
                         </div>
                     </div>
                 </div>
@@ -611,9 +496,9 @@
                 <!-- Service and Sparepart Table -->
                 <div>
                     <h3 class="text-sm font-semibold mb-2">Detail Service dan Sparepart</h3>
-                    <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <table class="w-full border-collapse border border-gray-300 text-sm min-w-full rounded-lg overflow-hidden">
                         <thead>
-                            <tr class="bg-gray-200">
+                            <tr class="bg-blue-100">
                                 <th class="border border-gray-300 px-4 py-2 text-left">Deskripsi</th>
                                 {{-- <th class="border border-gray-300 px-4 py-2 text-right">Harga</th> --}}
                                 <th class="border border-gray-300 px-4 py-2 text-center">Tipe Servis</th>
@@ -652,7 +537,7 @@
                     <h3 class="text-sm font-semibold mb-2">Pembayaran</h3>
                     <div class="space-y-4">
                         <div>
-                            <label for="amount-paid" class="block text-sm font-medium">Catatan</label>
+                            <label for="amount-paid" class="block text-sm font-medium text-gray-400">Catatan</label>
                             <input type="text" id="amount-paid" wire:model="catatan" class="w-full border-gray-300 rounded-lg shadow-sm"
                                 placeholder="Masukkan catatan">
                             @error('catatan') 
@@ -661,26 +546,52 @@
                         </div>
                         <!-- Dropdown Metode Pembayaran -->
                         <div>
-                            <label for="payment-method" class="block text-sm font-medium">Metode Pembayaran</label>
+                            <label for="payment-method" class="block text-sm font-medium text-gray-400">Metode Pembayaran</label>
                             <select id="payment-method" wire:model="metodeSelected" class="w-full border-gray-300 rounded-lg shadow-sm">
                                 <option value="">Pilih Metode</option>
                                 @foreach ($metode as $item)
                                     <option value="{{ $item->id }}">{{ $item->metode }}</option>
                                 @endforeach
                             </select>
-                            @error('metodeSelected') 
+                            {{-- @error('metodeSelected') 
                                 <span class="text-red-600 text-sm">{{ $message }}</span> 
+                            @enderror --}}
+                            @error('metodeSelected') 
+                            <div
+                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                </svg>
+                              
+                                    <span>{{ $message }}</span>
+                              
+                            </div>
                             @enderror
                         </div>
                 
                         <!-- Input Jumlah Bayar -->
                         
                         <div>
-                            <label for="amount-paid" class="block text-sm font-medium">Jumlah Bayar</label>
+                            <label for="amount-paid" class="block text-sm font-medium text-gray-400">Jumlah Bayar</label>
                             <input type="number" id="amount-paid" wire:model="bayar" class="w-full border-gray-300 rounded-lg shadow-sm"
                                 placeholder="Masukkan jumlah bayar">
-                            @error('bayar') 
+                            {{-- @error('bayar') 
                                 <span class="text-red-600 text-sm">{{ $message }}</span> 
+                            @enderror --}}
+                            @error('bayar') 
+                            <div
+                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                </svg>
+                              
+                                    <span>{{ $message }}</span>
+                              
+                            </div>
                             @enderror
                         </div>
                     </div>
@@ -688,11 +599,174 @@
 
             <!-- Modal Footer -->
             <div class="flex justify-end items-center border-t px-6 py-4">
-                <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg mr-2"
-                    wire:click="$set('isModalDone', false)">Batal</button>
-                <button wire:click="selesaikan" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Simpan</button>
+                <button class="bg-red-400 text-white px-4 py-2 rounded-lg mr-2"
+                    wire:click="$set('isModalDone', false)">Kembali</button>
+                <button wire:click="selesaikan" 
+                {{-- onclick="printDiv('struk-pembayaran')"  --}}
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg">Simpan</button>
             </div>
         </div>
     </div>
 @endif
+
+
+{{-- DESAI STRUK PEMBAYARAN --}}
+
+<div class="bg-white rounded shadow-md p-4 my-3 " style="display:none;width:mm;text-align: center;" id="struk-pembayaran">
+    <div class="struk-header">
+        <div class="logo-center justify-center text-center">
+            <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
+        </div>
+        <div class="address-center text-center">
+            <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
+            <p class="text-sm pb-2">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur
+                61257</p>
+            <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
+        </div>
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+        <div class="text-center">
+            <h3 class="text-l font-bold pb-3">#{{ $booking->kode_pesanan }}</h3>
+            <h3 class="text-l ">Pemesanan: 12-20-2024</h3>
+        </div>
+
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+
+
+        <div class="flex justify-center">
+            <table>
+                <tr>
+                    <td class="px-4 py-2">Nama</td>
+                    <td class="px-4 py-2">: {{ $booking->customer->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">No.HP</td>
+                    <td class="px-4 py-2">: {{ $booking->customer->no_hp }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">Kendala</td>
+                    <td class="px-4 py-2">: {{ $booking->kendala }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">Teknisi</td>
+                    <td class="px-4 py-2">: {{ $booking->teknisi->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2"></td>
+                    <td class="px-4 py-2">: {{ $booking->teknisi->no_hp }}</td>
+                </tr>
+            </table>
+
+        </div>
+
+     
+
+
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+        <div class="flex justify-center">
+            <table class="rounded-lg overflow-hidden text-center">
+            <thead class="border-b-2">
+                <tr>
+                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
+                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
+                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe</th>
+                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($booking->detailBooking as $item)
+                <tr>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->code }}</td>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }}</td>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }}</td>
+                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
+                </tr>
+                @endforeach
+                
+                @foreach ($booking->sparepart_booking as $item)
+                <tr>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }}</td>
+                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }}</td>
+                    <td class="px-4 py-2 text-gray-500">Sparepart</td>
+                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
+                </tr>
+                @endforeach
+                
+                <tr style="border-top: 2px dashed rgba(0, 0, 0, 0.14); margin: 20px 0;">
+                <td><h2 class="text-l font-semibold mt-4">TOTAL :</h2></td>
+                <td></td>
+                <td class="px-4 text-right"></td>
+                <td class="px-4 py-2">
+                    <h2 class="text-l font-semibold mt-4">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
+                </td>
+                </tr>
+                
+                <tr>
+                <td>Bayar</td>
+                <td></td>
+                <td></td>
+                <td class="px-4 py-2">Rp.sekian</td>
+                </tr>
+                
+                <tr>
+                <td>Kembali</td>
+                <td></td>
+                <td></td>
+                <td class="px-4 py-2">Rp.sekian</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        
+        <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+        <div class="text-center">
+            <p class="text-sm">Terima kasih telah mempercayakan servis handphone anda kepada kami</p>
+            <p class="text-sm">Semoga handphone anda kembali normal dan berfungsi dengan baik</p></div>
+    </div>
 </div>
+
+
+{{-- <style>
+    @media print {
+        /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
+        @page {
+            size: Legal;
+            margin: 10mm; /* Sesuaikan margin sesuai kebutuhan */
+        }
+
+        /* Sesuaikan elemen agar mengikuti ukuran kertas */
+        body {
+            transform: scale(1.4); /* Skala 140% */
+            transform-origin: top left; /* Pastikan skala dari kiri atas */
+        }
+
+        /* Kontainer yang akan dicetak */
+        #print-invoice {
+            width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+    }
+</style> --}}
+
+
+</div>
+
+
+
+
+<script>
+    window.addEventListener('print-invoice', () => {
+        printDiv('struk-pembayaran');
+    });
+    function printDiv(divId) {
+        let printContent = document.getElementById(divId).innerHTML;
+        let originalContent = document.body.innerHTML;
+
+        document.body.innerHTML = printContent;  // Hanya menampilkan elemen yang dipilih
+        window.print();  // Perintah print
+        document.body.innerHTML = originalContent;  // Mengembalikan halaman ke tampilan awal
+    }
+</script>

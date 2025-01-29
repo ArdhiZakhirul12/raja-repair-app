@@ -33,7 +33,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-  
+    
     Route::group(['prefix' => 'cs', 'as' => 'cs.'],function(){
         Route::group(['prefix' => 'customer', 'as' => 'customer.'], function(){            
             Route::get('/', [CustomerController::class, 'index'])->name('index');
@@ -100,4 +100,8 @@ Route::middleware([
 
                
     });
+    Route::post('/clear-session', function () {
+        session()->forget('inputData');
+        return response()->json(['status' => 'Session cleared']);
+    })->name('clear-session');
 });
