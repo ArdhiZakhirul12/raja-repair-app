@@ -9,11 +9,13 @@
             <x-dashboard.dashboard-card-08 title="Pelayanan servis per bulan" total="0" :exMonths="$exMonths" :exSales="$exSales" />
             <x-dashboard.dashboard-card-08 title="Pendapatan per bulan" total="0" :exMonths="$exMonths" :exSales="$exSales" />
             {{-- <x-dashboard.dashboard-card-08 title="Pendapatan per bulan" total="0"/> --}}
-            <x-dashboard.dashboard-card-06 title="Pelayanan per teknisi" />
-            <x-dashboard.dashboard-card-06 title="10 brand terbanyak" />
-            <x-dashboard.dashboard-card-06 title="10 servis terbanyak" />
-            <x-dashboard.dashboard-card-06 title="Repeat Order" />
+            {{-- <x-dashboard.dashboard-card-06 title="Pelayanan per teknisi" :dataName="$phoneBrands" :amountData="$brandPercentages"/>
+             --}}
 
+            <x-dashboard.dashboard-card-06 title="10 brand terbanyak" :dataName="$phoneBrands" :amountData="$brandPercentages" />
+            <x-dashboard.dashboard-card-06 title="10 servis terbanyak" :dataName="$phoneBrands" :amountData="$brandPercentages" />
+            <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$phoneBrands" :amountData="$brandPercentages" />
+            <x-dashboard.dashboard-card-06-teknisi title="Pelayanan per teknisi" :dataName="$phoneBrands" :amountData="$brandPercentages" />
 
               {{-- <x-dashboard.dashboard-card-02/>
             <x-dashboard.dashboard-card-03/>

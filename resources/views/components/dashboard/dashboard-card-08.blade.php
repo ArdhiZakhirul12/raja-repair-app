@@ -1,7 +1,6 @@
 @props(['title', 'total', 'exMonths', 'exSales'])
 
 @php
-    // Buat ID unik berdasarkan title agar tidak bentrok
     $chartId = Str::slug($title) . '-chart';
 @endphp
 
@@ -39,7 +38,6 @@
 
 
 <script>
-    // Ambil data dari Blade (Laravel akan mengubah menjadi JSON)
     var months = @json($exMonths);
     var sales = @json($exSales);
 
