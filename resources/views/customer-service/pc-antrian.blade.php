@@ -23,7 +23,7 @@
 <body class="font-sans antialiased">
     <x-banner />
 
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen">
         {{-- @livewire('navigation-menu') --}}
 
         <!-- Page Heading -->
@@ -44,7 +44,7 @@
                     {{ __('Log Out') }}
                 </x-dropdown-link>
             </form>
-            <div class="flex items-center justify-center h-screen bg-gray-100">
+            <div class="flex items-center justify-center h-screen">
                 <div class="bg-white shadow-xl rounded-lg p-6 w-full max-w-md">
                     @if (!isset($antrian))                        
                     
