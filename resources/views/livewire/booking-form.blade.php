@@ -1,25 +1,4 @@
-<style>
-    @media print {
-        /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
-        @page {
-            size: Legal;
-            margin: 10mm; /* Sesuaikan margin sesuai kebutuhan */
-        }
 
-        /* Sesuaikan elemen agar mengikuti ukuran kertas */
-        body {
-            transform: scale(1.4); /* Skala 140% */
-            transform-origin: top left; /* Pastikan skala dari kiri atas */
-        }
-
-        /* Kontainer yang akan dicetak */
-        #spk-print {
-            width: 100%;
-            margin: auto;
-            overflow: hidden;
-        }
-    }
-</style>
 <div class=" my-4  mx-10 py-7 py-4 
 {{-- shadow-md rounded-lg " --}}
 ">
@@ -624,7 +603,28 @@
             <h2 class="text-center text-2xl py-2 text-l font-semibold ">Terimakasih</h2>
         </div>
     </div>
-   
+    <style>
+        @media print {
+            /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
+            @page {
+                size: Legal;
+                margin: 10mm; /* Sesuaikan margin sesuai kebutuhan */
+            }
+    
+            /* Sesuaikan elemen agar mengikuti ukuran kertas */
+            body {
+                transform: scale(1.4); /* Skala 140% */
+                transform-origin: top left; /* Pastikan skala dari kiri atas */
+            }
+    
+            /* Kontainer yang akan dicetak */
+            #spk-print {
+                width: 100%;
+                margin: auto;
+                overflow: hidden;
+            }
+        }
+    </style>
 
 
  
@@ -645,7 +645,7 @@
         document.body.innerHTML = printContent; // Hanya menampilkan elemen yang dipilih
         window.print(); // Perintah print
         document.body.innerHTML = originalContent; // Mengembalikan halaman ke tampilan awal
-        fetch("{{ route('clear-session') }}", { method: "POST" });
+
     }
 </script>
 
