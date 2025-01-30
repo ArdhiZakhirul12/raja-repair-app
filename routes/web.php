@@ -100,8 +100,4 @@ Route::middleware([
 
                
     });
-    Route::post('/clear-session', function () {
-        session()->forget('inputData');
-        return response()->json(['status' => 'Session cleared']);
-    })->name('clear-session');
 });
