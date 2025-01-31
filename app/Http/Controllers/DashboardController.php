@@ -19,6 +19,9 @@ class DashboardController extends Controller
         $phoneBrands = ['Samsung', 'Apple', 'Huawei', 'Xiaomi', 'Oppo', 'Vivo', 'OnePlus', 'Nokia', 'Sony', 'LG'];
         $brandPercentages = [20, 15, 10, 12, 8, 7, 5, 6, 9, 8];
 
+        $technicianNames = ['John Doe', 'Jane Smith', 'Michael Johnson', 'Emily Davis', 'David Wilson','bagio','budi','susi','joko','joni'];
+        $serviceAmounts = [30, 25, 40, 35, 20, 15, 10, 5, 3, 2];
+
 
         $totalCustomers = customer::where('user_id',Auth::user()->id)->get();
         $totalServices = dataService::where('user_id',Auth::user()->id)->get();

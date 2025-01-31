@@ -11,8 +11,19 @@
     <div class="px-5 py-3">
         <div class="flex flex-wrap justify-between items-end gap-y-2 gap-x-4">
             <div class="flex items-start">
-                <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">$1,482</div>
+                <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">
+                    @if ($title == 'Pelayanan servis per bulan')
+                        234
+                    @else
+                        Rp 250.000.000
+                    @endif
+                </div>
+                @if ($title == 'Pelayanan servis per bulan')
+                <div class="text-sm font-medium text-green-700 px-1.5 bg-green-500/20 rounded-full">+10%</div>
+                @else
                 <div class="text-sm font-medium text-red-700 px-1.5 bg-red-500/20 rounded-full">-22%</div>
+                @endif
+                
             </div>
             {{-- <div id="dashboard-card-08-legend" class="grow mb-1">
                 <ul class="flex flex-wrap gap-x-4 sm:justify-end"></ul>
@@ -50,20 +61,21 @@
             datasets: [{
                 label: 'Monthly Sales',
                 data: sales,
-                borderColor: 'blue',
+                borderColor:chartType === 'bar'? 'transparent': 'blue',
                 borderWidth: 2,
-                fill: false
+                fill: false,
+                backgroundColor: chartType === 'bar' ? sales.map((_, i) => `hsl(${i * 30}, 70%, 50%)`) : 'transparent'
             }]
         },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
+        }
+    });
 
 
 
@@ -91,7 +103,7 @@
                 }
             }
         });
-    } 
+    }
     if (document.getElementById('pendapatanLineChart')) {
         var ctx = document.getElementById('pendapatanLineChart').getContext('2d');
         var myChart = new Chart(ctx, {
