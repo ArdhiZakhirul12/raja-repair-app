@@ -142,10 +142,10 @@
                         id="services-table">
                         <thead>
                             <tr>
-                                <th></th>
+                                {{-- <th></th> --}}
                                 <th scope="col" class="px-6 py-3">
                                     <div class="flex items-center">
-                                        ID
+                                        #
                                         <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                 viewBox="0 0 24 24">
@@ -267,19 +267,23 @@
                 serverSide: true,
                 ajax: '{{ route('cs.service.getServices') }}',
                 columns: [
+                    // {
+                    //     data: 'id',
+                    //     render: function(data) {
+                    //         return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                    //     },
+                    //     orderable: false,
+                    //     searchable: false
+                    // },
                     {
-                        data: 'id',
-                        render: function(data) {
-                            return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                            data: null,
+                            name: 'iteration',
+                            render: function(data, type, row, meta) {
+                                return meta.row + 1; // Menambahkan nomor urut
+                            },
+                            orderable: false,
+                            searchable: false
                         },
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'id',
-                        name: 'id',
-                   
-                    },
 
                     {
                         data: 'nama_servis',

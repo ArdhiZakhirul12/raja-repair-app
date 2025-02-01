@@ -83,7 +83,7 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden" id="teknisi-table">
                         <thead>
                             <tr>
-                                <th><input type="checkbox" id="select-all"></th>
+                                <th>#</th>
                                 <th scope="col" class="px-6 py-3">
                                     <div class="flex items-center">
                                         Nama
@@ -236,13 +236,14 @@
         ajax: '{{ route("cs.teknisi.getTechnicians") }}',
         columns: [
             {
-                data: 'id',
-                render: function (data) {
-                    return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                },
-                orderable: false,
-                searchable: false
-            },
+                            data: null,
+                            name: 'iteration',
+                            render: function(data, type, row, meta) {
+                                return meta.row + 1; // Menambahkan nomor urut
+                            },
+                            orderable: false,
+                            searchable: false
+                        },
            
             { data: 'nama', name: 'nama', render: function(data, type, row) {
                 return `<a href="/teknisi/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;

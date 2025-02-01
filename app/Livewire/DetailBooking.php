@@ -65,6 +65,7 @@ class DetailBooking extends Component
             booking::where('id',$this->bookingId)->update(['teknisi_id' => $this->selectedTeknisi]);
             session()->flash('success', 'Berhasil memperbarui teknisi!');
             $this->isEditTeknisi = false;
+            $this->booking = Booking::with(['sparepart_booking', 'detailBooking'])->find($this->bookingId);
         }
 
     }

@@ -15,7 +15,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = booking::with(['hpModel','sparepart_booking','detailBooking'])->where('user_id', auth()->id())->get();
+        $bookings = booking::with(['hpModel','sparepart_booking','detailBooking'])->where('user_id', auth()->id())->orderBy('created_at', 'asc')->get();
         // dd($bookings);
         return view('customer-service.booking.list', compact('bookings'));
     }

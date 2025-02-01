@@ -136,7 +136,7 @@
                         <thead>
                             <tr>
 
-                                <th><input type="checkbox" id="select-all"></th>
+                                <th>#</th>
                                 <th  scope="col" class="px-6 py-3">
                                     <div class="flex items-center">
                                         Nama
@@ -279,13 +279,14 @@
         ajax: '{{ route("cs.sparepart.getSpareparts") }}',
         columns: [
             {
-                data: 'id',
-                render: function (data) {
-                    return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                },
-                orderable: false,
-                searchable: false
-            },
+                            data: null,
+                            name: 'iteration',
+                            render: function(data, type, row, meta) {
+                                return meta.row + 1; // Menambahkan nomor urut
+                            },
+                            orderable: false,
+                            searchable: false
+                        },
            
             { data: 'nama_sparepart', name: 'nama_sparepart', render: function(data, type, row) {
                 return `<a href="/teknisi/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
