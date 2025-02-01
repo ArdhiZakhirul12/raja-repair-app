@@ -98,13 +98,23 @@ class DetailBooking extends Component
             sparepart::where('id',$detail->sparepart_id)->increment('terjual');
         }
 
+        
+
         $kembalian = $this->total - $this->bayar;
         $this->isModalDone = false;
 
         session()->flash('doneMsg', 'Berhasil menyelesaikan servis! Kembalian Rp'.$kembalian);
+        // $this-> dispatch("print-invoice");
 
 
     }
+    public function closeAndPrint()
+    {
+        $this->dispatch('print-invoice');
+        $this->isModalDone = false;
+        return redirect()->to(request()->header('Referer'));
+    }
+
     public function rest()
     {;
         $this->serviceOld = $this->booking->detailBooking;

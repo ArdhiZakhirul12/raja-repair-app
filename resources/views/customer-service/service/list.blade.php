@@ -124,7 +124,7 @@
                 </h1>
                 <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                     onclick="document.getElementById('add-service-modal').classList.remove('hidden')">
-                    Tambah Pelanggan
+                    Tambah Servis
                 </button>
             </div>
 

@@ -22,7 +22,8 @@
             </button>
             <!-- Logo -->
             <a class="block" href="{{ route('dashboard') }}">
-                <img class="w-10 h-10" src="{{ asset('images/logo_raja.png') }}" alt="Logo">
+                <img class="w-30 h-20" src="{{ asset('images/raja_repair.svg') }}" alt="Logo">
+                
                 {{-- <svg class="fill-violet-500" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
                     <path d="M31.956 14.8C31.372 6.92 25.08.628 17.2.044V5.76a9.04 9.04 0 0 0 9.04 9.04h5.716ZM14.8 26.24v5.716C6.92 31.372.63 25.08.044 17.2H5.76a9.04 9.04 0 0 1 9.04 9.04Zm11.44-9.04h5.716c-.584 7.88-6.876 14.172-14.756 14.756V26.24a9.04 9.04 0 0 1 9.04-9.04ZM.044 14.8C.63 6.92 6.92.628 14.8.044V5.76a9.04 9.04 0 0 1-9.04 9.04H.044Z" />
                 </svg>                 --}}
@@ -38,9 +39,38 @@
                         aria-hidden="true">•••</span>
                     <span class="lg:hidden lg:sidebar-expanded:block 2xl:block">Pages</span>
                 </h3>
+
+                <a href="{{ route('dashboard') }}" :active="request() - > routeIs('dashboard')">
+                    <div class="flex items-center justify-between p-3">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="18" height="18" fill="none">
+
+                            <image id="image0_26_80" width="20" height="20"
+                                xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAENklEQVR4nO2cPWwURxTHJyixCEoENCiBjoY0KdKAkICGBrpQpaM0hMaKnJu3oVk6DA1CorHke3MG0VwTKUUkI9FhRQ5U4CaRHMf2e+evBBQlRIivQ2OMObw+dnZvv273/aSVLMvevfnf+Df/tW5HKUEQBEEQBKGD2tjqp4B0BQytauS/7Nf2e50/I/SIV184BIZ/B8PtzkMjzdaQj/Z6/srj++0PPWQAw083h7xxID3Xhkb85vRA5QOLg1df2q+R7nQNOHDQ3doYHYh1saoCjYXTgPSfe8hvZjf/D8hDqt3+IO8xFJrh64t7tOGfIgccdPdEbWxub97jKSQ1w19rQyuhIRpacf05e868x1UY/FHeAUhXo8zUSDMf6Xrla6DXpba5ute6XBv61+ENmoVG65iqGr5LbXurgF/f1yac20nVaqBXX9oPhieTDCbKG1eJGgiOtS3uHV+vKup7hjNcvOIsrqoM6EbrJCAtZl3HPNM6oZFbDipZhQafUv1KEWbWcNlrYNFcCWWrgUVe/b2y1MA0alveE+EHw1+oKtW2squt1IuNH2GxBkO3zjfm91WqtqUxjkLWQDsrNdJonrUtz79Mbbg5ZGZ3qTTpO7eluNakUgPtag2GL9jGULTallcN1IZeWMcn1p5sxbHhFbm25VsD+T7g/Jc9XVDjwhlt6LGLu7xxOqxKhjdOh928TY9tVvEuYuisW/V5faiSAhEyiBU2IP0hQatoQRuaiRE0P5KgVcQZzQ8jB60N3djKRaIO7pqFzSxy0N7Nud321rOjqN+2tU2C5rU8bBY2k45uPWEzU3E5f+PPzzvv7iRofmfxt9nYjFTSSNCcTctKKmi/OT0ASJfc/qHT88Fxb6Zym1hJXVgbGskg4M2L1Uhe480vaMxkJr97IC3mNV6V14Uh65ATfp0qbSRolqBBZnQQUUcIog4WdYCoI4ioIwRRB4s6QNQRRNQRgqiDRR0g6ggi6ghB1MGiDhB1BBF1hCDqYFEHiDqCiDpCEHWwqANEHUFEHSGIOljUAaKOIKKOEEQdLOqAMqnDZd8LlxcEBftIWJRzaKR/Ugt44wUh/1L1oMHwpEqbGtK5qgftGTqr0mbtA+QuT9KWNWjkqcHRex+pLPjeLH9md1isXNDIU3bsKkvsuwp1+tb66n0LZL8HrV+PbdI+FZvZTE4SiBGSNvTMbk/hNVqDjg/EOwddWiB6SH/XDB3f+P06HwGkZQk6waA18m9b7QGytreGoQcyo5MIGulnGJ3Z2e08/rXlTwDpR1FHL0EjXfX99rawvw67pdD6DjkvxdGbCAnkid3fSEXEQ/ombCMXVTXAMHcJg3Vj/mDs847TV4A018X1pKqG3urJWeSpJLZvs+fY8oYK6aKqGn5zemA9bLY1TSNf9s3s9qTO/11z/mN7zvUKGPtZcEEQBEEQBNVXvAIcNnYcwHfDSQAAAABJRU5ErkJggg==" />
+
+                        </svg>
+                            <span
+                                class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Dashboard</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a            href="{{ route('cs.antrian-ditangani') }}"
+                :active="request() - > routeIs('cs.antrian-ditangani')">
+                    <div class="flex items-center justify-between px-3 py-2">
+                        <div class="flex items-center">
+                            <img class="w-5 h-5" src="{{ asset('images/antrian_orang.svg') }}" alt="">
+                            <span
+                                class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Antrian</span>
+                        </div>
+                    </div>
+                </a>
+
+
                 <ul class="mt-3">
                     <!-- Dashboard -->
-                    <li class="pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if (in_array(Request::segment(1), ['dashboard'])) {{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }} @endif"
+                    {{-- <li class="pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if (in_array(Request::segment(1), ['dashboard'])) {{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }} @endif"
                         x-data="{ open: {{ in_array(Request::segment(1), ['dashboard']) ? 1 : 0 }} }">
                         <a class="block text-gray-800 dark:text-gray-100 truncate transition @if (!in_array(Request::segment(1), ['dashboard'])) {{ 'hover:text-gray-900 dark:hover:text-white' }} @endif"
                             href="#0" @click.prevent="open = !open; sidebarExpanded = true">
@@ -54,7 +84,7 @@
                                         <path d="M6.068 7.482A2.003 2.003 0 0 0 8 10a2 2 0 1 0-.518-3.932L3.707 2.293a1 1 0 0 0-1.414 1.414l3.775 3.775Z" />
                                     </svg> --}}
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="18" height="18" fill="none">
 
                                         <image id="image0_26_80" width="20" height="20"
@@ -74,14 +104,14 @@
                                     </svg>
                                 </div>
                             </div>
-                        </a>
-                        <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                        </a> --}}
+                        {{-- <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-8 mt-1 @if (!in_array(Request::segment(1), ['dashboard'])) {{ 'hidden' }} @endif"
                                 :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate  
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate   --}}
                                     {{-- @if (Route::is('dashboard')){{ '!text-violet-500' }}@endif" href="{{ route('dashboard') }} --}}
-                                    "
+                                    {{-- "
                                         href="{{ route('dashboard') }}" :active="request() - > routeIs('dashboard')">
                                         <span
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Main</span>
@@ -89,33 +119,33 @@
                                 </li>
                                 <li class="mb-1 last:mb-0">
                                     <a
-                                        class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate 
+                                        class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate  --}}
                                     {{-- @if (Route::is('analytics')){{ '!text-violet-500' }}@endif" href="{{ route('analytics') }} --}}
-                                    ">
+                                    {{-- ">
                                         <span
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Analytics</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
                                     <a
-                                        class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate 
+                                        class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate  --}}
                                     {{-- @if (Route::is('fintech')){{ '!text-violet-500' }}@endif" href="{{ route('fintech') }} --}}
-                                    ">
+                                    {{-- ">
                                         <span
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Fintech</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
 
-                    <li class="pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if (in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }} @endif"
+                    {{-- <li class="pl-4 pr-3 pb-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if (in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }} @endif"
                         x-data="{ open: {{ in_array(Request::segment(1), ['dashboard']) ? 1 : 0 }} }">
                         <a class="block text-gray-800 dark:text-gray-100 truncate transition @if (!in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'hover:text-gray-900 dark:hover:text-white' }} @endif"
                             href="#0" @click.prevent="open = !open; sidebarExpanded = true">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    {{-- <i class="fa fa-user-group"></i> --}}
+                                   
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="20" height="20" viewBox="0 0 20 20" fill="none">
 
@@ -126,7 +156,7 @@
                                     <span
                                         class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Antrian</span>
                                 </div>
-                                <!-- Icon -->
+                           
                                 <div
                                     class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                                     <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400 dark:text-gray-500 @if (in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'rotate-180' }} @endif"
@@ -136,7 +166,7 @@
                                 </div>
                             </div>
                         </a>
-                        {{-- {{ route('cs.pcAntrian') }}" :active="request()->routeIs('cs.pcAntrian') --}}
+                
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-8 mt-1 @if (!in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'hidden' }} @endif"
                                 :class="open ? '!block' : 'hidden'">
@@ -159,7 +189,7 @@
 
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
 
 
 
@@ -341,7 +371,25 @@
                                 </div>
                             </div>
                         </a>
+                    
+{{-- 
+                        <a href="{{ route('cs.sparepart.index') }}"
+                        :active="request() - > routeIs('cs.sparepart.index')">
+                        <div class="flex items-center justify-between p-3">
+                            <div class="flex items-center">
+                                {{-- <i class="fa fa-toolbox"></i> --}}
+                                {{-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="20" height="20" viewBox="0 0 20 20" fill="none">
 
+                                    <image id="image0_26_76" width="20" height="20"
+                                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADeklEQVR4nO2cy2sUQRCHWw8+LhIEUTzoJV7iY6sSFG+5xe3aaPSQP0HwIl4U9ZSjj0gQokchiHjISRSC6HZvEBL/A08SERPxQUDM46DESG8STUJ2M7uZ7Z7Z+X3QLMxOT1d/U1PzYBilAAAAAAAAACDLjPee3m003TSa3llNc+7XCN1wy0PH1jSUOjt3WSFjhRfXNyNUdP83cvxiof1CpDh17rxKM0Zy1zaSvEr21UaMu6jUNqtpwI0RZf2lWPie66eSxnBv2w4jdMcIfa4m00ZtmhdcSYkjNqP54cp2o6z/Pw4aVEnDaLodi2BZL5wej+Rbd9YbV1HzpdXbi9JnzVGmcxdVkrCaphoiWsrZPVY8e2x/rTEZ4cNGeGZrounn6+6OQyopNEyy/JM9aQvtHbXEZDQPrd9OfXOhRyozoqV8gpqxQj1R4nl1jg8aod9xiDZCv0py8oDKimi7lNkLtsDXN41H05WN+tc7FyN8WWVKtKzUTh5yVzqV46HnsYrW/ExlUbQtZzcNVIxH08eYM/qDyqxo4elK8RhN8/FmNM2rpr+8k0oZzZO1ijZCL9yJcqM+b/K0z2oerjDerGrqGxapKvpW5Xh4olI/I/zNFKh3zfoF6nXLK49H71VibsGdbB+ZrWnKjVX1ZKj5aYQdNWzO5I5WyeLVO+eJSgtRJKqYKOn27jh3bkk4r9KCT9F9fWq7EXobU4kac9tTacGnaMdogY4YTd+3ItnV7VIXt6o04Vu0o5jnE+4auC7JmidGdcdxlTZCiHaUenIt5Qf/muYiSp61mvtH8qf2qDQSSvQKL7va9hrhP5ue+HpyLSrNhBbtiCJapR2I9gREewKiPQHRnoBoT0C0JyDaExDtCYj2BERvkajPapNw+2tiiMH7s+nyS+VCD6zQj+U22MwvlI+Hmq8Rvl/LuxZpx4Sar9X8ZYND76tqUmyo+TbtY8akzReiGaIzkdFZawqiGaJtAjIRGS3h5aF0SHixqNEC0cGzziKjObgolA4JLxE1WpLTcMMiEL0YOgubIqNVk2Ih2g8Q7QmI9gREewKisyo6a01BNEO0TUAmIqMlvDyUDgkvFjVaIDp41llkNAcXhdIh4SUmo0aH+DKYJKsZ4U8eRHN/6Ina0E3z3YaLdl/pWv7S+HTwCYv3Nu3mXu1LZQAAAAAAAAAAAAAqA/wFIYhuUZ6HB7IAAAAASUVORK5CYII=" />
+
+                                </svg>
+                                <span
+                                    class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sparepart</span>
+                            </div>
+                        </div>
+                    </a> --}}
 
 
 
@@ -762,6 +810,24 @@
                     <span class="lg:hidden lg:sidebar-expanded:block 2xl:block">More</span>
                 </h3>
                 <ul class="mt-3">
+                    <li>
+                        <a                                                    href="{{ route('cs.pcAntrian') }}"
+                        :active="request() - > routeIs('cs.pcAntrian')">
+                            <div class="flex items-center justify-between p-3">
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="20" height="20" viewBox="0 0 20 20" fill="none">
+
+                                    <image id="image0_27_82" width="20" height="20"
+                                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFM0lEQVR4nO2czYscRRTAS1GTXITFg18BCRI9aWKCEUWNgmA8eFGWnfd6NXhwD8pGApmpmtnDGK8GY1DR9ZK4XTULC34hJsaLJ9EgxE38+BeUfCkY0HV1V97MBGe0e6a7p7r6Y94PCgZ2pvvNr99U1auuXiEYhmEYhmEYhmEYhmHGlObRvRulgZeUxlPKwGVlcH28GlyWGr9WGvfNHt+zIRXJNd/bLDWeyf7LYk4aLJMT+5nMkteDZFvN7HZ3kXkGYS6bbFVmrYnu9MnZfymVywZfWRMtNf6W/RfCXDZyY0102EnEmKHS9sCiO7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoR7BoRyiNP/K+DkfMLUxvkRpfVBq/5A00jlAGd0oDx2wekLeEuYBFO4JFO6KMomeP79lQ1/io1PiK1Phhd0ZxSRn4U2pcodfSwA/dvx2UvvdIas+tlFG06gxg7yqNv8beC23gF2VwvuF7O9IKrvCiG763Qxo4aXED+omGxu1Wgyyy6P1Lk5ukgSNK418p7PZflQYO08NUYy266nt3KgNnbQv+f4PlqoGtYyla+d69UuO59CV3m8aLtcWpB0YL2lWwJlZ7LDTeVuW+LB5wonPWDOwqjWhp4ONB3YU0cCGz+DSeT9yNZC1W9WfNilqcumPAs+rfZh0jjQs0CBdd9FthcbZnF+lm6x/KoDywNHkTNXrdLW6CZL9WaNH1VuXusHlyGlO4Xsk1jU8EXFwVkhCrcmF6WzFFazwVFqPNYiRA2oo08GTQeeutyo0DPvdpUR9RnglJhJ2uM/kKDd+7ecBn12Srck+hHrqXBv5W7z1zQ2Ai0NpFBpK7bupDjvFOHNH7shatNH4TFButqCVZIIrS6hqfGuSFLkJ3gBx0nEvNpcnrIolufxkDyxln9JGg2GipM6UL+5kFyZ0LZmB3JNHtA/ve5mxlw3NBcdF6ckrnOxTmQhmciPMrkgZeFnGgzKb/uEL/DMT1ACkNPBj8peGjlM530lZGKwMfiDyjeoKd03hbnL0WfdI6RUVfoRFFkqU+mrqh70WeUT3BNn3v+qD3RFzXkIkkRZh1hBUs/znOeVEY0V/sviboPeEl8L+NsjjoszUDj0sDvyctVoYVLL0XTOQZ1RPszPzMtbZF25BdbVVuKZVoZXAiaddBP+9B5xmlGxlasBSt65hbmN6SdDCM0tfSwBflOHTRqOymRq+j/KKcD4b7lyY3KY2vS40/RxjA+hoVJiNN76KV05/HjSuX0ztl4M2kwdY1Ph8i52Dk43SKjIkB8R1KRbTGpnBFs9m8ursBJWnA80HHpR1Eec9oqfFh4Yx1cdVoiz9wNrRaHXYBo82Hn04pmy9GXlSyhdT4xggBrzWOPXtr0HEp2+MWLMnL6ZjZbOBt4Zrm0b0b6V6a0vhTwqx+IfQ2VtJ5dIqS28lhe9tY1kiNJ+KKjlKsjJjNn4iy0dC4nW6IRi1YUs3kKzdnNd4lyog0cHhACd1XaKQpuXtxXxVlpUljgMbTaQqMmM1nEm2gKRJVA1tpbSFDyecOLE7dLsaBmoFdWW1ypF2sYpxQGWzbVQbuF+NIlboRFzeUNZ4em+5iWJEUNvUbsatYpYUoa49WlAG5ML2N9sJRtWYhg9eoGCntPNkGtBeOtml1nimM3w/T2kXpymqRIrSiRsuXtLmFFubpLgjdFmsXN50C54I08J008D69p+57D42yCvcPvJfHpgRcNFMAAAAASUVORK5CYII=" />
+
+                                </svg>
+                                    <span
+                                        class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Layar Antrian</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
                     <!-- Authentication -->
                     <li class="pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0" x-data="{ open: false }">
                         <a class="block text-gray-800 dark:text-gray-100 truncate transition"
