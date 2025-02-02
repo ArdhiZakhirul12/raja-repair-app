@@ -25,7 +25,7 @@
             <ul class="flex flex-wrap justify-center -m-1"></ul>
         </div>
     </div> --}}
-    <canvas id="{{ $chartId }}" class="p-3"></canvas>
+    <canvas id="{{ $chartId }}" class="p-4"></canvas>
 </div>
 
 
