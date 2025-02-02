@@ -86,7 +86,7 @@
                         {{-- <p class="text-sm text-gray-700">Using the most basic table markup, here’s how <code class="bg-gray-100 px-1 py-0.5 rounded">.table</code>-based tables look in Tailwind CSS. <strong>All table styles are inherited</strong>, meaning any nested tables will be styled in the same manner as the parent.</p> --}}
                         <table
                             class="table-auto w-full border-collapse rounded-lg overflow-hidden text-gray-500 dark:text-gray-400">
-                            <thead class="bg-blue-100">
+                            <thead class="bg-sky-100">
                                 <tr>
                                     <th class="px-4 py-2 text-left ">#</th>
                                     <th class="px-4 py-2 text-left">Metode Pembayaran</th>
@@ -123,7 +123,7 @@
 
                             <div class="flex justify-end">
                                 <button type="submit"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">Tambah</button>
+                                    class="px-4 py-2 bg-green-600 text-white rounded hover:bg-blue-700 focus:ring-2 focus:ring-green-500">Tambah</button>
                             </div>
                         </form>
                     </div>

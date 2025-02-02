@@ -193,7 +193,7 @@
                                     </div>
 
                                 </th>
-                                <th scope="col" class="px-6 py-3"x>aksi</th>
+                                <th scope="col" class="px-6 py-3"x></th>
                             </tr>
                         </thead>
 

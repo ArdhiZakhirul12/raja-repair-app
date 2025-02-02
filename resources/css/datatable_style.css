@@ -62,7 +62,7 @@
 /* CUSTOMER TABLE CSS */
 
 #customers-table thead {
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(227, 239, 252);
     color: rgb(111, 111, 111);
     font-weight: bold;
 }
@@ -133,7 +133,7 @@
 }
 
 #services-table thead {
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(227, 239, 252);
     color: rgb(111, 111, 111);
     font-weight: bold;
 }
@@ -216,7 +216,7 @@
 }
 
 #teknisi-table thead {
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(227, 239, 252);
     color: rgb(111, 111, 111);
     font-weight: bold;
 }
@@ -287,7 +287,7 @@
 }
 
 #hp-merk-table thead {
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(227, 239, 252);
     color: rgb(111, 111, 111);
     font-weight: bold;
 }
@@ -356,7 +356,7 @@
 }
 
 #spareparts-table thead {
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(227, 239, 252);
     color: rgb(111, 111, 111);
     font-weight: bold;
 }
@@ -431,7 +431,7 @@
 }
 
 #hp-model-table thead {
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(227, 239, 252);
     color: rgb(111, 111, 111);
     font-weight: bold;
 }
@@ -506,7 +506,7 @@
 }
 
 #booking-table thead {
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(227, 239, 252);
     color: rgb(111, 111, 111);
     font-weight: bold;
 }

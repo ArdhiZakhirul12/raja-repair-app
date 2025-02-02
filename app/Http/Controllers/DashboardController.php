@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\booking;
 use App\Models\teknisi;
 use App\Models\customer;
 use App\Models\dataService;
@@ -23,12 +24,15 @@ class DashboardController extends Controller
         $serviceAmounts = [30, 25, 40, 35, 20, 15, 10, 5, 3, 2];
 
 
+        $bookings = booking::with(['sparepart_booking', 'detailBooking'])->get();
+
+
         $totalCustomers = customer::where('user_id',Auth::user()->id)->get();
         $totalServices = dataService::where('user_id',Auth::user()->id)->get();
         $totalSpareparts = sparepart::where('user_id',Auth::user()->id)->get();
         $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
 
-        return view('customer-service/dashboard/dashboard', compact('totalCustomers', 'totalServices', 'totalSpareparts','teknisis','exMonths','exSales','phoneBrands','brandPercentages'));
+        return view('customer-service/dashboard/dashboard', compact('totalCustomers', 'totalServices', 'totalSpareparts','teknisis','exMonths','exSales','phoneBrands','brandPercentages','bookings'));
     }
 
     /**

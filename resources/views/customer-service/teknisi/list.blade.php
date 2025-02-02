@@ -83,7 +83,9 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden" id="teknisi-table">
                         <thead>
                             <tr>
-                                <th><input type="checkbox" id="select-all"></th>
+                                <th>
+                                    {{-- <input type="checkbox" id="select-all"> --}}
+                                </th>
                                 <th scope="col" class="px-6 py-3">
                                     <div class="flex items-center">
                                         Nama
@@ -117,7 +119,7 @@
                                           </svg></a>
                                     </div>
                                 </th>
-                                <th scope="col" class="px-6 py-3">aksi</th>
+                                <th scope="col" class="px-6 py-3"></th>
                             </tr>
                         </thead>
                         {{-- <tbody>
