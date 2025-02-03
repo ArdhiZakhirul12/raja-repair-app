@@ -7,7 +7,7 @@
 
 <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
     <header class="flex items-center px-3 py-4 border-b border-gray-100 dark:border-gray-700/60">
-        <img src="{{ asset('images/Order_completed.svg') }}"  class="w-8 h-8 mr-2">
+        <img src="{{ asset('images/Order_completed.svg') }}"  class="w-7 h-7 mr-2">
         <h2 class="font-semibold text-gray-800 dark:text-gray-100">{{ $title }}</h2>
     </header>
     @php
