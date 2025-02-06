@@ -19,8 +19,8 @@ class HpController extends Controller
         $merkIds = $merks->pluck('id'); // Mengambil hanya ID
 
         // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
-        $models = HpModel::whereIn('hp_merk_id', $merkIds)->get();
-
+        $models = HpModel::with('hpMerk')->whereIn('hp_merk_id', $merkIds)->get();
+        // dd($models);
         return view('customer-service.hp.list',compact('merks','models'));
         // return view('customer-service.hp.list');
     }
@@ -36,13 +36,10 @@ class HpController extends Controller
         $merkIds = $merks->pluck('id'); // Mengambil hanya ID
 
         // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
-        $models = HpModel::whereIn('hp_merk_id', $merkIds)->get();
+        $models = HpModel::with('hpMerk')->whereIn('hp_merk_id', $merkIds)->get();
 
-    
+        // dd($models);
         return DataTables::of($models)
-            // ->addColumn('action', function ($teknisi) {
-            //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
-            // })
             ->rawColumns(['action'])
             ->make(true);
     }
