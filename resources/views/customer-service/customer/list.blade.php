@@ -60,7 +60,7 @@
 
 
             <div class="flex justify-between mb-4 sm:mb-5">
-                <h4 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100">
+                <h4 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100  font-bold">
                     Data Pelanggan
                 </h4>
                 <button 
@@ -94,7 +94,9 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
      
             <tr>
-                <th><input type="checkbox" id="select-all"></th>
+                <th>
+                    {{-- <input type="checkbox" id="select-all"> --}}
+                </th>
                 <th scope="col" class="px-6 py-3">
                     <div class="flex items-center">
                         Nama
@@ -119,7 +121,7 @@
   </svg></a>
                     </div>
                 </th>
-                <th>Aksi</th>
+                <th></th>
            
             </tr>
         </thead>

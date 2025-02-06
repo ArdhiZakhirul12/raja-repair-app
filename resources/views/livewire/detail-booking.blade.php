@@ -1,5 +1,29 @@
 
 <div>
+    
+<style>
+    @media print {
+        /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
+        @page {
+            size: Legal;
+            margin: 10mm; /* Sesuaikan margin sesuai kebutuhan */
+        }
+
+        /* Sesuaikan elemen agar mengikuti ukuran kertas */
+        body {
+            transform: scale(1.4); /* Skala 140% */
+            transform-origin: top left; /* Pastikan skala dari kiri atas */
+        }
+
+        /* Kontainer yang akan dicetak */
+        #print-invoice {
+            width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+    }
+</style>
+
 
     @if (session()->has('doneMsg'))
     <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50" id="popup">
@@ -728,29 +752,6 @@
 </div>
 
 
-{{-- <style>
-    @media print {
-        /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
-        @page {
-            size: Legal;
-            margin: 10mm; /* Sesuaikan margin sesuai kebutuhan */
-        }
-
-        /* Sesuaikan elemen agar mengikuti ukuran kertas */
-        body {
-            transform: scale(1.4); /* Skala 140% */
-            transform-origin: top left; /* Pastikan skala dari kiri atas */
-        }
-
-        /* Kontainer yang akan dicetak */
-        #print-invoice {
-            width: 100%;
-            margin: auto;
-            overflow: hidden;
-        }
-    }
-</style> --}}
-
 
 </div>
 
@@ -764,6 +765,7 @@
     function printDiv(divId) {
         let printContent = document.getElementById(divId).innerHTML;
         let originalContent = document.body.innerHTML;
+
 
         document.body.innerHTML = printContent;  // Hanya menampilkan elemen yang dipilih
         window.print();  // Perintah print

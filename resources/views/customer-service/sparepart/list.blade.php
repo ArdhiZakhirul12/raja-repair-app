@@ -136,7 +136,9 @@
                         <thead>
                             <tr>
 
-                                <th><input type="checkbox" id="select-all"></th>
+                                <th>
+                                    {{-- <input type="checkbox" id="select-all"> --}}
+                                </th>
                                 <th  scope="col" class="px-6 py-3">
                                     <div class="flex items-center">
                                         Nama
@@ -155,7 +157,7 @@
                                 </th>
                                 <th  scope="col" class="px-6 py-3">Status</th>
                                 <th  scope="col" class="px-6 py-3">Terjual</th>
-                                <th  scope="col" class="px-6 py-3">action</th>
+                                <th  scope="col" class="px-6 py-3"></th>
 
                             </tr>
                         </thead>

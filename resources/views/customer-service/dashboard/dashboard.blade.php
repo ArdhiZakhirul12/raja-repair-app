@@ -35,7 +35,7 @@
     
         <div class="grid grid-cols-12 gap-4">
             <x-dashboard.dashboard-card-01 title="Servis" total="{{ count($totalServices) }}"/>
-            <x-dashboard.dashboard-card-01 title="Pendapatan" total="{{ count($totalCustomers) }}"/>
+            <x-dashboard.dashboard-card-01 title="Pendapatan" total="980909000"/>
             <x-dashboard.dashboard-card-01 title="Customer" total="{{ count($totalCustomers) }}"/>
             <x-dashboard.dashboard-card-01 title="Teknisi" total="{{ count($teknisis) }}"/>
             <x-dashboard.dashboard-card-08 title="Pelayanan servis per bulan" total="0" :exMonths="$exMonths" :exSales="$exSales" />
