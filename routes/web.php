@@ -59,6 +59,7 @@ Route::middleware([
             Route::get('/', [TeknisiController::class, 'index'])->name('index');
             Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
             Route::post('/store', [TeknisiController::class, 'store'])->name('store');
+            Route::get('/{id}', [TeknisiController::class, 'show'])->name('show');
             Route::put('/update', [TeknisiController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });

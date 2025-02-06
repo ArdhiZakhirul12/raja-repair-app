@@ -7,6 +7,7 @@ use App\Models\dataService;
 use App\Models\metodePembayaran;
 use App\Models\sparepart;
 use App\Models\teknisi;
+use Http;
 use Livewire\Component;
 
 class DetailBooking extends Component
@@ -72,12 +73,13 @@ class DetailBooking extends Component
 
     public function selesaikan()
     {
+        // dd($this->booking->customer->no_hp);
         $this->validate();
 
         $saveBooking = [
             'status' => 'selesai',
             'total' => $this->total,
-            
+            'metode_pembayaran_id' => $this->metodeSelected
         ];
         if ($this->catatan != null) {
             $saveBooking["keterangan"] = $this->catatan;
@@ -99,10 +101,34 @@ class DetailBooking extends Component
             sparepart::where('id',$detail->sparepart_id)->increment('terjual');
         }
 
-        
+        $kembalian = $this->bayar - $this->total;
+
+        $message = "*Nota Elektronik*".
+                    "Raja Repair - Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61257". 
+                    $this->booking->kode_pemesanan.
+                    "Nama :".$this->booking->customer->nama.
+                    "Kendala : ".$this->booking->kendala.
+                    "Teknisi :".$this->booking->teknisi->nama.
+                    "Pembayaran :". $this->booking->metodePembayaran->metode.
+                    "total : ".$this->total.
+                    "Bayar : ". $this->bayar.
+                    "kembalian :". $kembalian.
+                    "Terimakasih"
+                    ;
+        Http::withHeaders([
+            'Authorization' => env('FONNTE_TOKEN')
+        ])->post('https://api.fonnte.com/send', [
+            'target' => $this->booking->customer->no_hp, // Ganti dengan nomor tujuan dari database atau input user
+            'message' => $message,
+            'countryCode' => '62',
+        ]);
+    
+        // Redirect atau tampilkan notifikasi
+        // session()->flash('message', 'Pesan WA terkirim!');
 
         $kembalian = $this->total - $this->bayar;
         $this->isModalDone = false;
+        // return response()->json(env('FONNTE_TOKEN'));
 
         session()->flash('doneMsg', 'Berhasil menyelesaikan servis! Kembalian Rp'.$kembalian);
         // $this-> dispatch("print-invoice");
