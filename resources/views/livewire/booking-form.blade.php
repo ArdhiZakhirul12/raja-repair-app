@@ -3,6 +3,29 @@
 {{-- shadow-md rounded-lg " --}}
 ">
 
+<style>
+    @media print {
+        /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
+        @page {
+            size: Legal;
+            margin: 10mm; /* Sesuaikan margin sesuai kebutuhan */
+        }
+
+        /* Sesuaikan elemen agar mengikuti ukuran kertas */
+        body {
+            transform: scale(1.4); /* Skala 140% */
+            transform-origin: top left; /* Pastikan skala dari kiri atas */
+        }
+
+        /* Kontainer yang akan dicetak */
+        #print-spk {
+            width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+    }
+</style>
+
     <form wire:submit.prevent="submit" class="space-y-6">
         <div class="flex justify-center">
             <div class="max-w-4xl mx-3 p-6 bg-white shadow-md rounded-lg">
@@ -603,28 +626,7 @@
             <h2 class="text-center text-2xl py-2 text-l font-semibold ">Terimakasih</h2>
         </div>
     </div>
-    <style>
-        @media print {
-            /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
-            @page {
-                size: Legal;
-                margin: 10mm; /* Sesuaikan margin sesuai kebutuhan */
-            }
-    
-            /* Sesuaikan elemen agar mengikuti ukuran kertas */
-            body {
-                transform: scale(1.4); /* Skala 140% */
-                transform-origin: top left; /* Pastikan skala dari kiri atas */
-            }
-    
-            /* Kontainer yang akan dicetak */
-            #spk-print {
-                width: 100%;
-                margin: auto;
-                overflow: hidden;
-            }
-        }
-    </style>
+
 
 
  

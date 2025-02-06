@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\PcAntrianController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SpendingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +92,8 @@ Route::middleware([
             // Route::put('/update', [BookingController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
+
+        Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
 
         Route::get('/antrian-ditangani', [AntrianController::class, 'index'])->name('antrian-ditangani');
         Route::get('/antrian', [PcAntrianController::class, 'index'])->name('pcAntrian');

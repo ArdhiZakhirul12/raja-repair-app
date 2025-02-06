@@ -62,16 +62,28 @@
                 </style>
             @endif
 
+            <div class="flex justify-between mb-4 sm:mb-5">
+                <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
+                    Data Handphone
+                </h1>
+               
+            </div>
+
             <div class="grid grid-cols-2 gap-8">
+                
                 <!-- Merk HP -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
 
-                    <div class="flex justify-between mb-10 sm:mb-10">
-                        <h3 class="md:text-xl text-gray-800 dark:text-gray-100 font-bold">
-                            Data Merk HP
-                        </h3>
-                        <button
-                            class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-700 flex items-center justify-center"
+
+                    <div class="flex justify-between mb-10 sm:mb-5">
+                        <div class="flex items-center">
+                            <img src="{{ asset('images/Windows_Phone.svg') }}" alt="logo" class="w-8 mx-auto">
+                            <h3 class="text-xl md:text-xl text-gray-800 dark:text-gray-100 font-bold">
+                                Merk HP
+                            </h3>
+                        </div>
+                        <button class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-700 flex items-center justify-center"
+
                             onclick="document.getElementById('add-merk-modal').classList.remove('hidden')">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -85,10 +97,14 @@
                         id="hp-merk-table">
                         <thead>
                             <tr class="bg-gray-100">
-                                {{-- <th><input type="checkbox" id="select-all"></th> --}}
-                                <th class="border px-4 py-2">#</th>
+
+                                <th>
+                                    {{-- <input type="checkbox" id="select-all"> --}}
+                                </th>
+                                <th class="border px-4 py-2">ID</th>
+
                                 <th class="border px-4 py-2">Nama</th>
-                                <th class="border px-4 py-2">Aksi</th>
+                                <th class="border px-4 py-2"></th>
                             </tr>
                         </thead>
 
@@ -97,29 +113,36 @@
 
                 <!-- Model HP -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex justify-between mb-4 sm:mb-5">
-                        <h3 class="text-xl md:text-xl text-gray-800 dark:text-gray-100 font-bold">
-                            Data Model HP
-                        </h3>
 
-                        <button
-                            class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-700 flex items-center justify-center"
-                            onclick="document.getElementById('add-model-modal').classList.remove('hidden')">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v16m8-8H4"></path>
-                            </svg>
-                        </button>
+                    <div class="flex justify-between mb-4 sm:mb-10">
+                        <div class="flex items-center">
+                            <img src="{{ asset('images/Nokia_3310.svg') }}" alt="logo" class="w-8 mx-auto">
+                            <h3 class="text-xl md:text-xl text-gray-800 dark:text-gray-100 font-bold">
+                                Model HP
+                            </h3>
+                        </div>
+                 
+             
+                        <button class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-700 flex items-center justify-center"
+                        onclick="document.getElementById('add-model-modal').classList.remove('hidden')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                    </button>
+
                     </div>
-                    <table class="w-full border-collapse border border-gray-200" id="hp-model-table">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden" id="hp-model-table">
                         <thead>
                             <tr class="bg-gray-100">
-                                {{-- <th><input type="checkbox" id="select-all"></th> --}}
-                                <th class="border px-4 py-2">#</th>
+
+                                <th>
+                                    {{-- <input type="checkbox" id="select-all"> --}}
+                                </th>
+                                <th class="border px-4 py-2">ID</th>
+
                                 <th class="border px-4 py-2">Model</th>
                                 <th class="border px-4 py-2">Merk</th>
-                                <th class="border px-4 py-2">Aksi</th>
+                                <th class="border px-4 py-2"></th>
                             </tr>
                         </thead>
                         {{-- <tbody>

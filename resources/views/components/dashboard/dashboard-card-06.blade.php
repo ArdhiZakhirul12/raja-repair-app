@@ -9,11 +9,11 @@
     <header class="flex items-center px-3 py-4 border-b border-gray-100 dark:border-gray-700/60">
         
         @if($title == '10 brand terbanyak')
-            <img src="{{ asset('images/Multiple_Devices.svg') }}"  class="w-8 h-8 mr-2">
+            <img src="{{ asset('images/Multiple_Devices.svg') }}"  class="w-7 h-7 mr-2">
         @elseif($title == '10 servis terbanyak')
-            <img src="{{ asset('images/Request_service.svg') }}"  class="w-8 h-8 mr-2">
+            <img src="{{ asset('images/Request_service.svg') }}"  class="w-7 h-7 mr-2">
         @elseif($title == 'Repeat Order')
-            <img src="{{ asset('images/Consumable.svg') }}"  class="w-8 h-8 mr-2">
+            <img src="{{ asset('images/Consumable.svg') }}"  class="w-7 h-7 mr-2">
         @endif
         <h2 class="font-semibold text-gray-800 dark:text-gray-100">{{ $title }}</h2>
     </header>
@@ -25,7 +25,7 @@
             <ul class="flex flex-wrap justify-center -m-1"></ul>
         </div>
     </div> --}}
-    <canvas id="{{ $chartId }}" class="p-3"></canvas>
+    <canvas id="{{ $chartId }}" class="p-4"></canvas>
 </div>
 
 
