@@ -62,6 +62,7 @@ Route::middleware([
             Route::post('/store', [TeknisiController::class, 'store'])->name('store');
             Route::get('/{id}', [TeknisiController::class, 'show'])->name('show');
             Route::put('/update', [TeknisiController::class, 'update'])->name('update');
+            // Route::get('/detail/{id}', [TeknisiController::class, 'displayDetail'])->name('displayDetail');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
         Route::group(['prefix' => 'hp', 'as' => 'hp.'], function(){
@@ -95,6 +96,8 @@ Route::middleware([
         Route::group(['prefix' => 'spending', 'as' => 'spending.'], function(){
             Route::get('/', [SpendingController::class, 'index'])->name('index');
             Route::get('/create', [SpendingController::class, 'create'])->name('create');
+            Route::get('/get-spendings', [SpendingController::class, 'getSpendings'])->name('getSpendings');
+            Route::get('/detail/{id}', [SpendingController::class, 'displayDetail'])->name('displayDetail');
             // Route::post('/show', [SpendingController::class, 'show'])->name('show');
         });
         // Route::get('/', [SpendingController::class, 'index'])->name('spending');

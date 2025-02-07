@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     
     
     @foreach ($spendings as $spending)
@@ -7,4 +7,4 @@
 
 
  
-</x-app-layout>
+</x-app-layout> --}}

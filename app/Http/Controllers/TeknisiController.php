@@ -67,6 +67,8 @@ class TeknisiController extends Controller
     public function show(string $id)
     {
         $bookings = booking::with('detailBooking')->where('teknisi_id', $id)->get();
+      
+        $teknisi = teknisi::find($id);
         // mendapatkan booking yang bergaransi
         $garansi = $bookings->where('garansi', 1);
 
@@ -78,7 +80,7 @@ class TeknisiController extends Controller
             }
         }
 
-        return view('customer-service.teknisi.detail', compact('bookings', 'garansi', 'total'));
+        return view('customer-service.teknisi.detail', compact('bookings', 'garansi', 'total', 'teknisi'));
 
     }
 
