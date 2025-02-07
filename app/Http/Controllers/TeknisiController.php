@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\teknisi;
+use App\Models\booking;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
@@ -14,20 +15,20 @@ class TeknisiController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {        
-        $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
+    {
+        $teknisis = teknisi::where('user_id', Auth::user()->id)->get();
 
         return view('customer-service.teknisi.list');
     }
 
 
-              /**
+    /**
      * Get all service data
      */
     public function getTechnicians()
     {
-        $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
-    
+        $teknisis = teknisi::where('user_id', Auth::user()->id)->get();
+
         return DataTables::of($teknisis)
             // ->addColumn('action', function ($teknisi) {
             //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
@@ -54,10 +55,10 @@ class TeknisiController extends Controller
             'nama' => 'required|string|min:3',
             'no_hp' => 'required|numeric|digits_between:11,13',
             'alamat' => 'nullable',
-        ]);        
+        ]);
         $validated['user_id'] = $auth->id;
         teknisi::create($validated);
-        return redirect()->back()->with('success','berhasil menambahkan data teknisi');
+        return redirect()->back()->with('success', 'berhasil menambahkan data teknisi');
     }
 
     /**
@@ -65,7 +66,20 @@ class TeknisiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $bookings = booking::with('detailBooking')->where('teknisi_id', $id)->get();
+        // mendapatkan booking yang bergaransi
+        $garansi = $bookings->where('garansi', 1);
+
+        // untuk mendapatkan total service dari teknisi
+        $total = 0;
+        foreach ($bookings as $booking) {
+            foreach ($booking->detailBooking as $detail) {
+                $total = $detail->harga + $total;
+            }
+        }
+
+        return view('customer-service.teknisi.detail', compact('bookings', 'garansi', 'total'));
+
     }
 
     /**
@@ -84,11 +98,11 @@ class TeknisiController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|min:3',
             'no_hp' => 'required|numeric|digits_between:11,13',
-            'alamat' => 'required|min:3',            
-        ]); 
-        
+            'alamat' => 'required|min:3',
+        ]);
+
         teknisi::where('id', $request->id)->update($validated);
-        return redirect()->back()->with('msg','berhasil mengedit Teknisi');
+        return redirect()->back()->with('msg', 'berhasil mengedit Teknisi');
     }
 
     /**

@@ -79,6 +79,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(metodePembayaran::class);
     }
+    public function pengeluaran()
+    {
+        return $this->hasMany(pengeluaran::class);
+    }
     public function hpMerk()
     {
         return $this->hasMany(hpMerk::class);

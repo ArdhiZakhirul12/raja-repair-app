@@ -22,7 +22,7 @@
                     id="booking-table">
                     <thead>
                         <tr>
-                            <th scope="col" class="px-6 py-3"></th>
+                            {{-- <th scope="col" class="px-6 py-3"></th> --}}
                  
                             <th scope="col" class="px-6 py-3">Kode</th>
 
@@ -67,16 +67,17 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('cs.booking.getBooking') }}',
+                ordering: false,
                 columns: [
 
-                {
-                        data: 'id',
-                        render: function(data) {
-                            return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                        },
-                        orderable: false,
-                        searchable: false
-                    },
+                // {
+                //         data: 'id',
+                //         render: function(data) {
+                //             return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                //         },
+                //         orderable: false,
+                //         searchable: false
+                //     },
                     {
                         data: 'kode_pesanan',
                         name: 'kode_pesanan',

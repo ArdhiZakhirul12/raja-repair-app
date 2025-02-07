@@ -18,4 +18,8 @@ class metodePembayaran extends Model
     {
         return $this->hasMany(hpMerk::class);
     }
+    public function pengeluarans()
+    {
+        return $this->hasMany(pengeluaran::class);
+    }
 }

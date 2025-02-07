@@ -25,7 +25,7 @@ use App\Http\Controllers\SpendingController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::middleware([
@@ -60,6 +60,7 @@ Route::middleware([
             Route::get('/', [TeknisiController::class, 'index'])->name('index');
             Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
             Route::post('/store', [TeknisiController::class, 'store'])->name('store');
+            Route::get('/{id}', [TeknisiController::class, 'show'])->name('show');
             Route::put('/update', [TeknisiController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
@@ -91,8 +92,12 @@ Route::middleware([
             // Route::put('/update', [BookingController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
-
-        Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
+        Route::group(['prefix' => 'spending', 'as' => 'spending.'], function(){
+            Route::get('/', [SpendingController::class, 'index'])->name('index');
+            Route::get('/create', [SpendingController::class, 'create'])->name('create');
+            // Route::post('/show', [SpendingController::class, 'show'])->name('show');
+        });
+        // Route::get('/', [SpendingController::class, 'index'])->name('spending');
 
         Route::get('/antrian-ditangani', [AntrianController::class, 'index'])->name('antrian-ditangani');
         Route::get('/antrian', [PcAntrianController::class, 'index'])->name('pcAntrian');

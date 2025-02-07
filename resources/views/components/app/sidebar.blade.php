@@ -372,8 +372,8 @@
                             </div>
                         </a>
 
-                        <a href="{{ route('cs.spending') }}"
-                        :active="request() - > routeIs('cs.spending')">
+                        <a href="{{ route('cs.spending.index') }}"
+                        :active="request() - > routeIs('cs.spending.index')">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center">
                                 {{-- <i class="fa fa-toolbox"></i> --}}
