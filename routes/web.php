@@ -94,10 +94,8 @@ Route::middleware([
         });
         Route::group(['prefix' => 'spending', 'as' => 'spending.'], function(){
             Route::get('/', [SpendingController::class, 'index'])->name('index');
-            Route::post('/show', [SpendingController::class, 'show'])->name('show');
-            // Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
-            // Route::put('/update', [BookingController::class, 'update'])->name('update');
-            // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
+            Route::get('/create', [SpendingController::class, 'create'])->name('create');
+            // Route::post('/show', [SpendingController::class, 'show'])->name('show');
         });
         // Route::get('/', [SpendingController::class, 'index'])->name('spending');
 

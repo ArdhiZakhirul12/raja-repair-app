@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class SpendingController extends Controller
 {
-    public function index()
+    public function create()
     {
 
         // $services = dataService::where('user_id',Auth::user()->id)->get();
@@ -16,10 +16,10 @@ class SpendingController extends Controller
         return view('customer-service.spending.spending');
     }
 
-    public function show()
+    public function index()
     {
-        pengeluaran::where('user_id', auth()->id());
-        return view('customer-service.spending.detail',compact('pengeluaran'));
+        $spendings = pengeluaran::where('user_id', auth()->id())->get();
+        return view('customer-service.spending.detail',compact('spendings'));
     }
 
     //
