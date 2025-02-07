@@ -2,7 +2,7 @@
     
     
     @foreach ($spendings as $spending)
-    <P>$spending</P>        
+    <P>{{$spending}}</P>        
     @endforeach
 
 
