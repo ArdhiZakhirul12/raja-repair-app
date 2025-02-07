@@ -226,7 +226,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="code_sparepart" class="block text-sm font-medium text-gray-400">Kode Sparepart</label>
+                        <label for="code_sparepart" class="block text-sm font-medium text-gray-400">Kode Service</label>
                         <input type="text" name="code" id="code"
                             class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                     </div>
@@ -242,10 +242,30 @@
                             <option value="software">Software</option>
                         </select>
                     </div>
-                    <div class="mb-4">
-                        <label for="harga" class="block text-sm font-medium text-gray-400">harga</label>
-                        <input type="text" name="harga" id="harga"
-                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    <div class="mb-4 flex gap-4">
+                        <div class="w-1/2">
+                            <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
+                            <input type="text" name="harga" id="harga"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                        <div class="w-1/2">
+                            <label for="garansi_1" class="block text-sm font-medium text-gray-400">Harga Garansi 14 Hari</label>
+                            <input type="text" name="garansi_1" id="garansi_1"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4 flex gap-4">
+                        <div class="w-1/2">
+                            <label for="garansi_2" class="block text-sm font-medium text-gray-400">Harga Garansi 30 Hari</label>
+                            <input type="text" name="garansi_2" id="garansi_2"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                        <div class="w-1/2">
+                            <label for="garansi_3" class="block text-sm font-medium text-gray-400">Harga Garansi 90 Hari</label>
+                            <input type="text" name="garansi_3" id="garansi_3"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
                     </div>
                     <div class="flex justify-end">
                         <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"

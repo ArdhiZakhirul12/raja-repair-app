@@ -67,6 +67,9 @@ class ServiceController extends Controller
             'jenis_servis' => 'required',
             'status' => '1',
             'harga' => 'required|integer',
+            'garansi_1' => 'nullable|integer',
+            'garansi_2' => 'nullable|integer',
+            'garansi_3' => 'nullable|integer',
         ]);
         $validated['user_id'] = $auth->id;
         dataService::create($validated);

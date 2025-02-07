@@ -24,7 +24,7 @@ class BookingController extends Controller
     
     public function getBooking()
 {    
-    $bookings = booking::with(['hpModel','user','detailBooking'])->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();    
+    $bookings = booking::with(['hpModel','user','detailBooking','customer'])->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();    
 
     return DataTables::of($bookings)
         ->rawColumns(['action'])
