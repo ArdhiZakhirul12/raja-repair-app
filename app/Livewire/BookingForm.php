@@ -42,6 +42,7 @@ class BookingForm extends Component
     public $searchTeknisi = '';
     public $garansi = '0';
 
+
     public function mount()
     {
         // Ambil daftar teknisi dari database
@@ -74,7 +75,7 @@ class BookingForm extends Component
 
     public function submit()
     {
-        // dd($this);
+        // dd($this->garansi);
         $validated = $this->validate([
             'nohp' => [
                 'required',
@@ -122,13 +123,10 @@ class BookingForm extends Component
             ]);
             $this->customer = $createCust->id;
         }
-        if($validated['garansi']){
-            $this->garansi = 1;
-        }
         //membuat code pesanan
         $time = substr(time(), -5); // Mengambil 5 digit terakhir dari timestamp
         $random = bin2hex(random_bytes(1)); // 2 karakter hex random
-        $kode_pesanan = strtoupper('ORD'.$time . $random);
+        $kode_pesanan = strtoupper('ORD' . $time . $random);
 
         //membuat booking
         $createBook = booking::create(([
@@ -148,12 +146,24 @@ class BookingForm extends Component
         ]));
         if ($this->service_id != null) {
             $serviceIds = $validated['service_id'];
-            for ($i = 0; $i < count($serviceIds); $i++)
+            for ($i = 0; $i < count($serviceIds); $i++) {
+                $service = dataService::where('id', $serviceIds[$i])->first();
+                if($this->garansi == '0'){
+                    $harga = $service->harga;
+                }elseif($this->garansi == '1'){
+                    $harga = $service->garansi_1;
+                }elseif($this->garansi == '2'){
+                    $harga = $service->garansi_2;
+                }elseif($this->garansi == '3'){
+                    $harga = $service->garansi_3;
+                }
+                // dd($harga);
                 detailBooking::create([
                     'booking_id' => $createBook['id'],
                     'data_service_id' => $serviceIds[$i],
-                    'harga' => $this->harga_service[$i],
+                    'harga' => $harga,
                 ]);
+            }
         }
 
         if ($this->sparepart_id != null) {
@@ -166,11 +176,11 @@ class BookingForm extends Component
                 ]);
         }
 
-        
 
-        session()->flash('inputData', $createBook);  
+
+        session()->flash('inputData', $createBook);
         session()->flash('message', 'Booking berhasil dibuat.');
-   
+
         $this->dispatch('print-spk');
         $this->reset(); // Reset semua input
     }

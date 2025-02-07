@@ -31,6 +31,7 @@ class DetailBooking extends Component
     public $metodeSelected  ;
     public $bayar  ;
     public $catatan  ;
+    public $statusGaransi;
 
     protected $rules = [
         'metodeSelected' => 'required',
@@ -54,6 +55,17 @@ class DetailBooking extends Component
         $teknisi = $this->booking->teknisi_id;
         $this->teknisis = teknisi::where('user_id',auth()->id())->whereNot('id', $teknisi )->get();
         $this->metode = metodePembayaran::whereNot('id',1)->get();
+        if($this->booking->garansi == '0'){
+            $this->statusGaransi = 'Tidak garansi';
+        } elseif($this->booking->garansi == '1'){
+            $this->statusGaransi = '14 hari';
+        } elseif($this->booking->garansi == '2'){
+            $this->statusGaransi = '30 hari';
+        } elseif($this->booking->garansi == '3'){
+            $this->statusGaransi = '90 hari';
+
+        }
+        
 
 
     }

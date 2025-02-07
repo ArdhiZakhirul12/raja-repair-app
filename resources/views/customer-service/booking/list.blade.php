@@ -89,10 +89,10 @@
                         }
                     },
                     {
-                        data: 'user_id',
-                        name: 'user_id',
+                        data: 'customer_id',
+                        name: 'customer_id',
                         render: function(data, type, row) {
-                            return `<a href="" class="text-black-500 hover:text-black-500 ">${row.user.name}</a>`;
+                            return `<a href="" class="text-black-500 hover:text-black-500 ">${row.customer.nama}</a>`;
 
                         }
                     },
