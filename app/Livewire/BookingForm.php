@@ -122,7 +122,9 @@ class BookingForm extends Component
             ]);
             $this->customer = $createCust->id;
         }
-
+        if($validated['garansi']){
+            $this->garansi = 1;
+        }
         //membuat code pesanan
         $time = substr(time(), -5); // Mengambil 5 digit terakhir dari timestamp
         $random = bin2hex(random_bytes(1)); // 2 karakter hex random

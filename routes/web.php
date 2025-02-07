@@ -92,8 +92,14 @@ Route::middleware([
             // Route::put('/update', [BookingController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
-
-        Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
+        Route::group(['prefix' => 'spending', 'as' => 'spending.'], function(){
+            Route::get('/', [SpendingController::class, 'index'])->name('index');
+            Route::post('/show', [SpendingController::class, 'show'])->name('show');
+            // Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
+            // Route::put('/update', [BookingController::class, 'update'])->name('update');
+            // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
+        });
+        // Route::get('/', [SpendingController::class, 'index'])->name('spending');
 
         Route::get('/antrian-ditangani', [AntrianController::class, 'index'])->name('antrian-ditangani');
         Route::get('/antrian', [PcAntrianController::class, 'index'])->name('pcAntrian');
