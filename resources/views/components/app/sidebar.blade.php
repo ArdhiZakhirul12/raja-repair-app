@@ -250,6 +250,55 @@
 
 
 
+                    <li class="pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] @if (in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]' }} @endif"
+                        x-data="{ open: {{ in_array(Request::segment(1), ['dashboard']) ? 1 : 0 }} }">
+                        <a class="block text-gray-800 dark:text-gray-100 truncate transition @if (!in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'hover:text-gray-900 dark:hover:text-white' }} @endif"
+                            href="#0" @click.prevent="open = !open; sidebarExpanded = true">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    {{-- <i class="fa fa-user-group"></i> --}}
+                                    <img src="{{ asset('images/save_out.svg') }}" alt="logo" class="w-5">
+                                    <span
+                                        class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pengeluaran</span>
+                                </div>
+                                <!-- Icon -->
+                                <div
+                                    class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400 dark:text-gray-500 @if (in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'rotate-180' }} @endif"
+                                        :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 12 12">
+                                        <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                        {{-- {{ route('cs.pcAntrian') }}" :active="request()->routeIs('cs.pcAntrian') --}}
+                        <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                            <ul class="pl-8 mt-1 @if (!in_array(Request::segment(2), ['antrian-ditangani'])) {{ 'hidden' }} @endif"
+                                :class="open ? '!block' : 'hidden'">
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate "
+                                        href="{{ route('cs.spending.index') }}"
+                        :active="request() - > routeIs('cs.spending.index')">
+                                        <span
+                                            class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">List
+                                            Pengeluaran</span>
+                                    </a>
+                                </li>
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate "
+                                        href="{{ route('cs.spending.create') }}"
+                        :active="request() - > routeIs('cs.spending.create')">
+                                        <span
+                                            class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pengeluaran Baru</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+
+
 
                     {{-- <a href="{{ route('cs.booking.create') }}" :active="request()->routeIs('cs.booking.create')">
                         <div class="flex items-center justify-between p-3">
@@ -263,6 +312,23 @@
                             </div>
                         </div>
                        </a> --}}
+
+                       <a href="{{ route('cs.pembayaran.index') }}" :active="request() - > routeIs('cs.pembayaran.index')">
+                        <div class="flex items-center justify-between p-3">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="20" height="20" viewBox="0 0 20 20" fill="none">
+
+                                    <image id="image0_50_217" width="20" height="20"
+                                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEeklEQVR4nO2cS4hcRRRAKypRET+4Mir4IZCk730zqCBxoaMw0/dOBvwgLW50IxL8jJnue3ta8NOIOxF0IfhBAro2bk0UjOhCBRcKKmZhFDGKmk2c4F9baibR+dSbdA/1+lPvHribppq6dbr6vqp6j+ecYRiGYRiGYRiGYRhGSZloX3YWNWAPC37ICsdZsVOugOOk+AEJPsSzW88sRDLPZ5eSwCeDHywOS3zsncSfySa5E5Qdc2YvlovBz6DOkMZsNNFLNXngA+oMY5DC+/FEKy4MekA8vLEQU3T41xT8nRTmJ5vbLvbBkrX8Z7Ha84hE4aK9qDVtJWtFa6+jEYWLprntW1a33aWVi2K15xGJwkX7v//qtjP18UtitecRicJFB0uB4sPR2utoROGiFy9kkrV6uRhyD+1HJQoXbYEmmm1GY3L/BCsdaqI7g56FNqN18OKGrnS4ksEmuj+Y6D5RCtFchhxKMcguMNF9ImnR1TqMs+Dj6yyvnqRmdnU/cklSNCuOseLBrtezAu9yY8dVBeeUlmgSuIsV/uh58yDwJwvcU1ReSYmmBhAJ/t2z5P/jn6rC7UXklozoWruymRW/yenvOxJ8ZvG5N4H7WeFpVjgcntl4dLJ1zfmx80tGNAneEerHCw49ejXRnjiDBB4N5wdzsfNLSfRLayQrHGq33Wnrfk/x5UB++2Pnl4xoFnwjUAZe624JCG+tCIW90fNLRTQJHgjM6C997XZDQDKiWWFvTl/7Qs+E9JtkRE8r3J3XFyn8QgKvk+JulkrlVHW7CJIRXavvPNsv4/L6Wykej7Hg26TwBAncWKvVTncFk4xoD2k2uZFdISl8S4qPTcnYOa4gkhJ9UjYJft+r7BMz/euizjySE+3h2a3nscIjLPBVz8IFj87MZVe6yCQpejk0vwNIKw+w4qss8IU/z+hC+D4XmeRFr6Zar1zIzaxGgq/kPSRJCn/dsmf8AheR0oleDrXGL2fBT0P5VZtwk4tIqUV7qvOVa4OiIx+XJiGamtn1rPDRysCDzrlNp/ruzc1t5wbLRwMoZo5JiJ6SMdzorGTF20Lfjb3ySEK0c25T6NB/aQcId+ZtuX0dZoUfAhfDQ5HzS0a0Y6nUc5drfj0t+BwJNKuCD7LiU/5NA3ntp7Vyb/T8UhFda1c2k+J7ubK7DniziEOnZESfXCOTwDsblezPtP3F0RVAUqL/uxe4+EaFtbU3v7TgEVa4r8jj0+RELy8l0w281dfmdSQ/S4Iz/sdxBZOs6NLlUIpBdoGJ7hOlED0MmOg+YaJTEU2CP4c68C81cSVh0r+NIbRBUjwWrZMTt49CnTRcSWAFzdmJfh6tE1J4MWc39quXHXqFTyrQ3PYtVUEhxd/CpQOej9bZ0lHkxs4eUo9dkt3gYuJPxAY9KB6+2F/ITVAS+HEIBtcZiijo2ZEl2YrXkeJPAx+kDjYWJ1w92+mKZErGrihzGSHBA/7f7foFN3GCBV7wy5vE3126QIqf+dVF9AufYRiGYRiGYRiGYRiGG03+Bbc104DvEL5dAAAAAElFTkSuQmCC" />
+
+                                </svg>
+                                <span
+                                    class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Metode
+                                    Pembayaran</span>
+                            </div>
+                        </div>
+                    </a>
 
                     <a href="{{ route('cs.hp.index') }}" :active="request() - > routeIs('cs.hp.index')">
                         <div class="flex items-center justify-between p-3">
@@ -279,22 +345,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="{{ route('cs.pembayaran.index') }}" :active="request() - > routeIs('cs.pembayaran.index')">
-                        <div class="flex items-center justify-between p-3">
-                            <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    width="20" height="20" viewBox="0 0 20 20" fill="none">
 
-                                    <image id="image0_50_217" width="20" height="20"
-                                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEeklEQVR4nO2cS4hcRRRAKypRET+4Mir4IZCk730zqCBxoaMw0/dOBvwgLW50IxL8jJnue3ta8NOIOxF0IfhBAro2bk0UjOhCBRcKKmZhFDGKmk2c4F9baibR+dSbdA/1+lPvHribppq6dbr6vqp6j+ecYRiGYRiGYRiGYRhGSZloX3YWNWAPC37ICsdZsVOugOOk+AEJPsSzW88sRDLPZ5eSwCeDHywOS3zsncSfySa5E5Qdc2YvlovBz6DOkMZsNNFLNXngA+oMY5DC+/FEKy4MekA8vLEQU3T41xT8nRTmJ5vbLvbBkrX8Z7Ha84hE4aK9qDVtJWtFa6+jEYWLprntW1a33aWVi2K15xGJwkX7v//qtjP18UtitecRicJFB0uB4sPR2utoROGiFy9kkrV6uRhyD+1HJQoXbYEmmm1GY3L/BCsdaqI7g56FNqN18OKGrnS4ksEmuj+Y6D5RCtFchhxKMcguMNF9ImnR1TqMs+Dj6yyvnqRmdnU/cklSNCuOseLBrtezAu9yY8dVBeeUlmgSuIsV/uh58yDwJwvcU1ReSYmmBhAJ/t2z5P/jn6rC7UXklozoWruymRW/yenvOxJ8ZvG5N4H7WeFpVjgcntl4dLJ1zfmx80tGNAneEerHCw49ejXRnjiDBB4N5wdzsfNLSfRLayQrHGq33Wnrfk/x5UB++2Pnl4xoFnwjUAZe624JCG+tCIW90fNLRTQJHgjM6C997XZDQDKiWWFvTl/7Qs+E9JtkRE8r3J3XFyn8QgKvk+JulkrlVHW7CJIRXavvPNsv4/L6Wykej7Hg26TwBAncWKvVTncFk4xoD2k2uZFdISl8S4qPTcnYOa4gkhJ9UjYJft+r7BMz/euizjySE+3h2a3nscIjLPBVz8IFj87MZVe6yCQpejk0vwNIKw+w4qss8IU/z+hC+D4XmeRFr6Zar1zIzaxGgq/kPSRJCn/dsmf8AheR0oleDrXGL2fBT0P5VZtwk4tIqUV7qvOVa4OiIx+XJiGamtn1rPDRysCDzrlNp/ruzc1t5wbLRwMoZo5JiJ6SMdzorGTF20Lfjb3ySEK0c25T6NB/aQcId+ZtuX0dZoUfAhfDQ5HzS0a0Y6nUc5drfj0t+BwJNKuCD7LiU/5NA3ntp7Vyb/T8UhFda1c2k+J7ubK7DniziEOnZESfXCOTwDsblezPtP3F0RVAUqL/uxe4+EaFtbU3v7TgEVa4r8jj0+RELy8l0w281dfmdSQ/S4Iz/sdxBZOs6NLlUIpBdoGJ7hOlED0MmOg+YaJTEU2CP4c68C81cSVh0r+NIbRBUjwWrZMTt49CnTRcSWAFzdmJfh6tE1J4MWc39quXHXqFTyrQ3PYtVUEhxd/CpQOej9bZ0lHkxs4eUo9dkt3gYuJPxAY9KB6+2F/ITVAS+HEIBtcZiijo2ZEl2YrXkeJPAx+kDjYWJ1w92+mKZErGrihzGSHBA/7f7foFN3GCBV7wy5vE3126QIqf+dVF9AufYRiGYRiGYRiGYRiGG03+Bbc104DvEL5dAAAAAElFTkSuQmCC" />
-
-                                </svg>
-                                <span
-                                    class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Metode
-                                    Pembayaran</span>
-                            </div>
-                        </div>
-                    </a>
                     <a href="{{ route('cs.customer.index') }}" :active="request() - > routeIs('cs.customer.index')">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center">
@@ -372,17 +423,17 @@
                             </div>
                         </a>
 
-                        <a href="{{ route('cs.spending.index') }}"
-                        :active="request() - > routeIs('cs.spending.index')">
+                        {{-- <a href="{{ route('cs.spending.create') }}"
+                        :active="request() - > routeIs('cs.spending.create')">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center">
-                                {{-- <i class="fa fa-toolbox"></i> --}}
+                               
                                 <img src="{{ asset('images/save_out.svg') }}" alt="logo" class="w-5">
                                 <span
                                     class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pengeluaran</span>
                             </div>
                         </div>
-                    </a>
+                    </a> --}}
                     
 {{-- 
                         <a href="{{ route('cs.sparepart.index') }}"

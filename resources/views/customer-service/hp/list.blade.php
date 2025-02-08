@@ -96,7 +96,7 @@
                         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"
                         id="hp-merk-table">
                         <thead>
-                            <tr class="bg-gray-100">
+                            <tr class="bg-blue-100">
 
                                 <th>
                                     {{-- <input type="checkbox" id="select-all"> --}}
@@ -133,7 +133,7 @@
                     </div>
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden" id="hp-model-table">
                         <thead>
-                            <tr class="bg-gray-100">
+                            <tr class="bg-blue-100">
 
                                 <th>
                                     {{-- <input type="checkbox" id="select-all"> --}}
@@ -248,14 +248,14 @@
                     serverSide: true,
                     ajax: '{{ route('cs.hp.getHpMerk') }}',
                     columns: [
-                        // {
-                        //     data: 'id',
-                        //     render: function (data) {
-                        //         return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                        //     },
-                        //     orderable: false,
-                        //     searchable: false
-                        // },
+                        {
+                            data: 'id',
+                            render: function (data) {
+                                return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                            },
+                            orderable: false,
+                            searchable: false
+                        },
                         {
                             data: null,
                             name: 'iteration',
@@ -344,14 +344,14 @@
                     serverSide: true,
                     ajax: '{{ route('cs.hp.getHpModel') }}',
                     columns: [
-                        // {
-                        //     data: 'id',
-                        //     render: function (data) {
-                        //         return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                        //     },
-                        //     orderable: false,
-                        //     searchable: false
-                        // },
+                        {
+                            data: 'id',
+                            render: function (data) {
+                                return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                            },
+                            orderable: false,
+                            searchable: false
+                        },
                         {
                             data: null,
                             name: 'iteration',
