@@ -9,25 +9,33 @@
             </h1>
         </div>
     </div>
-    <p>{{ $teknisi }}</p>
+    {{-- <p>{{ $bookings }}</p> --}}
 
-    <div class="flex justify-center m-6">
+    <div class=" mx-6 my-3">
         <div class="grid grid-cols-9 gap-3">
-            <x-dashboard.dashboard-card-01 title="Jumlah Service" total="{{$bookings->count()}}"/>
-            <x-dashboard.dashboard-card-01 title="Jumlah Service Garansi" total="{{$garansi->count()}}"/>
-            <x-dashboard.dashboard-card-01 title="Total Pendapatan" total=" Rp{{number_format($total, 0, ',', '.')}}"/>
-            <x-dashboard.dashboard-card-08 title="Pelayanan servis per bulan" total="0" :exMonths="$exMonths" :exSales="$exSales" />
+            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service" total="{{$bookings->count()}}"/>
+            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service Garansi" total="{{$garansi->count()}}"/>
+            <x-dashboard.dashboard-card-01-teknisi title="Total Pendapatan" total=" Rp{{number_format($total, 0, ',', '.')}}"/>
+            
+            <x-dashboard.dashboard-card-08-teknisi title="Pelayanan servis per bulan" total="0" :exMonths=$bulanLabels :exSales=$jumlahServis />
           
-                <div class="flex flex-col col-span-full sm:col-span-4 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
-                    <h2 class="text-xl font-bold mb-4">Detail Teknisi</h2>
-                    <p><strong>ID:</strong> {{ $teknisi['id'] }}</p>
-                    <p><strong>User ID:</strong> {{ $teknisi['user_id'] }}</p>
-                    <p><strong>No HP:</strong> {{ $teknisi['no_hp'] }}</p>
-                    <p><strong>Nama:</strong> {{ $teknisi['nama'] }}</p>
-                    <p><strong>Alamat:</strong> {{ $teknisi['alamat'] }}</p>
-                    <p><strong>Servis:</strong> {{ $teknisi['servis'] }}</p>
-                    <p><strong>Created At:</strong> {{ $teknisi['created_at'] }}</p>
-                    <p><strong>Updated At:</strong> {{ $teknisi['updated_at'] }}</p>
+                <div class="flex flex-col col-span-full sm:col-span-4 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl p-4">
+                    <h2 class="text-xl font-bold mb-4">Data Teknisi</h2>
+                 
+                    {{-- <p><strong>ID:</strong> {{ $teknisi['id'] }}</p>
+                    <p><strong>User ID:</strong> {{ $teknisi['user_id'] }}</p> --}}
+                    <p><strong>No HP:</strong></p>
+                    <p class="mb-2 ml-3"> {{ $teknisi['no_hp'] }}</p>
+                    <p><strong>Nama:</strong></p>
+                    <p class="mb-2 ml-3"> {{ $teknisi['nama'] }}</p>
+               
+                    <p><strong>Servis:</strong></p>
+                    <p class="mb-2 ml-3">{{ $teknisi['servis'] }}</p>
+                    <p><strong>Created At:</strong> </p>
+                    <p class="mb-2 ml-3">{{ $teknisi['created_at'] }}</p>
+                    <p><strong>Alamat:</strong></p>
+                    <p class=" ml-3">{{ $teknisi['alamat'] }}</p>
+                    {{-- <p><strong>Updated At:</strong> {{ $teknisi['updated_at'] }}</p> --}}
                 </div>
             
         </div>

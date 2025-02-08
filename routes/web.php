@@ -97,7 +97,8 @@ Route::middleware([
             Route::get('/', [SpendingController::class, 'index'])->name('index');
             Route::get('/create', [SpendingController::class, 'create'])->name('create');
             Route::get('/get-spendings', [SpendingController::class, 'getSpendings'])->name('getSpendings');
-            Route::get('/detail/{id}', [SpendingController::class, 'displayDetail'])->name('displayDetail');
+            Route::get('/{id}', [SpendingController::class, 'show'])->name('show');
+            // Route::get('/detail/{id}', [SpendingController::class, 'displayDetail'])->name('displayDetail');
             // Route::post('/show', [SpendingController::class, 'show'])->name('show');
         });
         // Route::get('/', [SpendingController::class, 'index'])->name('spending');

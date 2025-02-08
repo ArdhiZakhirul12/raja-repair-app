@@ -9,7 +9,7 @@
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between mb-4 sm:mb-5">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
-                Data Transaksi
+                Data Pengeluaran
             </h1>
             {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
         onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
@@ -171,15 +171,14 @@
 
                     {
                         data: 'id',
-                //         render: function(data, type, row) {
-                //             return `<button class="text-blue-500 hover:text-blue-700" 
-                //                             data-id="${row.id}" 
-                //                             data-nama="${row.nama_sparepart}"
-                //                             data-harga="${row.harga}"
-                //                            onclick="window.location.href='{{ route('cs.booking.show', ['id' => '__ID__']) }}'.replace('__ID__', ${row.id})">
-                //     <i class="fas fa-eye"></i>
-                // </button>`;
-                //         },
+                        render: function(data, type, row) {
+                            return `<button class="text-blue-500 hover:text-blue-700" 
+                                            data-id="${row.id}" 
+                                    
+                                           onclick="window.location.href='{{ route('cs.spending.show', ['id' => '__ID__']) }}'.replace('__ID__', ${row.id})">
+                    <i class="fas fa-eye"></i>
+                </button>`;
+                        },
                         orderable: false,
                         searchable: false
                     }

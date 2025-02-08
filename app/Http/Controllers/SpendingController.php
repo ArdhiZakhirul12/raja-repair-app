@@ -34,5 +34,10 @@ class SpendingController extends Controller
 
     }
 
+    public function show($id){
+        $spending = pengeluaran::find($id);
+        return view('customer-service.spending.detail', compact('spending'));
+    }
+
     //
 }
