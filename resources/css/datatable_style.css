@@ -533,12 +533,12 @@
 
 #booking-table th:nth-child(1),
 #booking-table td:nth-child(1) {
-    width: 5%; /* Kolom pertama lebih kecil */
+    width: 15%; /* Kolom pertama lebih kecil */
 }
 
 #booking-table th:nth-child(2),
 #booking-table td:nth-child(2) {
-    width: 20%; /* Kolom kedua lebih besar */
+    width: 30%; /* Kolom kedua lebih besar */
 }
 
 #booking-table th:nth-child(3),
@@ -548,23 +548,20 @@
 
 #booking-table th:nth-child(4),
 #booking-table td:nth-child(4) {
-    width: 30%;
+    width: 15%;
 }
 
 #booking-table th:nth-child(5),
 #booking-table td:nth-child(5) {
-    width: 10%;
+    width: 15%;
 }
 
 #booking-table th:nth-child(6),
 #booking-table td:nth-child(6) {
-    width: 15%;
-}
-
-#booking-table th:nth-child(7),
-#booking-table td:nth-child(7) {
     width: 5%;
 }
+
+
 
 
 
