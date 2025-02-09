@@ -51,7 +51,7 @@
 
                 <div class="flex-1 mr-4">
                     <label for="harga" class="block text-gray-700 flex items-center">
-                        <i class="fas fa-dollar-sign text-yellow-500 mr-2"></i> Harga:
+                        <i class="fas fa-money-bill-wave text-yellow-500 mr-2"></i> Harga:
                     </label>
                     <input type="text" id="harga" name="harga" value="{{ $spending['harga'] }}"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -72,25 +72,7 @@
                 <textarea id="keterangan" name="keterangan" rows="4"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ $spending['keterangan'] }}</textarea>
             </div>
-            <div class="flex">
-                <div class="flex-1 mr-4">
-                    <label for="created_at" class="block text-gray-700 flex items-center">
-                        <i class="fas fa-clock text-pink-500 mr-2"></i> Created At:
-                    </label>
-    
-                    <input type="text" id="created_at" name="created_at" value="{{ $spending['created_at'] }}"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        readonly>
-                </div>
-                <div class="flex-1">
-                    <label for="updated_at" class="block text-gray-700 flex items-center">
-                        <i class="fas fa-sync-alt text-orange-500 mr-2"></i> Updated At:
-                    </label>
-                    <input type="text" id="updated_at" name="updated_at" value="{{ $spending['updated_at'] }}"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        readonly>
-                </div>
-            </div>
+           
            
         </form>
     </div>
