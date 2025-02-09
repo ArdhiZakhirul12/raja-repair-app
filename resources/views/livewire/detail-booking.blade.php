@@ -131,6 +131,10 @@
                 text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
             Pesanan : {{ $booking->created_at }}
         </h2>
+        <h2 class="mt-2
+                text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
+            Garansi : {{ $statusGaransi }}
+        </h2>
 
         <div class="flex mt-3">
             <div class="w-4/6 ">

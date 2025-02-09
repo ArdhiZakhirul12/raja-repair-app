@@ -24,7 +24,7 @@ return new class extends Migration
             $table->longText('kendala');
             $table->string('status');
             $table->integer('diskon')->default(0);
-            $table->enum('garansi',['0','1']);
+            $table->enum('garansi',['0','1','2','3']);
             $table->integer('total');
             $table->text('keterangan')->nullable();
             $table->timestamps();

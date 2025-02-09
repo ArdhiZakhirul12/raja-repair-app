@@ -524,10 +524,26 @@
                             </ul>
                         </div>
                         <div class="mb-4"></div>
-                        <div id="garansi_check" class="flex items-center">
-                            <input type="checkbox" wire:model="garansi" value="1" id="garansi_check">
-                            <label for="garansi_check" class="ml-2">Garansi</label>
+                        <div class="flex items-center">
+                            <input type="radio" name="garansi" wire:model="garansi" value="0" id="garansi1_check">
+                            <label for="garansi1_check" class="ml-2">Tidak Garansi</label>
                         </div>
+                        <div class="flex items-center">
+                            <input type="radio" name="garansi" wire:model="garansi" value="1" id="garansi1_check">
+                            <label for="garansi1_check" class="ml-2">Garansi 14 Hari</label>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <input type="radio" name="garansi" wire:model="garansi" value="2" id="garansi2_check">
+                            <label for="garansi2_check" class="ml-2">Garansi 30 Hari</label>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <input type="radio" name="garansi" wire:model="garansi" value="3" id="garansi3_check">
+                            <label for="garansi3_check" class="ml-2">Garansi 90 Hari</label>
+                        </div>
+                        
+                        
 
                     </div>
 
@@ -632,6 +648,7 @@
  
 
 </div>
+
 
 
 
