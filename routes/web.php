@@ -105,6 +105,7 @@ Route::middleware([
 
         Route::get('/antrian-ditangani', [AntrianController::class, 'index'])->name('antrian-ditangani');
         Route::get('/antrian', [PcAntrianController::class, 'index'])->name('pcAntrian');
+        Route::get('/submit-review', [PcAntrianController::class, 'submitReview'])->name('submitReview');
         Route::post('/update-pc-antrian', [PcAntrianController::class, 'update'])->name('pcAntrian.update');
         Route::post('/mulai-antrian', [AntrianController::class, 'store'])->name('antrian.store');
         Route::post('/update-antrian', [AntrianController::class, 'update'])->name('antrian.update');
