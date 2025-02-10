@@ -178,7 +178,7 @@
                                         <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
                                         <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
                                         <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe Servis</th>
-                                        <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
+                                        {{-- <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody class="border-bottom">
@@ -187,7 +187,7 @@
                     <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th>
                     <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
                     <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }} </td>
-                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                    {{-- <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td> --}}
                 </tr>
                 @endforeach
                 @foreach ($booking->sparepart_booking as $item)
@@ -195,11 +195,11 @@
                         <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th>
                         <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
                         <td class="px-4 py-2 text-gray-500">Sparepart </td>
-                        <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                        {{-- <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td> --}}
                     </tr>
                 @endforeach
                 <tr class="border-top ">
-                    <td></td>
+                    {{-- <td></td> --}}
                     <td></td>
                     <td class="px-4 text-right">
                         <h2 class="text-l font-semibold">Total :</h2>
