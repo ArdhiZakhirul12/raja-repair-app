@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class rating extends Model
 {
     use HasFactory;
+    protected $casts = [
+        'rating' => 'integer',
+    ];
+    protected $guarded = ['id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
 }

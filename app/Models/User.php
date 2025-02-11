@@ -91,5 +91,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(booking::class);
     }
+    public function rating()
+    {
+        return $this->hasMany(rating::class);
+    }
     
 }
