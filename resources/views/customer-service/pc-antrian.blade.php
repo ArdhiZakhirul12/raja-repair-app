@@ -24,19 +24,24 @@
 
 
 
-{{-- 
+    {{-- 
     <x-banner /> --}}
 
 
     <div class="flex h-screen items-center justify-center">
-        <div id="floating-card" style="display: none; width: auto; width: 20%; right: 0; top: 15%; transform: translateY(-50%);" class="floating-card m-6 fixed flex items-center justify-center z-50">
-            <div class="card bg-white p-6 rounded-lg shadow-xl">
-            <div class="card-body text-center">
-                <i class="fas fa-star fa-3x mb-4" style="color: #FFD43B;"></i>
-                <h5 class="card-title text-2xl font-bold mb-4" style="color: #3D3480;">Terimakasih!</h5>
-                <p class="card-text text-gray-600">Penilaian anda telah kami terima.</p>
-            </div>
-            </div>
+        <div id="floating-card"
+            style="display: none; width: auto; width: 20%; right: 0; top: 15%; transform: translateY(-50%);"
+            class="floating-card m-6 fixed flex items-center justify-center z-50">
+            @if (session('success'))
+                <div class="card bg-white p-6 rounded-lg shadow-xl">
+                    <div class="card-body text-center">
+                        <i class="fas fa-star fa-3x mb-4" style="color: #FFD43B;"></i>
+                        <h5 class="card-title text-2xl font-bold mb-4" style="color: #3D3480;">Terimakasih!</h5>
+                        <p class="card-text text-gray-600">Penilaian anda telah kami terima.</p>
+                    </div>
+                </div>
+            @endif
+
         </div>
         {{-- @livewire('navigation-menu') --}}
 
@@ -51,43 +56,60 @@
 
         <!-- Page Content -->
 
-      
+
         <div class=" mr-6">
-   
+
             <div class="bg-white  rounded-lg shadow-xl w-full max-w-md flex flex-col items-center justify-center">
                 <div class="flex justify-center bg-white rounded-lg shadow-xl w-full max-w-md relative pt-4">
                     <img src="{{ asset('images/logo_raja.png') }}" alt="logo"
                         class="w-1/5 bg-white p-2 rounded-full \">
                 </div>
-                <div class="p-6 flex flex-col items-center justify-center">
-                    <h1 class="text-l text-center mb-4 px-9 text-gray-500 mt-4">Bagaimana penilaian anda terhadap pelayanan kami ?</h1>
-                    <form 
-                    {{-- action="/submit-review"  
-                    method="POST"  --}}
-                    class="flex flex-col items-center mb-2 mt-4">
+                <div class="p-6
+                        flex flex-col items-center justify-center">
+                    <h1 class="text-l text-center mb-4 px-9 text-gray-500 mt-4">Bagaimana penilaian anda terhadap
+                        pelayanan kami ?</h1>
+                    @if ($errors->any())
+                        <div class="bg-red-100 text-red-700 p-2 mt-2 rounded">
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    @endif
+                    <form action="{{ route('cs.rating') }}" method="POST" class="flex flex-col items-center mb-2 mt-4">
                         @csrf
                         <div class="rating flex">
-                            <input type="radio" id="star1" name="rating" value="1" onclick="setRating(1)" style="display: none;">
-                            <label for="star1" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;" id="star1-icon"></i></label>
-                            <input type="radio" id="star2" name="rating" value="2" onclick="setRating(2)" style="display: none;">
-                            <label for="star2" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;" id="star2-icon"></i></label>
-                            <input type="radio" id="star3" name="rating" value="3" onclick="setRating(3)" style="display: none;">
-                            <label for="star3" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;" id="star3-icon"></i></label>
-                            <input type="radio" id="star4" name="rating" value="4" onclick="setRating(4)" style="display: none;">
-                            <label for="star4" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;" id="star4-icon"></i></label>
-                            <input type="radio" id="star5" name="rating" value="5" onclick="setRating(5)" style="display: none;">
-                            <label for="star5" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;" id="star5-icon"></i></label>
+                            <input type="radio" id="star1" name="rating" value="1" onclick="setRating(1)"
+                                style="display: none;">
+                            <label for="star1" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
+                                    id="star1-icon"></i></label>
+                            <input type="radio" id="star2" name="rating" value="2" onclick="setRating(2)"
+                                style="display: none;">
+                            <label for="star2" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
+                                    id="star2-icon"></i></label>
+                            <input type="radio" id="star3" name="rating" value="3" onclick="setRating(3)"
+                                style="display: none;">
+                            <label for="star3" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
+                                    id="star3-icon"></i></label>
+                            <input type="radio" id="star4" name="rating" value="4" onclick="setRating(4)"
+                                style="display: none;">
+                            <label for="star4" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
+                                    id="star4-icon"></i></label>
+                            <input type="radio" id="star5" name="rating" value="5" onclick="setRating(5)"
+                                style="display: none;">
+                            <label for="star5" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
+                                    id="star5-icon"></i></label>
                         </div>
 
                         {{-- <div class="flex justify-center mt-5">
                         
                             <button type="submit" class="bg-[#5346AE] text-white px-4 py-2 rounded" >Submit</button>
                         </div> --}}
+                        <div class="flex justify-center mt-5">
+
+                            <button class="bg-[#5346AE] text-white px-4 py-2 rounded"
+                                onclick="showPopup()">Submit</button>
+                        </div>
                     </form>
-                    <div class="flex justify-center mt-5">
-                        
-                        <button class="bg-[#5346AE] text-white px-4 py-2 rounded" onclick="showPopup()">Submit</button>
-                    </div>
                 </div>
 
             </div>
@@ -104,11 +126,13 @@
                     @else
                         <!-- Logout Form -->
                         <!-- Header -->
-                        <h1 class="text-l text-center mb-4 px-6 text-gray-500 mt-4">Klik "Ambil Antrian" untuk mendapatkan antrian
+                        <h1 class="text-l text-center mb-4 px-6 text-gray-500 mt-4">Klik "Ambil Antrian" untuk
+                            mendapatkan antrian
                         </h1>
                         <!-- Display Current Number -->
                         <div class="bg-gray-100 p-6 rounded-lg shadow-md text-center">
-                            <h2 id="current-number" class="text-4xl font-bold" style="color: #3D3480;">{{ $antrian?->antrian }}</h2>
+                            <h2 id="current-number" class="text-4xl font-bold" style="color: #3D3480;">
+                                {{ $antrian?->antrian }}</h2>
                         </div>
                         <!-- Action Buttons -->
                         <div class="flex justify-center mt-4 space-x-4">
@@ -122,7 +146,7 @@
 
         </div>
         <div class="w-3/6 ml-6">
-            
+
             <form method="POST" action="{{ route('logout') }}" x-data class="flex justify-end mt-4">
                 @csrf
                 <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-full">
@@ -131,7 +155,7 @@
             </form>
             <img src="{{ asset('images/queue_vector.svg') }}" alt="">
         </div>
-       
+
     </div>
 
     @stack('modals')
@@ -140,18 +164,12 @@
 </body>
 
 <script>
-
-
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
         form.addEventListener('submit', function() {
             const floatingCard = document.getElementById('floating-card');
             floatingCard.style.display = 'block'; // Show the floating card
         });
-    });
-
-    function showPopup(){
-        resetRating();
         const floatingCard = document.getElementById('floating-card');
         floatingCard.style.display = 'block'; // Show the floating card
         floatingCard.style.opacity = 1; // Ensure opacity is set to 1
@@ -163,9 +181,36 @@
 
         setTimeout(() => {
             floatingCard.style.display = 'none'; // Hide the floating card after fade out
-        }, 3000); // Ensure this timeout is longer than the fade out duration
+        }, 3000);
+    });
+
+    function showPopup() {
+        let inputValue = document.getElementByName("rating").value;
+        console.log(inputValue)
+        if (!inputValue) {
+            alert("Input tidak boleh kosong!");
+            return;
+        }
+        // fetch('{{ route('cs.rating') }}', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Laravel CSRF Token
+        //     },
+        //     body: JSON.stringify({ rating: inputValue })
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     alert("Response dari server: " + data.message);
+        //     window.location.href = `/target-route-response`; // Redirect jika perlu
+        // })
+        // .catch(error => console.error('Error:', error));
+
+
+        resetRating();
+         // Ensure this timeout is longer than the fade out duration
     }
-    
+
     function resetRating() {
         for (let i = 1; i <= 5; i++) {
             const starIcon = document.getElementById(`star${i}-icon`);
@@ -176,7 +221,7 @@
         ratingInputs.forEach(input => input.checked = false);
     }
 
-    
+
 
     function setRating(rating) {
         for (let i = 1; i <= 5; i++) {
