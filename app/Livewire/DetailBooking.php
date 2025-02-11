@@ -114,16 +114,17 @@ class DetailBooking extends Component
         }
 
         $kembalian = $this->bayar - $this->total;
+        $metodeNow = metodePembayaran::where('id',$this->metodeSelected)->first();
 
         $message = "*📌 Nota Elektronik*\n"
         ."🏠 *Raja Repair*\n"
         ."📍 Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61257\n\n"
         
-        ."🔖 *Kode Pemesanan:* {$this->booking->kode_pemesanan}\n"
+        ."🔖 *Kode Pemesanan:* {$this->booking->kode_pesanan}\n"
         ."👤 *Nama:* {$this->booking->customer->nama}\n"
         ."🛠 *Kendala:* {$this->booking->kendala}\n"
         ."👨‍🔧 *Teknisi:* {$this->booking->teknisi->nama}\n"
-        ."💳 *Pembayaran:* {$this->booking->metodePembayaran->metode}\n"
+        ."💳 *Pembayaran:* {$metodeNow->metode}\n"
         ."💰 *Total:* Rp. ".number_format($this->total, 0, ',', '.')."\n"
         ."💵 *Bayar:* Rp. ".number_format($this->bayar, 0, ',', '.')."\n"
         ."🔄 *Kembalian:* Rp. ".number_format($kembalian, 0, ',', '.')."\n\n"
