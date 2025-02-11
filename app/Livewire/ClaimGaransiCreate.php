@@ -115,6 +115,7 @@ class ClaimGaransiCreate extends Component
         $this->reset();
         // session()->flash('inputData', $claimCreate);
         session()->flash('message', 'Booking berhasil dibuat.');
+        $this->dispatch('print-claim-spk');
     }
 
 }
