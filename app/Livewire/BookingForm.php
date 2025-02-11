@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire;
+use App\Models\antrian;
 use App\Models\booking;
 use App\Models\customer;
 use App\Models\dataService;
@@ -127,7 +128,7 @@ class BookingForm extends Component
         $time = substr(time(), -5); // Mengambil 5 digit terakhir dari timestamp
         $random = bin2hex(random_bytes(1)); // 2 karakter hex random
         $kode_pesanan = strtoupper('ORD' . $time . $random);
-
+        $no_antri = antrian::where('user_id',auth()->id())->first()->ditangani;
         //membuat booking
         $createBook = booking::create(([
             'kode_pesanan' => $kode_pesanan,
@@ -142,7 +143,9 @@ class BookingForm extends Component
             'status' => 'diproses',
             'metode_pembayaran_id' => 1,
             'total' => 0,
-            'keterangan' => 'belum ada keterangan'
+            'claim' => 0,
+            'keterangan' => 'belum ada keterangan',
+            'nomor_antrian' => $no_antri
         ]));
         if ($this->service_id != null) {
             $serviceIds = $validated['service_id'];
