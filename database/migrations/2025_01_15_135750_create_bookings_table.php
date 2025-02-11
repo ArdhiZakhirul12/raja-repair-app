@@ -23,9 +23,10 @@ return new class extends Migration
             $table->string('imei');
             $table->longText('kendala');
             $table->string('status');
-            $table->integer('diskon')->default(0);
+            $table->integer('claim')->default(0);
             $table->enum('garansi',['0','1','2','3']);
             $table->integer('total');
+            $table->string('nomor_antrian');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
