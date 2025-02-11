@@ -38,6 +38,10 @@ class booking extends Model
     {
         return $this->hasMany(detailBooking::class);
     }
+    public function claimGaransi()
+    {
+        return $this->hasMany(claimGaransi::class);
+    }
 
 
     

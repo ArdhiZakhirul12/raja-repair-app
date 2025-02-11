@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ClaimGaransiController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HpController;
 use App\Http\Controllers\MetodePembayaranController;
@@ -99,6 +100,11 @@ Route::middleware([
             Route::get('/get-spendings', [SpendingController::class, 'getSpendings'])->name('getSpendings');
             Route::get('/{id}', [SpendingController::class, 'show'])->name('show');
             // Route::get('/detail/{id}', [SpendingController::class, 'displayDetail'])->name('displayDetail');
+            // Route::post('/show', [SpendingController::class, 'show'])->name('show');
+        });
+        Route::group(['prefix' => 'claim', 'as' => 'claim.'], function(){
+            // Route::get('/', [SpendingController::class, 'index'])->name('index');
+            Route::get('/create', [ClaimGaransiController::class, 'create'])->name('create');
             // Route::post('/show', [SpendingController::class, 'show'])->name('show');
         });
         // Route::get('/', [SpendingController::class, 'index'])->name('spending');
