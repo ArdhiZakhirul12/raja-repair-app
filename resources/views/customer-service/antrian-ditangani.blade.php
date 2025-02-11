@@ -69,7 +69,7 @@
                 // Membuat form dinamis untuk POST
                 var form = document.createElement('form');
                 form.method = 'POST';
-                form.action = "{{ route('') }}";
+                form.action = "{{ route('cs.antrian.store') }}";
 
                 // Menambahkan token CSRF
                 var csrfToken = document.createElement('input');

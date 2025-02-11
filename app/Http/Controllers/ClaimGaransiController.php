@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\booking;
+use App\Models\claimGaransi;
 use Illuminate\Http\Request;
 
 class ClaimGaransiController extends Controller
@@ -10,8 +12,11 @@ class ClaimGaransiController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
+    {   
+        $booking = booking::where('user_id',auth()->id())->get();
+        $garansi = claimGaransi::with('booking')->whereIn('booking_id', $booking->pluck('id'))->get();
+        // dd($garansi);
+        return view('customer-service.claim.list',compact('garansi'));
     }
 
     /**
