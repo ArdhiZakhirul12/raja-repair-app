@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\pengeluaran;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class SpendingController extends Controller
@@ -18,8 +19,24 @@ class SpendingController extends Controller
 
     public function index()
     {
+        // $spendings = pengeluaran::where('user_id', auth()->id())->get();
+        return view('customer-service.spending.list');
+    }
+
+    public function getSpendings()
+    {
         $spendings = pengeluaran::where('user_id', auth()->id())->get();
-        return view('customer-service.spending.detail',compact('spendings'));
+    
+        return DataTables::of($spendings)
+   
+            ->rawColumns(['action'])
+            ->make(true);
+
+    }
+
+    public function show($id){
+        $spending = pengeluaran::find($id);
+        return view('customer-service.spending.detail', compact('spending'));
     }
 
     //

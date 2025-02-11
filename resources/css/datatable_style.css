@@ -166,36 +166,30 @@
 
 #services-table th:nth-child(1),
 #services-table td:nth-child(1) {
-    width: 3%; /* Kolom pertama lebih kecil */
+    width: 5%; /* Kolom pertama lebih kecil */
 }
 
 #services-table th:nth-child(2),
 #services-table td:nth-child(2) {
-    width: 5%; /* Kolom kedua lebih besar */
+    width: 30%; /* Kolom kedua lebih besar */
 }
 
 #services-table th:nth-child(3),
 #services-table td:nth-child(3) {
-    width: 40%;
+    width: 20%;
 }
 
 #services-table th:nth-child(4),
 #services-table td:nth-child(4) {
-    width: 15%;
+    width: 25%;
 }
 
 #services-table th:nth-child(5),
 #services-table td:nth-child(5) {
-    width: 10%;
+    width: 20%;
 }
-#services-table th:nth-child(5),
-#services-table td:nth-child(5) {
-    width: 15%;
-}
-#services-table th:nth-child(5),
-#services-table td:nth-child(5) {
-    width: 10%;
-}
+
+
 
 
 
@@ -539,12 +533,12 @@
 
 #booking-table th:nth-child(1),
 #booking-table td:nth-child(1) {
-    width: 5%; /* Kolom pertama lebih kecil */
+    width: 15%; /* Kolom pertama lebih kecil */
 }
 
 #booking-table th:nth-child(2),
 #booking-table td:nth-child(2) {
-    width: 20%; /* Kolom kedua lebih besar */
+    width: 30%; /* Kolom kedua lebih besar */
 }
 
 #booking-table th:nth-child(3),
@@ -554,21 +548,106 @@
 
 #booking-table th:nth-child(4),
 #booking-table td:nth-child(4) {
-    width: 30%;
+    width: 15%;
 }
 
 #booking-table th:nth-child(5),
 #booking-table td:nth-child(5) {
-    width: 10%;
+    width: 15%;
 }
 
 #booking-table th:nth-child(6),
 #booking-table td:nth-child(6) {
-    width: 15%;
-}
-
-#booking-table th:nth-child(7),
-#booking-table td:nth-child(7) {
     width: 5%;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+/* #spending-table */
+#spending-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#spending-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#spending-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#spending-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#spending-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#spending-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#spending-table th:nth-child(1),
+#spending-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#spending-table th:nth-child(2),
+#spending-table td:nth-child(2) {
+    width: 5%; /* Kolom kedua lebih besar */
+}
+
+#spending-table th:nth-child(3),
+#spending-table td:nth-child(3) {
+    width: 20%;
+}
+
+#spending-table th:nth-child(4),
+#spending-table td:nth-child(4) {
+    width: 20%;
+}
+
+#spending-table th:nth-child(5),
+#spending-table td:nth-child(5) {
+    width: 10%;
+}
+
+#spending-table th:nth-child(6),
+#spending-table td:nth-child(6) {
+    width: 15%;
+}
+
+#spending-table th:nth-child(7),
+#spending-table td:nth-child(7) {
+    width: 15%;
+}
+#spending-table th:nth-child(8),
+#spending-table td:nth-child(8) {
+    width: 5%;
+}

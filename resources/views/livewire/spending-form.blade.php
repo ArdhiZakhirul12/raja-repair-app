@@ -43,6 +43,11 @@
                             <input type="text" wire:model="#dokumen" id="#dokumen" name="#dokumen"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                         </div> --}}
+                        <div class="mr-2">
+                            <label for="referensi" class="block text-sm font-medium text-gray-400"># Referensi</label>
+                            <input type="text" wire:model="referensi" id="referensi" name="referensi" value=""
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
                         <div>
                             <label for="tanggal" class="block text-sm font-medium text-gray-400">Tanggal</label>
                             <input type="date" wire:model="tanggal" id="tanggal" name="tanggal"
@@ -50,12 +55,8 @@
                         </div>
                     </div>
 
-                    <div class="flex">
-                        <div class="mr-2">
-                            <label for="referensi" class="block text-sm font-medium text-gray-400"># Referensi</label>
-                            <input type="text" wire:model="referensi" id="referensi" name="referensi" value=""
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                        </div>
+                    {{-- <div class="flex"> --}}
+                        
                         {{-- <div class="mr-2">
                             <label for="mata_uang" class="block text-sm font-medium text-gray-400">Mata Uang</label>
                             <input type="text" wire:model="mata_uang" id="mata_uang" name="mata_uang"
@@ -67,7 +68,7 @@
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 
                         </div> --}}
-                    </div>
+                    {{-- </div> --}}
 
                     {{-- @dd($metodePembayaran) --}}
                     {{-- <div>
@@ -158,7 +159,30 @@
                         @endif
                     </div> --}}
 
+                   
                     <div class="flex">
+                        <div class="mr-2">
+                            <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
+                            <input type="text" wire:model.lazy="harga" id="harga" name="harga"
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                onkeyup="formatRupiah(this)" oninput="updateHiddenInput(this)">
+                            <input type="hidden" id="hargaHidden" name="harga_real">
+
+
+                            @if ($errors->has('harga'))
+                                <div
+                                    class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                    </svg>
+                                    @error('harga')
+                                        <span>{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            @endif
+                        </div>
                         <div class="mr-2">
                             <label for="cara_bayar" class="block text-sm font-medium text-gray-400">Cara Bayar</label>
                             <select id="dataDropdown" name="dataDropdown"
@@ -183,6 +207,7 @@
                                 </div>
                             @endif
                         </div>
+                        
                         {{-- <div>
                             <label for="bank" class="block text-sm font-medium text-gray-400">bank</label>
                             <input type="text" wire:model="bank" id="bank" name="bank"
@@ -203,36 +228,15 @@
                         </div> --}}
                     </div>
 
-                    <div class="flex">
-                        <div class="mr-2">
-                            <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
-                            <input type="text" wire:model.lazy="harga" id="harga" name="harga"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onkeyup="formatRupiah(this)" oninput="updateHiddenInput(this)">
-                            <input type="hidden" id="hargaHidden" name="harga_real">
-
-
-                            @if ($errors->has('harga'))
-                                <div
-                                    class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                    </svg>
-                                    @error('harga')
-                                        <span>{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            @endif
-                        </div>
+                    {{-- <div class="flex"> --}}
+                      
                         {{-- <div>
                             <label for="kurs" class="block text-sm font-medium text-gray-400">Kurs</label>
                             <input type="number" wire:model="kurs" id="kurs" name="kurs" value="1.00"
                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md">
                             
                         </div> --}}
-                    </div>
+                    {{-- </div> --}}
 
 
 

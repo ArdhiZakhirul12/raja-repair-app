@@ -48,6 +48,21 @@ class PcAntrianController extends Controller
         //
     }
 
+    public function submitReview(Request $request)
+    {
+        // Validate the request if needed
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        // Process the review submission
+        $rating = $request->input('rating');
+
+        // Save the review to the database or perform other actions
+
+        return response()->json(['success' => true, 'message' => 'Review submitted successfully!', 'rating' => $rating]);
+    }
+
     /**
      * Update the specified resource in storage.
      */
