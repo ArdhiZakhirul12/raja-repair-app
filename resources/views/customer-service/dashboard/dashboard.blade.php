@@ -52,11 +52,15 @@
             <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$phoneBrands" :amountData="$brandPercentages" />
             <x-dashboard.dashboard-card-06-teknisi title="Pelayanan per teknisi" :dataName="$teknisis"
                 :amountData="$brandPercentages" />
+
+                <x-dashboard.dashboard-card-06-rating title="Rating" :data="$rating" :ratingCount="$ratingCounts"
+               />
                 {{-- rating --}}
-                <p>total rating : {{$rating}}</p>
-            @foreach ([1, 2, 3, 4, 5] as $rate)
+                {{-- <p>total rating : {{$rating}}</p> --}}
+            {{-- @foreach ([1, 2, 3, 4, 5] as $rate)
                 <p>Rating {{ $rate }}: {{ $ratingCounts[$rate] ?? 0 }}</p>
-            @endforeach
+            @endforeach --}}
+              {{-- <x-dashboard.dashboard-card-09/> --}}
             {{-- <x-dashboard.dashboard-card-02/>
             <x-dashboard.dashboard-card-03/>
             <x-dashboard.dashboard-card-04/>
@@ -64,7 +68,7 @@
             {{-- <x-dashboard.dashboard-card-07/>
             <x-dashboard.dashboard-card-08/>
             <x-dashboard.dashboard-card-09/>
-            <x-dashboard.dashboard-card-10/>
+          
             <x-dashboard.dashboard-card-11/>
             <x-dashboard.dashboard-card-12/>
             <x-dashboard.dashboard-card-13/> --}}
