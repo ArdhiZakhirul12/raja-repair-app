@@ -112,10 +112,12 @@ class ClaimGaransiCreate extends Component
             'keterangan' => ''
         ]);
         booking::where('id', $this->oldBooking->id)->increment('claim');
+        $this->isFind = 0;
         $this->reset();
         // session()->flash('inputData', $claimCreate);
         session()->flash('message', 'Booking berhasil dibuat.');
         $this->dispatch('print-claim-spk');
+        
     }
 
 }

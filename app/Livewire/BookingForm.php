@@ -128,7 +128,11 @@ class BookingForm extends Component
         $time = substr(time(), -5); // Mengambil 5 digit terakhir dari timestamp
         $random = bin2hex(random_bytes(1)); // 2 karakter hex random
         $kode_pesanan = strtoupper('ORD' . $time . $random);
-        $no_antri = antrian::where('user_id',auth()->id())->first()->ditangani;
+        $no_antri = antrian::where('user_id',auth()->id())->first()?->ditangani;
+        if (!$no_antri) {
+            session()->flash('message', 'Buka antrian terlebih dahulu.');
+            return; // Hentikan eksekusi Livewire agar tidak lanjut ke bawah
+        }
         //membuat booking
         $createBook = booking::create(([
             'kode_pesanan' => $kode_pesanan,
