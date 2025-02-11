@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\antrian;
+use App\Models\rating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -90,7 +91,7 @@ class AntrianController extends Controller
         }
         return response()->json(['success' => false, 'message' => 'Antrian tidak ditemukan']);
     }
-    public function status_update(Request $request,)
+    public function status_update(Request $request)
     {
         $validated = $request->validate([
             'id' => 'required|integer',
@@ -106,6 +107,20 @@ class AntrianController extends Controller
             return redirect()->route('cs.antrian-ditangani');
         }
         
+    }
+
+    public function rating(Request $request)
+    {
+        $validator = $request->validate([
+            'rating' => 'required'
+        ],[
+            'rating.required' => 'Silakan pilih rating sebelum mengirimkan formulir.'
+        ]);
+        rating::create([
+            'user_id' => auth()->id(),
+            'rating' => $validator['rating']
+        ]);
+        return back()->with('success', 'Terima kasih atas rating Anda!');
     }
 
     /**

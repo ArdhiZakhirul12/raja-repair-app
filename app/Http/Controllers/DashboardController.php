@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\rating;
 use Illuminate\Http\Request;
 use App\Models\booking;
 use App\Models\teknisi;
@@ -20,19 +21,28 @@ class DashboardController extends Controller
         $phoneBrands = ['Samsung', 'Apple', 'Huawei', 'Xiaomi', 'Oppo', 'Vivo', 'OnePlus', 'Nokia', 'Sony', 'LG'];
         $brandPercentages = [20, 15, 10, 12, 8, 7, 5, 6, 9, 8];
 
-        $technicianNames = ['John Doe', 'Jane Smith', 'Michael Johnson', 'Emily Davis', 'David Wilson','bagio','budi','susi','joko','joni'];
+        $technicianNames = ['John Doe', 'Jane Smith', 'Michael Johnson', 'Emily Davis', 'David Wilson', 'bagio', 'budi', 'susi', 'joko', 'joni'];
         $serviceAmounts = [30, 25, 40, 35, 20, 15, 10, 5, 3, 2];
 
 
         $bookings = booking::with(['sparepart_booking', 'detailBooking'])->get();
 
 
-        $totalCustomers = customer::where('user_id',Auth::user()->id)->get();
-        $totalServices = dataService::where('user_id',Auth::user()->id)->get();
-        $totalSpareparts = sparepart::where('user_id',Auth::user()->id)->get();
-        $teknisis = teknisi::where('user_id',Auth::user()->id)->get();
+        $totalCustomers = customer::where('user_id', Auth::user()->id)->get();
+        $totalServices = dataService::where('user_id', Auth::user()->id)->get();
+        $totalSpareparts = sparepart::where('user_id', Auth::user()->id)->get();
+        $teknisis = teknisi::where('user_id', Auth::user()->id)->get();
 
-        return view('customer-service/dashboard/dashboard', compact('totalCustomers', 'totalServices', 'totalSpareparts','teknisis','exMonths','exSales','phoneBrands','brandPercentages','bookings'));
+        $ratings = rating::where('user_id', auth()->id())->get();
+        $rating = round($ratings->avg('rating'), 1);
+
+        $ratingCounts = rating::where('user_id', auth()->id())
+            ->selectRaw('rating, COUNT(*) as total')
+            ->groupBy('rating')
+            ->pluck('total', 'rating');
+
+        $ratingCounts = $ratingCounts->toArray();
+        return view('customer-service/dashboard/dashboard', compact('totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'exSales', 'phoneBrands', 'brandPercentages', 'bookings','rating','ratingCounts'));
     }
 
     /**
