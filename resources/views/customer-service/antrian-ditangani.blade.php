@@ -21,6 +21,7 @@
                 <div class="flex bg-white overflow-hidden shadow-xl sm:rounded-lg p-6 divide-y divide-dashed flex-grow">
                     <img src="{{ asset('images/queue.svg') }}" alt="logo" class="w-1/3 mx-auto">
                     <div class="w-2/3 mx-auto bg-white p-6 rounded shadow">
+                        <p>total antrian : {{$antrian->antrian}}</p>
                         <h1 class="text-2xl  text-center mb-4">Antrian yang Sedang Ditangani</h1>
 
                         <div class="text-center">
