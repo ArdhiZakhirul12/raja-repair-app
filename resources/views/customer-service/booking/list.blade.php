@@ -13,7 +13,7 @@
         <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
             <div class="p-6">
 
-
+                {{-- <p>{{ $bookings }}</p> --}}
 
 
                 <!-- Tabel Pelanggan -->
