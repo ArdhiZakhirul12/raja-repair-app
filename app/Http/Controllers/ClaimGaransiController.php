@@ -25,7 +25,7 @@ class ClaimGaransiController extends Controller
     public function getClaims()
     {
         $booking = booking::where('user_id', auth()->id())->get();
-        $garansi = claimGaransi::with('booking')->whereIn('booking_id', $booking->pluck('id'))->get();
+        $garansi = claimGaransi::with('booking','booking.customer')->whereIn('booking_id', $booking->pluck('id'))->get();
 
         return DataTables::of($garansi)
             // ->addColumn('action', function ($customer) {
