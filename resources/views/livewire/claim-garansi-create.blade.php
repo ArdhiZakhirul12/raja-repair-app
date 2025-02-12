@@ -23,7 +23,7 @@
                     </div>
                 @endif
                 <div class="flex items-center mb-4">
-                    <img src="{{ asset('images/Reset.svg') }}" alt="Edit Teknisi"
+                    <img src="{{ asset('images/Reset.svg') }}" alt="garansi"
                         class="w-8 h-8 object-cover rounded-l-lg mr-2">
                     <h2 class="text-xl font-semibold">Claim Garansi</h2>
                 </div>
