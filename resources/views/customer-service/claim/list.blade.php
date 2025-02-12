@@ -12,10 +12,10 @@
         </div>
         <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
             <div class="p-6">
-                
 
 
-      
+
+
 
                 <!-- Tabel Pelanggan -->
                 <table
@@ -54,34 +54,7 @@
 
                         </tr>
                     </thead>
-{{-- 
-                    <tbody>
-                          
-                        @foreach ($garansi as $item)  
-                        <tr>
-                            <td>
-                                {{$item->booking->kode_pesanan}}
-                                
-                            </td>
-                            <td>
-                                
-                                {{$item->booking->customer->nama}}
-                            </td>
-                            <td>
-                                
-                                {{$item->booking->claim}}
-                            </td>
-                            <td>
-                                
-                                {{$item->status}}
-                            </td>
-                            <td>
-                                
-                                <button>detail</button>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody> --}}
+                    
 
                 </table>
             </div>
@@ -123,19 +96,19 @@
                         name: 'booking.claim',
 
                     },
-                                                        {
-                                            data: 'status',
-                                            name: 'status',
-                                            render: function(data) {
-                                                let bgColor = '';
-                                                if (data.toLowerCase() === 'diproses') {
-                                                    bgColor = 'bg-blue-500 text-white';
-                                                } else if (data.toLowerCase() === 'selesai') {
-                                                    bgColor = 'bg-green-500 text-white';
-                                                }
-                                                return `<span class="px-2 py-1 rounded ${bgColor}">${data}</span>`;
-                                            }
-                                        },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        render: function(data) {
+                            let bgColor = '';
+                            if (data.toLowerCase() === 'diproses') {
+                                bgColor = 'bg-blue-500 text-white';
+                            } else if (data.toLowerCase() === 'selesai') {
+                                bgColor = 'bg-green-500 text-white';
+                            }
+                            return `<span class="px-2 py-1 rounded ${bgColor}">${data}</span>`;
+                        }
+                    },
                     {
                         data: 'id',
                         render: function(data, type, row) {
@@ -145,57 +118,10 @@
                                            onclick="window.location.href='{{ route('cs.claim.show', ['id' => '__ID__']) }}'.replace('__ID__', ${row.id})">
                     <i class="fas fa-eye"></i>
                 </button>`;
-                    }}
+                        }
+                    }
 
-                    //                 {
-                    //                         data: 'booking',
-                    //                         name: 'booking',
-                    //                         render: function(data, type, row) {
-                    //                             return data ? `<a href="#" class="text-black-500 hover:text-black-500 ">${row.kode_pesanan
-                // .kode_pesanan}</a>` : '-';
-                    //                         }
-
-                    //                     },
-                    //                     {
-                    //                         data: 'booking',
-                    //                         name: 'booking',
-                    //                         render: function(data, type, row) {
-                    //                             return data ?
-                    //                                 `<a href="#" class="text-black-500 hover:text-black-500 ">${row.customer.nama}</a>` :
-                    //                                 '-';
-                    //                         }
-                    //                     },
-                    //                     {
-                    //                         data: 'booking.claim',
-                    //                         name: 'booking.claim',
-                    //                         render: function(data) {
-                    //                             return data ? data : '-';
-                    //                         }
-                    //                     },
-                    //                     {
-                    //                         data: 'status',
-                    //                         name: 'status',
-                    //                         render: function(data) {
-                    //                             let bgColor = '';
-                    //                             if (data.toLowerCase() === 'diproses') {
-                    //                                 bgColor = 'bg-blue-500 text-white';
-                    //                             } else if (data.toLowerCase() === 'selesai') {
-                    //                                 bgColor = 'bg-green-500 text-white';
-                    //                             }
-                    //                             return `<span class="px-2 py-1 rounded ${bgColor}">${data}</span>`;
-                    //                         }
-                    //                     },
-                    // {
-                    //     data: 'id',
-                    //     render: function(data, type, row) {
-                    //         let url = "{{ route('cs.spending.show', ['id' => '__ID__']) }}".replace('__ID__', data);
-                    //         return `<button class="text-blue-500 hover:text-blue-700" onclick="window.location.href='${url}'">
-                //                     <i class="fas fa-eye"></i>
-                //                 </button>`;
-                    //     },
-                    //     orderable: false,
-                    //     searchable: false
-                    // }
+                
                 ],
                 buttons: [
 
@@ -204,10 +130,7 @@
                         extend: 'excel',
                         text: 'Excel'
                     },
-                    // {
-                    //     extend: 'pdf',
-                    //     text: 'PDF'
-                    // },
+      
                     {
                         extend: 'print',
                         text: 'Print'
