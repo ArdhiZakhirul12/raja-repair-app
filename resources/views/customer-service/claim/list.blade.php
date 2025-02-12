@@ -12,18 +12,19 @@
         </div>
         <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
             <div class="p-6">
+                
 
 
-
+      
 
                 <!-- Tabel Pelanggan -->
                 <table
                     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"
-                    id="booking-table">
+                    id="claim-table">
                     <thead>
                         <tr>
-                            {{-- <th scope="col" class="px-6 py-3"></th> --}}
-                 
+
+
                             <th scope="col" class="px-6 py-3">Kode</th>
 
                             <th scope="col" class="px-6 py-3">
@@ -47,12 +48,13 @@
                                 </div>
                             </th>
                             <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">Aksi</th>
-                         
+
+
                             <th scope="col" class="px-6 py-3"></th>
 
                         </tr>
                     </thead>
+{{-- 
                     <tbody>
                           
                         @foreach ($garansi as $item)  
@@ -79,11 +81,160 @@
                             </td>
                         </tr>
                         @endforeach
-                    </tbody>
+                    </tbody> --}}
 
                 </table>
             </div>
         </div>
     </div>
+
+
+
+    <script>
+        //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
+        $(document).ready(function() {
+            $('#claim-table').DataTable({
+                dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('cs.claim.getClaims') }}',
+                ordering: false,
+                columns: [
+
+                    {
+                        data: 'booking.kode_pesanan',
+                        name: 'booking.kode_pesanan',
+                        render: function(data, type, row) {
+                            return data ?
+                                `<a href="#" class="text-black-500 hover:text-black-500 ">${data}</a>` :
+                                '-';
+                        },
+                    },
+                    {
+                        data: 'booking.customer.nama',
+                        name: 'booking.customer.nama',
+                        render: function(data, type, row) {
+                            return `<a href="" class="text-black-500 hover:text-black-500 ">${data}</a>`;
+
+                        }
+                    },
+                    {
+                        data: 'booking.claim',
+                        name: 'booking.claim',
+
+                    },
+                                                        {
+                                            data: 'status',
+                                            name: 'status',
+                                            render: function(data) {
+                                                let bgColor = '';
+                                                if (data.toLowerCase() === 'diproses') {
+                                                    bgColor = 'bg-blue-500 text-white';
+                                                } else if (data.toLowerCase() === 'selesai') {
+                                                    bgColor = 'bg-green-500 text-white';
+                                                }
+                                                return `<span class="px-2 py-1 rounded ${bgColor}">${data}</span>`;
+                                            }
+                                        },
+                    {
+                        data: 'id',
+                        render: function(data, type, row) {
+                            return `<button class="text-blue-500 hover:text-blue-700" 
+                                            data-id="${row.id}" 
+                                           
+                                           onclick="window.location.href='{{ route('cs.claim.show', ['id' => '__ID__']) }}'.replace('__ID__', ${row.id})">
+                    <i class="fas fa-eye"></i>
+                </button>`;
+                    }}
+
+                    //                 {
+                    //                         data: 'booking',
+                    //                         name: 'booking',
+                    //                         render: function(data, type, row) {
+                    //                             return data ? `<a href="#" class="text-black-500 hover:text-black-500 ">${row.kode_pesanan
+                // .kode_pesanan}</a>` : '-';
+                    //                         }
+
+                    //                     },
+                    //                     {
+                    //                         data: 'booking',
+                    //                         name: 'booking',
+                    //                         render: function(data, type, row) {
+                    //                             return data ?
+                    //                                 `<a href="#" class="text-black-500 hover:text-black-500 ">${row.customer.nama}</a>` :
+                    //                                 '-';
+                    //                         }
+                    //                     },
+                    //                     {
+                    //                         data: 'booking.claim',
+                    //                         name: 'booking.claim',
+                    //                         render: function(data) {
+                    //                             return data ? data : '-';
+                    //                         }
+                    //                     },
+                    //                     {
+                    //                         data: 'status',
+                    //                         name: 'status',
+                    //                         render: function(data) {
+                    //                             let bgColor = '';
+                    //                             if (data.toLowerCase() === 'diproses') {
+                    //                                 bgColor = 'bg-blue-500 text-white';
+                    //                             } else if (data.toLowerCase() === 'selesai') {
+                    //                                 bgColor = 'bg-green-500 text-white';
+                    //                             }
+                    //                             return `<span class="px-2 py-1 rounded ${bgColor}">${data}</span>`;
+                    //                         }
+                    //                     },
+                    // {
+                    //     data: 'id',
+                    //     render: function(data, type, row) {
+                    //         let url = "{{ route('cs.spending.show', ['id' => '__ID__']) }}".replace('__ID__', data);
+                    //         return `<button class="text-blue-500 hover:text-blue-700" onclick="window.location.href='${url}'">
+                //                     <i class="fas fa-eye"></i>
+                //                 </button>`;
+                    //     },
+                    //     orderable: false,
+                    //     searchable: false
+                    // }
+                ],
+                buttons: [
+
+
+                    {
+                        extend: 'excel',
+                        text: 'Excel'
+                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     text: 'PDF'
+                    // },
+                    {
+                        extend: 'print',
+                        text: 'Print'
+                    }
+                ],
+
+
+                language: {
+                    search: "Cari: ",
+                    lengthMenu: "Show _MENU_ Data",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    paginate: {
+                        first: "Awal",
+                        last: "Akhir",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                },
+
+                lengthMenu: [10, 25, 50, 100],
+                pageLength: 10,
+                order: [
+                    [0, 'desc']
+                ],
+            });
+        });
+    </script>
+
 
 </x-app-layout>

@@ -651,3 +651,80 @@
 #spending-table td:nth-child(8) {
     width: 5%;
 }
+
+
+
+
+
+/* claim-table */
+#claim-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#claim-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#claim-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#claim-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#claim-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#claim-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#claim-table th:nth-child(1),
+#claim-table td:nth-child(1) {
+    width: 20%; /* Kolom pertama lebih kecil */
+}
+
+#claim-table th:nth-child(2),
+#claim-table td:nth-child(2) {
+    width: 25%; /* Kolom kedua lebih besar */
+}
+
+#claim-table th:nth-child(3),
+#claim-table td:nth-child(3) {
+    width: 20%;
+}
+
+#claim-table th:nth-child(4),
+#claim-table td:nth-child(4) {
+    width: 20%;
+}
+
+#claim-table th:nth-child(5),
+#claim-table td:nth-child(5) {
+    width: 5%;
+}
+
+#claim-table th:nth-child(6),
+#claim-table td:nth-child(6) {
+    width: 5%;
+}
+
+

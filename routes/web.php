@@ -105,7 +105,8 @@ Route::middleware([
         Route::group(['prefix' => 'claim', 'as' => 'claim.'], function(){
             Route::get('/', [ClaimGaransiController::class, 'index'])->name('index');
             Route::get('/create', [ClaimGaransiController::class, 'create'])->name('create');
-            // Route::post('/show', [SpendingController::class, 'show'])->name('show');
+            Route::get('/get-claims', [ClaimGaransiController::class, 'getClaims'])->name('getClaims');
+            Route::get('/{id}', [ClaimGaransiController::class, 'show'])->name('show');
         });
         // Route::get('/', [SpendingController::class, 'index'])->name('spending');
 

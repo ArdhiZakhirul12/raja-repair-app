@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\booking;
 use App\Models\claimGaransi;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ClaimGaransiController extends Controller
 {
@@ -12,12 +13,30 @@ class ClaimGaransiController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
-        $booking = booking::where('user_id',auth()->id())->get();
+    {
+        $booking = booking::where('user_id', auth()->id())->get();
         $garansi = claimGaransi::with('booking')->whereIn('booking_id', $booking->pluck('id'))->get();
         // dd($garansi);
-        return view('customer-service.claim.list',compact('garansi'));
+        return view('customer-service.claim.list', compact('garansi'));
     }
+
+
+
+    public function getClaims()
+    {
+        $booking = booking::where('user_id', auth()->id())->get();
+        $garansi = claimGaransi::with('booking')->whereIn('booking_id', $booking->pluck('id'))->get();
+
+        return DataTables::of($garansi)
+            // ->addColumn('action', function ($customer) {
+            //     return '<a href="/customer/edit/'.$customer->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            // })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +44,6 @@ class ClaimGaransiController extends Controller
     public function create()
     {
         return view('customer-service.claim.create');
-
     }
 
     /**
@@ -41,7 +59,9 @@ class ClaimGaransiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // $booking = booking::where('user_id', auth()->id())->get();
+        // $garansi = claimGaransi::with('booking')->whereIn('booking_id', $booking->pluck('id'))->findOrFail($id);
+        return view('customer-service.claim.detail',  ['id' => $id]);
     }
 
     /**
