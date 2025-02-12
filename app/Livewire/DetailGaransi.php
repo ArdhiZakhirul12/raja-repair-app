@@ -63,7 +63,7 @@ class DetailGaransi extends Component
         $this->isModal = 0;
         
         // return response()->json(env('FONNTE_TOKEN'));
-
+        $this->dispatch('print-claim-invoice');
         session()->flash('doneMsg', 'Berhasil menyelesaikan servis!');
     }
 }
