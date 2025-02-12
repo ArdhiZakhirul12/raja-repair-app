@@ -3,6 +3,19 @@
         <h1 class="text-2xl md:text-2xl text-gray-800 dark:text-gray-100 font-bold">
             Detail Claim Garansi
         </h1>
+        @if (isset($feedbackMessage))
+                    <div class="p-4 mb-4 text-blue-700 bg-blue-100 rounded">
+                        {{ $feedbackMessage }}
+                    </div>
+                @endif
+
+                @if (session()->has('doneMsg'))
+                    <div class="p-4 mb-4 text-green-700 bg-green-100 rounded">
+                        {{ session('doneMsg') }}
+                        {{-- {{ session('inputData')[''] }} --}}
+
+                    </div>
+                @endif
     </div>
     {{-- <p>{{ $garansi }}</p> --}}
     <div class="flex space-x-4">
@@ -16,13 +29,33 @@
             <hr class="my-3">
             <div class="grid grid-cols-1 gap-4">
                 <p><strong>Kode Pesanan: </strong> {{ $garansi->booking->kode_pesanan }}</p>
-                <p><strong>No HP Alternatif: </strong> {{ $garansi->booking->no_hp_alternatif }}</p>
+                <p><strong>Tanggal Pesanan: </strong> {{ $garansi->booking->created_at }}</p>
+                <p><strong>Nama: </strong> {{ $garansi->booking->customer->nama }}</p>
+                <p><strong>No HP: </strong> {{ $garansi->booking->customer->no_hp }}</p>
                 <p><strong>IMEI: </strong> {{ $garansi->booking->imei }}</p>
                 <p><strong>Kendala: </strong> {{ $garansi->booking->kendala }}</p>
                 <p><strong>Status: </strong> {{ $garansi->booking->status }}</p>
                 <p><strong>Total: </strong> Rp. {{ number_format($garansi->booking->total, 0, ',', '.') }}</p>
                 <p><strong>Nomor Antrian: </strong> {{ $garansi->booking->nomor_antrian }}</p>
                 <p><strong>Keterangan: </strong> {{ $garansi->booking->keterangan }}</p>
+            </div>
+            <div class="mt-4">
+                <p class="font-semibold">Detail Service:</p>
+                <ul class="text-gray-600 list-disc ml-5">
+                    @foreach ($garansi->booking->detailBooking as $item)
+                        <li>{{ $item->dataService->nama_servis}}</li>
+                    @endforeach
+                </ul>
+            </div>
+
+            {{-- Sparepart --}}
+            <div class="mt-4">
+                <p class="font-semibold">Sparepart Digunakan:</p>
+                <ul class="text-gray-600 list-disc ml-5">
+                    @foreach ($garansi->booking->sparepart_booking as $item)
+                        <li>{{ $item->sparepart->nama_sparepart }}</li>
+                    @endforeach
+                </ul>
             </div>
         </div>
 
@@ -43,18 +76,13 @@
                 <p><strong>Keterangan:</strong> {{ $garansi->keterangan }}</p>
 
                 <p><strong>Kendala:</strong> {{ $garansi->kendala }}</p>
-                <p><strong>Status:</strong>
-                    <select id="statusDropdown" class="ml-2 py-1 border border-blue-500 text-blue-500 rounded"
-                        value="{{ $garansi->status }}">
-                        <option value="menunggu" {{ $garansi->status == 'menunggu' ? 'selected' : '' }}>Menunggu
-                        </option>
-                        <option value="diproses" {{ $garansi->status == 'diproses' ? 'selected' : '' }}>Diproses
-                        </option>
-                        <option value="selesai" {{ $garansi->status == 'selesai' ? 'selected' : '' }}>Selesai</option>
-                    </select>
-                    <button class="ml-2 px-2 py-1 border border-blue-500 text-blue-500 rounded"
-                        onclick="editStatus()">Edit</button>
-                </p>
+                <p><strong>Waktu dibuat:</strong> {{ $garansi->created_at }}</p>
+                @if ($garansi->status == 'diproses')
+                
+                <button wire:click="$set('isModal', 1)" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-2">
+                    Selesaikan
+                </button>
+                @endif
             </div>
             <script>
                 function editStatus() {
@@ -64,6 +92,43 @@
                 }
             </script>
         </div>
+        @if($isModal == 1)
+        <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 p-4">
+            <div class="bg-white p-6 rounded-lg shadow-xl w-full sm:max-w-2xl relative max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center border-b pb-3">
+                <h2 class="text-lg font-semibold text-gray-800">Detail Pemesanan & Garansi</h2>
+                <button wire:click="$set('isModal', 0)" class="text-gray-500 hover:text-gray-800">
+                    ✖
+                </button>
+                <div class="mt-6 border-t pt-4">
+                    <form wire:submit.prevent="submit">
+                        <label for="keterangan" class="block text-sm font-medium text-gray-700">Masukkan Keterangan:</label>
+                        <input type="text" id="keterangan" wire:model="keterangan"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
 
+                        {{-- Error message --}}
+                        @if ($errors->has('keterangan'))
+                            <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                </svg>
+                                @error('keterangan')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+
+                        <button type="submit"
+                            class="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                            Buat Klaim Garansi
+                        </button>
+                    </form>
+                </div>
+            </div>
+            </div>
+            </div>
+        @endif
 
     </div>
