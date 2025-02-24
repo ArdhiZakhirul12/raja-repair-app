@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pengeluarans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('booking_id')->constrained()->onDelete('cascade')->nullable();
             $table->string('dokumen');
             $table->string('referensi');
             $table->foreignId('metode_pembayaran_id')->constrained()->onDelete('cascade')->nullable();
