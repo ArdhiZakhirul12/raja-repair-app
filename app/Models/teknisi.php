@@ -14,6 +14,10 @@ class teknisi extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function cabang()
+    {
+        return $this->belongsTo(cabang::class);
+    }
     public function booking()
     {
         return $this->hasMany(hpMerk::class);

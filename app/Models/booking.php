@@ -34,6 +34,16 @@ class booking extends Model
     {
         return $this->hasMany(sparepart_booking::class);
     }
+    public function workTimeBooking()
+    {
+        return $this->hasOne(workTimeBooking::class);
+
+    }
+    public function pengeluaran()
+    {
+        return $this->hasOne(pengeluaran::class);
+
+    }
     public function detailBooking()
     {
         return $this->hasMany(detailBooking::class);
