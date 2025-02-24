@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\teknisi;
 use App\Models\booking;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
@@ -27,7 +29,7 @@ class TeknisiController extends Controller
      */
     public function getTechnicians()
     {
-        $teknisis = teknisi::where('user_id', Auth::user()->id)->get();
+        $teknisis = teknisi::where('cabang_id', Auth::user()->cabang->id)->get();
 
         return DataTables::of($teknisis)
             // ->addColumn('action', function ($teknisi) {
@@ -50,14 +52,30 @@ class TeknisiController extends Controller
      */
     public function store(Request $request)
     {
-        $auth = Auth::user();
+        $auth = Auth::user()->cabang->id;
+        $cabang_id = $auth;
+
+        // dd($cabang_id);
         $validated = $request->validate([
             'nama' => 'required|string|min:3',
             'no_hp' => 'required|numeric|digits_between:11,13',
             'alamat' => 'nullable',
+            'email' => 'required|email',
         ]);
-        $validated['user_id'] = $auth->id;
-        teknisi::create($validated);
+        $user = User::create([
+            'name' => $validated['nama'],
+            'email'=> $validated['email'],
+            'password' => Hash::make('password')
+        ]);
+        $user->assignRole('teknisi');
+
+        teknisi::create([
+            'user_id' => $user->id,
+            'cabang_id' => $cabang_id,
+            'no_hp' => $validated['no_hp'],
+            'nama' => $validated['nama'],
+            'alamat' => $validated['alamat']
+        ]);
         return redirect()->back()->with('success', 'berhasil menambahkan data teknisi');
     }
 

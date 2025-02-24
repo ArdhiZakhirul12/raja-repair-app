@@ -188,6 +188,11 @@
                             class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                     </div>
                     <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-400">Email</label>
+                        <input type="text" name="email" id="email"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="mb-4">
                         <label for="no_hp" class="block text-sm font-medium text-gray-400">No WA</label>
                         <input type="text" name="no_hp" id="no_hp"
                             class="mt-1 p-2 w-full border border-gray-300 rounded" required>
