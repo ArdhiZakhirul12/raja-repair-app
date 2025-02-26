@@ -4,6 +4,9 @@ namespace App\Http\Controllers\teknisi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Booking;
+use App\Models\teknisi;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -11,9 +14,13 @@ class BookingController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-        return view('teknisi.booking.teknisi-booking');
+    {   
+        $auth_teknisi_id = Auth::user()->id;
+        $teknisi_id = teknisi::where('user_id', $auth_teknisi_id)->first()->id;
+      
+        $bookings = Booking::with(['hpModel','sparepart_booking','detailBooking'])->where('teknisi_id', $teknisi_id)->orderBy('created_at', 'asc')->get();
+
+        return view('teknisi.booking.teknisi-booking',compact('bookings'));
     }
 
     /**
@@ -37,7 +44,15 @@ class BookingController extends Controller
      */
     public function show(string $id)
     {
+        $auth_teknisi_id = Auth::user()->id;
+        $teknisi_id = teknisi::where('user_id', $auth_teknisi_id)->first()->id;
+      
+        $booking = Booking::with(['hpModel','sparepart_booking','detailBooking'])
+            ->where('teknisi_id', $teknisi_id)
+            ->where('id', $id)
+            ->first();
         //
+        return view('teknisi.booking.teknisi-booking-detail',compact('booking'));
     }
 
     /**

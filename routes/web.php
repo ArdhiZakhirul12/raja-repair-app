@@ -41,7 +41,13 @@ Route::middleware([
 ]) -> group(function(){
     Route::group(['prefix' => 'teknisi', 'as' => 'teknisi.'], function(){
         Route::get('/dashboard', [TeknisiDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/booking', [TeknisiBookingController::class, 'index'])->name('booking');
+
+        Route::group(['prefix' => 'booking', 'as' => 'booking.'],function () {
+            Route::get('/', [TeknisiBookingController::class, 'index'])->name('index');
+            Route::get('/{id}', [TeknisiBookingController::class, 'show'])->name('show');
+        });
+        
+  
     });
        
 
