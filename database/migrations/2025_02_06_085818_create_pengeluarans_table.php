@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,7 +13,8 @@ return new class extends Migration
         Schema::create('pengeluarans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('booking_id')->constrained()->onDelete('cascade')->nullable();
+            $table->unsignedBigInteger('booking_id')->nullable();
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
             $table->string('dokumen');
             $table->string('referensi');
             $table->foreignId('metode_pembayaran_id')->constrained()->onDelete('cascade')->nullable();

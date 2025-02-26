@@ -13,7 +13,7 @@ class MetodePembayaranController extends Controller
      */
     public function index()
     {
-        $pembayarans = metodePembayaran::where('user_id', auth()->id())->get();
+        $pembayarans = metodePembayaran::all();
         return view('customer-service.pembayaran.list', compact('pembayarans'));
     }
 
@@ -35,12 +35,10 @@ class MetodePembayaranController extends Controller
                 'required',
                 'string',
                 'min:3',
-                Rule::unique('metode_pembayarans', 'metode')->where(function ($query) {
-                    return $query->where('user_id', auth()->id());
-                }),
+                Rule::unique('metode_pembayarans', 'metode')
             ],
         ]);
-        $validated['user_id'] = auth()->id();
+        // $validated['user_id'] = auth()->id();
         metodePembayaran::create($validated);
         return redirect()->route('cs.pembayaran.index')->with('success', 'Metode pembayaran berhasil ditambahkan!');
     }
