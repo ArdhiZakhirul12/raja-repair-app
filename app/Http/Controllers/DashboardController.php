@@ -15,6 +15,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         $exMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
         $exSales = [100, 200, 150, 300, 250, 400];
 
@@ -26,8 +27,6 @@ class DashboardController extends Controller
 
 
         $bookings = booking::with(['sparepart_booking', 'detailBooking'])->get();
-
-
         $totalCustomers = customer::where('user_id', Auth::user()->id)->get();
         $totalServices = dataService::where('user_id', Auth::user()->id)->get();
         $totalSpareparts = sparepart::where('user_id', Auth::user()->id)->get();
