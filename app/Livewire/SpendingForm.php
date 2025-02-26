@@ -5,9 +5,11 @@ namespace App\Livewire;
 use App\Models\metodePembayaran;
 use App\Models\pengeluaran;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class SpendingForm extends Component
 {
+    use WithFileUploads;
     public $metodePembayaran;
     public $selectedMetode;
     public $tanggal;
@@ -15,6 +17,7 @@ class SpendingForm extends Component
     public $keterangan;
     public $harga ;
     public $jumlah;
+    public $dokumen;
     
     public function mount()
     {
@@ -35,8 +38,10 @@ class SpendingForm extends Component
             'selectedMetode' => 'required',
             'harga' => 'required|integer',
             'jumlah' => 'required',
-            'keterangan' => 'required'
+            'keterangan' => 'required',
+            'dokumen' => 'required|image|max:800'
         ]);
+        $path = $validated['dokumen']->store('images/spending', 'public');
 
         $validated['user_id'] = auth()->id();
         $lastCounter = pengeluaran::max('id') ?? 0; // Ambil angka terbesar
@@ -45,7 +50,10 @@ class SpendingForm extends Component
         $random = substr(md5(uniqid(mt_rand(), true)), 0, 5); // 5 karakter random
         $dokumen = "KBK{$angka}-{$tanggal}-{$random}";
         $validated['metode_pembayaran_id'] = $validated['selectedMetode'];
-        $validated['dokumen'] = $dokumen;
+        $validated['dokumen'] = $path;
+        $validated['booking_id'] = null;
+
+
 
         pengeluaran::create($validated);
         $this->reset();

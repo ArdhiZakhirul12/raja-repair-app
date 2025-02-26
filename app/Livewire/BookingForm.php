@@ -47,7 +47,7 @@ class BookingForm extends Component
     public function mount()
     {
         // Ambil daftar teknisi dari database
-        $this->teknisis = teknisi::where('user_id', auth()->id())->get();
+        $this->teknisis = teknisi::where('cabang_id', auth()->id())->get();
         $this->merks = hpMerk::where('user_id', auth()->id())->get();
         $this->models = HpModel::all();
         $this->services = dataService::where('user_id', auth()->id())->get();
