@@ -32,17 +32,28 @@
                 </div>
                 <hr class="mb-4">
                 <div class="grid grid-cols-1 gap-6">
+                    @if ($dokumen)
+    
+                            <img src="{{ $dokumen->temporaryUrl() }}">
+                            <p class="mt-2 text-sm text-gray-600">
+                                Ukuran File: {{ number_format($dokumen->getSize() / 1024, 2) }} KB
+                            </p>
+                        @endif
                     <div class="flex">
                         {{-- <div class="mr-2">
                             <label for="dokumen" class="block text-sm font-medium text-gray-400">Dokumen</label>
                             <input type="file" wire:model="dokumen" id="dokumen" name="dokumen"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                         </div> --}}
-                        {{-- <div class="mr-2">
-                            <label for="#dokumen" class="block text-sm font-medium text-gray-400">#Dokumen</label>
-                            <input type="text" wire:model="#dokumen" id="#dokumen" name="#dokumen"
+                        
+                        <div class="mr-2">
+                            <label for="dokumen" class="block text-sm font-medium text-gray-400">Dokumen</label>
+                            <input type="file" wire:model="dokumen" id="dokumen" name="dokumen"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                        </div> --}}
+                            @error('dokumen')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="mr-2">
                             <label for="referensi" class="block text-sm font-medium text-gray-400"># Referensi</label>
                             <input type="text" wire:model="referensi" id="referensi" name="referensi" value=""
@@ -56,13 +67,13 @@
                     </div>
 
                     {{-- <div class="flex"> --}}
-                        
-                        {{-- <div class="mr-2">
+
+                    {{-- <div class="mr-2">
                             <label for="mata_uang" class="block text-sm font-medium text-gray-400">Mata Uang</label>
                             <input type="text" wire:model="mata_uang" id="mata_uang" name="mata_uang"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                         </div> --}}
-                        {{-- <div>
+                    {{-- <div>
                             <label for="total" class="block text-sm font-medium text-gray-400">Total</label>
                             <input type="number" wire:model="total" id="total" name="total" value="0.00"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
@@ -159,7 +170,7 @@
                         @endif
                     </div> --}}
 
-                   
+
                     <div class="flex">
                         <div class="mr-2">
                             <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
@@ -207,7 +218,7 @@
                                 </div>
                             @endif
                         </div>
-                        
+
                         {{-- <div>
                             <label for="bank" class="block text-sm font-medium text-gray-400">bank</label>
                             <input type="text" wire:model="bank" id="bank" name="bank"
@@ -229,8 +240,8 @@
                     </div>
 
                     {{-- <div class="flex"> --}}
-                      
-                        {{-- <div>
+
+                    {{-- <div>
                             <label for="kurs" class="block text-sm font-medium text-gray-400">Kurs</label>
                             <input type="number" wire:model="kurs" id="kurs" name="kurs" value="1.00"
                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md">
@@ -247,22 +258,20 @@
                         <label for="jumlah" class="block text-sm font-medium text-gray-400">Jumlah</label>
                         <input type="number" wire:model="jumlah" id="jumlah" name="jumlah" value="0"
                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        <div>
+                            <label for="keterangan" class="block text-sm font-medium text-gray-400">Keterangan</label>
+                            <textarea type="text" wire:model="keterangan" id="keterangan" name="keterangan" rows="4"
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
 
-                    </div>
-                    <div>
-                        <label for="keterangan" class="block text-sm font-medium text-gray-400">Keterangan</label>
-                        <textarea type="text" wire:model="keterangan" id="keterangan" name="keterangan" rows="4"
-                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button type="submit"
-                            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Simpan
-                        </button>
+                        <div class="flex justify-end">
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Simpan
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
     </form>
     {{-- Nothing in the world is as soft and yielding as water. --}}
 </div>

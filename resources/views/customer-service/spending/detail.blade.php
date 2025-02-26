@@ -17,13 +17,18 @@
         <form>
 
             <div class="flex mb-4">
-                <div class="flex-1 mr-4">
+                <a href="{{ asset('storage/' . $spending['dokumen']) }}" target="_blank">
+                    <img src="{{ asset('storage/' . $spending['dokumen']) }}" alt="Foto" class="w-32 h-32 rounded-lg">
+                </a>
+                
+
+                {{-- <div class="flex-1 mr-4">
                     <label for="dokumen" class="block text-gray-700 flex items-center">
                         <i class="fas fa-file-alt text-blue-500 mr-2"></i> Dokumen:
                     </label>
                     <input type="text" id="dokumen" name="dokumen" value="{{ $spending['dokumen'] }}"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
+                </div> --}}
                 <div class="flex-1 mr-4">
                     <label for="referensi" class="block text-gray-700 flex items-center">
                         <i class="fas fa-link text-green-500 mr-2"></i> Referensi:

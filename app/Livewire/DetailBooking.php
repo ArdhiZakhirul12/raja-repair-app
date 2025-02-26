@@ -5,13 +5,17 @@ namespace App\Livewire;
 use App\Models\booking;
 use App\Models\dataService;
 use App\Models\metodePembayaran;
+use App\Models\pengeluaran;
 use App\Models\sparepart;
 use App\Models\teknisi;
 use Http;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class DetailBooking extends Component
 {
+    use WithFileUploads;
+
     public $bookingId;
 
     public $total;
@@ -24,6 +28,7 @@ class DetailBooking extends Component
     public $addedServices = [];
     public $isModalOpen = false;
     public $isModalDone = false;
+    public $isModalDokumen = false;
     public $isEditTeknisi = false;
     public $teknisis = [];
     public $selectedTeknisi  ;
@@ -32,6 +37,16 @@ class DetailBooking extends Component
     public $bayar  ;
     public $catatan  ;
     public $statusGaransi;
+
+    public $pengeluaran;
+    public $dokumen;
+    public $selectedMetode;
+    public $tanggal;
+    public $referensi;
+    public $keterangan;
+    public $harga ;
+    public $jumlah;
+    
 
     protected $rules = [
         'metodeSelected' => 'required',
@@ -53,7 +68,7 @@ class DetailBooking extends Component
         $this->addedServices = $this->booking->detailBooking;
         $this->addedServices = [];
         $teknisi = $this->booking->teknisi_id;
-        $this->teknisis = teknisi::where('user_id',auth()->id())->whereNot('id', $teknisi )->get();
+        $this->teknisis = teknisi::where('cabang_id',auth()->id())->whereNot('id', $teknisi )->get();
         $this->metode = metodePembayaran::whereNot('id',1)->get();
         if($this->booking->garansi == '0'){
             $this->statusGaransi = 'Tidak garansi';
@@ -63,11 +78,42 @@ class DetailBooking extends Component
             $this->statusGaransi = '30 hari';
         } elseif($this->booking->garansi == '3'){
             $this->statusGaransi = '90 hari';
-
         }
+        $this->pengeluaran = pengeluaran::where('booking_id',$this->booking->id)->first();
         
 
 
+    }
+    public function redirectNow()
+    {
+        return redirect()->route('cs.spending.show',['id'=>$this->pengeluaran->id]);
+    }
+
+    public function submitDokumen()
+    {
+        $validated = $this->validate([
+            'tanggal' => 'required|date',
+            'referensi' => 'required|string',
+            'selectedMetode' => 'required',
+            'harga' => 'required|integer',
+            'jumlah' => 'required',
+            'keterangan' => 'required',
+            'dokumen' => 'required|image|max:800'
+        ]);
+        $path = $validated['dokumen']->store('images/spending', 'public');
+
+        $validated['user_id'] = auth()->id();
+        $validated['metode_pembayaran_id'] = $validated['selectedMetode'];
+        $validated['dokumen'] = $path;
+        $validated['booking_id'] = $this->booking->id;
+
+
+
+        pengeluaran::create($validated);
+        $this->metodePembayaran = metodePembayaran::all();
+        $this->isModalDokumen = false;
+        session()->flash('doneMsg', 'Berhasil menambahkan pengeluaran');
+        $this->rest();
     }
 
     public function editTeknisi()
