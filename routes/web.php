@@ -13,6 +13,9 @@ use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\PcAntrianController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SpendingController;
+use App\Http\Controllers\teknisi\DashboardController as TeknisiDashboardController;
+use App\Http\Controllers\teknisi\BookingController as TeknisiBookingController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,23 @@ use App\Http\Controllers\SpendingController;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'role:teknisi'
+]) -> group(function(){
+    Route::group(['prefix' => 'teknisi', 'as' => 'teknisi.'], function(){
+        Route::get('/dashboard', [TeknisiDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/booking', [TeknisiBookingController::class, 'index'])->name('booking');
+    });
+       
+
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
 
 Route::middleware([
     'auth:sanctum',
