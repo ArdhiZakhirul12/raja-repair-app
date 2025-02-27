@@ -39,13 +39,23 @@
             </div>
             <div class="w-1/2 bg-white rounded shadow p-4">
                
-                <select class="border rounded p-2">
-                    <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="in_progress" {{ $booking->status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
-                    <option value="completed" {{ $booking->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                    <option value="cancelled" {{ $booking->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                </select>
-                <button class="bg-blue-500 text-white rounded p-2 ml-2">Change Status</button>
+                <form method="POST" action="{{route('teknisi.booking.update', ['id'=> $booking->id])}}">
+                    @csrf
+                    @method('PUT')
+                    @if ($booking['status'] == 'diproses')   
+                    <input type="hidden" name='status' value="dikerjakan">
+                    <button type="submit" class="bg-blue-500 text-white rounded p-2 ml-2">Kerjakan Pesanan ini</button>
+                    @elseif($booking['status'] == 'dikerjakan')
+                    <input type="hidden" name="status" value="teknisi-selesai">
+                    <button type="submit" class="bg-blue-500 text-white rounded p-2 ml-2">Selesaikan pesanan ini</button>
+                    @endif
+                </form>
+                
+                @if (in_array($booking['status'], ['teknisi-selesai', 'selesai']))
+                {{ \Carbon\Carbon::parse($booking->workTimeBooking->end)->diffForHumans(\Carbon\Carbon::parse($booking->workTimeBooking->start),false) }}
+                    
+                @endif
+                
                 <hr class="my-4 px-4">
                 <h1 class="font-bold my-3">Pelanggan</h1>
                 <h1 class="mb-3"><i class="fas fa-user mr-2 text-blue-500"></i> {{ $booking->customer->nama }}</h1>

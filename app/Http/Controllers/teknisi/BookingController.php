@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\teknisi;
 
 use App\Http\Controllers\Controller;
+use App\Models\workTimeBooking;
 use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\teknisi;
@@ -18,7 +19,7 @@ class BookingController extends Controller
         $auth_teknisi_id = Auth::user()->id;
         $teknisi_id = teknisi::where('user_id', $auth_teknisi_id)->first()->id;
       
-        $bookings = Booking::with(['hpModel','sparepart_booking','detailBooking'])->where('teknisi_id', $teknisi_id)->orderBy('created_at', 'asc')->get();
+        $bookings = Booking::with(['hpModel','sparepart_booking','detailBooking'])->where('teknisi_id', $teknisi_id)->orderBy('created_at', 'asc')->paginate(5);;
 
         return view('teknisi.booking.teknisi-booking',compact('bookings'));
     }
@@ -68,7 +69,25 @@ class BookingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'status' => 'required|in:dikerjakan,teknisi-selesai'
+        ]);
+        
+        if ($validated['status'] == 'dikerjakan') {
+            workTimeBooking::create([
+                'booking_id' => $id,
+                'start' => now(),
+                'end' => null
+            ]);
+        } else {
+            workTimeBooking::where('booking_id', $id)->update([
+                'end' => now(),
+            ]);
+        }
+        $update = booking::where('id', $id)->update(['status'=> $validated['status']]);
+        
+        return redirect()->back();
+        
     }
 
     /**
