@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\PcAntrianController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SpendingController;
 use App\Http\Controllers\teknisi\DashboardController as TeknisiDashboardController;
 use App\Http\Controllers\teknisi\BookingController as TeknisiBookingController;
@@ -145,6 +146,7 @@ Route::middleware([
         Route::post('/mulai-antrian', [AntrianController::class, 'store'])->name('antrian.store');
         Route::post('/update-antrian', [AntrianController::class, 'update'])->name('antrian.update');
         Route::post('/update-antrianStatus', [AntrianController::class, 'status_update'])->name('antrianStatus.update');
+        Route::get('/profile-cabang', [ProfileController::class, 'index'])->name('profile-cabang');
 
                
     });
