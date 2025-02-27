@@ -26,8 +26,8 @@
                         :class="selectedStatus === 'dikerjakan' ? 'bg-white ' : 'text-gray-400'"
                         class="px-4 py-2 rounded">Dikerjakan</button>
               
-                        <button @click="selectedStatus = 'teknisi_selesai'" 
-                        :class="selectedStatus === 'teknisi_selesai' ? 'bg-white ' : 'text-gray-400'"
+                        <button @click="selectedStatus = 'teknisi-selesai'" 
+                        :class="selectedStatus === 'teknisi-selesai' ? 'bg-white ' : 'text-gray-400'"
                         class="px-4 py-2 rounded">Teknisi Selesai</button>
             
                     <button @click="selectedStatus = 'selesai'" 
@@ -43,7 +43,7 @@
                             <!-- Bagian Antrian -->
                             <div class="p-4 text-center flex flex-col items-center">
                                 <h1 class="text-l mb-2">ANTRIAN</h1>
-                                <h1 class="text-2xl font-bold">1</h1>
+                                <h1 class="text-2xl font-bold">{{$booking->nomor_antrian}}</h1>
                             </div>
                         
                             <!-- Garis Pemisah -->
@@ -62,7 +62,7 @@
                                         :class="{
                                             'bg-blue-500 text-white': '{{ $booking['status'] }}' === 'diproses',
                                             'bg-yellow-500 text-white': '{{ $booking['status'] }}' === 'dikerjakan',
-                                            'bg-green-500 text-white': '{{ $booking['status'] }}' === 'teknisi_selesai',
+                                            'bg-green-500 text-white': '{{ $booking['status'] }}' === 'teknisi-selesai',
                                             'bg-gray-500 text-white': '{{ $booking['status'] }}' === 'selesai'
                                         }">
                                         {{ $booking['status'] }}
@@ -80,7 +80,9 @@
                         </div>
                     </div>
                 @endforeach
-
+                <div class="mt-4">
+                    {{ $bookings->links() }}
+                </div>
             </div>
 
 

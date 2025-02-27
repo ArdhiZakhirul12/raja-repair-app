@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('work_time_bookings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('booking_id');
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
+            $table->dateTime('start');
+            $table->dateTime('end')->nullable();
             $table->timestamps();
         });
     }

@@ -45,6 +45,7 @@ Route::middleware([
         Route::group(['prefix' => 'booking', 'as' => 'booking.'],function () {
             Route::get('/', [TeknisiBookingController::class, 'index'])->name('index');
             Route::get('/{id}', [TeknisiBookingController::class, 'show'])->name('show');
+            Route::put('/{id}', [TeknisiBookingController::class, 'update'])->name('update');
         });
         
   
