@@ -16,15 +16,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        
         $teknisi_data = Teknisi::where('user_id', Auth::user()->id)->first();
         $id = Auth::user()->id;
         $data = booking::with('detailBooking')
-        ->select(booking::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan, COUNT(id) as jumlah_servis"))
-        ->where('teknisi_id', $id)
-        ->groupBy('bulan')
-        ->orderBy('bulan', 'asc')
-        ->get();
+            ->select(booking::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan, COUNT(id) as jumlah_servis"))
+            ->where('teknisi_id', $id)
+            ->groupBy('bulan')
+            ->orderBy('bulan', 'asc')
+            ->get();
 
         // dd($data);
 
@@ -32,11 +31,16 @@ class DashboardController extends Controller
         $bulanLabels = $data->pluck('bulan')->toArray();
         $jumlahServis = $data->pluck('jumlah_servis')->toArray();
 
-        $bookings = booking::with('detailBooking')->where('teknisi_id', $id)->get();
-      
-        $teknisi = teknisi::find($id);
-        // mendapatkan booking yang bergaransi
-        $garansi = $bookings->where('garansi', 1);
+        $bookings = booking::with('detailBooking', 'claimGaransi')->where('teknisi_id', $teknisi_data->id)->where('status', 'selesai')->get();
+
+
+        $garansi = $bookings->sum(
+            fn($booking) =>
+            $booking->claimGaransi->where('status', 'selesai')->count()
+        );
+        $totalBooking = $bookings->count() + $garansi;
+
+
 
         // untuk mendapatkan total service dari teknisi
         $total = 0;
@@ -46,10 +50,10 @@ class DashboardController extends Controller
             }
         }
 
-  
 
-        
-        return view('teknisi.dashboard.teknisi-dashboard',compact('teknisi_data','bookings', 'garansi', 'total', 'teknisi', 'bulanLabels', 'jumlahServis'));
+
+        return view('teknisi.dashboard.teknisi-dashboard', compact('teknisi_data', 'bookings', 'garansi', 'total', 'bulanLabels', 'jumlahServis', 'totalBooking'));
+
     }
 
     /**
@@ -74,7 +78,7 @@ class DashboardController extends Controller
     public function show(string $id)
     {
         //
-        
+
     }
 
     /**

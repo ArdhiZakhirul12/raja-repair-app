@@ -13,8 +13,10 @@
     {{-- <p>{{ $teknisi_data }}</p> --}}
     <div class=" mx-6 my-3">
         <div class="grid grid-cols-9 gap-3">
-            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service" total="{{$teknisi_data->servis}}"/>
-            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service Garansi" total="{{$garansi->count()}}"/>
+
+            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service" total="{{$totalBooking}}"/>
+            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service Garansi" total="{{$garansi}}"/>
+
             <x-dashboard.dashboard-card-01-teknisi title="Total Pendapatan" total=" Rp{{number_format($total, 0, ',', '.')}}"/>
             
             <x-dashboard.dashboard-card-08-teknisi title="Pelayanan servis per bulan" total="0" :exMonths=$bulanLabels :exSales=$jumlahServis />
@@ -22,6 +24,7 @@
                 <div class="flex flex-col col-span-full sm:col-span-4 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl p-4">
                     <h2 class="text-xl font-bold mb-4">Data Teknisi</h2>
                  
+
                  
                     <p><strong>No HP:</strong></p>
                     <p class="mb-2 ml-3"> {{ $teknisi_data->no_hp }}</p>
@@ -35,6 +38,7 @@
                     <p><strong>Alamat:</strong></p>
                     <p class=" ml-3">{{ $teknisi_data->alamat }}</p>
                 
+
                 </div>
             
         </div>

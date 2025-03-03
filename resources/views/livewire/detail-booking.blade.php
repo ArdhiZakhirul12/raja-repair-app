@@ -91,17 +91,20 @@
             <h1 class="text-2xl md:text-2xl text-gray-800 dark:text-gray-100 font-bold">
                 Detail Transaksi Servis
             </h1>
-            @if ($booking->status == 'diproses')
-                
+            
             <div>
+                @if ($booking->status != 'selesai')        
                 <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                     wire:click="$set('isModalOpen', true)">
                     Edit Service
                 </button>
+                @endif
+                @if ($booking->status == 'teknisi-selesai')
                 <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                     wire:click="$set('isModalDone', true)">
                     Selesaikan
                 </button>
+                @endif
                 {{-- @dd($upDokumen) --}}
                 @if (!$pengeluaran)
                 <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
@@ -116,7 +119,6 @@
                 @endif
                 
             </div>
-            @endif
 
 
 

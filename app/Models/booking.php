@@ -52,6 +52,7 @@ class booking extends Model
     {
         return $this->hasMany(claimGaransi::class);
     }
+    
 
 
     

@@ -11,6 +11,10 @@ use App\Models\hpModel;
 use App\Models\sparepart;
 use App\Models\sparepart_booking;
 use App\Models\teknisi;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 use Livewire\Component;
 
@@ -125,9 +129,19 @@ class BookingForm extends Component
             $this->customer = $createCust->id;
         }
         //membuat code pesanan
-        $time = substr(time(), -5); // Mengambil 5 digit terakhir dari timestamp
-        $random = bin2hex(random_bytes(1)); // 2 karakter hex random
-        $kode_pesanan = strtoupper('ORD' . $time . $random);
+
+        $name = Auth::user()->name;
+        $consonants = preg_replace('/[aeiouAEIOU]/', '', $name);
+        $cab = Str::substr($consonants, 0, 3);
+        $tanggal = Carbon::now()->format('jn') . substr(Carbon::now()->format('Y'), 2);
+        $jam = Carbon::now()->format('H');        // Jam (00-23)
+        $menit = Carbon::now()->format('i');      // Menit (00-59)
+        $milidetik = Carbon::now()->format('v');  // Milidetik (000-999)
+
+        $angka = substr($jam, 1, 1) . substr($menit, 0, 2) . substr($milidetik, 0, 2);
+
+        // dd($cab, $tanggal, $angka);
+        $kode_pesanan = strtoupper( $cab .'-'. $tanggal.'-' . $angka);
         $no_antri = antrian::where('user_id',auth()->id())->first()?->ditangani;
         if (!$no_antri) {
             session()->flash('message', 'Buka antrian terlebih dahulu.');
