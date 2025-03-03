@@ -9,6 +9,14 @@
         onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
         Tambah Sparepart
     </button> --}}
+            <div class="mb-3">
+                <button class="status-filter btn btn-primary" data-status="">All</button>
+                <button class="status-filter btn btn-warning" data-status="diproses">Diproses</button>
+                <button class="status-filter btn btn-info" data-status="dikerjakan">Pengerjaan</button>
+                <button class="status-filter btn btn-secondary" data-status="teknisi selesai">Teknisi Selesai</button>
+                <button class="status-filter btn btn-success" data-status="selesai">Selesai</button>
+            </div>
+            <input type="hidden" id="statusFilter" value="">
         </div>
         <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
             <div class="p-6">
@@ -23,7 +31,7 @@
                     <thead>
                         <tr>
                             {{-- <th scope="col" class="px-6 py-3"></th> --}}
-                 
+
                             <th scope="col" class="px-6 py-3">Kode</th>
 
                             <th scope="col" class="px-6 py-3">
@@ -48,7 +56,7 @@
                             </th>
                             <th scope="col" class="px-6 py-3">Status</th>
                             <th scope="col" class="px-6 py-3">Model Hp</th>
-                         
+
                             <th scope="col" class="px-6 py-3"></th>
 
                         </tr>
@@ -62,22 +70,20 @@
     <script>
         //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
         $(document).ready(function() {
-            $('#booking-table').DataTable({
+           var table = $('#booking-table').DataTable({
                 dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('cs.booking.getBooking') }}',
+                ajax: {
+                    url: '{{ route('cs.booking.getBooking') }}',
+                    data: function(d) {
+                        d.status = $('#statusFilter').val(); // Get the selected status filter
+                    }
+                },
                 ordering: false,
                 columns: [
 
-                // {
-                //         data: 'id',
-                //         render: function(data) {
-                //             return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                //         },
-                //         orderable: false,
-                //         searchable: false
-                //     },
+
                     {
                         data: 'kode_pesanan',
                         name: 'kode_pesanan',
@@ -123,12 +129,6 @@
                             return `<a href='' class="text-black-900 hover:text-black-500 font-bold">${row.hp_model.model}</a>`;
                         }
                     },
-
-   
-
-
-
-
                     {
                         data: 'id',
                         render: function(data, type, row) {
@@ -180,6 +180,12 @@
                     [0, 'desc']
                 ],
             });
+
+        $('.status-filter').on('click', function() {
+            var status = $(this).data('status');
+            $('#statusFilter').val(status);
+            table.ajax.reload();
+        });
         });
     </script>
 
