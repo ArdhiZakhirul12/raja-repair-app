@@ -17,7 +17,7 @@ class DashboardController extends Controller
     public function index()
     {
         
-        $teknisi_data = Teknisi::where('user_id', Auth::user()->id)->get();
+        $teknisi_data = Teknisi::where('user_id', Auth::user()->id)->first();
         $id = Auth::user()->id;
         $data = booking::with('detailBooking')
         ->select(booking::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan, COUNT(id) as jumlah_servis"))
@@ -25,6 +25,8 @@ class DashboardController extends Controller
         ->groupBy('bulan')
         ->orderBy('bulan', 'asc')
         ->get();
+
+        // dd($data);
 
         // Konversi data ke format array untuk chart
         $bulanLabels = $data->pluck('bulan')->toArray();
@@ -43,6 +45,8 @@ class DashboardController extends Controller
                 $total = $detail->harga + $total;
             }
         }
+
+  
 
         
         return view('teknisi.dashboard.teknisi-dashboard',compact('teknisi_data','bookings', 'garansi', 'total', 'teknisi', 'bulanLabels', 'jumlahServis'));

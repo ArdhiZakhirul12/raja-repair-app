@@ -99,8 +99,9 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
+        // dd($request->all());
         $validated = $request->validate([
             'nama_servis' => 'required|string|min:3',
             'code' => [
@@ -113,7 +114,11 @@ class ServiceController extends Controller
             ],
 
             'jenis_servis' => 'required',
+            'status' => '1',
             'harga' => 'required|integer',
+            'garansi_1' => 'nullable|integer',
+            'garansi_2' => 'nullable|integer',
+            'garansi_3' => 'nullable|integer',
         ]);
         
         dataService::where('id', $request->id)->update($validated);

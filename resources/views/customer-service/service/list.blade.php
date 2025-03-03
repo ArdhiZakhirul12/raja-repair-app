@@ -277,6 +277,80 @@
         </div>
     </div>
 
+    <div id="edit-service-modal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+
+        <div class="bg-white p-6 rounded-lg shadow-lg w-200 flex">
+            <div class="w-1/2">
+                <div class="flex justify-center">
+                    <img src="{{ asset('images/edit_data.png') }}" alt="Edit Teknisi"
+                        class="h-42 w-42 object-cover rounded-l-lg">
+                </div>
+                <p class="text-center text-sm mt-2 px-10 text-gray-300">Pastikan data yang ada masukkan sudah benar dan
+                    tidak ada form yang kosong</p>
+            </div>
+            <div class="w-1/2 p-4">
+                <h2 class="text-xl font-semibold mb-4">Edit Service</h2>
+                <form action="{{ route('cs.service.update') }}" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <input type="hidden" id="id" name="id">
+                    <div class="mb-4">
+                        <label for="nama_servis" class="block text-sm font-medium text-gray-400">Nama</label>
+                        <input type="text" name="nama_servis" id="nama_servis"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="code" class="block text-sm font-medium text-gray-400">Code</label>
+                        <input type="text" name="code" id="code"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="mb-4">
+
+                        <label for="jenis_servis" class="block text-sm font-medium text-gray-400">Jenis Service</label>
+
+                        <select name="jenis_servis" id="jenis_servis"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            <option value="" disabled selected>Pilih jenis service</option>
+                            <option value="hardware">Hardware</option>
+                            <option value="software">Software</option>
+                        </select>
+                    </div>
+                    <div class="mb-4 flex gap-4">
+                        <div class="w-1/2">
+                            <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
+                            <input type="text" name="harga" id="harga"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                        <div class="w-1/2">
+                            <label for="garansi_1" class="block text-sm font-medium text-gray-400">Harga Garansi 14 Hari</label>
+                            <input type="text" name="garansi_1" id="garansi_1"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4 flex gap-4">
+                        <div class="w-1/2">
+                            <label for="garansi_2" class="block text-sm font-medium text-gray-400">Harga Garansi 30 Hari</label>
+                            <input type="text" name="garansi_2" id="garansi_2"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                        <div class="w-1/2">
+                            <label for="garansi_3" class="block text-sm font-medium text-gray-400">Harga Garansi 90 Hari</label>
+                            <input type="text" name="garansi_3" id="garansi_3"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                            onclick="document.getElementById('edit-service-modal').classList.add('hidden')">Kembali</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
@@ -359,14 +433,20 @@
 
                     {
                         data: 'id',
-                        render: function(data) {
-                            return `<a href="/customer/edit/${data}" class="text-blue-500 hover:text-blue-700">
-                            <i class="fas fa-edit"></i>
-                        </a>`;
-                        },
-                        orderable: false,
-                        searchable: false
-                    }
+                                                render: function(data, type, row) {
+                            return `<button class="text-blue-500 hover:text-blue-700" 
+                                            data-id="${row.id}" 
+                                            data-nama_servis= "${row.nama_servis}"
+                                            data-code="${row.code}"
+                                            data-jenis_servis="${row.jenis_servis}"
+                                            data-harga="${row.harga}"
+                                            data-garansi_1="${row.garansi_1}"
+                                            data-garansi_2="${row.garansi_2}"
+                                            data-garansi_3="${row.garansi_3}"
+                                             onclick="openEditModal(this)">
+                    <i class="fas fa-edit"></i>
+                </button>`;}
+                    },
                 ],
                 buttons: [
 
@@ -406,6 +486,38 @@
             });
         });
     </script>
+
+
+<script>
+    function openEditModal(button) {
+
+        // Ambil data dari tombol yang diklik
+        const id = button.getAttribute('data-id');
+        const nama_servis = button.getAttribute('data-nama_servis');
+        const code = button.getAttribute('data-code');
+        const jenis_servis = button.getAttribute('data-jenis_servis');
+        const harga = button.getAttribute('data-harga');
+        const garansi_1 = button.getAttribute('data-garansi_1');
+        const garansi_2 = button.getAttribute('data-garansi_2');
+        const garansi_3 = button.getAttribute('data-garansi_3');
+
+        
+
+        // Tampilkan modal
+        const modal = document.getElementById('edit-service-modal');
+        modal.classList.remove('hidden');
+
+        // Isi data di modal
+        modal.querySelector('#id').value = id;
+        modal.querySelector('#nama_servis').value = nama_servis;
+        modal.querySelector('#code').value = code;
+        modal.querySelector('#jenis_servis').value = jenis_servis;
+        modal.querySelector('#harga').value = harga;
+        modal.querySelector('#garansi_1').value = garansi_1;
+        modal.querySelector('#garansi_2').value = garansi_2;
+        modal.querySelector('#garansi_3').value = garansi_3;
+    }
+</script>
 
 
 

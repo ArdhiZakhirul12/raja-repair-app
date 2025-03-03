@@ -82,7 +82,7 @@ Route::middleware([
             Route::get('/', [ServiceController::class, 'index'])->name('index');
             Route::get('/get-services', [ServiceController::class, 'getServices'])->name('getServices');
             Route::post('/store', [ServiceController::class, 'store'])->name('store');
-            // Route::put('/update', [SparepartController::class, 'update'])->name('update');
+            Route::put('/update', [ServiceController::class, 'update'])->name('update');
             Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
         Route::group(['prefix' => 'teknisi', 'as' => 'teknisi.'], function(){
