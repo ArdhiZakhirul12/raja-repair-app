@@ -11,10 +11,10 @@
     </button> --}}
             <div class="mb-3">
                 <button class="status-filter btn btn-primary" data-status="">All</button>
-                <button class="status-filter btn btn-warning" data-status="diproses">Diproses</button>
-                <button class="status-filter btn btn-info" data-status="dikerjakan">Pengerjaan</button>
-                <button class="status-filter btn btn-secondary" data-status="teknisi selesai">Teknisi Selesai</button>
-                <button class="status-filter btn btn-success" data-status="selesai">Selesai</button>
+                <button class="status-filter btn " data-status="diproses">Diproses</button>
+                <button class="status-filter btn " data-status="dikerjakan">Pengerjaan</button>
+                <button class="status-filter btn " data-status="teknisi selesai">Teknisi Selesai</button>
+                <button class="status-filter btn " data-status="selesai">Selesai</button>
             </div>
             <input type="hidden" id="statusFilter" value="">
         </div>
@@ -183,6 +183,18 @@
 
         $('.status-filter').on('click', function() {
             var status = $(this).data('status');
+            $('.status-filter').removeClass('btn-dark').addClass('btn-light text-gray-500');
+            if(status == '') {
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary');
+            } else if (status == 'diproses') {
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-warning');
+            } else if (status == 'dikerjakan') {
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-info');
+            } else if (status == 'teknisi selesai') {
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary');
+            } else if (status == 'selesai') {
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-success');}
+            // $(this).removeClass('btn-secondary').addClass('btn-dark');
             $('#statusFilter').val(status);
             table.ajax.reload();
         });
