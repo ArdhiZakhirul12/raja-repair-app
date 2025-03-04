@@ -19,7 +19,10 @@ class BookingController extends Controller
         $auth_teknisi_id = Auth::user()->id;
         $teknisi_id = teknisi::where('user_id', $auth_teknisi_id)->first()->id;
       
-        $bookings = Booking::with(['hpModel','sparepart_booking','detailBooking'])->where('teknisi_id', $teknisi_id)->orderBy('created_at', 'asc')->paginate(5);
+
+
+        $bookings = Booking::with(['hpModel','sparepart_booking','detailBooking'])->where('teknisi_id', $teknisi_id)->orderBy('created_at', 'asc')->paginate(5);;
+
 
         return view('teknisi.booking.teknisi-booking',compact('bookings'));
     }

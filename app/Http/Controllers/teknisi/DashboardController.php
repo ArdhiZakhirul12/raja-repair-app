@@ -25,6 +25,8 @@ class DashboardController extends Controller
             ->orderBy('bulan', 'asc')
             ->get();
 
+        // dd($data);
+
         // Konversi data ke format array untuk chart
         $bulanLabels = $data->pluck('bulan')->toArray();
         $jumlahServis = $data->pluck('jumlah_servis')->toArray();
@@ -49,7 +51,9 @@ class DashboardController extends Controller
         }
 
 
+
         return view('teknisi.dashboard.teknisi-dashboard', compact('teknisi_data', 'bookings', 'garansi', 'total', 'bulanLabels', 'jumlahServis', 'totalBooking'));
+
     }
 
     /**

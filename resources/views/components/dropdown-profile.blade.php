@@ -36,6 +36,9 @@
         </div>
         <ul>
             <li>
+                <a class="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3" href="{{ route('cs.profile-cabang') }}" @click="open = false" @focus="open = true" @focusout="open = false">Profile</a>
+            </li>
+            <li>
                 <a class="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3" href="{{ route('profile.show') }}" @click="open = false" @focus="open = true" @focusout="open = false">Settings</a>
             </li>
             <li>
