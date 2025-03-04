@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SpendingController;
 use App\Http\Controllers\teknisi\DashboardController as TeknisiDashboardController;
 use App\Http\Controllers\teknisi\BookingController as TeknisiBookingController;
+use App\Http\Controllers\teknisi\ClaimGaransiController as TeknisiClaimController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -47,6 +48,11 @@ Route::middleware([
             Route::get('/', [TeknisiBookingController::class, 'index'])->name('index');
             Route::get('/{id}', [TeknisiBookingController::class, 'show'])->name('show');
             Route::put('/{id}', [TeknisiBookingController::class, 'update'])->name('update');
+        });
+        Route::group(['prefix' => 'claim', 'as' => 'claim.'],function () {
+            Route::get('/', [TeknisiClaimController::class, 'index'])->name('index');
+            Route::get('/{id}', [TeknisiClaimController::class, 'show'])->name('show');
+            Route::put('/{id}', [TeknisiClaimController::class, 'update'])->name('update');
         });
         
   

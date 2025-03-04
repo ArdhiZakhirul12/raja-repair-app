@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\antrian;
 use App\Models\booking;
 use App\Models\claimGaransi;
 use Carbon\Carbon;
@@ -104,11 +105,12 @@ class ClaimGaransiCreate extends Component
         $validated = $this->validate([
             'kendala' => 'required'
         ]);
-
+        $no_antri = antrian::where('user_id',auth()->id())->first()?->ditangani;
         $claimCreate = claimGaransi::create([
             'booking_id' => $this->oldBooking->id,
             'status' => 'diproses',
             'kendala' => $validated['kendala'],
+            'no_antrian' => $no_antri,
             'keterangan' => ''
         ]);
         booking::where('id', $this->oldBooking->id)->increment('claim');

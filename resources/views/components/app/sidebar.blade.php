@@ -79,6 +79,17 @@
             </div>
         </div>
     </a>
+    <a href="{{ route('teknisi.claim.index') }}" :active="request() - > routeIs('teknisi.claim.index')">
+        <div class="flex items-center justify-between p-3">
+            <div class="flex items-center">
+                {{-- <i class="fa fa-user-group"></i> --}}
+                <img src="{{ asset('images/Reset.svg') }}" alt="garansi"
+                class="w-5 h-5 object-cover rounded-l-lg">
+                <span
+                    class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Claim Garansi</span>
+            </div>
+        </div>
+    </a>
 
 
 

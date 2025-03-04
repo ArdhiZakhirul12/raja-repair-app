@@ -85,7 +85,7 @@
 
                 <p><strong>Kendala:</strong> {{ $garansi->kendala }}</p>
                 <p><strong>Waktu dibuat:</strong> {{ $garansi->created_at }}</p>
-                @if ($garansi->status == 'diproses')
+                @if ($garansi->status == 'teknisi-selesai')
                     <button wire:click="$set('isModal', 1)"
                         class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-2">
                         Selesaikan
