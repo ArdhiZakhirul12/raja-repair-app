@@ -37,7 +37,10 @@ class booking extends Model
     public function workTimeBooking()
     {
         return $this->hasOne(workTimeBooking::class);
-
+    }
+    public function rating()
+    {
+        return $this->hasOne(rating::class);
     }
     public function pengeluaran()
     {

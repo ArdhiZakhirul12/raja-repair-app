@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SpendingController;
 use App\Http\Controllers\teknisi\DashboardController as TeknisiDashboardController;
 use App\Http\Controllers\teknisi\BookingController as TeknisiBookingController;
+use App\Http\Controllers\teknisi\ClaimGaransiController as TeknisiClaimController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -47,6 +48,11 @@ Route::middleware([
             Route::get('/', [TeknisiBookingController::class, 'index'])->name('index');
             Route::get('/{id}', [TeknisiBookingController::class, 'show'])->name('show');
             Route::put('/{id}', [TeknisiBookingController::class, 'update'])->name('update');
+        });
+        Route::group(['prefix' => 'claim', 'as' => 'claim.'],function () {
+            Route::get('/', [TeknisiClaimController::class, 'index'])->name('index');
+            Route::get('/{id}', [TeknisiClaimController::class, 'show'])->name('show');
+            Route::put('/{id}', [TeknisiClaimController::class, 'update'])->name('update');
         });
         
   
@@ -140,8 +146,9 @@ Route::middleware([
         // Route::get('/', [SpendingController::class, 'index'])->name('spending');
 
         Route::get('/antrian-ditangani', [AntrianController::class, 'index'])->name('antrian-ditangani');
-        Route::post('/rating', [AntrianController::class, 'rating'])->name('rating');
+        Route::post('/rating', [PcAntrianController::class, 'rating'])->name('rating');
         Route::get('/antrian', [PcAntrianController::class, 'index'])->name('pcAntrian');
+        Route::post('/checkNota', [PcAntrianController::class, 'checkNota'])->name('checkNota');
         Route::get('/submit-review', [PcAntrianController::class, 'submitReview'])->name('submitReview');
         Route::post('/update-pc-antrian', [PcAntrianController::class, 'update'])->name('pcAntrian.update');
         Route::post('/mulai-antrian', [AntrianController::class, 'store'])->name('antrian.store');
