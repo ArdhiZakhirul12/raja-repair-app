@@ -146,8 +146,9 @@ Route::middleware([
         // Route::get('/', [SpendingController::class, 'index'])->name('spending');
 
         Route::get('/antrian-ditangani', [AntrianController::class, 'index'])->name('antrian-ditangani');
-        Route::post('/rating', [AntrianController::class, 'rating'])->name('rating');
+        Route::post('/rating', [PcAntrianController::class, 'rating'])->name('rating');
         Route::get('/antrian', [PcAntrianController::class, 'index'])->name('pcAntrian');
+        Route::post('/checkNota', [PcAntrianController::class, 'checkNota'])->name('checkNota');
         Route::get('/submit-review', [PcAntrianController::class, 'submitReview'])->name('submitReview');
         Route::post('/update-pc-antrian', [PcAntrianController::class, 'update'])->name('pcAntrian.update');
         Route::post('/mulai-antrian', [AntrianController::class, 'store'])->name('antrian.store');

@@ -111,19 +111,7 @@ class AntrianController extends Controller
 
     }
 
-    public function rating(Request $request)
-    {
-        $validator = $request->validate([
-            'rating' => 'required'
-        ], [
-            'rating.required' => 'Silakan pilih rating sebelum mengirimkan formulir.'
-        ]);
-        rating::create([
-            'user_id' => auth()->id(),
-            'rating' => $validator['rating']
-        ]);
-        return back()->with('success', 'Terima kasih atas rating Anda!');
-    }
+   
 
     /**
      * Remove the specified resource from storage.

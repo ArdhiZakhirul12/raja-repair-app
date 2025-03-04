@@ -440,7 +440,7 @@
                         },
                         get displayText() {
                             // Menampilkan nama-nama layanan yang dipilih
-                            return this.selectedItems.map(i => i.nama_servis).join(', ') || 'Pilih Layanan';
+                            return this.selectedItems.map(i => `${i.nama_servis} - Rp${i.harga.toLocaleString()}`).join(', ') || 'Pilih Layanan';
                         }
                     }">
                         <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih
@@ -459,14 +459,13 @@
                                     <li x-on:click="selectItem(item)"
                                         :class="{ 'bg-indigo-600 text-white': selectedItem && selectedItem.id === item.id }"
                                         class="cursor-pointer px-4 py-2 hover:bg-indigo-600 hover:text-white">
-                                        <span x-text="item.nama_servis"></span>
+                                        <span x-text="`${item.nama_servis} - Rp${item.harga.toLocaleString()}`"></span>
+
                                     </li>
                                 </template>
                             </ul>
                         </div>
                     </div>
-
-                    <div class="mb-4"></div>
 
                     <div x-data="{
                         open: false,
@@ -485,12 +484,12 @@
                             this.open = false;
                         },
                         get displayText() {
-                            return this.selectedItems.map(i => i.nama_sparepart).join(', ') || 'Pilih Sparepart';
+                            return this.selectedItems.map(i => `${i.nama_sparepart} - Rp${i.harga.toLocaleString()}`).join(', ') || 'Pilih Sparepart';
                         }
                     }">
                         <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih Sparepart</label>
                         <input type="text" x-model="search" x-on:click="open = !open" x-on:input="open = true"
-                            wire:model.defer="sparepart_id"
+                            {{-- wire:model.defer="sparepart_id" --}}
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             placeholder="Cari Sparepart..." :value="displayText">
 
@@ -518,7 +517,7 @@
                                     <li x-on:click="selectItem(item)"
                                         :class="{ 'bg-indigo-600 text-white': selectedItems.some(i => i.id === item.id) }"
                                         class="cursor-pointer px-4 py-2 hover:bg-indigo-600 hover:text-white">
-                                        <span x-text="item.nama_sparepart"></span>
+                                        <span x-text="`${item.nama_sparepart} - Rp${item.harga.toLocaleString()}`"></span>
                                     </li>
                                 </template>
                             </ul>
