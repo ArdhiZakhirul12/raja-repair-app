@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('booking_id')->constrained()->onDelete('cascade');
             $table->string('status');
+            $table->string('no_antrian');
             $table->text('keterangan');
             $table->text('kendala');
 
