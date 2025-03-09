@@ -1,7 +1,7 @@
 <div class="bg-white  rounded-lg shadow-xl w-full max-w-md flex flex-col items-center justify-center">
     <div class="flex justify-center bg-white rounded-lg shadow-xl w-full max-w-md relative pt-4">
-        <img src="{{ asset('images/reactive.png') }}" alt="logo"
-            class="w-[200px] bg-white p-2 \">
+        <img src="{{ asset('images/raja_repair.svg') }}" alt="logo"
+            class="w-[120px] bg-white p-2">
     </div>
     <div class="p-6 flex flex-col items-center justify-center">
 
@@ -56,16 +56,19 @@
                 <p class="text-red-500 mt-2">{{ $errorMessage }}</p>
             @endif
             @if ($isValid == false)
-                <div class="mb-4">
-                    <label for="nota" class="block text-gray-700">Masukkan Nota:</label>
-                    <input type="text" id="nota" wire:model="nota" class="border p-2 rounded"
-                        placeholder="Masukkan Nota">
+            
+                <div class="mb-4 flex ">
+                    {{-- <label for="nota" class="block text-gray-700">Masukkan Nomor Nota:</label> --}}
+                    <input type="text" id="nota" wire:model="nota" class="border p-2 rounded mr-4"
+                        placeholder="Masukkan Nomor Nota">
+
+                       <!-- Tombol untuk Validasi Nota -->
+            <button wire:click="validateNota" class="bg-[#5346AE] text-white p-2 rounded">
+                Validasi
+            </button>
                 </div>
 
-            <!-- Tombol untuk Validasi Nota -->
-            <button wire:click="validateNota" class="bg-blue-500 text-white p-2 rounded">
-                Validasi Nota
-            </button>
+         
             @endif
 
             @if ($isValid == true)
