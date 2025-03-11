@@ -53,8 +53,8 @@
             <x-dashboard.dashboard-card-06-teknisi title="Pelayanan per teknisi" :dataName="$teknisis"
                 :amountData="$brandPercentages" />
 
-                <x-dashboard.dashboard-card-06-rating title="Rating" :data="$rating" :ratingCount="$ratingCounts"
-               />
+                {{-- <x-dashboard.dashboard-card-06-rating title="Rating" :data="$rating" :ratingCount="$ratingCounts"
+               /> --}}
                 {{-- rating --}}
                 {{-- <p>total rating : {{$rating}}</p> --}}
             {{-- @foreach ([1, 2, 3, 4, 5] as $rate)

@@ -1,7 +1,8 @@
 <x-app-layout>
 
+
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex justify-between mb-4 sm:mb-5">
+        <div class="flex justify-between mb-2 mt-5 sm:mb-5">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                 Data Transaksi
             </h1>
@@ -13,7 +14,7 @@
                 <button class="status-filter btn btn-primary" data-status="">All</button>
                 <button class="status-filter btn " data-status="diproses">Diproses</button>
                 <button class="status-filter btn " data-status="dikerjakan">Pengerjaan</button>
-                <button class="status-filter btn " data-status="teknisi selesai">Teknisi Selesai</button>
+                <button class="status-filter btn " data-status="teknisi-selesai">Teknisi Selesai</button>
                 <button class="status-filter btn " data-status="selesai">Selesai</button>
             </div>
             <input type="hidden" id="statusFilter" value="">
@@ -114,9 +115,13 @@
                         render: function(data, type, row) {
                             let bgColor = '';
                             if (data.toLowerCase() === 'diproses') {
-                                bgColor = 'bg-blue-500 text-white';
+                                bgColor = 'bg-yellow-500 text-white';
                             } else if (data.toLowerCase() === 'selesai') {
                                 bgColor = 'bg-green-500 text-white';
+                            } else if (data.toLowerCase() === 'dikerjakan') {
+                                bgColor = 'bg-blue-300 text-white';
+                            } else if (data.toLowerCase() === 'teknisi-selesai') {
+                                bgColor = 'bg-primary text-white';
                             }
                             return `<span class="px-2 py-1 rounded ${bgColor}">${data}</span>`;
                         }
@@ -190,7 +195,7 @@
                 $(this).removeClass('btn-light text-gray-500').addClass('btn-warning');
             } else if (status == 'dikerjakan') {
                 $(this).removeClass('btn-light text-gray-500').addClass('btn-info');
-            } else if (status == 'teknisi selesai') {
+            } else if (status == 'teknisi-selesai') {
                 $(this).removeClass('btn-light text-gray-500').addClass('btn-primary');
             } else if (status == 'selesai') {
                 $(this).removeClass('btn-light text-gray-500').addClass('btn-success');}

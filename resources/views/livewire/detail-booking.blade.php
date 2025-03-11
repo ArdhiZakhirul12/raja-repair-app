@@ -146,6 +146,7 @@
                 text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
             Pesanan : {{ $booking->created_at }}
         </h2>
+        
         <h2 class="mt-2
                 text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
             Garansi : {{ $statusGaransi }}
@@ -156,16 +157,26 @@
                 
                 <div class="bg-white rounded shadow-md">
                     <div class="bg-white rounded shadow-md p-4    ">
-                        <div class="flex items-center mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                width="30" height="30" viewBox="0 0 30 30" fill="none">
-            
-                                <image id="image0_76_220" width="30" height="30"
-                                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADZUlEQVR4nO2dsWpUQRiFB8So+AQm+AKCjU9ha/EfUwhapZCIViZWW7gzmyApLFNIwNJOUPEF1CgBIWwQbJx/USNYSURItTLXILjJ7t69O5s7x50D0ywL+32HyT83xXCNycnJyUkr1xufTovV23D+rVj/E067Ka3AJNZvwvpblx9+PGUYc/X+5/OwfrvuMlF+vZdmZ86w7WSykrt/y260ZwxL4PROAqV1qyxxftGwRKx/R1u09ZuGJXB+r+7CUHn5PcOS+svSsZZhSd1FIRettZc4FTvaJBYWTnoBkHDSC4CEk14AJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMKZnMC1B7tnxemqOP0m1n+B1RV50j2RGme01CEg1l+A053Dv+tbKXFGzXELSFNv9L26YXU3Fc7oGVVAGu2Z8GceSoHTr2EXlrlTEkYFnN/o93u56J4UJfcUJFafDyq7/6jIo6Pbr7SDndwtW/bAUfHvbn6UD8MSRRdlO/8yXD4K35O1zhlYXR9esP8lLV0wQzJ1MxrOtwYVJ05foOkvlRsVuhPGyiQ4/4/D0OmzEiUOm8cb4YCcFGdyqSIgxZOHf1qp4JKjIgZnUqkqINXK/iArnYvHyZlMxhGQUcq2+niUURGTM4mMKyDDyq44KmJz1p4YAtK/7MqjYhKctSaWgDTaM2K9C/+Wi/XfYf3aOKNiUpy1hUUAJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMI5sgBIlmFJ3UUhF621l5h3tBtawj6svzu/qrNhSUuXis9y0XF3mbR0qXdEidXlXHTkoq80/bneosNnuejIRc+v6uyhHd3szOWiY48Oq8tHPN3cy0XHP6T2Q9nFQfhnJ4eSp/0w5H3hjTj9YVhSvLougdJQZVl9bVgS3g9Ye2Gu6urcNCwJ14rDK+sId/PWwvrWScOUgwOLp2yrW0c9q1OkuIPi/KI4fZPmAen3xOmrMC7odnJOTo6ZgvwGAxegPr5PH1wAAAAASUVORK5CYII=" />
-            
-                            </svg>
-                            <h2 class="text-l font-semibold ">Data Handphone</h2>
+                        <div class="flex items-center justify-between w-full">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                    <image id="image0_76_220" width="30" height="30"
+                                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADZUlEQVR4nO2dsWpUQRiFB8So+AQm+AKCjU9ha/EfUwhapZCIViZWW7gzmyApLFNIwNJOUPEF1CgBIWwQbJx/USNYSURItTLXILjJ7t69O5s7x50D0ywL+32HyT83xXCNycnJyUkr1xufTovV23D+rVj/E067Ka3AJNZvwvpblx9+PGUYc/X+5/OwfrvuMlF+vZdmZ86w7WSykrt/y260ZwxL4PROAqV1qyxxftGwRKx/R1u09ZuGJXB+r+7CUHn5PcOS+svSsZZhSd1FIRettZc4FTvaJBYWTnoBkHDSC4CEk14AJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMKZnMC1B7tnxemqOP0m1n+B1RV50j2RGme01CEg1l+A053Dv+tbKXFGzXELSFNv9L26YXU3Fc7oGVVAGu2Z8GceSoHTr2EXlrlTEkYFnN/o93u56J4UJfcUJFafDyq7/6jIo6Pbr7SDndwtW/bAUfHvbn6UD8MSRRdlO/8yXD4K35O1zhlYXR9esP8lLV0wQzJ1MxrOtwYVJ05foOkvlRsVuhPGyiQ4/4/D0OmzEiUOm8cb4YCcFGdyqSIgxZOHf1qp4JKjIgZnUqkqINXK/iArnYvHyZlMxhGQUcq2+niUURGTM4mMKyDDyq44KmJz1p4YAtK/7MqjYhKctSaWgDTaM2K9C/+Wi/XfYf3aOKNiUpy1hUUAJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMI5sgBIlmFJ3UUhF621l5h3tBtawj6svzu/qrNhSUuXis9y0XF3mbR0qXdEidXlXHTkoq80/bneosNnuejIRc+v6uyhHd3szOWiY48Oq8tHPN3cy0XHP6T2Q9nFQfhnJ4eSp/0w5H3hjTj9YVhSvLougdJQZVl9bVgS3g9Ye2Gu6urcNCwJ14rDK+sId/PWwvrWScOUgwOLp2yrW0c9q1OkuIPi/KI4fZPmAen3xOmrMC7odnJOTo6ZgvwGAxegPr5PH1wAAAAASUVORK5CYII=" />
+                                </svg>
+                                <h2 class="text-l font-semibold ml-2">Data Handphone</h2>
+                            </div>
+                        <h2 class="text-xs md:text-sm text-white px-2 py-1 rounded
+                            @if ($booking->status == 'diproses') bg-blue-500
+                            @elseif($booking->status == 'dikerjakan') bg-yellow-500
+                            @elseif($booking->status == 'teknisi-selesai') bg-orange-500
+                            @elseif($booking->status == 'selesai') bg-green-500
+                            @endif">
+                            {{ $booking->status }}
+                        </h2>
                         </div>
+                        
+                        
                         <hr class="my-2">
                         <div id="keterangan" class="border-bottom pb-2 mb-3" >
                             <h2 class="mt-1
@@ -1071,10 +1082,41 @@
     function printDiv(divId) {
         let printContent = document.getElementById(divId).innerHTML;
         let originalContent = document.body.innerHTML;
+        // Create a hidden print-only container
+        let printArea = document.createElement("div");
+        printArea.id = "print-area";
+        printArea.innerHTML = printContent;
+        document.body.appendChild(printArea);
 
+        // Add print styles to hide everything else
+        let style = document.createElement("style");
+        style.innerHTML = `
+            @media print {
+            body * { visibility: hidden; }
+            #print-area, #print-area * { visibility: visible; }
+            #print-area {
+                position: absolute;
+                top: 0;
+                left: 35%;
+                transform: translateX(-50%);
+                width: 80%; /* Adjust width as needed */
+                max-width: 800px; /* Optional, to prevent content from stretching too wide */
+                margin: 0 auto;
+                padding: 0;
+                text-align: center; /* Ensure text is centered */
+            }
+        }
+        `;
+        document.head.appendChild(style);
 
-        document.body.innerHTML = printContent;  // Hanya menampilkan elemen yang dipilih
-        window.print();  // Perintah print
-        document.body.innerHTML = originalContent;  // Mengembalikan halaman ke tampilan awal
+        // Trigger print
+        window.print();
+
+        // Cleanup after printing
+        setTimeout(() => {
+            document.body.removeChild(printArea);
+            document.head.removeChild(style);
+            window.livewire.emit('refreshComponent'); // Refresh Livewire component
+        }, 500);  // Mengembalikan halaman ke tampilan awal
     }
 </script>

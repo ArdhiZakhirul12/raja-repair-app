@@ -1,6 +1,6 @@
 @props(['title', 'total'])
 
-<div class="flex flex-col col-span-full sm:col-span-4 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
+<div class="flex flex-col col-span-full sm:col-span-4 xl:col-span-3 bg-white dark:text-gray-400 shadow-sm rounded-xl">
     <div class="px-4 py-4">
         {{-- <i class="fa-solid fa-user"></i> --}}
         @if ($title == 'Servis')
