@@ -1,4 +1,4 @@
-@props(['title', 'total', 'exMonths', 'exSales'])
+@props(['title', 'total', 'exMonths', 'exSales','thisYearTotal'])
 
 @php
     $chartId = Str::slug($title) . '-chart';
@@ -22,16 +22,16 @@
             <div class="flex items-start justify-end w-full">
             <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">
                 @if ($title == 'Pelayanan servis per bulan')
-                234
+                Rp {{ number_format($thisYearTotal, 0, ',', '.') }}
                 @else
-                Rp 250.000.000
+                Rp {{ number_format($thisYearTotal, 0, ',', '.') }}
                 @endif
             </div>
-            @if ($title == 'Pelayanan servis per bulan')
+            {{-- @if ($title == 'Pelayanan servis per bulan')
                 <div class="text-sm font-medium text-green-700 px-1.5 bg-green-500/20 rounded-full">+10%</div>
             @else
                 <div class="text-sm font-medium text-red-700 px-1.5 bg-red-500/20 rounded-full">-22%</div>
-            @endif
+            @endif --}}
             </div>
         </div>
     </div>
@@ -62,15 +62,16 @@
         type: chartType,
         data: {
             labels: months,
-            datasets: [{
-                label: 'Monthly Sales',
+            datasets: [
+                {
+                label: 'Rp',
                 data: sales,
                 borderColor: chartType === 'bar' ? 'transparent' : 'blue',
                 borderWidth: 2,
                 fill: false,
-                backgroundColor: chartType === 'bar' ? sales.map((_, i) => `hsl(${i * 30}, 70%, 50%)`) :
-                    'transparent'
-            }]
+                backgroundColor: chartType === 'bar' ? sales.map((_, i) => `hsl(${i * 30}, 70%, 50%)`) : 'transparent'
+            }
+        ]
         },
         options: {
             responsive: true,
@@ -78,12 +79,14 @@
                 y: {
                     beginAtZero: true
                 }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
             }
         }
     });
-
-
-
 
     if (document.getElementById('lineChart')) {
         var ctx = document.getElementById('lineChart').getContext('2d');
@@ -92,7 +95,7 @@
             data: {
                 labels: months,
                 datasets: [{
-                    label: 'Monthly Sales',
+                    label: 'Rp',
                     data: sales,
                     borderColor: 'blue',
                     borderWidth: 2,
@@ -104,6 +107,11 @@
                 scales: {
                     y: {
                         beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 }
             }
@@ -116,7 +124,7 @@
             data: {
                 labels: months,
                 datasets: [{
-                    label: 'Monthly Sales',
+                    label: 'Bulan ini',
                     data: sales,
                     borderColor: 'blue',
                     borderWidth: 2,
@@ -129,30 +137,13 @@
                     y: {
                         beginAtZero: true
                     }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 }
             }
         });
     }
-    // var ctx = document.getElementById('lineChart').getContext('2d');
-    // var myChart = new Chart(ctx, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: months,
-    //         datasets: [{
-    //             label: 'Monthly Sales',
-    //             data: sales,
-    //             borderColor: 'blue',
-    //             borderWidth: 2,
-    //             fill: false
-    //         }]
-    //     },
-    //     options: {
-    //         responsive: true,
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
 </script>
