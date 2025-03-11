@@ -1,7 +1,9 @@
 <div class="bg-white  rounded-lg shadow-xl w-full max-w-md flex flex-col items-center justify-center">
     <div class="flex justify-center bg-white rounded-lg shadow-xl w-full max-w-md relative pt-4">
         <img src="{{ asset('images/raja_repair.svg') }}" alt="logo"
-            class="w-[120px] bg-white p-2">
+
+            class="w-[150px] bg-white p-2 \">
+
     </div>
     <div class="p-6 flex flex-col items-center justify-center">
 

@@ -82,7 +82,7 @@ class HpController extends Controller
     {
         $auth = Auth::user();
         $validated = $request->validate([
-            'merk' => 'required|string|min:3',
+            'merk' => 'required|string|min:2',
         ]);        
         $validated['user_id'] = $auth->id;
         hpMerk::create($validated);
@@ -93,7 +93,7 @@ class HpController extends Controller
 
         $validated = $request->validate([
             'hp_merk_id' => 'required',
-            'model' => 'required|string|min:3',
+            'model' => 'required|string|min:2',
         ]);        
         hpModel::create($validated);
         return redirect()->back()->with('success', 'Data Model Hp berhasil ditambahkan!');;;

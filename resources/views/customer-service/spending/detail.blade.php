@@ -21,6 +21,8 @@
                     <img src="{{ asset('storage/' . $spending['dokumen']) }}" alt="Foto" class="w-32 h-32 rounded-lg">
                 </a>
                 
+                {{-- @dd($spending) --}}
+                
 
                 {{-- <div class="flex-1 mr-4">
                     <label for="dokumen" class="block text-gray-700 flex items-center">
