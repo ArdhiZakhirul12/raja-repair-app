@@ -30,7 +30,8 @@ class DashboardController extends Controller
         $totalCustomers = customer::where('user_id', Auth::user()->id)->get();
         $totalServices = dataService::where('user_id', Auth::user()->id)->get();
         $totalSpareparts = sparepart::where('user_id', Auth::user()->id)->get();
-        $teknisis = teknisi::where('user_id', Auth::user()->id)->get();
+        $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
+       
 
         $ratings = rating::where('user_id', auth()->id())->get();
         $rating = round($ratings->avg('rating'), 1);
