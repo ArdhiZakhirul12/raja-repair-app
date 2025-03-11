@@ -130,7 +130,7 @@ class BookingForm extends Component
         }
         //membuat code pesanan
 
-        $name = Auth::user()->name;
+        $name = Auth::user()->cabang->nama;
         $consonants = preg_replace('/[aeiouAEIOU]/', '', $name);
         $cab = Str::substr($consonants, 0, 3);
         $tanggal = Carbon::now()->format('jn') . substr(Carbon::now()->format('Y'), 2);
