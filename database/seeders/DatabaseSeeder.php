@@ -17,18 +17,18 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $user = \App\Models\User::create([
-            'name' => 'Test User',
-            'email' => 'tes@gmail.com',
+            'name' => 'Super Admin',
+            'email' => 'superadmin@gmail.com',
             'password' =>Hash::make('password'),
         ]);
-        $user->assignRole('cabang');
+        $user->assignRole('super-admin');
 
-        cabang::create([
-            'user_id' => $user->id,
-            'no_hp' => '081238560837',
-            'nama' => 'ardhi',
-            'alamat' => 'karangrejo'
-        ]);
+        // cabang::create([
+        //     'user_id' => $user->id,
+        //     'no_hp' => '081238560837',
+        //     'nama' => 'ardhi',
+        //     'alamat' => 'karangrejo'
+        // ]);
 
     }
 }
