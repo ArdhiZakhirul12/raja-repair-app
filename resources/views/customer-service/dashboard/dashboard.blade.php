@@ -36,21 +36,17 @@
 
         <div class="grid grid-cols-12 gap-4">
            
-            {{-- <x-dashboard.dashboard-card-01 title="Pendapatan" total="{{ $total_pendapatan }}" />
-            <x-dashboard.dashboard-card-01 title="Pendapatan Servis" total="Rp {{ number_format($pendapatan_servis, 0, ',', '.') }}" />
-            <x-dashboard.dashboard-card-01 title="Pendapatan Sparepart" total="Rp {{ number_format($pendapatan_sparepart, 0, ',', '.') }}" /> --}}
+            {{-- Total data Pendapatan --}}
             <x-dashboard.dashboard-card-06-uang title="Pendapatan Total" total="Rp {{ number_format($total_pendapatan, 0, ',', '.') }}" />
             <x-dashboard.dashboard-card-06-uang title="Pendapatan Servis" total="Rp {{ number_format($pendapatan_servis, 0, ',', '.') }}" />
             <x-dashboard.dashboard-card-06-uang title="Pendapatan Sparepart" total="Rp {{ number_format($pendapatan_sparepart, 0, ',', '.') }}" />
 
-
+            
             <x-dashboard.dashboard-card-08 title="Pendapatan Sparepart per Bulan" total="0" :exMonths="$exMonths"
                 :exSales="$sparepartSales" :thisYearTotal="$sparepartThisYear"/>
             <x-dashboard.dashboard-card-08 title="Pelayanan servis per bulan" total="0" :exMonths="$exMonths"
                 :exSales="$servisSales" :thisYearTotal="$servisThisYear"/>
-            {{-- <x-dashboard.dashboard-card-08 title="Pendapatan per bulan" total="0"/> --}}
-            {{-- <x-dashboard.dashboard-card-06 title="Pelayanan per teknisi" :dataName="$phoneBrands" :amountData="$brandPercentages"/>
-             --}}
+
 
             <x-dashboard.dashboard-card-06 title="10 brand terbanyak" :dataName="$phoneBrands" :amountData="$brandPercentages" />
             <x-dashboard.dashboard-card-06 title="10 servis terbanyak" :dataName="$phoneBrands" :amountData="$brandPercentages" />
@@ -61,12 +57,16 @@
             <x-dashboard.dashboard-card-06-data-cabang title="Teknisi" total="{{ count($teknisis) }}" />
             <x-dashboard.dashboard-card-06-data-cabang title="Servis" total="{{ count($totalServices)}}" />
 
-            {{-- <x-dashboard.dashboard-card-06-uang title="Pendapatan Servis" total="Rp {{ number_format($pendapatan_servis, 0, ',', '.') }}" /> --}}
-            {{-- <x-dashboard.dashboard-card-01 title="Customer" total="Rp {{ number_format($pendapatan_servis, 0, ',', '.') }}" />
-            <x-dashboard.dashboard-card-01 title="Teknisi" total="Rp {{ number_format($pendapatan_sparepart, 0, ',', '.') }}" />
-            <x-dashboard.dashboard-card-01 title="Servis" total="{{ count($totalServices) }}" /> --}}
             <x-dashboard.dashboard-card-06-teknisi title="Pelayanan per teknisi" :dataName="$teknisis"
             :amountData="$brandPercentages" />
+
+
+
+
+
+
+
+
                 {{-- <x-dashboard.dashboard-card-06-rating title="Rating" :data="$rating" :ratingCount="$ratingCounts"
                /> --}}
                 {{-- rating --}}

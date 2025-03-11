@@ -91,6 +91,8 @@ class DashboardController extends Controller
  
         
         $total_pendapatan = $pendapatan_sparepart + $pendapatan_servis;
+
+        
         $totalServices = dataService::where('user_id', Auth::user()->id)->get();
         $totalSpareparts = sparepart::where('user_id', Auth::user()->id)->get();
         $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
