@@ -29,7 +29,7 @@
                     <thead>
                         <tr>
                             {{-- <th scope="col" class="px-6 py-3"></th> --}}
-                            <th></th>
+                            {{-- <th></th> --}}
                             <th scope="col" class="px-6 py-3">id</th>
 
                             <th scope="col" class="px-6 py-3">
@@ -105,14 +105,14 @@
                 ordering: false,
                 columns: [
 
-                {
-                        data: 'id',
-                        render: function(data) {
-                            return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                        },
-                        orderable: false,
-                        searchable: false
-                    },
+                // {
+                //         data: 'id',
+                //         render: function(data) {
+                //             return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                //         },
+                //         orderable: false,
+                //         searchable: false
+                //     },
                     {
                         data: 'id',
                         name: 'id',

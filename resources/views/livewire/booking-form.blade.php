@@ -155,20 +155,19 @@
                             </ul>
                         </div>
                         @if ($errors->has('teknisiId'))
-                            <div
-                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                </svg>
-                                @error('teknisiId')
-                                    <span>{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                    </div>
+                        <div
+                            class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                            </svg>
+                            @error('teknisiId')
+                                <span>{{ $message }}</span>
+                            @enderror
+                        </div>
                     @endif
+                       
 
 
                 </div>
@@ -245,30 +244,7 @@
                     <h3 class="font-bold text-gray-800 mb-6 mx-2 pt-2">Data Handphone</h3>
                 </div>
 
-                {{-- @if (session()->has('message') && $errors->isEmpty())
-                        <div class="p-4 mb-4 text-green-700 bg-green-100 rounded">
-                            {{ session('message') }}
-                        </div>
-                    @endif
-                    @if (isset($feedbackMessage) && $errors->isEmpty())
-                        <div class="p-4 mb-4 text-blue-700 bg-blue-100 rounded">
-                            {{ $feedbackMessage }}
-                        </div>
-                        <div x-data="{ open: true }" x-show="open" x-transition>
-                            <div class="p-4 mb-4 text-green-700 bg-white border border-green-500 rounded">
-                                <div class="flex justify-between items-center">
-                                    <span>Data berhasil disimpan!</span>
-                                    <button @click="open = false" class="text-green-700 hover:text-green-900">
-                                        &times;
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    @endif --}}
-
-
-
-                {{-- <form wire:submit.prevent="submit" class="space-y-6"> --}}
+                
 
                 <div x-data="{
                     openMerk: false,
@@ -294,7 +270,7 @@
                     }
                 }">
 
-                    <div class="flex space-x-4 mb-4">
+                    <div class="flex space-x-4 mb-3">
                         <div class="w-1/2">
                             <!-- Dropdown Merk HP -->
                             <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih Merk
@@ -378,7 +354,7 @@
 
 
                     <!-- Input Imei-->
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label for="imei" class="block text-sm font-medium text-gray-400">Imei</label>
                         <input type="text" id="imei" wire:model="imei"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
@@ -399,27 +375,11 @@
 
 
 
-                    {{-- <label for="service">Service</label>
-                            <select id="Service" name="service" wire:model="service_id" data-placeholder="Select Services" multiple
-                                data-multi-select>
-                                @foreach ($services as $service)
-                                    <option value="{{ $service->id }}">{{ $service->nama_servis }}</option>
-                                @endforeach
-                            </select>
         
-                            <div class="mb-4"></div>
-                
-                            <label for="sparepart">Sparepart</label>
-                            <select id="Sparepart" name="sparepart" wire:model="sparepart_id" data-placeholder="Select Spareparts"
-                                multiple data-multi-select>
-                                @foreach ($spareparts as $sparepart)
-                                    <option value="{{ $sparepart->id }}">{{ $sparepart->nama_sparepart }}</option>
-                                @endforeach
-                            </select> --}}
 
 
 
-                    <div x-data="{
+                    <div class="mb-3" x-data="{
                         open: false,
                         search: '',
                         selectedItems: [], // Menyimpan layanan yang dipilih
@@ -465,6 +425,17 @@
                                 </template>
                             </ul>
                         </div>
+                        @error('service_id')
+                        <div
+                            class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                            </svg>
+                            <span>{{ $message }}</span>
+                        </div>
+                    @enderror
                     </div>
 
                     <div x-data="{
@@ -589,37 +560,17 @@
                     <tr>
                         <td class="px-4 py-2">Nama</td>
                         <td class="px-4 py-2">
-                            {{ session('inputData')['customer_id'] ?? ''}}
-                            {{-- : {{ $booking->customer->nama }} --}}
+                            {{ $nama }}
                         </td>
                     </tr>
                     <tr>
                         <td class="px-4 py-2">No.HP</td>
                         <td class="px-4 py-2">
-                            {{ session('inputData')['user_id'] ?? ''}}
+                            {{ $nohp }}
                             {{-- : {{ $booking->customer->no_hp }} --}}
                         </td>
                     </tr>
-                    <tr>
-                        <td class="px-4 py-2">Kendala</td>
-                        <td class="px-4 py-2">
-                            {{ session('inputData')['kendala'] ?? ''}}
-                            {{-- : {{ $booking->kendala }} --}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2">Teknisi</td>
-                        <td class="px-4 py-2">
-                            {{ session('inputData')['teknisi_id'] ?? ''}}
-                            {{-- : {{ $booking->teknisi->nama }} --}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2"></td>
-                        <td class="px-4 py-2">
-                            {{-- : {{ $booking->teknisi->no_hp }} --}}
-                        </td>
-                    </tr>
+              
                 </table>
 
             </div>
@@ -628,12 +579,11 @@
             <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 5px 0;">
             <div class="text-center py-2">
                 <h2 class="text-l font-semibold ">Kendala:</h2>
-                <p class="px-3 pb-4">Hp tidak mau menyala dan boot loop terus, pin password lupa, pengguna juga tidak
-                    paham
+                <p class="px-3 pb-4">{{ $kendala }}
                 </p>
-                <h2 class="text-s font-semibold pb-4">Teknisi : Subagiyo kirun</h2>
+                <h2 class="text-s font-semibold pb-4">Teknisi : {{ $teknisiName }}</h2>
                 <h2 class="text-l font-bold ">Nomor Urut</h2>
-                <h2 class="text-7xl font-bold ">07</h2>
+                <h2 class="text-7xl font-bold ">{{ $no_antri }}</h2>
             </div>
 
 
@@ -641,10 +591,6 @@
             <h2 class="text-center text-2xl py-2 text-l font-semibold ">Terimakasih</h2>
         </div>
     </div>
-
-
-
- 
 
 </div>
 
@@ -659,160 +605,46 @@
     function printDiv(divId) {
         let printContent = document.getElementById(divId).innerHTML;
         let originalContent = document.body.innerHTML;
+        // Create a hidden print-only container
+        let printArea = document.createElement("div");
+        printArea.id = "print-area";
+        printArea.innerHTML = printContent;
+        document.body.appendChild(printArea);
 
-        document.body.innerHTML = printContent; // Hanya menampilkan elemen yang dipilih
-        window.print(); // Perintah print
-        document.body.innerHTML = originalContent; // Mengembalikan halaman ke tampilan awal
+        // Add print styles to hide everything else
+        let style = document.createElement("style");
+        style.innerHTML = `
+            @media print {
+            body * { visibility: hidden; }
+            #print-area, #print-area * { visibility: visible; }
+            #print-area {
+                position: absolute;
+                top: 0;
+                left: 35%;
+                transform: translateX(-50%);
+                width: 80%; /* Adjust width as needed */
+                max-width: 800px; /* Optional, to prevent content from stretching too wide */
+                margin: 0 auto;
+                padding: 0;
+                text-align: center; /* Ensure text is centered */
+            }
+        }
+        `;
+        document.head.appendChild(style);
 
+        // Trigger print
+        window.print();
+
+        // Cleanup after printing
+        setTimeout(() => {
+            document.body.removeChild(printArea);
+            document.head.removeChild(style);
+            window.livewire.emit('refreshComponent'); // Refresh Livewire component
+        }, 500); // Mengembalikan halaman ke tampilan awal
     }
 </script>
 
-{{-- <script>
-        window.addEventListener('print-spk', (event) => {
 
-       
-        printDiv(event);
-    });
-    function printDiv(data){
-        // let inputData = @json(session('inputData')); 
-        // Load jsPDF
-        const {
-            jsPDF
-        } = window.jspdf;
-        const doc = new jsPDF();
-
-        let y = 10; // Vertical position
-
-        // Load image (Base64 or URL)
-        let imgUrl = "{{ asset('images/logo_raja.png') }}"; // Laravel Blade syntax
-
-        let img = new Image();
-        img.src = imgUrl;
-        img.crossOrigin = "Anonymous"; // Fix CORS issues for external images
-
-        doc.addImage(img, "PNG", 90, y, 30, 30); // Adjust position and size
-        y += 40;
-
-        // Header: Logo
-        doc.setFontSize(18);
-        doc.text("Raja Servis HP", 105, y, {
-            align: "center"
-        });
-        y += 10;
-        doc.setFontSize(12);
-        doc.text("Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo,", 105, y, {
-            align: "center"
-        });
-        y += 5;
-        doc.text("Kabupaten Sidoarjo, Jawa Timur 61257", 105, y, {
-            align: "center"
-        });
-        y += 10;
-        doc.text("Telp. 0812-3456-7890", 105, y, {
-            align: "center"
-        });
-        y += 10;
-
-        doc.setLineWidth(0.5);
-        doc.setDrawColor(128, 128, 128); // Set line color to gray with 0.5 opacity
-        doc.setLineDash([2, 2]); // Set dashed line pattern
-        doc.line(10, y, 200, y); // Dashed line
-        doc.setLineDash([]); // Reset to solid line
-        y += 10;
-
-        // Booking Code & Date
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(14);
-        doc.text("#12345678", 105, y, {
-            align: "center"
-        });
-
-        doc.setFont("helvetica", "normal");
-        y += 8;
-        doc.setFontSize(12);
-        doc.text("Pemesanan: 12-20-2024", 105, y, {
-            align: "center"
-        });
-        y += 10;
-
-        doc.setLineWidth(0.5);
-   
-        doc.setLineDash([2, 2]); // Set dashed line pattern
-        doc.line(10, y, 200, y); // Dashed line
-        doc.setLineDash([]); // Reset to solid line
-        y += 10;
-
-
-        
-        // Customer Details
-        doc.setTextColor(128, 128, 128); // Set text color to gray
-        doc.setFontSize(12);
-        doc.text("Nama         : John Doe", 20, y);
-        y += 10;
-        doc.text("No. HP       : 0812-34510-7890", 20, y);
-        y += 10;
-        doc.text("Merk HP      : Samsung", 20, y);
-        y += 10;
-        doc.text("Model HP     : SCPA209", 20, y);
-        y += 10;
-        doc.text("IMEI         : 0812-5678-1234", 20, y);
-        y += 10;
-        doc.text("Teknisi      : Subagiyo Kirun", 20, y);
-        y += 10;
-
-
-        doc.setLineWidth(0.5);
-        doc.setLineDash([2, 2]); // Set dashed line pattern
-        doc.line(10, y, 200, y); // Dashed line
-        doc.setLineDash([]); // Reset to solid line
-        y += 5;
-
-        doc.setTextColor(0, 0, 0); // Set text color to black
-        doc.setFont("helvetica", "bold");
-        doc.text("Kendala", 105, y, {
-            align: "center"
-        });
-
-    
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(128, 128, 128); // Set text color to gray
-        y += 10;
-        doc.text(data.kendala, 105, y, {
-            align: "center"
-        });
-        y += 20;
-        // Additional Info
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(14);
-        doc.setTextColor(0, 0, 0); // Set text color to black
-        doc.text("Nomor Urut", 105, y, {
-            align: "center"
-        });
-        y += 15;
-        doc.setFontSize(40);
-        doc.text("07", 105, y, {
-            align: "center"
-        });
-        y += 20;
-
-        doc.setLineWidth(0.5);
-        doc.setLineDash([2, 2]); // Set dashed line pattern
-        doc.line(10, y, 200, y); // Dashed line
-        doc.setLineDash([]); // Reset to solid line
-        y += 10;
-
-        // Footer
-        y += 20;
-        doc.setFontSize(16);
-        doc.text("TERIMAKASIH", 105, y, {
-            align: "center"
-        });
-
-        // Save the PDF
-        doc.save("sample.pdf");
-    };
-</script> --}}
 
 
 

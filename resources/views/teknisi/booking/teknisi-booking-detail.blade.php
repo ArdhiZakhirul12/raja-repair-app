@@ -52,7 +52,20 @@
                 </form>
                 
                 @if (in_array($booking['status'], ['teknisi-selesai', 'selesai']))
-                {{ \Carbon\Carbon::parse($booking->workTimeBooking->end)->diffForHumans(\Carbon\Carbon::parse($booking->workTimeBooking->start),false) }}
+                @php
+                    $duration = \Carbon\Carbon::parse($booking->workTimeBooking->end)->diff(\Carbon\Carbon::parse($booking->workTimeBooking->start));
+                    $formattedDuration = '';
+                    if ($duration->h > 0) {
+                        $formattedDuration .= $duration->h . ' jam ';
+                    }
+                    if ($duration->i > 0) {
+                        $formattedDuration .= $duration->i . ' menit ';
+                    }
+                    if ($duration->s > 0) {
+                        $formattedDuration .= $duration->s . ' detik';
+                    }
+                @endphp
+                Selesai dalam {{ $formattedDuration }}
                     
                 @endif
                 

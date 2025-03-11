@@ -620,7 +620,7 @@
 
 #spending-table th:nth-child(2),
 #spending-table td:nth-child(2) {
-    width: 5%; /* Kolom kedua lebih besar */
+    width: 30%; /* Kolom kedua lebih besar */
 }
 
 #spending-table th:nth-child(3),

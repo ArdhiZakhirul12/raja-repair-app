@@ -20,6 +20,9 @@ use Livewire\Component;
 
 class BookingForm extends Component
 {
+
+    protected $listeners = ['refreshComponent' => '$refresh'];
+    
     public $nohp;
     public $nama;
     public $alamat;
@@ -46,6 +49,8 @@ class BookingForm extends Component
     public $feedbackMessage;
     public $searchTeknisi = '';
     public $garansi = '0';
+    public $teknisiName;
+    public $no_antri;
 
 
     public function mount()
@@ -107,12 +112,12 @@ class BookingForm extends Component
                     }
                 },
             ],
-            'teknisiId' => 'nullable',
+            'teknisiId' => 'required',
             'merkHpId' => 'required',
             'modelHpId' => 'required',
             'imei' => 'nullable',
             'service_id' => 'required',
-            'sparepart_id' => 'nullable',
+            'sparepart_id' => 'required',
             'garansi' => 'nullable',
 
         ]);
@@ -137,6 +142,7 @@ class BookingForm extends Component
         $jam = Carbon::now()->format('H');        // Jam (00-23)
         $menit = Carbon::now()->format('i');      // Menit (00-59)
         $milidetik = Carbon::now()->format('v');  // Milidetik (000-999)
+        $teknisiName = teknisi::where('id', $validated['teknisiId'])->first()->nama;
 
         $angka = substr($jam, 1, 1) . substr($menit, 0, 2) . substr($milidetik, 0, 2);
 
@@ -198,12 +204,12 @@ class BookingForm extends Component
         }
 
 
-
+        $this->reset(); // Reset semua input
         session()->flash('inputData', $createBook);
         session()->flash('message', 'Booking berhasil dibuat.');
 
         $this->dispatch('print-spk');
-        $this->reset(); // Reset semua input
+       
     }
     public function render()
     {
