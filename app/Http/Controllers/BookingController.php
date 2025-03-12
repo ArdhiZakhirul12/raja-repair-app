@@ -15,29 +15,29 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = booking::with(['hpModel','sparepart_booking','detailBooking'])->where('user_id', auth()->id())->orderBy('created_at', 'asc')->get();
+        $bookings = booking::with(['hpModel', 'sparepart_booking', 'detailBooking'])->where('user_id', auth()->id())->orderBy('created_at', 'asc')->get();
         // dd($bookings);
         return view('customer-service.booking.list', compact('bookings'));
     }
 
 
-    
+
     public function getBooking(Request $request)
-{    
-    $query = Booking::with(['hpModel', 'user', 'detailBooking', 'customer'])
-    ->where('user_id', auth()->id());
+    {
+        $query = Booking::with(['hpModel', 'user', 'detailBooking', 'customer'])
+            ->where('user_id', auth()->id());
 
-    // Tambahkan filter berdasarkan status jika ada
-    if ($request->has('status') && !empty($request->status)) {
-        $query->where('status', $request->status);
+        // Tambahkan filter berdasarkan status jika ada
+        if ($request->has('status') && !empty($request->status)) {
+            $query->where('status', $request->status);
+        }
+
+        $bookings = $query->orderBy('created_at', 'desc')->get();
+
+        return DataTables::of($bookings)
+            ->rawColumns(['action'])
+            ->make(true);
     }
-
-$bookings = $query->orderBy('created_at', 'desc')->get();  
-
-    return DataTables::of($bookings)
-        ->rawColumns(['action'])
-        ->make(true);
-}
 
     /**
      * Show the form for creating a new resource.
@@ -46,9 +46,9 @@ $bookings = $query->orderBy('created_at', 'desc')->get();
     {
         return view('customer-service.booking.create');
     }
-    public function searchCustomer(String $nohp)
+    public function searchCustomer(string $nohp)
     {
-        $customer = customer::where('user_id',auth()->id())->where('nohp', $nohp)->first();
+        $customer = customer::where('user_id', auth()->id())->where('nohp', $nohp)->first();
         if ($customer) {
             return response()->json([
                 'exists' => true,
@@ -56,10 +56,10 @@ $bookings = $query->orderBy('created_at', 'desc')->get();
             ]);
         }
         return response()->json(['exists' => false]);
-    
+
     }
 
-    
+
     /**
      * Show the form for creating a new resource.
      */
