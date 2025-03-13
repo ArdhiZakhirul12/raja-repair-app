@@ -35,12 +35,29 @@
 
         <div class="items-center justify-between px-2 py-2 {{ $card }} mx-3 my-2">
             <div class="flex items-center">
-               
+            
                 {{-- <img src="{{ asset('images/logo_raja.png') }}" alt="{{ $data->nama }}" class="w-8 h-8 rounded-full mr-2"> --}}
                 <i class="fa-solid fa-user {{ $colorClass }} mr-2 p-2"></i>
                 <div>
                     <div class="text-sm font-semibold text-gray-500 dark:text-gray-500">{{ $data->nama }}</div>
-                    <span class="text-xs text-gray-400">Jumlah</span>
+                    <div class="flex items-center">
+                        <span class="text-xs text-gray-400">
+                            @php
+                                $rating = number_format($data->average_rating, 1);
+                                if ($rating >= 1 && $rating <= 2) {
+                                    echo '😞 Tidak Puas';
+                                } elseif ($rating > 2 && $rating < 3) {
+                                    echo '😐 Puas';
+                                } elseif ($rating == 3) {
+                                    echo '😊 Sangat Puas';
+                                }
+                            @endphp
+                            </span>
+                            <span class="text-xs text-gray-400 pl-3">({{ $rating }})</span>
+                           
+                            
+                    </div>
+                   
                 </div>
             </div>
 
