@@ -102,7 +102,7 @@
                         </div>
                     </a>
 
-                    <a href="{{ route('teknisi.booking.index') }}"
+                    <a href="{{ route('teknisi.booking.index',['status' => 'diproses']) }}"
                         :active="request() - > routeIs('teknisi.booking.index')">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center">

@@ -7,6 +7,7 @@ use App\Models\cabang;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class CabangControllerr extends Controller
 {
@@ -49,5 +50,13 @@ class CabangControllerr extends Controller
             'alamat' => $request->alamat
         ]);
         return redirect()->back()->with('success', 'Cabang Baru berhasil ditambahkan!');
+    }
+    public function getCabang()
+    {
+        $cabang = cabang::with('user')->get();
+
+        return DataTables::of($cabang)
+        ->rawColumns(['action'])
+        ->make(true);
     }
 }

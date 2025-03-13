@@ -117,7 +117,7 @@ class BookingForm extends Component
             'modelHpId' => 'required',
             'imei' => 'nullable',
             'service_id' => 'required',
-            'sparepart_id' => 'required',
+            'sparepart_id' => 'nullable',
             'garansi' => 'nullable',
 
         ]);

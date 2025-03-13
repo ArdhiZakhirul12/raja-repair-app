@@ -47,6 +47,7 @@ Route::middleware([
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::group(['prefix' => 'cabang', 'as' => 'cabang.'], function () {
             Route::get('/', [AdminCabangController::class, 'index'])->name('index');
+            Route::get('/get-cabang', [AdminCabangController::class, 'getCabang'])->name('getCabang');
             Route::post('/', [AdminCabangController::class, 'store'])->name('store');
         });
         Route::group(['prefix' => 'servis', 'as' => 'servis.'], function () {
@@ -68,7 +69,7 @@ Route::middleware([
         Route::get('/dashboard', [TeknisiDashboardController::class, 'index'])->name('dashboard');
 
         Route::group(['prefix' => 'booking', 'as' => 'booking.'], function () {
-            Route::get('/', [TeknisiBookingController::class, 'index'])->name('index');
+            Route::get('/{status}', [TeknisiBookingController::class, 'index'])->name('index');
             Route::get('/{id}', [TeknisiBookingController::class, 'show'])->name('show');
             Route::put('/{id}', [TeknisiBookingController::class, 'update'])->name('update');
         });
