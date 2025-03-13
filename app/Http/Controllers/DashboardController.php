@@ -12,6 +12,8 @@ use App\Models\detailBooking;
 use App\Models\sparepart;
 use App\Models\sparepart_booking;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Termwind\Components\Raw;
 
 class DashboardController extends Controller
 {
@@ -84,24 +86,36 @@ class DashboardController extends Controller
         $bookings = booking::with(['sparepart_booking', 'detailBooking'])->get();
         $totalCustomers = customer::where('user_id', Auth::user()->id)->get();
 
-       
 
-
-
- 
-        
         $total_pendapatan = $pendapatan_sparepart + $pendapatan_servis;
 
-        
+
         $totalServices = dataService::where('user_id', Auth::user()->id)->get();
         $totalSpareparts = sparepart::where('user_id', Auth::user()->id)->get();
         $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
 
 
+        $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
+        $ratings_per_id = rating::select()
+        ->select('user_id', DB::raw('AVG(rating) as average_rating'))
+        ->groupBy('user_id')
+        ->get();
 
+        $teknisis_rating = $teknisis->map(function ($teknisi) use ($ratings_per_id) {
+          
+            $rating = $ratings_per_id->firstWhere('user_id', $teknisi->user_id);
+         
+            $teknisi->average_rating = $rating ? $rating->average_rating : 0; // Default to 0 if no rating
+            
+            // $teknisi->average_rating = $ratings_per_id[$teknisi->user_id] ?? 0; // Default to 0 if no rating
+            return $teknisi;
+        });
 
+      
 
         $ratings = rating::where('user_id', auth()->id())->get();
+ 
+    
         $rating = round($ratings->avg('rating'), 1);
 
         $ratingCounts = rating::where('user_id', auth()->id())
