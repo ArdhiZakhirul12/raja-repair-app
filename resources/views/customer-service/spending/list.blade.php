@@ -16,7 +16,14 @@
         Tambah Sparepart
     </button> --}}
         </div>
+        <div class="grid grid-cols-12 gap-4 mb-4">
+            <x-dashboard.dashboard-card-06-uang title="Pendapatan Bersih" total="Rp {{ number_format($pendapatan_bersih, 0, ',', '.') }}" />
+            <x-dashboard.dashboard-card-06-uang title="Total Pendapatan" total="Rp {{ number_format($total_pendapatan, 0, ',', '.') }}" />
+            <x-dashboard.dashboard-card-06-uang title="Total Pengeluaran" total="Rp {{ number_format($total_pengeluaran, 0, ',', '.') }}" />
+        </div>
         <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
+     
+        
             <div class="p-6">
 
 
