@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <img src="{{ asset('images/raja_repair.svg') }}" alt="logo" class="h-20">
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
