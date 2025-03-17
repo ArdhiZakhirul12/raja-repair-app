@@ -206,16 +206,8 @@
 
     <div id="add-service-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-        <div class="bg-white p-10 rounded-lg shadow-lg w-200 flex">
+        <div class="bg-white p-10 rounded-lg shadow-lg w-400 flex">
             <div class="w-1/2">
-                <div class="flex justify-center">
-                    <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi"
-                        class="h-42 w-42 object-cover rounded-l-lg">
-                </div>
-                <p class="text-center text-sm  px-10 text-gray-400">Pastikan data yang ada masukkan sudah benar dan
-                    tidak ada form yang kosong</p>
-            </div>
-            <div class="w-1/2 p-4">
                 <h2 class="text-xl font-semibold mb-4">Tambah Service</h2>
                 <form action="{{ route('admin.servis.store') }}" method="POST">
                     @csrf
@@ -273,6 +265,112 @@
                         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
                     </div>
                 </form>
+            </div>
+            <div class="w-1/2 pl-4">
+           
+                    
+      
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-semibold mb-4">Harga Cabang</h2>
+                    <x-dropdown-list :items="['Cabang Surabaya', 'Cabang Bandung']" />
+                </div>
+                
+                <div class="overflow-auto max-h-96">
+                    <div class="mt-3 p-3 border border-gray-300 rounded shadow-md">
+                        <label for="harga" class="text-l font-semibold mb-2">Cabang Surabaya</label>
+                        <hr class="pt-2, pb-2">
+                        <div class="mb-4 flex gap-4">
+                            <div class="w-1/2">
+                                <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
+                                <input type="text" name="harga" id="harga"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                            <div class="w-1/2">
+                                <label for="garansi_1" class="block text-sm font-medium text-gray-400">Harga Garansi 14 Hari</label>
+                                <input type="text" name="garansi_1" id="garansi_1"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-1/2">
+                                <label for="garansi_2" class="block text-sm font-medium text-gray-400">Harga Garansi 30 Hari</label>
+                                <input type="text" name="garansi_2" id="garansi_2"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                            <div class="w-1/2">
+                                <label for="garansi_3" class="block text-sm font-medium text-gray-400">Harga Garansi 90 Hari</label>
+                                <input type="text" name="garansi_3" id="garansi_3"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mt-3 p-3 border border-gray-300 rounded shadow-md">
+                        <label for="harga" class="text-l font-semibold mb-2">Cabang Bandung</label>
+                        <hr class="pt-2, pb-2">
+                        <div class="mb-4 flex gap-4">
+                            <div class="w-1/2">
+                                <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
+                                <input type="text" name="harga" id="harga"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                            <div class="w-1/2">
+                                <label for="garansi_1" class="block text-sm font-medium text-gray-400">Harga Garansi 14 Hari</label>
+                                <input type="text" name="garansi_1" id="garansi_1"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-1/2">
+                                <label for="garansi_2" class="block text-sm font-medium text-gray-400">Harga Garansi 30 Hari</label>
+                                <input type="text" name="garansi_2" id="garansi_2"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                            <div class="w-1/2">
+                                <label for="garansi_3" class="block text-sm font-medium text-gray-400">Harga Garansi 90 Hari</label>
+                                <input type="text" name="garansi_3" id="garansi_3"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3 p-3 border border-gray-300 rounded shadow-md">
+                        <label for="harga" class="text-l font-semibold mb-2">Cabang Surabaya</label>
+                        <hr class="pt-2, pb-2">
+                        <div class="mb-4 flex gap-4">
+                            <div class="w-1/2">
+                                <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
+                                <input type="text" name="harga" id="harga"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                            <div class="w-1/2">
+                                <label for="garansi_1" class="block text-sm font-medium text-gray-400">Harga Garansi 14 Hari</label>
+                                <input type="text" name="garansi_1" id="garansi_1"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-1/2">
+                                <label for="garansi_2" class="block text-sm font-medium text-gray-400">Harga Garansi 30 Hari</label>
+                                <input type="text" name="garansi_2" id="garansi_2"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                            <div class="w-1/2">
+                                <label for="garansi_3" class="block text-sm font-medium text-gray-400">Harga Garansi 90 Hari</label>
+                                <input type="text" name="garansi_3" id="garansi_3"
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                </div>
+                
+               
             </div>
         </div>
     </div>

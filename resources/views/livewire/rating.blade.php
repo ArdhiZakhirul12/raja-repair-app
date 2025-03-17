@@ -1,5 +1,5 @@
-<div class="bg-white  rounded-lg shadow-xl w-full max-w-md flex flex-col items-center justify-center">
-    <div class="flex justify-center bg-white rounded-lg shadow-xl w-full max-w-md relative pt-4">
+<div class="bg-white  rounded-lg shadow-xl w-full max-w-md flex flex-col items-center justify-center relative">
+    <div class="flex justify-center bg-white rounded-lg shadow-xl w-full max-w-md  pt-4">
         <img src="{{ asset('images/raja_repair.svg') }}" alt="logo"
 
             class="w-[150px] bg-white p-2 \">
@@ -7,37 +7,7 @@
     </div>
     <div class="p-6 flex flex-col items-center justify-center">
 
-        {{-- <form action="{{ route('cs.rating') }}" method="POST" class="flex flex-col items-center mb-2 mt-4">
-            @csrf
-            <div class="rating flex">
-                <input type="radio" id="star1" name="rating" value="1" onclick="setRating(1)"
-                    style="display: none;">
-                <label for="star1" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
-                        id="star1-icon"></i></label>
-                <input type="radio" id="star2" name="rating" value="2" onclick="setRating(2)"
-                    style="display: none;">
-                <label for="star2" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
-                        id="star2-icon"></i></label>
-                <input type="radio" id="star3" name="rating" value="3" onclick="setRating(3)"
-                    style="display: none;">
-                <label for="star3" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
-                        id="star3-icon"></i></label>
-                <input type="radio" id="star4" name="rating" value="4" onclick="setRating(4)"
-                    style="display: none;">
-                <label for="star4" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
-                        id="star4-icon"></i></label>
-                <input type="radio" id="star5" name="rating" value="5" onclick="setRating(5)"
-                    style="display: none;">
-                <label for="star5" class="mr-4"><i class="far fa-star fa-2x" style="color: #FFD43B;"
-                        id="star5-icon"></i></label>
-            </div>
-
-            <div class="flex justify-center mt-5">
-
-                <button class="bg-[#5346AE] text-white px-4 py-2 rounded"
-                    onclick="showPopup()">Submit</button>
-            </div>
-        </form> --}}
+       
         <div class="flex flex-col items-center">
             <h1 class="text-lg text-center mb-4 text-gray-500 mt-4">
                 Bagaimana penilaian anda terhadap pelayanan kami?

@@ -21,12 +21,11 @@
 </head>
 </head>
 
-<body class="font-sans antialiased bg-gradient-to-br from-[#3D3480] to-[#782059]">
+<body class="font-sans antialiased min-h-screen relative" style="background-image: url('{{ asset('images/raja_repair_bg_login.svg') }}'); background-size: cover; background-position: center;">
 
 
 
-    {{-- 
-    <x-banner /> --}}
+    <div class="absolute inset-0" style="background-color: #3D3480; opacity: 0.8;"></div>
 
 
     <div class="flex h-screen items-center justify-center">
@@ -57,54 +56,53 @@
 
         <!-- Page Content -->
 
-
-        <div class=" mr-6">
-
-
-            <livewire:rating />
-
-            
-            <div class="mt-4">
-                <div class="bg-white shadow-xl rounded-lg p-6 w-full max-w-md">
-                    @if (!isset($antrian))
-                        <button id="next-button" class="bg-blue-500 text-white px-4 py-2 rounded"
-                            onclick="mulai()">Mulai
-                            Antrian</button>
-                    @elseif ($antrian->status == 'tutup')
-                        <h1 class="text-2xl font-bold text-center mb-4">Mohon maaf antrian sudah tutup, kembali lagi
-                            besok</h1>
-                    @else
-                        <!-- Logout Form -->
-                        <!-- Header -->
-                        <h1 class="text-l text-center mb-4 px-6 text-gray-500 mt-4">Klik "Ambil Antrian" untuk
-                            mendapatkan antrian
+        <div class="flex items-stretch max-w-4xl max-h-4xl overflow-hidden rounded-lg relative">
+            <!-- Bagian Kiri -->
+            {{-- <div class="w-3/6 h-full flex flex-col"> --}}
+                <livewire:rating />
+        
+                <div class="flex-grow ml-4">
+                  
+                    <div class="bg-white shadow-xl rounded-lg p-6 w-full max-w-md">
+                        <h1 class="text-2xl font-bold text-center mb-4" style="color: #302967;">
+                            Antrian Service
                         </h1>
-                        <!-- Display Current Number -->
-                        <div class="bg-gray-100 p-6 rounded-lg shadow-md text-center">
-                            <h2 id="current-number" class="text-4xl font-bold" style="color: #3D3480;">
-                                {{ $antrian?->antrian }}</h2>
-                        </div>
-                        <!-- Action Buttons -->
-                        <div class="flex justify-center mt-4 space-x-4">
-                            <button id="next-button" class="bg-[#5346AE] text-white px-4 py-2 rounded"
-                                onclick="next()">Ambil
-                                Antrian</button>
-                        </div>
-                    @endif
+                        @if (!isset($antrian))
+                            <button id="next-button" class="bg-blue-500 text-white px-4 py-2 rounded" onclick="mulai()">
+                                Mulai Antrian
+                            </button>
+                        @elseif ($antrian->status == 'tutup')
+                            <h1 class="text-2xl font-bold text-center mb-4">
+                                Mohon maaf antrian sudah tutup, kembali lagi besok
+                            </h1>
+                        @else
+                            <h1 class="text-l text-center mb-4 px-6 text-gray-500 mt-4">
+                                Klik "Ambil Antrian" untuk mendapatkan antrian
+                            </h1>
+                            <div class="bg-gray-100 p-6 rounded-lg shadow-md text-center">
+                                <h2 id="current-number" class="text-4xl font-bold" style="color: #3D3480;">
+                                    {{ $antrian?->antrian }}
+                                </h2>
+                            </div>
+                            <div class="flex justify-center mt-4 space-x-4">
+                                <button id="next-button" class="bg-[#5346AE] text-white px-4 py-2 rounded" onclick="next()">
+                                    Ambil Antrian
+                                </button>
+                            </div>
+                        @endif
+                    </div>
                 </div>
-            </div>
-
+            {{-- </div> --}}
+        
+            <!-- Bagian Kanan -->
+            {{-- <div class="w-3/6 h-full rounded-lg overflow-hidden">
+                <img src="{{ asset('images/side_rating_bg.jpg') }}" class="w-full h-full object-cover" alt="antrian image">
+            </div> --}}
         </div>
-        <div class="w-3/6 ml-6">
+        
 
-            <form method="POST" action="{{ route('logout') }}" x-data class="flex justify-end mt-4">
-                @csrf
-                <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-full">
-                    {{ __('Log Out') }}
-                </button>
-            </form>
-            <img src="{{ asset('images/queue_vector.svg') }}" alt="">
-        </div>
+
+        
 
     </div>
 
