@@ -24,7 +24,7 @@ class BookingController extends Controller
 
     public function getBooking(Request $request)
     {
-        $query = Booking::with(['hpModel', 'user', 'detailBooking', 'customer'])
+        $query = booking::with(['hpModel', 'user', 'detailBooking', 'customer'])
             ->where('user_id', auth()->id());
 
         // Tambahkan filter berdasarkan status jika ada

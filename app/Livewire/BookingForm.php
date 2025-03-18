@@ -24,6 +24,7 @@ class BookingForm extends Component
     protected $listeners = ['refreshComponent' => '$refresh'];
     
     public $nohp;
+    public $diskon = 0;
     public $nama;
     public $alamat;
     public $no_hp_alternatif;
@@ -85,7 +86,7 @@ class BookingForm extends Component
 
     public function submit()
     {
-        // dd($this->garansi);
+        // dd($this->diskon);
         $validated = $this->validate([
             'nohp' => [
                 'required',
@@ -119,6 +120,7 @@ class BookingForm extends Component
             'service_id' => 'required',
             'sparepart_id' => 'nullable',
             'garansi' => 'nullable',
+            'diskon' => 'nullable|integer',
 
         ]);
 
@@ -153,6 +155,12 @@ class BookingForm extends Component
             session()->flash('message', 'Buka antrian terlebih dahulu.');
             return; // Hentikan eksekusi Livewire agar tidak lanjut ke bawah
         }
+        if($this->diskon != 0){
+            $diskonStatus = 1 ;
+        }else{
+            $diskonStatus = 0;
+        }
+
         //membuat booking
         $createBook = booking::create(([
             'kode_pesanan' => $kode_pesanan,
@@ -169,7 +177,9 @@ class BookingForm extends Component
             'total' => 0,
             'claim' => 0,
             'keterangan' => 'belum ada keterangan',
-            'nomor_antrian' => $no_antri
+            'nomor_antrian' => $no_antri,
+            'diskon' => $this->diskon,
+            'diskon_status' => $diskonStatus
         ]));
         if ($this->service_id != null) {
             $serviceIds = $validated['service_id'];

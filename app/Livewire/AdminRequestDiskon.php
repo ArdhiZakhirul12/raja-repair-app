@@ -12,7 +12,7 @@ use Http;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class DetailBooking extends Component
+class AdminRequestDiskon extends Component
 {
     use WithFileUploads;
 
@@ -29,7 +29,8 @@ class DetailBooking extends Component
     public $isModalOpen = false;
     public $isModalDone = false;
     public $isModalDokumen = false;
-    public $isEditTeknisi = false;
+    public $isDiskon = false;
+    public $diskon ;
     public $teknisis = [];
     public $selectedTeknisi  ;
     public $metode = []  ;
@@ -63,9 +64,10 @@ class DetailBooking extends Component
         $this->services = dataService::where('user_id', auth()->id())->whereNotIn('id', $this->serviceId)->get();
         $totalService = $this->booking->detailBooking->sum('harga');
         $totalSparepart = $this->booking->sparepart_booking->sum('harga');
-        $this->total = $totalService + $totalSparepart - $this->booking->diskon;
+        $this->total = $totalService + $totalSparepart;
         $this->addedServices = $this->booking->detailBooking;
         $this->addedServices = [];
+        $this->diskon = $this->booking->diskon;
         $teknisi = $this->booking->teknisi_id;
         $this->teknisis = teknisi::where('cabang_id',auth()->id())->whereNot('id', $teknisi )->get();
         $this->metode = metodePembayaran::whereNot('id',1)->get();
@@ -113,16 +115,13 @@ class DetailBooking extends Component
         $this->rest();
     }
 
-    public function editTeknisi()
-    {
-        if($this->selectedTeknisi == null){
-            session()->flash('success', 'Pilih Teknisi Dengan benar !');
-        } else{
-            booking::where('id',$this->bookingId)->update(['teknisi_id' => $this->selectedTeknisi]);
-            session()->flash('success', 'Berhasil memperbarui teknisi!');
-            $this->isEditTeknisi = false;
+    public function editDiskon()
+    {    
+            $this->isDiskon = false;   
+            booking::where('id',$this->bookingId)->update(['diskon' => $this->diskon, 'diskon_status' => 2]);
+            session()->flash('success', 'Berhasil memperbarui diskon!');            
             $this->booking = Booking::with(['sparepart_booking', 'detailBooking'])->find($this->bookingId);
-        }
+        
 
     }
 
@@ -257,6 +256,6 @@ class DetailBooking extends Component
     }
     public function render()
     {
-        return view('livewire.detail-booking');
+        return view('livewire.admin-request-diskon');
     }
 }

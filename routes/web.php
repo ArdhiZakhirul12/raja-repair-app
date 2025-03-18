@@ -21,6 +21,7 @@ use App\Http\Controllers\teknisi\ClaimGaransiController as TeknisiClaimControlle
 use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\admin\CabangControllerr as AdminCabangController;
 use App\Http\Controllers\admin\ServisController as AdminServisController;
+use App\Http\Controllers\admin\RequestDiskonController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -57,6 +58,13 @@ Route::middleware([
             Route::get('/get-services', [AdminServisController::class, 'getServices'])->name('getServices');
             Route::get('/add-services', [AdminServisController::class, 'create'])->name('create');
         });
+        Route::group(['prefix' => 'diskon', 'as' => 'diskon.'], function () {
+            Route::get('/', [RequestDiskonController::class, 'index'])->name('index');
+            Route::get('/{id}', [RequestDiskonController::class, 'show'])->name('show');
+            Route::put('/{id}', [RequestDiskonController::class, 'update'])->name('update');
+            Route::get('/get-booking-diskon', [RequestDiskonController::class, 'getBooking'])->name('getBooking');
+
+        });
     });
 });
 
@@ -71,7 +79,7 @@ Route::middleware([
 
         Route::group(['prefix' => 'booking', 'as' => 'booking.'], function () {
             Route::get('/{status}', [TeknisiBookingController::class, 'index'])->name('index');
-            Route::get('/{id}', [TeknisiBookingController::class, 'show'])->name('show');
+            Route::get('/{id}/detail', [TeknisiBookingController::class, 'show'])->name('show');
             Route::put('/{id}', [TeknisiBookingController::class, 'update'])->name('update');
         });
         Route::group(['prefix' => 'claim', 'as' => 'claim.'], function () {
