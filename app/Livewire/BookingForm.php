@@ -147,9 +147,24 @@ class BookingForm extends Component
         $teknisiName = teknisi::where('id', $validated['teknisiId'])->first()->nama;
 
         $angka = substr($jam, 1, 1) . substr($menit, 0, 2) . substr($milidetik, 0, 2);
-
+        $lastBooking = Booking::where('user_id', Auth::id())->latest()->first();
+        $nextNumber = 1;
+        if ($lastBooking) {
+            $lastKode = $lastBooking->kode_pesanan;
+            $kodeParts = explode('-', $lastKode);
+        
+            if (count($kodeParts) === 3) {
+                $lastTanggal = $kodeParts[1];
+                $lastNumber = (int) $kodeParts[2];
+        
+                if ($lastTanggal === $tanggal) {
+                    $nextNumber = $lastNumber + 1;
+                }
+            }
+        }
         // dd($cab, $tanggal, $angka);
-        $kode_pesanan = strtoupper( $cab .'-'. $tanggal.'-' . $angka);
+        $kode_pesanan = strtoupper( $cab .'-'. $tanggal.'-' . $nextNumber);
+        // dd($kode_pesanan);
         $no_antri = antrian::where('user_id',auth()->id())->first()?->ditangani;
         if (!$no_antri) {
             session()->flash('message', 'Buka antrian terlebih dahulu.');
