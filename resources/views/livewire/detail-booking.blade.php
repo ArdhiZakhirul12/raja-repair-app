@@ -1,50 +1,57 @@
-
 <div>
-    
-<style>
-    @media print {
-        /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
-        @page {
-            size: Legal;
-            margin: 10mm; /* Sesuaikan margin sesuai kebutuhan */
-        }
 
-        /* Sesuaikan elemen agar mengikuti ukuran kertas */
-        body {
-            transform: scale(1.4); /* Skala 140% */
-            transform-origin: top left; /* Pastikan skala dari kiri atas */
-        }
+    <style>
+        @media print {
 
-        /* Kontainer yang akan dicetak */
-        #print-invoice {
-            width: 100%;
-            margin: auto;
-            overflow: hidden;
+            /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
+            @page {
+                size: Legal;
+                margin: 10mm;
+                /* Sesuaikan margin sesuai kebutuhan */
+            }
+
+            /* Sesuaikan elemen agar mengikuti ukuran kertas */
+            body {
+                transform: scale(1.4);
+                /* Skala 140% */
+                transform-origin: top left;
+                /* Pastikan skala dari kiri atas */
+            }
+
+            /* Kontainer yang akan dicetak */
+            #print-invoice {
+                width: 100%;
+                margin: auto;
+                overflow: hidden;
+            }
         }
-    }
-</style>
+    </style>
 
 
     @if (session()->has('doneMsg'))
-    <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50" id="popup">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
-            <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold">Notifikasi</h3>
-                <button onclick="document.getElementById('popup').style.display='none'" class="text-gray-500 hover:text-gray-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <p class="mt-4 text-gray-700">{{ session('doneMsg') }}</p>
-            <div class="mt-6 flex justify-end">
-                <button wire:click="closeAndPrint" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                    Tutup
-                </button>
+        <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50" id="popup">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-semibold">Notifikasi</h3>
+                    <button onclick="document.getElementById('popup').style.display='none'"
+                        class="text-gray-500 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <p class="mt-4 text-gray-700">{{ session('doneMsg') }}</p>
+                <div class="mt-6 flex justify-end">
+                    <button wire:click="closeAndPrint"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        Tutup
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
 
     @if (session('success'))
         <div id="notification"
@@ -91,33 +98,33 @@
             <h1 class="text-2xl md:text-2xl text-gray-800 dark:text-gray-100 font-bold">
                 Detail Transaksi Servis
             </h1>
-            
+
             <div>
-                @if ($booking->status != 'selesai')        
-                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                    wire:click="$set('isModalOpen', true)">
-                    Edit Service
-                </button>
+                @if ($booking->status != 'selesai')
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        wire:click="$set('isModalOpen', true)">
+                        Edit Service
+                    </button>
                 @endif
-                @if ($booking->status == 'teknisi-selesai')
-                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-                    wire:click="$set('isModalDone', true)">
-                    Selesaikan
-                </button>
+                @if ($booking->status == 'teknisi-selesai' && $booking->diskon_status != 1)
+                    <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        wire:click="$set('isModalDone', true)">
+                        Selesaikan
+                    </button>
                 @endif
                 {{-- @dd($upDokumen) --}}
                 @if (!$pengeluaran)
-                <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
-                    wire:click="$set('isModalDokumen', true)">
-                    Upload Dokumen
-                </button>
+                    <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
+                        wire:click="$set('isModalDokumen', true)">
+                        Upload Dokumen
+                    </button>
                 @else
-                <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
-                    wire:click="redirectNow">
-                    Cek Dokumen
-                </button>
+                    <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
+                        wire:click="redirectNow">
+                        Cek Dokumen
+                    </button>
                 @endif
-                
+
             </div>
 
 
@@ -143,7 +150,8 @@
             </span>
         </h1>      
         <h2 class="mt-2
-                text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
+                text-xs md:text-sm text-gray-500
+                dark:text-gray-100 ">
             Pesanan : {{ $booking->created_at }}
         </h2>
         
@@ -170,75 +178,95 @@
                             @if ($booking->status == 'diproses') bg-blue-500
                             @elseif($booking->status == 'dikerjakan') bg-yellow-500
                             @elseif($booking->status == 'teknisi-selesai') bg-orange-500
-                            @elseif($booking->status == 'selesai') bg-green-500
-                            @endif">
+                            @elseif($booking->status == 'selesai') bg-green-500 @endif">
                             {{ $booking->status }}
+                        </h2>
+                        <h2 class="text-xs md:text-sm text-white px-2 py-1 rounded        
+                        @if ($booking->diskon_status != 0) @if ($booking->diskon_status == '1') bg-yellow-500"> menunggu diskon disetujui                            
+                            @elseif($booking->diskon_status == '2') bg-green-500"> diskon disetujui @endif
+                            @endif  
                         </h2>
                         </div>
                         
                         
                         <hr class="my-2">
-                        <div id="keterangan" class="border-bottom pb-2 mb-3" >
-                            <h2 class="mt-1
+                <div id="keterangan" class="border-bottom pb-2 mb-3">
+                    <h2
+                        class="mt-1
                                 text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                                Merk HP : {{ $booking->hpModel->hpMerk->merk }}
-                            </h2>
-                            <h2 class="mt-1
+                        Merk HP : {{ $booking->hpModel->hpMerk->merk }}
+                    </h2>
+                    <h2
+                        class="mt-1
                                 text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                                Model HP : {{ $booking->hpModel->model }}
-                            </h2>
-                            <h2 class="mt-1
+                        Model HP : {{ $booking->hpModel->model }}
+                    </h2>
+                    <h2
+                        class="mt-1
                                 text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                                Imei : {{ $booking->imei }}
-                            </h2>
-                        </div>
-                        <div class="flex items-center mb-2">
-                
-                            <h2 class="text-l text-blue-500">Rincian Servis</h2>
-                        </div>
-            
-                              
-                            <table class="min-w-full table-auto rounded-lg overflow-hidden">
-                                <thead class="bg-blue-100">
-                                    <tr>
-                                        <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
-                                        <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
-                                        <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe Servis</th>
-                                        {{-- <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th> --}}
-                                    </tr>
-                                </thead>
-                                <tbody class="border-bottom">
-                                       @foreach ($booking->detailBooking as $item)
-                <tr class="">
-                    <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }} </td>
-                    {{-- <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td> --}}
-                </tr>
-                @endforeach
-                @foreach ($booking->sparepart_booking as $item)
-                    <tr class="">
-                        <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th>
-                        <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
-                        <td class="px-4 py-2 text-gray-500">Sparepart </td>
-                        {{-- <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td> --}}
-                    </tr>
-                @endforeach
-                <tr class="border-top ">
-                    {{-- <td></td> --}}
-                    <td></td>
-                    <td class="px-4 text-right">
-                        <h2 class="text-l font-semibold">Total :</h2>
-                    </td>
-                    <td class="px-4 py-2">
-                        <h2 class="text-l font-semibold">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
-                    </td>
-                </tr>
-                </tbody>
+                        Imei : {{ $booking->imei }}
+                    </h2>
+                </div>
+                <div class="flex items-center mb-2">
+
+                    <h2 class="text-l text-blue-500">Rincian Servis</h2>
+                </div>
+
+
+                <table class="min-w-full table-auto rounded-lg overflow-hidden">
+                    <thead class="bg-blue-100">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
+                            <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
+                            <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe Servis</th>
+                            <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody class="border-bottom">
+                        @foreach ($booking->detailBooking as $item)
+                            <tr class="">
+                                <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th>
+                                <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
+                                <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }} </td>
+                                <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                                </td>
+                            </tr>
+                        @endforeach
+                        @foreach ($booking->sparepart_booking as $item)
+                            <tr class="">
+                                <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th>
+                                <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
+                                <td class="px-4 py-2 text-gray-500">Sparepart </td>
+                                <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                                </td>
+                            </tr>
+                        @endforeach
+                        <tr class="border-top ">
+                            <td></td>
+                            <td></td>
+                            <td class="px-4 text-right">
+                                <h2 class="text-l font-semibold">Diskon :</h2>
+                            </td>
+                            <td class="px-4 py-2">
+                                <h2 class="text-l font-semibold">Rp{{ number_format($booking->diskon, 0, ',', '.') }},-
+                                </h2>
+                            </td>
+                        </tr>
+                        <tr class="border-top ">
+                            <td></td>
+                            <td></td>
+                            <td class="px-4 text-right">
+                                <h2 class="text-l font-semibold">Total :</h2>
+                            </td>
+                            <td class="px-4 py-2">
+                                <h2 class="text-l font-semibold">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
 
     </div>
-   
+
 </div>
 
 
@@ -348,14 +376,13 @@
                 Simpan
             </button>
         @else
-        @if ($booking->status == 'diproses')
-
-            <div class="flex justify-end">
-                <button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-                    wire:click="$set('isEditTeknisi', true)">
-                    Ubah Teknisi
-                </button>
-            </div>
+            @if ($booking->status == 'diproses')
+                <div class="flex justify-end">
+                    <button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                        wire:click="$set('isEditTeknisi', true)">
+                        Ubah Teknisi
+                    </button>
+                </div>
             @endif
         @endif
 
@@ -395,7 +422,7 @@
                 <h2 class="text-lg font-bold">Upload Dokumen</h2>
             </div>
 
-            
+
 
             <form wire:submit.prevent="submitDokumen" class="space-y-6 mb-5 mt-2">
                 <div class="flex justify-center">
@@ -407,17 +434,17 @@
                         <hr class="mb-4">
                         <div class="grid grid-cols-1 gap-6">
                             @if ($dokumen)
-            
-                                    <img src="{{ $dokumen->temporaryUrl() }}">
-                                    <p class="mt-2 text-sm text-gray-600">
-                                        Ukuran File: {{ number_format($dokumen->getSize() / 1024, 2) }} KB
-                                    </p>
-                                @endif
+                                <img src="{{ $dokumen->temporaryUrl() }}">
+                                <p class="mt-2 text-sm text-gray-600">
+                                    Ukuran File: {{ number_format($dokumen->getSize() / 1024, 2) }} KB
+                                </p>
+                            @endif
                             <div class="flex">
-                                
-                                
+
+
                                 <div class="mr-2">
-                                    <label for="dokumen" class="block text-sm font-medium text-gray-400">Dokumen</label>
+                                    <label for="dokumen"
+                                        class="block text-sm font-medium text-gray-400">Dokumen</label>
                                     <input type="file" wire:model="dokumen" id="dokumen" name="dokumen"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                     @error('dokumen')
@@ -425,19 +452,22 @@
                                     @enderror
                                 </div>
                                 <div class="mr-2">
-                                    <label for="referensi" class="block text-sm font-medium text-gray-400"># Referensi</label>
-                                    <input type="text" wire:model="referensi" id="referensi" name="referensi" value=""
+                                    <label for="referensi" class="block text-sm font-medium text-gray-400">#
+                                        Referensi</label>
+                                    <input type="text" wire:model="referensi" id="referensi" name="referensi"
+                                        value=""
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
                                 <div>
-                                    <label for="tanggal" class="block text-sm font-medium text-gray-400">Tanggal</label>
+                                    <label for="tanggal"
+                                        class="block text-sm font-medium text-gray-400">Tanggal</label>
                                     <input type="date" wire:model="tanggal" id="tanggal" name="tanggal"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
                             </div>
-        
+
                             {{-- <div class="flex"> --}}
-        
+
                             {{-- <div class="mr-2">
                                     <label for="mata_uang" class="block text-sm font-medium text-gray-400">Mata Uang</label>
                                     <input type="text" wire:model="mata_uang" id="mata_uang" name="mata_uang"
@@ -450,7 +480,7 @@
         
                                 </div> --}}
                             {{-- </div> --}}
-        
+
                             {{-- @dd($metodePembayaran) --}}
                             {{-- <div>
                                 <label for="sub_account" class="block text-sm font-medium text-gray-400">Sub Account</label>
@@ -477,7 +507,7 @@
                                     </div>
                                 @endif
                             </div> --}}
-        
+
                             {{-- <div class="flex">
                                 <div class="mr-2">
                                     <label for="lokasi" class="block text-sm font-medium text-gray-400">Lokasi</label>
@@ -518,9 +548,9 @@
                                 </div>
         
                             </div> --}}
-        
-        
-        
+
+
+
                             {{-- <div>
                                 <label for="BPL" class="block text-sm font-medium text-gray-400">BPL</label>
                                 <input type="text" wire:model="BPL" id="BPL" name="BPL"
@@ -539,22 +569,23 @@
                                     </div>
                                 @endif
                             </div> --}}
-        
-        
+
+
                             <div class="flex">
                                 <div class="mr-2">
-                                    <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
+                                    <label for="harga"
+                                        class="block text-sm font-medium text-gray-400">Harga</label>
                                     <input type="text" wire:model.lazy="harga" id="harga" name="harga"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         onkeyup="formatRupiah(this)" oninput="updateHiddenInput(this)">
                                     <input type="hidden" id="hargaHidden" name="harga_real">
-        
-        
+
+
                                     @if ($errors->has('harga'))
                                         <div
                                             class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
                                             </svg>
@@ -565,7 +596,8 @@
                                     @endif
                                 </div>
                                 <div class="mr-2">
-                                    <label for="cara_bayar" class="block text-sm font-medium text-gray-400">Cara Bayar</label>
+                                    <label for="cara_bayar" class="block text-sm font-medium text-gray-400">Cara
+                                        Bayar</label>
                                     <select id="dataDropdown" name="dataDropdown"
                                         class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                                         wire:model="selectedMetode">>
@@ -577,8 +609,8 @@
                                     @if ($errors->has('cara_bayar'))
                                         <div
                                             class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
                                             </svg>
@@ -588,7 +620,7 @@
                                         </div>
                                     @endif
                                 </div>
-        
+
                                 {{-- <div>
                                     <label for="bank" class="block text-sm font-medium text-gray-400">bank</label>
                                     <input type="text" wire:model="bank" id="bank" name="bank"
@@ -608,9 +640,9 @@
                                     @endif
                                 </div> --}}
                             </div>
-        
+
                             {{-- <div class="flex"> --}}
-        
+
                             {{-- <div>
                                     <label for="kurs" class="block text-sm font-medium text-gray-400">Kurs</label>
                                     <input type="number" wire:model="kurs" id="kurs" name="kurs" value="1.00"
@@ -618,22 +650,24 @@
                                     
                                 </div> --}}
                             {{-- </div> --}}
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
                             <div>
                                 <label for="jumlah" class="block text-sm font-medium text-gray-400">Jumlah</label>
-                                <input type="number" wire:model="jumlah" id="jumlah" name="jumlah" value="0"
+                                <input type="number" wire:model="jumlah" id="jumlah" name="jumlah"
+                                    value="0"
                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 <div>
-                                    <label for="keterangan" class="block text-sm font-medium text-gray-400">Keterangan</label>
+                                    <label for="keterangan"
+                                        class="block text-sm font-medium text-gray-400">Keterangan</label>
                                     <textarea type="text" wire:model="keterangan" id="keterangan" name="keterangan" rows="4"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                                 </div>
-        
+
                                 <div class="flex justify-end">
                                     <button type="submit"
                                         class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -645,7 +679,7 @@
             </form>
 
 
-          
+
 
             <!-- Save Button -->
             {{-- <div class="mt-4 flex justify-end">
@@ -682,7 +716,7 @@
                 <h2 class="text-lg font-bold">Edit Detail Service</h2>
             </div>
 
-            
+
 
             <!-- Select Service -->
             <div class="flex items-center mb-4">
@@ -704,8 +738,9 @@
             </div>
 
             <!-- Services Table -->
-            <table class="w-full table-auto border-collapse border border-gray-300 min-w-full rounded-lg overflow-hidden">
-                <thead >
+            <table
+                class="w-full table-auto border-collapse border border-gray-300 min-w-full rounded-lg overflow-hidden">
+                <thead>
                     <tr class="bg-blue-100">
                         <th class="border px-4 py-2 text-left">Service Name</th>
                         <th class="border px-4 py-2 text-left">Price</th>
@@ -718,7 +753,7 @@
                             <td class="border px-4 py-2">{{ $service->dataService->nama_servis }}</td>
                             <td class="border px-4 py-2">Rp{{ $service['harga'] }}</td>
                             <td class="border px-4 py-2 text-center">
-                                
+
                                 <button wire:click="removeServiceOld({{ $service['id'] }})"
                                     class=" text-white px-3 py-1 rounded ">
                                     <i class="fa-solid fa-trash-can" style="color: #ee5d5d;"></i>
@@ -750,9 +785,9 @@
             <!-- Save Button -->
             <div class="mt-4 flex justify-end">
                 <button class="bg-red-300 text-white px-4 py-2 rounded hover:bg-red-400 mr-2"
-                wire:click="$set('isModalOpen', false)">
-                Kembali
-            </button>
+                    wire:click="$set('isModalOpen', false)">
+                    Kembali
+                </button>
                 <button wire:click="save" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-2">
                     Simpan
                 </button>
@@ -773,8 +808,10 @@
         <div class="bg-white w-11/12 max-w-3xl rounded-lg shadow-lg">
             <!-- Modal Header -->
             <div class="flex justify-between items-center border-b px-6 py-4">
-                <h2 class="text-lg font-bold">Kode Pesanan: <span class="text-blue-600">#{{ $booking->kode_pesanan }}</span></h2>
-                <button class="text-gray-500 hover:text-red-600"  wire:click="$set('isModalDone', false)">&times;</button>
+                <h2 class="text-lg font-bold">Kode Pesanan: <span
+                        class="text-blue-600">#{{ $booking->kode_pesanan }}</span></h2>
+                <button class="text-gray-500 hover:text-red-600"
+                    wire:click="$set('isModalDone', false)">&times;</button>
             </div>
 
             <!-- Modal Body -->
@@ -785,20 +822,24 @@
                     <div class="w-1/2">
                         {{-- <h3 class="text-sm font-semibold mb-2">Data Customer</h3> --}}
                         <div class="flex items-center mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
-                                height="20" viewBox="0 0 20 20" fill="none" class="mr-2">
-                
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="20" height="20" viewBox="0 0 20 20" fill="none" class="mr-2">
+
                                 <image id="image0_76_221" width="20" height="20"
                                     xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFIUlEQVR4nO2dW2gcZRSAT70j3sUK3luf1Af1QXySKlqsSlGKS/acTVooGsEblpo9ZxrLKCqIPkhVhKCQdvc/G9k3KxXqrUXESlFUKlYRbQXFS9EH6yWmauTfbJqYmsskM/PP/jMfnJc87M7/8e+Z/3oCUFBQUFBQUFBQUFBQUBCNB4e6LuZ6Za0YekEUd4ji16L0Mxs6JIq/suJ++3dWfJgb5Ssjfny+CQd6T2RD97DiB6I0GiVY8Y1qo3yZ6zZkm1FYxIp3iKEDUQVPkf2HKFZcNyeTyJaeM1lx+0IET5H9Nxu61XW7MkW1XjmPFb+IS/LhsL8MQ/ez4sr1te7FkGdE6XRR/Cx2yUdKH2bFzX2N8jmQy5xsaFvikv8r/FupV66CPMGKq1OVPCH7p35DF0IeuO/VFcez4jdORNuXpaGdkAcCQ3e6kjwe1UZ5OfiOKO5yLVqUXgefWV/rXpwByTZ9HFrXLJ0BvhIo3uZa8kR4PINkxafcC273asWnwVdY8a0Mid4OvsKKe1wLnhRfgq+InZ25FzwWhg6Ar3BrGTMzoofBV9jQQeeCDwf+Ar7Chj53L3gs7LOAr3CMC/wxpI43wVdEcWOGRD8CviKN8tXOBbcjUFwGPsOG9rqWzIpfhWF4FPgMG3rWtWhRfA58JjB0nd2ldi26tVNer1wLviKGtrqWPEn2y+ArnKG1Djb0MfgKG3rPteCJwF3gK6I04F5wOww9D74iijc7FzwejfIK8BlWfMe1ZDb0rj3EAz7TX+teIoofOZOs+CEPdV0EeYEVNzmQvAnyBiuuTF10o3wL5I2wWTpOFH9ITbSh73oHeo+FPCJKnF6Pxnshz3dWxNC+FHLznnDHsmMgz1Qb5eVJLjR5v4AUBTb0UIK5OXDdvqzdynopAclD3k9MolJqlo6OeWw9kNtRxlyIS/ScvizPSCG6EO0V0oE9uu/FtSeLodDem2RDf7KhH+3LfYOhKyCrSIeJtiuB0x+hwBEx1ANZRDpItJU8+8wWR7jWfTlkiaBeuT4u0UG9ck0as1p7/He2Z7FpBDJVq0Oj1+mYoXG7w8E1JyT93FVDN80mmw19D1kgrFdOsYVN4pI8qYHbuFk61bVsewAfnDIKi4J65fYkryzbc3aBoVVJT8VnlG3oE3B3sRPvTvPAoz14zop9QaN89nxffLNdbZ5eNm6ENIugiC1WYminGPorLcH/0+gRm1Kqindt2Lz63EijC0PDVmYk2YY+DZulkyBJgnrlUrtMyYq7xdA/7uROE61nmvkG7RFDuCiyDe1LbMe9OtR1iSg9kaX7KjJ9OnlsXuPkuci2GxqxS7YvNUOrsnA4RpKWHEF2rFQVb7QnM12LkzQlpyk7HFxzmigOupYmMUu2pYAibRgnKbt/qOv8LNxFEdeSJ8uOu6qNKC1t1wl1Lk6yIHlMdLyji3bhqdjWIyStMPTkTO3iLT0X2GoH8/v8VqdbCnEihp5xLk097smtB6p1LxkrKexenvjaky32KoJzceq55PYZud+dy1NP08U4onSDa3nic0+eEI2Pdojkx2fryXZ9el6/EsX9iV/JEEOvdYDkrTMt7mdecku0w8s9MjfJw0GzdFZHS7a4rI4rc5PxSkfm5KlkfcTBhtZ1dE/udFixVkhOAVF6P/PpwpP/I3CwkJww7Zdg0ZPT2GIr0kUKSL3yQJGTM1OEpXjxLRhWfHua8fFvY7tEqHaNfeHflHPY0N627AE7obEVZ1oTEEf3Dv8FYD/aWmoSqxwAAAAASUVORK5CYII=" />
-                
+
                             </svg>
                             <h2 class="text-l font-semibold">Data Pelanggan</h2>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow-md">
-                            <p><span class="text-gray-400">Nama</span> <span class="ml-6">: {{ $booking->customer->nama }}</span></p>
-                            
-                            <p class="mb-2"><span class="text-gray-400">Telepon</span> <span class="ml-2">: {{ $booking->customer->no_hp }}</span></p>
-                            <p class="text-sm text-gray-300"><span class="text-gray-400"><i class="fa-solid fa-location-dot" style="color: #ff0000;"></i></span> <span class="ml-4">{{ $booking->customer->alamat }}</span></p>
+                            <p><span class="text-gray-400">Nama</span> <span class="ml-6">:
+                                    {{ $booking->customer->nama }}</span></p>
+
+                            <p class="mb-2"><span class="text-gray-400">Telepon</span> <span class="ml-2">:
+                                    {{ $booking->customer->no_hp }}</span></p>
+                            <p class="text-sm text-gray-300"><span class="text-gray-400"><i
+                                        class="fa-solid fa-location-dot" style="color: #ff0000;"></i></span> <span
+                                    class="ml-4">{{ $booking->customer->alamat }}</span></p>
                         </div>
                     </div>
 
@@ -808,28 +849,28 @@
                         <div class="flex items-center mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 width="20" height="20" viewBox="0 0 20 20" fill="none">
-            
+
                                 <image id="image0_76_220" width="20" height="20"
                                     xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADZUlEQVR4nO2dsWpUQRiFB8So+AQm+AKCjU9ha/EfUwhapZCIViZWW7gzmyApLFNIwNJOUPEF1CgBIWwQbJx/USNYSURItTLXILjJ7t69O5s7x50D0ywL+32HyT83xXCNycnJyUkr1xufTovV23D+rVj/E067Ka3AJNZvwvpblx9+PGUYc/X+5/OwfrvuMlF+vZdmZ86w7WSykrt/y260ZwxL4PROAqV1qyxxftGwRKx/R1u09ZuGJXB+r+7CUHn5PcOS+svSsZZhSd1FIRettZc4FTvaJBYWTnoBkHDSC4CEk14AJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMKZnMC1B7tnxemqOP0m1n+B1RV50j2RGme01CEg1l+A053Dv+tbKXFGzXELSFNv9L26YXU3Fc7oGVVAGu2Z8GceSoHTr2EXlrlTEkYFnN/o93u56J4UJfcUJFafDyq7/6jIo6Pbr7SDndwtW/bAUfHvbn6UD8MSRRdlO/8yXD4K35O1zhlYXR9esP8lLV0wQzJ1MxrOtwYVJ05foOkvlRsVuhPGyiQ4/4/D0OmzEiUOm8cb4YCcFGdyqSIgxZOHf1qp4JKjIgZnUqkqINXK/iArnYvHyZlMxhGQUcq2+niUURGTM4mMKyDDyq44KmJz1p4YAtK/7MqjYhKctSaWgDTaM2K9C/+Wi/XfYf3aOKNiUpy1hUUAJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMI5sgBIlmFJ3UUhF621l5h3tBtawj6svzu/qrNhSUuXis9y0XF3mbR0qXdEidXlXHTkoq80/bneosNnuejIRc+v6uyhHd3szOWiY48Oq8tHPN3cy0XHP6T2Q9nFQfhnJ4eSp/0w5H3hjTj9YVhSvLougdJQZVl9bVgS3g9Ye2Gu6urcNCwJ14rDK+sId/PWwvrWScOUgwOLp2yrW0c9q1OkuIPi/KI4fZPmAen3xOmrMC7odnJOTo6ZgvwGAxegPr5PH1wAAAAASUVORK5CYII=" />
-            
+
                             </svg>
                             <h2 class="text-l font-semibold ">Data Handphone</h2>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow-md">
-                        <table>
-                            <tr>
-                                <td class="text-gray-400">Handphone</td>
-                                <td>: {{ $booking->hpModel->hpMerk->merk }} {{ $booking->hpModel->model }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-gray-400">Kode Imei</td>
-                                <td>: {{ $booking->imei }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-gray-400">Kendala</td>
-                                <td class="text-sm text-gray-400">: {{ $booking->kendala }}</td>
-                            </tr>
-                        </table>
+                            <table>
+                                <tr>
+                                    <td class="text-gray-400">Handphone</td>
+                                    <td>: {{ $booking->hpModel->hpMerk->merk }} {{ $booking->hpModel->model }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-gray-400">Kode Imei</td>
+                                    <td>: {{ $booking->imei }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-gray-400">Kendala</td>
+                                    <td class="text-sm text-gray-400">: {{ $booking->kendala }}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -837,7 +878,8 @@
                 <!-- Service and Sparepart Table -->
                 <div>
                     <h3 class="text-sm font-semibold mb-2">Detail Service dan Sparepart</h3>
-                    <table class="w-full border-collapse border border-gray-300 text-sm min-w-full rounded-lg overflow-hidden">
+                    <table
+                        class="w-full border-collapse border border-gray-300 text-sm min-w-full rounded-lg overflow-hidden">
                         <thead>
                             <tr class="bg-blue-100">
                                 <th class="border border-gray-300 px-4 py-2 text-left">Deskripsi</th>
@@ -848,26 +890,30 @@
                         </thead>
                         <tbody>
                             @foreach ($booking->detailBooking as $item)
-                <tr class="">
-                    {{-- <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th> --}}
-                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
-                    <td class="px-4 py-2 text-gray-500 text-center">{{ $item->dataService->jenis_servis }} </td>
-                    <td class="px-4 py-2 text-gray-500 text-right">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
-                </tr>
-                @endforeach
-                @foreach ($booking->sparepart_booking as $item)
-                    <tr class="">
-                        {{-- <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th> --}}
-                        <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
-                        <td class="px-4 py-2 text-gray-500 text-center">Sparepart </td>
-                        <td class="px-4 py-2 text-gray-500 text-right">Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
-                    </tr>
-                @endforeach
+                                <tr class="">
+                                    {{-- <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th> --}}
+                                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
+                                    <td class="px-4 py-2 text-gray-500 text-center">
+                                        {{ $item->dataService->jenis_servis }} </td>
+                                    <td class="px-4 py-2 text-gray-500 text-right">
+                                        Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                                </tr>
+                            @endforeach
+                            @foreach ($booking->sparepart_booking as $item)
+                                <tr class="">
+                                    {{-- <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th> --}}
+                                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
+                                    <td class="px-4 py-2 text-gray-500 text-center">Sparepart </td>
+                                    <td class="px-4 py-2 text-gray-500 text-right">
+                                        Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr class="bg-gray-200 font-bold">
                                 <td class="border border-gray-300 px-4 py-2" colspan="2">Total</td>
-                                <td class="border border-gray-300 px-4 py-2 text-right">Rp{{number_format($total, 0, ',', '.')}},-</td>
+                                <td class="border border-gray-300 px-4 py-2 text-right">
+                                    Rp{{ number_format($total, 0, ',', '.') }},-</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -879,16 +925,18 @@
                     <div class="space-y-4">
                         <div>
                             <label for="amount-paid" class="block text-sm font-medium text-gray-400">Catatan</label>
-                            <input type="text" id="amount-paid" wire:model="catatan" class="w-full border-gray-300 rounded-lg shadow-sm"
-                                placeholder="Masukkan catatan">
-                            @error('catatan') 
-                                <span class="text-red-600 text-sm">{{ $message }}</span> 
+                            <input type="text" id="amount-paid" wire:model="catatan"
+                                class="w-full border-gray-300 rounded-lg shadow-sm" placeholder="Masukkan catatan">
+                            @error('catatan')
+                                <span class="text-red-600 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
                         <!-- Dropdown Metode Pembayaran -->
                         <div>
-                            <label for="payment-method" class="block text-sm font-medium text-gray-400">Metode Pembayaran</label>
-                            <select id="payment-method" wire:model="metodeSelected" class="w-full border-gray-300 rounded-lg shadow-sm">
+                            <label for="payment-method" class="block text-sm font-medium text-gray-400">Metode
+                                Pembayaran</label>
+                            <select id="payment-method" wire:model="metodeSelected"
+                                class="w-full border-gray-300 rounded-lg shadow-sm">
                                 <option value="">Pilih Metode</option>
                                 @foreach ($metode as $item)
                                     <option value="{{ $item->id }}">{{ $item->metode }}</option>
@@ -897,70 +945,73 @@
                             {{-- @error('metodeSelected') 
                                 <span class="text-red-600 text-sm">{{ $message }}</span> 
                             @enderror --}}
-                            @error('metodeSelected') 
-                            <div
-                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                </svg>
-                              
+                            @error('metodeSelected')
+                                <div
+                                    class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                    </svg>
+
                                     <span>{{ $message }}</span>
-                              
-                            </div>
+
+                                </div>
                             @enderror
                         </div>
-                
+
                         <!-- Input Jumlah Bayar -->
-                        
+
                         <div>
-                            <label for="amount-paid" class="block text-sm font-medium text-gray-400">Jumlah Bayar</label>
-                            <input type="number" id="amount-paid" wire:model="bayar" class="w-full border-gray-300 rounded-lg shadow-sm"
+                            <label for="amount-paid" class="block text-sm font-medium text-gray-400">Jumlah
+                                Bayar</label>
+                            <input type="number" id="amount-paid" wire:model="bayar"
+                                class="w-full border-gray-300 rounded-lg shadow-sm"
                                 placeholder="Masukkan jumlah bayar">
                             {{-- @error('bayar') 
                                 <span class="text-red-600 text-sm">{{ $message }}</span> 
                             @enderror --}}
-                            @error('bayar') 
-                            <div
-                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                </svg>
-                              
+                            @error('bayar')
+                                <div
+                                    class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                    </svg>
+
                                     <span>{{ $message }}</span>
-                              
-                            </div>
+
+                                </div>
                             @enderror
                         </div>
                     </div>
                 </div>
 
-            <!-- Modal Footer -->
-            <div class="flex justify-end items-center border-t px-6 py-4">
-                <button class="bg-red-400 text-white px-4 py-2 rounded-lg mr-2"
-                    wire:click="$set('isModalDone', false)">Kembali</button>
-                <button wire:click="selesaikan" 
-                {{-- onclick="printDiv('struk-pembayaran')"  --}}
-                class="bg-blue-600 text-white px-4 py-2 rounded-lg">Simpan</button>
-            </div>  
+                <!-- Modal Footer -->
+                <div class="flex justify-end items-center border-t px-6 py-4">
+                    <button class="bg-red-400 text-white px-4 py-2 rounded-lg mr-2"
+                        wire:click="$set('isModalDone', false)">Kembali</button>
+                    <button wire:click="selesaikan" {{-- onclick="printDiv('struk-pembayaran')"  --}}
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg">Simpan</button>
+                </div>
+            </div>
         </div>
-    </div>
 @endif
 
 
 {{-- DESAI STRUK PEMBAYARAN --}}
 
-<div class="bg-white rounded shadow-md p-4 my-3 " style="display:none;width:mm;text-align: center;" id="struk-pembayaran">
+<div class="bg-white rounded shadow-md p-4 my-3 " style="display:none;width:mm;text-align: center;"
+    id="struk-pembayaran">
     <div class="struk-header">
         <div class="logo-center justify-center text-center">
             <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
         </div>
         <div class="address-center text-center">
             <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
-            <p class="text-sm pb-2">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur
+            <p class="text-sm pb-2">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa
+                Timur
                 61257</p>
             <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
         </div>
@@ -1000,71 +1051,76 @@
 
         </div>
 
-     
+
 
 
         <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
 
         <div class="flex justify-center">
             <table class="rounded-lg overflow-hidden text-center">
-            <thead class="border-b-2">
-                <tr>
-                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
-                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
-                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe</th>
-                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($booking->detailBooking as $item)
-                <tr>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->code }}</td>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }}</td>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }}</td>
-                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
-                </tr>
-                @endforeach
-                
-                @foreach ($booking->sparepart_booking as $item)
-                <tr>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }}</td>
-                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }}</td>
-                    <td class="px-4 py-2 text-gray-500">Sparepart</td>
-                    <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-</td>
-                </tr>
-                @endforeach
-                
-                <tr style="border-top: 2px dashed rgba(0, 0, 0, 0.14); margin: 20px 0;">
-                <td><h2 class="text-l font-semibold mt-4">TOTAL :</h2></td>
-                <td></td>
-                <td class="px-4 text-right"></td>
-                <td class="px-4 py-2">
-                    <h2 class="text-l font-semibold mt-4">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
-                </td>
-                </tr>
-                
-                <tr>
-                <td>Bayar</td>
-                <td></td>
-                <td></td>
-                <td class="px-4 py-2">Rp.sekian</td>
-                </tr>
-                
-                <tr>
-                <td>Kembali</td>
-                <td></td>
-                <td></td>
-                <td class="px-4 py-2">Rp.sekian</td>
-                </tr>
-            </tbody>
+                <thead class="border-b-2">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
+                        <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
+                        <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe</th>
+                        <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($booking->detailBooking as $item)
+                        <tr>
+                            <td class="px-4 py-2 text-gray-500">{{ $item->dataService->code }}</td>
+                            <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }}</td>
+                            <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }}</td>
+                            <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    @foreach ($booking->sparepart_booking as $item)
+                        <tr>
+                            <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }}</td>
+                            <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }}</td>
+                            <td class="px-4 py-2 text-gray-500">Sparepart</td>
+                            <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    <tr style="border-top: 2px dashed rgba(0, 0, 0, 0.14); margin: 20px 0;">
+                        <td>
+                            <h2 class="text-l font-semibold mt-4">TOTAL :</h2>
+                        </td>
+                        <td></td>
+                        <td class="px-4 text-right"></td>
+                        <td class="px-4 py-2">
+                            <h2 class="text-l font-semibold mt-4">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Bayar</td>
+                        <td></td>
+                        <td></td>
+                        <td class="px-4 py-2">Rp.sekian</td>
+                    </tr>
+
+                    <tr>
+                        <td>Kembali</td>
+                        <td></td>
+                        <td></td>
+                        <td class="px-4 py-2">Rp.sekian</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
-        
+
         <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
 
         <div class="text-center">
             <p class="text-sm">Terima kasih telah mempercayakan servis handphone anda kepada kami</p>
-            <p class="text-sm">Semoga handphone anda kembali normal dan berfungsi dengan baik</p></div>
+            <p class="text-sm">Semoga handphone anda kembali normal dan berfungsi dengan baik</p>
+        </div>
     </div>
 </div>
 
@@ -1079,6 +1135,7 @@
     window.addEventListener('print-invoice', () => {
         printDiv('struk-pembayaran');
     });
+
     function printDiv(divId) {
         let printContent = document.getElementById(divId).innerHTML;
         let originalContent = document.body.innerHTML;
@@ -1117,6 +1174,6 @@
             document.body.removeChild(printArea);
             document.head.removeChild(style);
             window.livewire.emit('refreshComponent'); // Refresh Livewire component
-        }, 500);  // Mengembalikan halaman ke tampilan awal
+        }, 500); // Mengembalikan halaman ke tampilan awal
     }
 </script>

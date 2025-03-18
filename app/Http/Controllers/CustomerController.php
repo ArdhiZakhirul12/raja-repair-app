@@ -15,7 +15,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        
+
         // $customers = customer::where('user_id',Auth::user()->id)->get();
 
         // return view('customer-service.customer.list',compact('customers'));
@@ -24,16 +24,16 @@ class CustomerController extends Controller
 
 
     public function getCustomers()
-{
-    $customers = customer::where('user_id',Auth::user()->id)->get();
+    {
+        $customers = customer::where('user_id', Auth::user()->id)->get();
 
-    return DataTables::of($customers)
-        ->addColumn('action', function ($customer) {
-            return '<a href="/customer/edit/'.$customer->id.'" class="btn btn-sm btn-primary">Edit</a>';
-        })
-        ->rawColumns(['action'])
-        ->make(true);
-}
+        return DataTables::of($customers)
+            ->addColumn('action', function ($customer) {
+                return '<a href="/customer/edit/' . $customer->id . '" class="btn btn-sm btn-primary">Edit</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -51,21 +51,24 @@ class CustomerController extends Controller
         $auth = Auth::user();
         $validated = $request->validate([
             'nama' => 'required|string|min:3',
-            'no_hp' => ['required','numeric','digits_between:11,13',
-            function ($attribute, $value, $fail) {
-                // Cek apakah nomor HP mengandung angka saja
-                if (!preg_match('/^08[0-9]+$/', $value)) {
-                    $fail('Nomor HP harus dimulai dengan "08" dan hanya berisi angka.');
-                }
-            },
-            Rule::unique('customers', 'no_hp')->where(function ($query) {
-                return $query->where('user_id', auth()->id());
-            }),
-        ],
+            'no_hp' => [
+                'required',
+                'numeric',
+                'digits_between:11,13',
+                function ($attribute, $value, $fail) {
+                    // Cek apakah nomor HP mengandung angka saja
+                    if (!preg_match('/^08[0-9]+$/', $value)) {
+                        $fail('Nomor HP harus dimulai dengan "08" dan hanya berisi angka.');
+                    }
+                },
+                Rule::unique('customers', 'no_hp')->where(function ($query) {
+                    return $query->where('user_id', auth()->id());
+                }),
+            ],
             'alamat' => 'nullable',
         ]);
-        
-        
+
+
 
 
         $validated['user_id'] = $auth->id;

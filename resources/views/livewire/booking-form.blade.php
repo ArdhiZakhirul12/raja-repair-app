@@ -477,6 +477,9 @@
                             </div>
                         @enderror
 
+                        
+    
+
 
                         <!-- Dropdown -->
                         <div x-show="open" x-transition x-on:click.away="open = false"
@@ -492,6 +495,24 @@
                                     </li>
                                 </template>
                             </ul>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="diskon" class="block text-sm font-medium text-gray-400">diskon</label>
+                            <input type="text" id="diskon" wire:model="diskon"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            @if ($errors->has('modelHpId'))
+                                <div
+                                    class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                    </svg>
+                                    @error('modelHpId')
+                                        <span>{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            @endif
                         </div>
                         <div class="mb-4"></div>
                         <div class="flex items-center">
@@ -521,7 +542,7 @@
 
             </div>
             <div class="flex justify-end mr-4 mt-4">
-                <button {{-- onclick="if (document.getElementById('nohp').value && document.getElementById('nama').value && document.getElementById('alamat').value && document.getElementById('no_hp_alternatif').value && document.getElementById('kendala').value && document.getElementById('imei').value) { printDiv('spk-print'); }"  --}} 
+                <button {{-- onclick="if (document.getElementById('nohp').value && document.getElementById('nama').value && document.getElementById('alamat').value && document.getElementById('no_hp_alternatif').value && document.getElementById('kendala').value && document.getElementById('diskon').value) { printDiv('spk-print'); }"  --}} 
                 type="submit"
                     class="px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Simpan

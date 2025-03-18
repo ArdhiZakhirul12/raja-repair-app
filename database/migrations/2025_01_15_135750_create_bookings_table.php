@@ -27,6 +27,8 @@ return new class extends Migration
             $table->enum('garansi',['0','1','2','3']);
             $table->integer('total');
             $table->string('nomor_antrian');
+            $table->integer('diskon')->default(0);
+            $table->string('diskon_status');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
