@@ -78,7 +78,8 @@
                 ajax: {
                     url: '{{ route('admin.diskon.getBooking') }}',
                     data: function(d) {
-                        d.status = $('#statusFilter').val(); // Get the selected status filter
+                        d.status = $('#statusFilter').val();
+                        console.log(d); // Get the selected status filter
                     }
                 },
                 ordering: false,
@@ -89,7 +90,7 @@
                         data: 'kode_pesanan',
                         name: 'kode_pesanan',
                         render: function(data, type, row) {
-                            let url = "{{ route('cs.booking.show', ['id' => '__ID__']) }}";
+                            let url = "{{ route('admin.diskon.show', ['id' => '__ID__']) }}";
                             url = url.replace('__ID__', row.id);
                             return `<a href="${url}" class="text-black-900 hover:text-black-400 font-bold">${data}</a>`;
 
@@ -141,7 +142,7 @@
                                             data-id="${row.id}" 
                                             data-nama="${row.nama_sparepart}"
                                             data-harga="${row.harga}"
-                                           onclick="window.location.href='{{ route('cs.booking.show', ['id' => '__ID__']) }}'.replace('__ID__', ${row.id})">
+                                           onclick="window.location.href='{{ route('admin.diskon.show', ['id' => '__ID__']) }}'.replace('__ID__', ${row.id})">
                     <i class="fas fa-eye"></i>
                 </button>`;
                         },
