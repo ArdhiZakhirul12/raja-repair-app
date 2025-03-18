@@ -10,14 +10,14 @@
         onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
         Tambah Sparepart
     </button> --}}
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <button class="status-filter btn btn-primary" data-status="">All</button>
                 <button class="status-filter btn " data-status="diproses">Diproses</button>
                 <button class="status-filter btn " data-status="dikerjakan">Pengerjaan</button>
                 <button class="status-filter btn " data-status="teknisi-selesai">Teknisi Selesai</button>
                 <button class="status-filter btn " data-status="selesai">Selesai</button>
             </div>
-            <input type="hidden" id="statusFilter" value="">
+            <input type="hidden" id="statusFilter" value=""> --}}
         </div>
         <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
             <div class="p-6">
@@ -28,7 +28,7 @@
                 <!-- Tabel Pelanggan -->
                 <table
                     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"
-                    id="booking-table">
+                    id="diskon-table">
                     <thead>
                         <tr>
                             {{-- <th scope="col" class="px-6 py-3"></th> --}}
@@ -71,18 +71,11 @@
     <script>
         //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
         $(document).ready(function() {
-           var table = $('#booking-table').DataTable({
+           var table = $('#diskon-table').DataTable({
                 dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
                 processing: true,
                 serverSide: true,
-                ajax: {
-                    url: '{{ route('admin.diskon.getBooking') }}',
-                    data: function(d) {
-                        d.status = $('#statusFilter').val();
-                        console.log(d); // Get the selected status filter
-                    }
-                },
-                ordering: false,
+                ajax: '{{ route('admin.diskon.getDiskon') }}',
                 columns: [
 
 
@@ -187,23 +180,6 @@
                 ],
             });
 
-        $('.status-filter').on('click', function() {
-            var status = $(this).data('status');
-            $('.status-filter').removeClass('btn-dark').addClass('btn-light text-gray-500');
-            if(status == '') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary');
-            } else if (status == 'diproses') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-warning');
-            } else if (status == 'dikerjakan') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-info');
-            } else if (status == 'teknisi-selesai') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary');
-            } else if (status == 'selesai') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-success');}
-            // $(this).removeClass('btn-secondary').addClass('btn-dark');
-            $('#statusFilter').val(status);
-            table.ajax.reload();
-        });
         });
     </script>
 

@@ -62,8 +62,7 @@ Route::middleware([
             Route::get('/', [RequestDiskonController::class, 'index'])->name('index');
             Route::get('/{id}', [RequestDiskonController::class, 'show'])->name('show');
             Route::put('/{id}', [RequestDiskonController::class, 'update'])->name('update');
-            Route::get('/get-booking-diskon', [RequestDiskonController::class, 'getBooking'])->name('getBooking');
-
+            Route::get('/get-booking-diskon', [RequestDiskonController::class, 'getDiskon'])->name('getDiskon');
         });
     });
 });

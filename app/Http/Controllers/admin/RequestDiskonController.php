@@ -17,17 +17,18 @@ class RequestDiskonController extends Controller
         $booking = booking::where('diskon_status', 1)->get();
         return view('admin.request-diskon.index',compact('booking'));
     }
-    public function getBooking(Request $request)
+    public function getDiskon()
     {
         $query = booking::with(['hpModel', 'user', 'detailBooking', 'customer'])->where('diskon_status',1);
-
-        // Tambahkan filter berdasarkan status jika ada
-        if ($request->has('status') && !empty($request->status)) {
-            $query->where('status', $request->status);
-        }
+        $booking = booking::where('diskon_status', 1)->get();
+        // // Tambahkan filter berdasarkan status jika ada
+        // if ($request->has('status') && !empty($request->status)) {
+        //     $query->where('status', $request->status);
+        // }
 
         $bookings = $query->orderBy('created_at', 'desc')->get();
-
+        
+        
         return DataTables::of($bookings)
             ->rawColumns(['action'])
             ->make(true);
