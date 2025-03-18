@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AddServiceControler;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClaimGaransiController;
 use App\Http\Controllers\CustomerController;
@@ -53,7 +54,7 @@ Route::middleware([
             Route::get('/', [AdminServisController::class, 'index'])->name('index');
             Route::post('/', [AdminServisController::class, 'store'])->name('store');
             Route::get('/get-services', [AdminServisController::class, 'getServices'])->name('getServices');
-
+            Route::get('/add-services', [AdminServisController::class, 'create'])->name('create');
         });
     });
 });

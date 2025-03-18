@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\cabang;
 use App\Models\dataService;
 use App\Models\User;
 use Auth;
@@ -12,6 +13,8 @@ use Yajra\DataTables\DataTables;
 
 class ServisController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      */
@@ -27,7 +30,8 @@ class ServisController extends Controller
      */
     public function create()
     {
-        //
+        $cabangs = cabang::all();
+        return view('admin.servis.add-service', compact('cabangs'));
     }
     public function getServices()
     {
