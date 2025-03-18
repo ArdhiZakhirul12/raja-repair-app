@@ -28,9 +28,6 @@ class ClaimGaransiController extends Controller
         $garansi = claimGaransi::with('booking','booking.customer')->whereIn('booking_id', $booking->pluck('id'))->get();
 
         return DataTables::of($garansi)
-            // ->addColumn('action', function ($customer) {
-            //     return '<a href="/customer/edit/'.$customer->id.'" class="btn btn-sm btn-primary">Edit</a>';
-            // })
             ->rawColumns(['action'])
             ->make(true);
     }

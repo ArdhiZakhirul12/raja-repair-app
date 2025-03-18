@@ -10,7 +10,9 @@
     {{-- <p>{{ $bookings[0]}}</p> --}}
     {{-- <p>{{ $bookings[0]->hpModel->model }}</p> --}}
     {{-- @dd($bookings->hpModel) --}}
-    <div x-data="{ selectedStatus: '{{ $status ?? 'diproses' }}' }" class="p-4">
+    <div x-data="{
+        selectedStatus: window.location.pathname.split('/').pop() || 'diproses'
+    }" class="p-4">
         <div class=" mx-6 my-3">
             <div class="bg-white rounded-lg shadow overflow-hidden l mx-auto p-4 ">
 
@@ -32,7 +34,7 @@
                             class="px-4 py-2 rounded">Dikerjakan</button>
 
                         <button
-                            @click="window.location.href='{{ route('teknisi.booking.index', ['status' => 'teknsi-selesai']) }}'"
+                            @click="window.location.href='{{ route('teknisi.booking.index', ['status' => 'teknisi-selesai']) }}'"
                             :class="selectedStatus === 'teknisi-selesai' ? 'bg-white ' : 'text-gray-400'"
                             class="px-4 py-2 rounded">Teknisi Selesai</button>
 
@@ -102,5 +104,7 @@
 
         </div>
     </div>
-
+    <script>
+        console.log("Selected Status:", window.location.pathname.split('/').pop());
+    </script>
 </x-app-layout>
