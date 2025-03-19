@@ -107,9 +107,9 @@
                
                 <x-dropdown-list :items="['Cabang Surabaya', 'Cabang Bandung']" />
             </div> --}}
-
-            <div class="relative">
-                <div class="overflow-y-auto max-h-[525px] p-3 border border-gray-300 rounded shadow-md">
+{{-- 
+            <div >
+                <div class="overflow-y-auto max-h-[525px] p-3 border border-gray-300 rounded shadow-md"> --}}
                     @foreach ($cabangs as $cabang)
                         <div class="mb-4 p-3 border border-gray-300 rounded shadow-md">
                             <label class="font-semibold">Cabang {{ $cabang->nama }}</label>
@@ -117,13 +117,14 @@
                             <div class="grid grid-cols-2 gap-4 mt-2">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Harga </label>
-                                    <input type="number" wire:model="harga_khusus.{{ $cabang->user->id }}"
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga">
+                                    <input type="number" wire:model="harga_khusus.{{ $cabang->user->id }}" 
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga"
+                                          >
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Garansi 1</label>
                                     <input type="number" wire:model="garansi_1_khusus.{{ $cabang->user->id }}"
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga">
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" >
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Garansi 2</label>
@@ -138,13 +139,13 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
+                {{-- </div> --}}
             
                 {{-- Tombol Simpan --}}
                 {{-- <button wire:click="save" class="mt-3 p-2 bg-blue-500 text-white rounded">Simpan</button> --}}
             
                 {{-- Notifikasi --}}
-            </div>
+            {{-- </div> --}}
             
 
 
