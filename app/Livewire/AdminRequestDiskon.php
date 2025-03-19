@@ -30,13 +30,13 @@ class AdminRequestDiskon extends Component
     public $isModalDone = false;
     public $isModalDokumen = false;
     public $isDiskon = false;
-    public $diskon ;
+    public $diskon;
     public $teknisis = [];
-    public $selectedTeknisi  ;
-    public $metode = []  ;
-    public $metodeSelected  ;
-    public $bayar  ;
-    public $catatan  ;
+    public $selectedTeknisi;
+    public $metode = [];
+    public $metodeSelected;
+    public $bayar;
+    public $catatan;
     public $statusGaransi;
 
     public $pengeluaran;
@@ -45,9 +45,9 @@ class AdminRequestDiskon extends Component
     public $tanggal;
     public $referensi;
     public $keterangan;
-    public $harga ;
+    public $harga;
     public $jumlah;
-    
+
 
     protected $rules = [
         'metodeSelected' => 'required',
@@ -69,23 +69,23 @@ class AdminRequestDiskon extends Component
         $this->addedServices = [];
         $this->diskon = $this->booking->diskon;
         $teknisi = $this->booking->teknisi_id;
-        $this->teknisis = teknisi::where('cabang_id',auth()->id())->whereNot('id', $teknisi )->get();
-        $this->metode = metodePembayaran::whereNot('id',1)->get();
-        if($this->booking->garansi == '0'){
+        $this->teknisis = teknisi::where('cabang_id', auth()->id())->whereNot('id', $teknisi)->get();
+        $this->metode = metodePembayaran::whereNot('id', 1)->get();
+        if ($this->booking->garansi == '0') {
             $this->statusGaransi = 'Tidak garansi';
-        } elseif($this->booking->garansi == '1'){
+        } elseif ($this->booking->garansi == '1') {
             $this->statusGaransi = '14 hari';
-        } elseif($this->booking->garansi == '2'){
+        } elseif ($this->booking->garansi == '2') {
             $this->statusGaransi = '30 hari';
-        } elseif($this->booking->garansi == '3'){
+        } elseif ($this->booking->garansi == '3') {
             $this->statusGaransi = '90 hari';
         }
-        $this->pengeluaran = pengeluaran::where('booking_id',$this->booking->id)->first();
-        
+        $this->pengeluaran = pengeluaran::where('booking_id', $this->booking->id)->first();
+
     }
     public function redirectNow()
     {
-        return redirect()->route('cs.spending.show',['id'=>$this->pengeluaran->id]);
+        return redirect()->route('cs.spending.show', ['id' => $this->pengeluaran->id]);
     }
 
     public function submitDokumen()
@@ -116,12 +116,12 @@ class AdminRequestDiskon extends Component
     }
 
     public function editDiskon()
-    {    
-            $this->isDiskon = false;   
-            booking::where('id',$this->bookingId)->update(['diskon' => $this->diskon, 'diskon_status' => 2]);
-            session()->flash('success', 'Berhasil memperbarui diskon!');            
-            $this->booking = Booking::with(['sparepart_booking', 'detailBooking'])->find($this->bookingId);
-        
+    {
+        $this->isDiskon = false;
+        booking::where('id', $this->bookingId)->update(['diskon' => $this->diskon, 'diskon_status' => 2]);
+        session()->flash('success', 'Berhasil memperbarui diskon!');
+        $this->booking = Booking::with(['sparepart_booking', 'detailBooking'])->find($this->bookingId);
+
 
     }
 
@@ -139,53 +139,53 @@ class AdminRequestDiskon extends Component
             $saveBooking["keterangan"] = $this->catatan;
         }
 
-        $save = booking::where('id',$this->bookingId)->update($saveBooking);
+        $save = booking::where('id', $this->bookingId)->update($saveBooking);
 
-        teknisi::where('id',$this->booking->teknisi_id)->increment('servis');
-        teknisi::where('id',$this->booking->customer_id)->increment('servis');
-        
+        teknisi::where('id', $this->booking->teknisi_id)->increment('servis');
+        teknisi::where('id', $this->booking->customer_id)->increment('servis');
+
         $detailService = $this->booking->detailBooking;
         foreach ($detailService as $detail) {
             # code...
-            dataService::where('id',$detail->data_service_id)->increment('booking');
+            dataService::where('id', $detail->data_service_id)->increment('booking');
         }
         $detailSparepart = $this->booking->sparepart_booking;
         foreach ($detailSparepart as $detail) {
             # code...
-            sparepart::where('id',$detail->sparepart_id)->increment('terjual');
+            sparepart::where('id', $detail->sparepart_id)->increment('terjual');
         }
 
         $kembalian = $this->bayar - $this->total;
-        $metodeNow = metodePembayaran::where('id',$this->metodeSelected)->first();
+        $metodeNow = metodePembayaran::where('id', $this->metodeSelected)->first();
 
         $message = "*📌 Nota Elektronik*\n"
-        ."🏠 *Raja Repair*\n"
-        ."📍 Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61257\n\n"
-        
-        ."🔖 *Kode Pemesanan:* {$this->booking->kode_pesanan}\n"
-        ."👤 *Nama:* {$this->booking->customer->nama}\n"
-        ."🛠 *Kendala:* {$this->booking->kendala}\n"
-        ."👨‍🔧 *Teknisi:* {$this->booking->teknisi->nama}\n"
-        ."💳 *Pembayaran:* {$metodeNow->metode}\n"
-        ."💰 *Total:* Rp. ".number_format($this->total, 0, ',', '.')."\n"
-        ."💵 *Bayar:* Rp. ".number_format($this->bayar, 0, ',', '.')."\n"
-        ."🔄 *Kembalian:* Rp. ".number_format($kembalian, 0, ',', '.')."\n\n"
-        
-        ."Mohon mengisi review untuk kami di link berikut!"."\n"
-        ."https://maps.app.goo.gl/4N8Vyt7oCazwiXbu5"."\n"
-        ."🙏 Terima kasih telah menggunakan layanan kami.\n"
-        ."Silakan hubungi kami jika ada pertanyaan lebih lanjut.\n"
-        ."📞 *Raja Repair*";
-    
-    
+            . "🏠 *Raja Repair*\n"
+            . "📍 Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61257\n\n"
+
+            . "🔖 *Kode Pemesanan:* {$this->booking->kode_pesanan}\n"
+            . "👤 *Nama:* {$this->booking->customer->nama}\n"
+            . "🛠 *Kendala:* {$this->booking->kendala}\n"
+            . "👨‍🔧 *Teknisi:* {$this->booking->teknisi->nama}\n"
+            . "💳 *Pembayaran:* {$metodeNow->metode}\n"
+            . "💰 *Total:* Rp. " . number_format($this->total, 0, ',', '.') . "\n"
+            . "💵 *Bayar:* Rp. " . number_format($this->bayar, 0, ',', '.') . "\n"
+            . "🔄 *Kembalian:* Rp. " . number_format($kembalian, 0, ',', '.') . "\n\n"
+
+            . "Mohon mengisi review untuk kami di link berikut!" . "\n"
+            . "https://maps.app.goo.gl/4N8Vyt7oCazwiXbu5" . "\n"
+            . "🙏 Terima kasih telah menggunakan layanan kami.\n"
+            . "Silakan hubungi kami jika ada pertanyaan lebih lanjut.\n"
+            . "📞 *Raja Repair*";
+
+
         Http::withHeaders([
             'Authorization' => env('FONNTE_TOKEN')
         ])->post('https://api.fonnte.com/send', [
-            'target' => $this->booking->customer->no_hp, // Ganti dengan nomor tujuan dari database atau input user
-            'message' => $message,
-            'countryCode' => '62',
-        ]);
-    
+                    'target' => $this->booking->customer->no_hp, // Ganti dengan nomor tujuan dari database atau input user
+                    'message' => $message,
+                    'countryCode' => '62',
+                ]);
+
         // Redirect atau tampilkan notifikasi
         // session()->flash('message', 'Pesan WA terkirim!');
 
@@ -193,7 +193,7 @@ class AdminRequestDiskon extends Component
         $this->isModalDone = false;
         // return response()->json(env('FONNTE_TOKEN'));
 
-        session()->flash('doneMsg', 'Berhasil menyelesaikan servis! Kembalian Rp'.$kembalian);
+        session()->flash('doneMsg', 'Berhasil menyelesaikan servis! Kembalian Rp' . $kembalian);
         // $this-> dispatch("print-invoice");
 
 
@@ -206,7 +206,8 @@ class AdminRequestDiskon extends Component
     }
 
     public function rest()
-    {;
+    {
+        ;
         $this->serviceOld = $this->booking->detailBooking;
         $this->serviceId = $this->booking->detailBooking->pluck('data_service_id');
         $this->services = dataService::where('user_id', auth()->id())->whereNotIn('id', $this->serviceId)->get();
@@ -229,7 +230,8 @@ class AdminRequestDiskon extends Component
         $this->addedServices = array_filter($this->addedServices, fn($service) => $service['id'] !== $id);
     }
     public function removeServiceOld($id)
-    {   $this->removeServiceId[] = $id;
+    {
+        $this->removeServiceId[] = $id;
         $this->serviceOld = $this->serviceOld->whereNotIn('id', $id);
     }
 
@@ -246,8 +248,8 @@ class AdminRequestDiskon extends Component
                 ]);
         }
         $servId = $this->removeServiceId;
-        if($servId != null){
-                \App\Models\detailBooking::whereIn('id',$servId)->delete();
+        if ($servId != null) {
+            \App\Models\detailBooking::whereIn('id', $servId)->delete();
         }
         $this->rest();
         session()->flash('success', 'Berhasil mengupdate servis!');
