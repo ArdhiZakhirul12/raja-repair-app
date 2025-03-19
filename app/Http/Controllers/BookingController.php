@@ -27,10 +27,10 @@ class BookingController extends Controller
         $query = booking::with(['hpModel', 'user', 'detailBooking', 'customer'])
             ->where('user_id', auth()->id());
 
-        // Tambahkan filter berdasarkan status jika ada
-        if ($request->has('status') && !empty($request->status)) {
-            $query->where('status', $request->status);
-        }
+        // // Tambahkan filter berdasarkan status jika ada
+        // if ($request->has('status') && !empty($request->status)) {
+        //     $query->where('status', $request->status);
+        // }
 
         $bookings = $query->orderBy('created_at', 'desc')->get();
 

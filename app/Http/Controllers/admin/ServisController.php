@@ -36,7 +36,7 @@ class ServisController extends Controller
     public function getServices()
     {
         $services = dataService::all()->unique('code');
-    
+
         return DataTables::of($services)
             ->addColumn('action', function ($service) {
                 return '<a href="/service/edit/'.$service->id.'" class="btn btn-sm btn-primary">Edit</a>';
