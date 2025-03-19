@@ -20,11 +20,6 @@ class RequestDiskonController extends Controller
     public function getDiskon()
     {
         $query = booking::with(['hpModel', 'user', 'detailBooking', 'customer'])->where('diskon_status',1);
-        $booking = booking::where('diskon_status', 1)->get();
-        // // Tambahkan filter berdasarkan status jika ada
-        // if ($request->has('status') && !empty($request->status)) {
-        //     $query->where('status', $request->status);
-        // }
 
         $bookings = $query->orderBy('created_at', 'desc')->get();
         

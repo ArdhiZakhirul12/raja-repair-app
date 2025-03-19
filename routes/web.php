@@ -57,12 +57,19 @@ Route::middleware([
             Route::post('/', [AdminServisController::class, 'store'])->name('store');
             Route::get('/get-services', [AdminServisController::class, 'getServices'])->name('getServices');
             Route::get('/add-services', [AdminServisController::class, 'create'])->name('create');
+            Route::get('/test-route', function() {
+                return "Route berhasil dipanggil!";
+            });
         });
         Route::group(['prefix' => 'diskon', 'as' => 'diskon.'], function () {
             Route::get('/', [RequestDiskonController::class, 'index'])->name('index');
+            Route::get('/get-booking-diskon', [RequestDiskonController::class, 'getDiskon'])->name('diskon.getDiskon');
+            Route::get('/test-route', function() {
+                return "Route berhasil dipanggil!";
+            });
             Route::get('/{id}', [RequestDiskonController::class, 'show'])->name('show');
             Route::put('/{id}', [RequestDiskonController::class, 'update'])->name('update');
-            Route::get('/get-booking-diskon', [RequestDiskonController::class, 'getDiskon'])->name('getDiskon');
+ 
         });
     });
 });
