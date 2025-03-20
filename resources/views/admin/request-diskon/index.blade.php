@@ -4,7 +4,7 @@
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between mb-2 mt-5 sm:mb-5">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
-                Data Transaksi
+                Data Diskon
             </h1>
 
         </div>
