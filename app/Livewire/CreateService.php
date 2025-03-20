@@ -37,15 +37,14 @@ class CreateService extends Component
         return view('livewire.create-service');
     }
 
-    public function updated($propertyName,$value){
+    public function updated($propertyName, $value)
+    {
         Log::info("Updated property: {$propertyName} with value: {$value}");
         $value_format = str_replace('.', '', $value);
-        if(strpos($propertyName, 'harga_khusus') !== false || strpos($propertyName, 'garansi_1_khusus') !== false || strpos($propertyName, 'garansi_2_khusus') !== false || strpos($propertyName, 'garansi_3_khusus') !== false){
+        if (strpos($propertyName, 'harga_khusus') !== false || strpos($propertyName, 'garansi_1_khusus') !== false || strpos($propertyName, 'garansi_2_khusus') !== false || strpos($propertyName, 'garansi_3_khusus') !== false || strpos($propertyName, 'harga') !== false || strpos($propertyName, 'garansi_1') !== false || strpos($propertyName, 'garansi_2') !== false || strpos($propertyName, 'garansi_3') !== false) {
             Log::info("AFTER FORMATED Updated property: {$propertyName} with value: {$value_format}");
             $this->$propertyName = (int) $value_format;
-            
         }
-        
     }
 
 
@@ -87,6 +86,19 @@ class CreateService extends Component
             if (isset($this->garansi_3_khusus[$cabang])) {
                 $save['garansi_3'] = (int) str_replace('.', '', $this->garansi_3_khusus[$cabang]);
             }
+            if (isset($this->harga[$cabang])) {
+                $save['harga'] = (int) str_replace('.', '', $this->harga[$cabang]);
+            }
+            if (isset($this->garansi_1[$cabang])) {
+                $save['garansi_1'] = (int) str_replace('.', '', $this->garansi_1[$cabang]);
+            }
+            if (isset($this->garansi_2[$cabang])) {
+                $save['garansi_2'] = (int) str_replace('.', '', $this->garansi_2[$cabang]);
+            }
+            if (isset($this->garansi_3[$cabang])) {
+                $save['garansi_3'] = (int) str_replace('.', '', $this->garansi_3[$cabang]);
+            }
+
             dataService::create($save);
         }
 
@@ -110,5 +122,4 @@ class CreateService extends Component
         $this->garansi_2_khusus = [];
         $this->garansi_3_khusus = [];
     }
-
 }

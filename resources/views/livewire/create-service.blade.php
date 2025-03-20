@@ -48,7 +48,7 @@
 
                         <select name="jenis_servis" id="jenis_servis" wire:model="jenis_servis"
                             class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                            <option value="" disabled selected>Pilih jenis service</option>
+                            <option value="" selected>Pilih jenis service</option>
                             <option value="hardware">Hardware</option>
                             <option value="software">Software</option>
                         </select>
@@ -57,13 +57,13 @@
                         <div class="w-1/2">
                             <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
                             <input type="text" name="harga" id="harga" wire:model="harga"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
                         </div>
                         <div class="w-1/2">
                             <label for="garansi_1" class="block text-sm font-medium text-gray-400">Harga Garansi 14
                                 Hari</label>
                             <input type="text" name="garansi_1" id="garansi_1" wire:model="garansi_1"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
                         </div>
                     </div>
 
@@ -72,13 +72,13 @@
                             <label for="garansi_2" class="block text-sm font-medium text-gray-400">Harga Garansi 30
                                 Hari</label>
                             <input type="text" name="garansi_2" id="garansi_2" wire:model="garansi_2"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
                         </div>
                         <div class="w-1/2">
                             <label for="garansi_3" class="block text-sm font-medium text-gray-400">Harga Garansi 90
                                 Hari</label>
                             <input type="text" name="garansi_3" id="garansi_3" wire:model="garansi_3"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
                         </div>
                     </div>
                 </div>
