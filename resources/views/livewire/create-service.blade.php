@@ -117,24 +117,24 @@
                             <div class="grid grid-cols-2 gap-4 mt-2">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Harga </label>
-                                    <input type="number" wire:model="harga_khusus.{{ $cabang->user->id }}" 
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga"
+                                    <input type="text" wire:model="harga_khusus.{{ $cabang->user->id }}" 
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" oninput="formatRupiah(this)"
                                           >
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Garansi 1</label>
-                                    <input type="number" wire:model="garansi_1_khusus.{{ $cabang->user->id }}"
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" >
+                                    <input type="text" wire:model="garansi_1_khusus.{{ $cabang->user->id }}"
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" oninput="formatRupiah(this)"  >
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Garansi 2</label>
-                                    <input type="number" wire:model="garansi_2_khusus.{{ $cabang->user->id }}"
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga">
+                                    <input type="text" wire:model="garansi_2_khusus.{{ $cabang->user->id }}"
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" oninput="formatRupiah(this)">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Garansi 3</label>
-                                    <input type="number" wire:model="garansi_3_khusus.{{ $cabang->user->id }}"
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga">
+                                    <input type="text" wire:model="garansi_3_khusus.{{ $cabang->user->id }}"
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" oninput="formatRupiah(this)">
                                 </div>
                             </div>
                         </div>
@@ -166,6 +166,22 @@
 
 
 <script>
+
+function formatRupiah(angka){
+    value = angka.value.replace(/\D/g, "");
+
+    if(value === ""){
+        angka.value = "";
+        return "";
+    }
+    console.log(value);
+
+    let reverse = value.split('').reverse().join('');
+    let formatted = reverse.match(/\d{1,3}/g).join('.').split('').reverse().join('');
+    // formatted = formatted;
+    angka.value = formatted;
+}
+
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".accordion-header").forEach(header => {
             header.addEventListener("click", function() {

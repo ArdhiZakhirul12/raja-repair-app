@@ -6,6 +6,7 @@ use App\Models\dataService;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Illuminate\Support\Facades\Log;
 
 class CreateService extends Component
 {
@@ -35,11 +36,20 @@ class CreateService extends Component
     {
         return view('livewire.create-service');
     }
-    public function updatedHargaKhusus($value, $key)
-    {
-        // Ketika harga diubah, update array harga_khusus
-        $this->harga_khusus[$key] = $value;
+
+    public function updated($propertyName,$value){
+        Log::info("Updated property: {$propertyName} with value: {$value}");
+        $value_format = str_replace('.', '', $value);
+        if(strpos($propertyName, 'harga_khusus') !== false || strpos($propertyName, 'garansi_1_khusus') !== false || strpos($propertyName, 'garansi_2_khusus') !== false || strpos($propertyName, 'garansi_3_khusus') !== false){
+            Log::info("AFTER FORMATED Updated property: {$propertyName} with value: {$value_format}");
+            $this->$propertyName = (int) $value_format;
+            
+        }
+        
     }
+
+
+
 
 
 
@@ -66,16 +76,16 @@ class CreateService extends Component
             $save['status'] = 1;
             $save['user_id'] = $cabang;
             if (isset($this->harga_khusus[$cabang])) {
-                $save['harga'] = $this->harga_khusus[$cabang];
+                $save['harga'] = (int) str_replace('.', '', $this->harga_khusus[$cabang]);
             }
             if (isset($this->garansi_1_khusus[$cabang])) {
-                $save['garansi_1'] = $this->garansi_1_khusus[$cabang];
+                $save['garansi_1'] = (int) str_replace('.', '', $this->garansi_1_khusus[$cabang]);
             }
             if (isset($this->garansi_2_khusus[$cabang])) {
-                $save['garansi_2'] = $this->garansi_2_khusus[$cabang];
+                $save['garansi_2'] = (int) str_replace('.', '', $this->garansi_2_khusus[$cabang]);
             }
             if (isset($this->garansi_3_khusus[$cabang])) {
-                $save['garansi_3'] = $this->garansi_3_khusus[$cabang];
+                $save['garansi_3'] = (int) str_replace('.', '', $this->garansi_3_khusus[$cabang]);
             }
             dataService::create($save);
         }
