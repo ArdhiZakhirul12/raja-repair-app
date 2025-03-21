@@ -14,15 +14,18 @@
             </h1>
 
             @if (session()->has('message'))
-                <div class="bg-green-100 text-green-700 p-2 mt-2 rounded">
+                <div class="bg-green-100 text-green-700 p-2 mt-2 rounded mb-2">
                     {{ session('message') }}
                 </div>
+
+     
             @endif
 
             @if (session()->has('error'))
-                <div class="bg-red-100 text-red-700 p-2 mt-2 rounded">
+                <div id="ratingErrorMessage" class="bg-red-100 text-red-700 p-2 mt-2 rounded mb-2">
                     {{ session('error') }}
                 </div>
+         
             @endif
             @if ($errorMessage)
                 <p class="text-red-500 mt-2">{{ $errorMessage }}</p>
