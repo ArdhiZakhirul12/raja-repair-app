@@ -1,4 +1,5 @@
 /* GLOBAL CSS */
+/* Warna latar belakang baris ganjil */
 .dataTable tbody tr:nth-child(odd) {
     background-color: #ffffff; /* bg-white */
 }
@@ -6,8 +7,8 @@
 /* Warna latar belakang baris genap */
 .dataTable tbody tr:nth-child(even) {
     background-color: #f3f4f6; /* bg-gray-100 */
-  
 }
+
 
 /* Styling Pagination */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current{

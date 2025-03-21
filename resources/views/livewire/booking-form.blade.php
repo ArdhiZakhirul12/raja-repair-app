@@ -498,7 +498,7 @@
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="diskon" class="block text-sm font-medium text-gray-400">diskon</label>
-                            <input type="text" id="diskon" wire:model="diskon"
+                            <input type="text" id="diskon" wire:model="diskon" oninput="formatRupiah(this) "
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             @if ($errors->has('modelHpId'))
                                 <div
@@ -619,6 +619,23 @@
 
 
 <script>
+
+function formatRupiah(angka){
+    value = angka.value.replace(/\D/g, "");
+
+    if(value === ""){
+        angka.value = "";
+        return "";
+    }
+    console.log(value);
+
+    let reverse = value.split('').reverse().join('');
+    let formatted = reverse.match(/\d{1,3}/g).join('.').split('').reverse().join('');
+    // formatted = formatted;
+    angka.value = formatted;
+}
+
+
     window.addEventListener('print-spk', () => {
         printDiv('spk-print');
     });
