@@ -122,10 +122,10 @@
                 <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                     Data Servis
                 </h1>
-                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+                {{-- <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                     onclick="document.getElementById('add-service-modal').classList.remove('hidden')">
                     Tambah Servis
-                </button>
+                </button> --}}
             </div>
 
 
