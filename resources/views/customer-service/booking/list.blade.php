@@ -6,7 +6,7 @@
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                 Data Transaksi
             </h1>
-            {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+            {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-grdeen-700"
         onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
         Tambah Sparepart
     </button> --}}

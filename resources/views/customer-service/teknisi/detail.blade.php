@@ -24,17 +24,44 @@
                  
                     {{-- <p><strong>ID:</strong> {{ $teknisi['id'] }}</p>
                     <p><strong>User ID:</strong> {{ $teknisi['user_id'] }}</p> --}}
-                    <p><strong>No HP:</strong></p>
-                    <p class="mb-2 ml-3"> {{ $teknisi['no_hp'] }}</p>
-                    <p><strong>Nama:</strong></p>
-                    <p class="mb-2 ml-3"> {{ $teknisi['nama'] }}</p>
-               
-                    <p><strong>Servis:</strong></p>
-                    <p class="mb-2 ml-3">{{ $teknisi['servis'] }}</p>
-                    <p><strong>Created At:</strong> </p>
-                    <p class="mb-2 ml-3">{{ $teknisi['created_at'] }}</p>
-                    <p><strong>Alamat:</strong></p>
-                    <p class=" ml-3">{{ $teknisi['alamat'] }}</p>
+                    <div class="flex justify-between mb-4">
+                        <p><strong>No HP:</strong></p>
+                        <p>{{ $teknisi['no_hp'] }}</p>
+                    </div>
+                    <div class="flex justify-between mb-4">
+                        <p><strong>Nama:</strong></p>
+                        <p>{{ $teknisi['nama'] }}</p>
+                    </div>
+                    <div class="flex justify-between mb-4">
+                        <p><strong>Servis:</strong></p>
+                        <p>{{ $teknisi['servis'] }}</p>
+                    </div>
+                    {{-- <div class="flex justify-between mb-4">
+                        <p><strong>Created At:</strong></p>
+                        <p>{{ $teknisi['created_at'] }}</p>
+                    </div> --}}
+                    <div class="flex justify-between mb-4">
+                        <p><strong>Alamat:</strong></p>
+                        <p>{{ $teknisi['alamat'] }}</p>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <p><strong>Rating:</strong></p>
+                        <div class="flex items-center">
+                            <span class="text-l text-gray-400">
+                                @php
+                                    $rating = number_format($ratings_per_id["average_rating"], 1);
+                                    if ($rating >= 1 && $rating <= 2) {
+                                        echo '😞 Tidak Puas';
+                                    } elseif ($rating > 2 && $rating < 3) {
+                                        echo '😐 Puas';
+                                    } elseif ($rating == 3) {
+                                        echo '😊 Sangat Puas';
+                                    }
+                                @endphp
+                            </span>
+                            <span class="text-xs text-gray-400 pl-3">({{ number_format($ratings_per_id["average_rating"], 1) }})</span>
+                        </div>
+                    </div>
                     {{-- <p><strong>Updated At:</strong> {{ $teknisi['updated_at'] }}</p> --}}
                 </div>
             
