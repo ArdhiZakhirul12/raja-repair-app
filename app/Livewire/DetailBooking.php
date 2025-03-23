@@ -50,7 +50,7 @@ class DetailBooking extends Component
 
     protected $rules = [
         'metodeSelected' => 'required',
-        'bayar' => 'required|numeric|min:1',
+        'bayar' => 'required|integer|min:1',
         'catatan' => 'nullable|min:1',
     ];
 
@@ -86,8 +86,21 @@ class DetailBooking extends Component
         return redirect()->route('cs.spending.show',['id'=>$this->pengeluaran->id]);
     }
 
+    public function updated($propertyName, $value)
+    {
+        if($propertyName == 'harga' || $propertyName == 'bayar'){
+            $value_format = str_replace('.', '', $value);
+            $this->$propertyName = (int) $value_format;
+        }
+        // $value_format = str_replace('.', '', $value);
+
+        // $this->$propertyName = (int) $value_format;
+      
+    }
+
     public function submitDokumen()
     {
+
         $validated = $this->validate([
             'tanggal' => 'required|date',
             'referensi' => 'required|string',
@@ -103,9 +116,10 @@ class DetailBooking extends Component
         $validated['metode_pembayaran_id'] = $validated['selectedMetode'];
         $validated['dokumen'] = $path;
         $validated['booking_id'] = $this->booking->id;
+        $validated['harga'] = (int) str_replace('.', '', $validated['harga']);
 
 
-
+       
         pengeluaran::create($validated);
         $this->metodePembayaran = metodePembayaran::all();
         $this->isModalDokumen = false;
@@ -237,13 +251,14 @@ class DetailBooking extends Component
     public function save()
     {
         // dd($this->removeServiceId);
+       
         $serviceIds = $this->addedServices;
         if ($serviceIds != null) {
             for ($i = 0; $i < count($serviceIds); $i++)
                 \App\Models\detailBooking::create([
                     'booking_id' => $this->bookingId,
                     'data_service_id' => $serviceIds[$i]['id'],
-                    'harga' => $serviceIds[$i]['harga'],
+                    'harga' => (int) str_replace('.', '', $serviceIds[$i]['harga']),
                 ]);
         }
         $servId = $this->removeServiceId;
