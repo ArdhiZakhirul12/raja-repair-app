@@ -1,5 +1,5 @@
 <div class="justify-between my-2 sm:my-2 m-6">
-    <div class="flex justify-between my-2 sm:my-2">
+    <div class="mx-4 px-10 flex justify-between my-2 sm:my-2">
         <h1 class="text-2xl md:text-2xl text-gray-800 dark:text-gray-100 font-bold">
             Detail Claim Garansi
         </h1>
@@ -18,7 +18,7 @@
         @endif
     </div>
     {{-- <p>{{ $garansi }}</p> --}}
-    <div class="flex space-x-4">
+    <div class="px-10 w-400 flex mx-4 mb-4 items-start gap-4">
 
 
         <div class="w-1/2 bg-white rounded p-6 shadow-md">

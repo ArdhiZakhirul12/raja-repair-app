@@ -148,3 +148,9 @@
     font-size: 16px;
     color: #212529;
   }
+
+
+
+.dark .bg-white {
+  background-color: #dddddd1d !important; /* Adjust color */
+}

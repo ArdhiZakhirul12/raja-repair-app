@@ -13,3 +13,29 @@
         <span class="sr-only">Switch to light / dark version</span>
     </label>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check localStorage for dark mode preference
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark");
+        }
+
+        // Toggle dark mode when the button is clicked
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains("dark")) {
+                document.documentElement.classList.remove("dark");
+                localStorage.setItem("theme", "light"); // Save to localStorage
+            } else {
+                document.documentElement.classList.add("dark");
+                localStorage.setItem("theme", "dark"); // Save to localStorage
+            }
+        }
+
+        // Attach the toggle function to a button
+        const darkModeToggle = document.getElementById("light-switch");
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener("click", toggleDarkMode);
+        }
+    });
+</script>

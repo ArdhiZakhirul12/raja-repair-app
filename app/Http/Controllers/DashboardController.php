@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\rating;
 use Illuminate\Http\Request;
 use App\Models\booking;
+use App\Models\cabang;
 use App\Models\teknisi;
 use App\Models\customer;
 use App\Models\dataService;
@@ -94,8 +95,9 @@ class DashboardController extends Controller
         $totalSpareparts = sparepart::where('user_id', Auth::user()->id)->get();
         $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
 
-
-        $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
+        $cabang = cabang::where('user_id', Auth::user()->id)->pluck('id')->first();
+        $teknisis = teknisi::where('cabang_id', $cabang)->get();
+        // dd($teknisis,$cabang);
         $ratings_per_id = rating::select()
         ->select('user_id', DB::raw('AVG(rating) as average_rating'))
         ->groupBy('user_id')

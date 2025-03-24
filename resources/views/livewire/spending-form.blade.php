@@ -210,6 +210,8 @@
 </div>
 
 <script>
+
+    
     function formatRupiah(input) {
         let value = input.value.replace(/\./g, '').replace(/\D/g, ''); // Hanya angka
         if (value) {

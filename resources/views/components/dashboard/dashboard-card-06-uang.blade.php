@@ -5,7 +5,7 @@
 @endphp
 
 
-<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
+<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800  shadow-sm rounded-xl">
     <header class="flex items-center px-3 py-4 border-b border-gray-100 dark:border-gray-700/60">
 
         @if ($title == 'Pendapatan Total' || $title == 'Pendapatan Bersih')

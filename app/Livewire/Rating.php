@@ -17,6 +17,7 @@ class Rating extends Component
     public function setRating($value)
     {
         $this->rating = $value;
+        
         // dd($this->rating);
     }
     public function validateNota()
@@ -60,6 +61,8 @@ class Rating extends Component
             'rating' => $this->rating
         ]);
         session()->flash('message', 'Terima kasih atas feedback Anda!');
+        $this->isValid = false;
+        $this->nota = null;
        }
         // Simpan rating ke database (sesuaikan dengan model jika diperlukan)
         // RatingModel::create(['rating' => $this->rating]);
