@@ -1,4 +1,5 @@
 /* GLOBAL CSS */
+/* Warna latar belakang baris ganjil */
 .dataTable tbody tr:nth-child(odd) {
     background-color: #ffffff; /* bg-white */
 }
@@ -6,8 +7,8 @@
 /* Warna latar belakang baris genap */
 .dataTable tbody tr:nth-child(even) {
     background-color: #f3f4f6; /* bg-gray-100 */
-  
 }
+
 
 /* Styling Pagination */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current{
@@ -728,3 +729,77 @@
 }
 
 
+
+
+
+
+/* #diskon-table */
+#diskon-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#diskon-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#diskon-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#diskon-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#diskon-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#diskon-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#diskon-table th:nth-child(1),
+#diskon-table td:nth-child(1) {
+    width: 20%; /* Kolom pertama lebih kecil */
+}
+
+#diskon-table th:nth-child(2),
+#diskon-table td:nth-child(2) {
+    width: 25%; /* Kolom kedua lebih besar */
+}
+
+#diskon-table th:nth-child(3),
+#diskon-table td:nth-child(3) {
+    width: 20%;
+}
+
+#diskon-table th:nth-child(4),
+#diskon-table td:nth-child(4) {
+    width: 10%;
+}
+
+#diskon-table th:nth-child(5),
+#diskon-table td:nth-child(5) {
+    width: 15%;
+}
+
+#diskon-table th:nth-child(6),
+#diskon-table td:nth-child(6) {
+    width: 5%;
+}

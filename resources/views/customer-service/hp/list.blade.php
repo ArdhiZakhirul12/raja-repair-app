@@ -169,9 +169,10 @@
 
 
         <div id="add-merk-modal"
-            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-            <div class="bg-white p-10 rounded-lg shadow-lg w-200 flex">
-                <div class="w-1/2">
+            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50"
+            onclick="if (event.target === this) this.classList.add('hidden')">
+            <div class="bg-white p-10 rounded-lg shadow-lg w-full max-w-xl">
+                {{-- <div class="w-1/2">
                     <div class="flex justify-center">
                         <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi"
                             class="h-42 w-42 object-cover rounded-l-lg">
@@ -179,7 +180,7 @@
                     <p class="text-center text-sm  px-10 text-gray-400">Pastikan data yang ada masukkan sudah benar dan
                         tidak ada form yang kosong</p>
                 </div>
-                <div class="w-1/2 p-4">
+                <div class="w-1/2 p-4"> --}}
                     <h2 class="text-xl font-semibold mb-4">Tambah Merk HP</h2>
                     <form action="{{ route('cs.hp.merkStore') }}" method="POST">
                         @csrf
@@ -194,13 +195,14 @@
                             <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
                         </div>
                     </form>
-                </div>
+                {{-- </div> --}}
             </div>
         </div>
         <div id="add-model-modal"
-            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-            <div class="bg-white p-10 rounded-lg shadow-lg w-200 flex">
-                <div class="w-1/2">
+            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50"
+            onclick="if (event.target === this) this.classList.add('hidden')">
+            <div class="bg-white p-10 rounded-lg shadow-lg w-full max-w-xl">
+                {{-- <div class="w-1/2">
                     <div class="flex justify-center">
                         <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi"
                             class="h-42 w-42 object-cover rounded-l-lg">
@@ -208,7 +210,7 @@
                     <p class="text-center text-sm  px-10 text-gray-400">Pastikan data yang ada masukkan sudah benar dan
                         tidak ada form yang kosong</p>
                 </div>
-                <div class="w-1/2 p-4">
+                <div class="w-1/2 p-4"> --}}
                     <h2 class="text-xl font-semibold mb-4">Tambah Model HP</h2>
                     <form action="{{ route('cs.hp.modelStore') }}" method="POST">
                         @csrf
@@ -233,7 +235,7 @@
                             <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
                         </div>
                     </form>
-                </div>
+                {{-- </div> --}}
             </div>
         </div>
 

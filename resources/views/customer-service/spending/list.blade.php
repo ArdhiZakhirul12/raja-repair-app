@@ -172,7 +172,9 @@
                     {
                         data: 'harga',
                         name: 'harga',
-                     
+                        render: function(data) {
+                            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data);
+                        }
                     },
 
 

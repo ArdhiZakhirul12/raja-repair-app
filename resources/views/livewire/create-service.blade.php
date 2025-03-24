@@ -48,7 +48,7 @@
 
                         <select name="jenis_servis" id="jenis_servis" wire:model="jenis_servis"
                             class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                            <option value="" disabled selected>Pilih jenis service</option>
+                            <option value="" selected>Pilih jenis service</option>
                             <option value="hardware">Hardware</option>
                             <option value="software">Software</option>
                         </select>
@@ -57,13 +57,13 @@
                         <div class="w-1/2">
                             <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
                             <input type="text" name="harga" id="harga" wire:model="harga"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
                         </div>
                         <div class="w-1/2">
                             <label for="garansi_1" class="block text-sm font-medium text-gray-400">Harga Garansi 14
                                 Hari</label>
                             <input type="text" name="garansi_1" id="garansi_1" wire:model="garansi_1"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
                         </div>
                     </div>
 
@@ -72,13 +72,13 @@
                             <label for="garansi_2" class="block text-sm font-medium text-gray-400">Harga Garansi 30
                                 Hari</label>
                             <input type="text" name="garansi_2" id="garansi_2" wire:model="garansi_2"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
                         </div>
                         <div class="w-1/2">
                             <label for="garansi_3" class="block text-sm font-medium text-gray-400">Harga Garansi 90
                                 Hari</label>
                             <input type="text" name="garansi_3" id="garansi_3" wire:model="garansi_3"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
                         </div>
                     </div>
                 </div>
@@ -107,9 +107,9 @@
                
                 <x-dropdown-list :items="['Cabang Surabaya', 'Cabang Bandung']" />
             </div> --}}
-
-            <div class="relative">
-                <div class="overflow-y-auto max-h-[525px] p-3 border border-gray-300 rounded shadow-md">
+{{-- 
+            <div >
+                <div class="overflow-y-auto max-h-[525px] p-3 border border-gray-300 rounded shadow-md"> --}}
                     @foreach ($cabangs as $cabang)
                         <div class="mb-4 p-3 border border-gray-300 rounded shadow-md">
                             <label class="font-semibold">Cabang {{ $cabang->nama }}</label>
@@ -117,34 +117,35 @@
                             <div class="grid grid-cols-2 gap-4 mt-2">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Harga </label>
-                                    <input type="number" wire:model="harga_khusus.{{ $cabang->user->id }}"
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga">
+                                    <input type="text" wire:model="harga_khusus.{{ $cabang->user->id }}" 
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" oninput="formatRupiah(this)"
+                                          >
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Garansi 1</label>
-                                    <input type="number" wire:model="garansi_1_khusus.{{ $cabang->user->id }}"
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga">
+                                    <input type="text" wire:model="garansi_1_khusus.{{ $cabang->user->id }}"
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" oninput="formatRupiah(this)"  >
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Garansi 2</label>
-                                    <input type="number" wire:model="garansi_2_khusus.{{ $cabang->user->id }}"
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga">
+                                    <input type="text" wire:model="garansi_2_khusus.{{ $cabang->user->id }}"
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" oninput="formatRupiah(this)">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600">Garansi 3</label>
-                                    <input type="number" wire:model="garansi_3_khusus.{{ $cabang->user->id }}"
-                                           class="p-2 w-full border rounded" placeholder="Masukkan harga">
+                                    <input type="text" wire:model="garansi_3_khusus.{{ $cabang->user->id }}"
+                                           class="p-2 w-full border rounded" placeholder="Masukkan harga" oninput="formatRupiah(this)">
                                 </div>
                             </div>
                         </div>
                     @endforeach
-                </div>
+                {{-- </div> --}}
             
                 {{-- Tombol Simpan --}}
                 {{-- <button wire:click="save" class="mt-3 p-2 bg-blue-500 text-white rounded">Simpan</button> --}}
             
                 {{-- Notifikasi --}}
-            </div>
+            {{-- </div> --}}
             
 
 
@@ -165,6 +166,22 @@
 
 
 <script>
+
+function formatRupiah(angka){
+    value = angka.value.replace(/\D/g, "");
+
+    if(value === ""){
+        angka.value = "";
+        return "";
+    }
+    console.log(value);
+
+    let reverse = value.split('').reverse().join('');
+    let formatted = reverse.match(/\d{1,3}/g).join('.').split('').reverse().join('');
+    // formatted = formatted;
+    angka.value = formatted;
+}
+
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".accordion-header").forEach(header => {
             header.addEventListener("click", function() {

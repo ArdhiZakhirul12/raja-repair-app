@@ -14,15 +14,18 @@
             </h1>
 
             @if (session()->has('message'))
-                <div class="bg-green-100 text-green-700 p-2 mt-2 rounded">
+                <div class="bg-green-100 text-green-700 p-2 mt-2 rounded mb-2">
                     {{ session('message') }}
                 </div>
+
+     
             @endif
 
             @if (session()->has('error'))
-                <div class="bg-red-100 text-red-700 p-2 mt-2 rounded">
+                <div id="ratingErrorMessage" class="bg-red-100 text-red-700 p-2 mt-2 rounded mb-2">
                     {{ session('error') }}
                 </div>
+         
             @endif
             @if ($errorMessage)
                 <p class="text-red-500 mt-2">{{ $errorMessage }}</p>
@@ -45,29 +48,34 @@
 
             @if ($isValid == true)
                 <!-- Rating Emoji -->
-                {{$rating}}
-
+                {{-- {{$rating}} --}}
                 <div class="flex space-x-6">
-                    <button wire:click="setRating(3)">
-                        <span class="text-5xl transition-all duration-300"
-                            class="{{ $rating === 3 ? 'scale-100' : 'scale-80' }}">
-                            😊
-                        </span>
-                    </button>
+                    <div class="justify-center items-center flex flex-col">
+                        <button wire:click="setRating(3)" >
+                            <span class="text-5xl transition-all duration-300 {{ $rating === 3 || $rating === null ? '' : 'opacity-50' }}">
+                                😊
+                            </span>
+                        </button>
+                        <h1 class="{{ $rating === 3 || $rating === null ? '' : 'opacity-50' }}">Sangat Puas</h1>
+                    </div>
+           
+                    <div class="justify-center items-center flex flex-col">
+                        <button wire:click="setRating(2)" >
+                            <span class="text-5xl transition-all duration-300 {{ $rating === 2 || $rating === null ? '' : 'opacity-50' }}">
+                                😐
+                            </span>
+                        </button>
+                        <h1 class="{{ $rating === 2 || $rating === null ? '' : 'opacity-50' }}">Puas</h1>
+                    </div>
 
-                    <button wire:click="setRating(2)">
-                        <span class="text-5xl transition-all duration-300"
-                            class="{{ $rating === 2 ? 'scale-125' : 'scale-100' }}">
-                            😐
-                        </span>
-                    </button>
-
-                    <button wire:click="setRating(1)">
-                        <span class="text-5xl transition-all duration-300"
-                            class="{{ $rating === 1 ? 'scale-125' : 'scale-100' }}">
-                            😞
-                        </span>
-                    </button>
+                    <div class="justify-center items-center flex flex-col">
+                        <button wire:click="setRating(1)"   >
+                            <span class="text-5xl transition-all duration-300 {{ $rating === 1 || $rating === null ? '' : 'opacity-50' }}">
+                                😞
+                            </span>
+                        </button>
+                        <h1 class="{{ $rating === 1 || $rating === null ? 'text-black' : 'opacity-50' }}">Tidak Puas</h1>
+                    </div>
                 </div>
                 {{-- $set('isModalDokumen', true) --}}
 

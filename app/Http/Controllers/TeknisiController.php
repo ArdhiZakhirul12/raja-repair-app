@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\teknisi;
 use App\Models\booking;
+use App\Models\rating;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 
@@ -91,6 +93,16 @@ class TeknisiController extends Controller
         ->orderBy('bulan', 'asc')
         ->get();
 
+        $rating = rating::where('user_id', $id)->get();
+
+        $ratings_per_id = rating::select('user_id', DB::raw('AVG(rating) as average_rating'))
+        ->groupBy('user_id')
+        ->where('id', $id)
+        ->first();
+
+        // dd($ratings_per_id);
+
+
         // Konversi data ke format array untuk chart
         $bulanLabels = $data->pluck('bulan')->toArray();
         $jumlahServis = $data->pluck('jumlah_servis')->toArray();
@@ -109,7 +121,7 @@ class TeknisiController extends Controller
             }
         }
 
-        return view('customer-service.teknisi.detail', compact('bookings', 'garansi', 'total', 'teknisi', 'bulanLabels', 'jumlahServis'));
+        return view('customer-service.teknisi.detail', compact('bookings', 'garansi', 'total', 'teknisi', 'bulanLabels', 'jumlahServis','rating','ratings_per_id'));
 
     }
 

@@ -6,7 +6,7 @@
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                 Data Transaksi
             </h1>
-            {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+            {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-grdeen-700"
         onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
         Tambah Sparepart
     </button> --}}
@@ -188,17 +188,17 @@
 
         $('.status-filter').on('click', function() {
             var status = $(this).data('status');
-            $('.status-filter').removeClass('btn-dark').addClass('btn-light text-gray-500');
+            $('.status-filter').removeClass('btn-dark').addClass('btn-light text-gray-500').css('opacity', '0.5');
             if(status == '') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary');
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary ').css('opacity', '1');
             } else if (status == 'diproses') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-warning');
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-warning').css('opacity', '1');
             } else if (status == 'dikerjakan') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-info');
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-info').css('opacity', '1');
             } else if (status == 'teknisi-selesai') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary');
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary').css('opacity', '1');
             } else if (status == 'selesai') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-success');}
+                $(this).removeClass('btn-light text-gray-500').addClass('btn-success').css('opacity', '1');}
             // $(this).removeClass('btn-secondary').addClass('btn-dark');
             $('#statusFilter').val(status);
             table.ajax.reload();

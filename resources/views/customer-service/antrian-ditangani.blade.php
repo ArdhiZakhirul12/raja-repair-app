@@ -4,7 +4,7 @@
             {{ __('Total Antrian') }} {{ $antrian?->antrian }}
         </h2>
     </x-slot>
-    <div class="max-w-9xl mx-auto sm:px-6 lg:px-8 py-12">
+    <div class="max-w-9xl mx-auto sm:px-6 lg:px-8 py-6">
         <div class="mb-2 sm:mb-5 ">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                 Customer Service
@@ -18,48 +18,50 @@
             </div>
         @else
             <div class="flex">
-                <div class="flex bg-white overflow-hidden shadow-xl sm:rounded-lg p-6 divide-y divide-dashed flex-grow">
-                    <img src="{{ asset('images/queue.svg') }}" alt="logo" class="w-1/3 mx-auto">
-                    <div class="w-2/3 mx-auto bg-white p-6 rounded shadow">
-                        <p>total antrian : {{$antrian->antrian}}</p>
-                        <h1 class="text-2xl  text-center mb-4">Antrian yang Sedang Ditangani</h1>
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6 flex-grow flex flex-col items-center justify-center">
+                    <h1 class="text-2xl text-center mb-4">Antrian yang Sedang Ditangani</h1>
 
-                        <div class="text-center">
-                            <h2 id="current-number" class="text-4xl font-bold">{{ $antrian->ditangani }}</h2>
-                        </div>
-
-                        <div class="flex justify-center mt-4 p-4 space-x-4 ">
-                            <button id="prev-button" class="bg-red-500 text-white px-4 py-2 rounded"
-                                onclick="previous()">Sebelumnya</button>
-                            <button id="next-button" class="bg-blue-500 text-white px-4 py-2 rounded"
-                                onclick="next()">Selanjutnya</button>
-                        </div>
-
+                    <div class="text-center border-2 border-gray-300 rounded-lg p-6">
+                        <h2 id="current-number" class="text-4xl font-bold">{{ $antrian->ditangani }}</h2>
                     </div>
 
-                </div>
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6 m-10 w-1/4 divide-y divide-dashed">
-                    <h3>Pengaturan Antrian</h3>
-                    <div class="justify-center mt-4  py-3">
-                        <button id="reset-button" class="bg-orange-500 text-white px-4 py-2 rounded w-full mb-2"
-                            onclick="reset()">Reset</button>
-                        <form action="{{ route('cs.antrianStatus.update') }}" method="POST" class="w-full">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $antrian->id }}">
-                            @if ($antrian->status == 'buka')
-                                <input type="hidden" name="status" value="tutup">
-                                <button type="submit" class="bg-red-500 text-white py-2 rounded w-full">
-                                    Tutup Request Antrian
-                                </button>
-                            @else
-                                <input type="hidden" name="status" value="buka">
-                                <button type="submit" class="bg-green-500 text-white py-2 rounded w-full">
-                                    Buka Request Antrian
-                                </button>
-                            @endif
-                        </form>
+                    <div class="flex justify-center mt-4 p-4 space-x-4">
+                        <button id="prev-button" class="bg-red-500 text-white px-4 py-2 rounded"
+                            onclick="previous()">Sebelumnya</button>
+                        <button id="next-button" class="bg-blue-500 text-white px-4 py-2 rounded"
+                            onclick="next()">Selanjutnya</button>
                     </div>
                 </div>
+                
+                <div class="m-10 w-1/4 divide-y divide-dashed">
+                    <div class="bg-white  shadow-xl sm:rounded-lg px-6 py-4 mb-2 flex">
+                        <p>total antrian : <strong>{{$antrian->antrian}}</strong></p>
+                    </div>
+                    
+                    <div class="bg-white  shadow-xl sm:rounded-lg p-6 ">
+                        <h3>Pengaturan Antrian</h3>
+                        <div class="justify-center mt-4  py-3">
+                            <button id="reset-button" class="bg-orange-500 text-white px-4 py-2 rounded w-full mb-2"
+                                onclick="reset()">Reset</button>
+                            <form action="{{ route('cs.antrianStatus.update') }}" method="POST" class="w-full">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $antrian->id }}">
+                                @if ($antrian->status == 'buka')
+                                    <input type="hidden" name="status" value="tutup">
+                                    <button type="submit" class="bg-red-500 text-white py-2 rounded w-full">
+                                        Tutup Request Antrian
+                                    </button>
+                                @else
+                                    <input type="hidden" name="status" value="buka">
+                                    <button type="submit" class="bg-green-500 text-white py-2 rounded w-full">
+                                        Buka Request Antrian
+                                    </button>
+                                @endif
+                            </form>
+                        </div>
+                    </div>
+                </div>
+               
             </div>
 
         @endif

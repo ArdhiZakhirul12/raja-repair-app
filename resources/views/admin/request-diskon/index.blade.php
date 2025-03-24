@@ -4,20 +4,9 @@
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between mb-2 mt-5 sm:mb-5">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
-                Data Transaksi
+                Data Diskon
             </h1>
-            {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-        onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
-        Tambah Sparepart
-    </button> --}}
-            <div class="mb-3">
-                <button class="status-filter btn btn-primary" data-status="">All</button>
-                <button class="status-filter btn " data-status="diproses">Diproses</button>
-                <button class="status-filter btn " data-status="dikerjakan">Pengerjaan</button>
-                <button class="status-filter btn " data-status="teknisi-selesai">Teknisi Selesai</button>
-                <button class="status-filter btn " data-status="selesai">Selesai</button>
-            </div>
-            <input type="hidden" id="statusFilter" value="">
+
         </div>
         <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
             <div class="p-6">
@@ -28,7 +17,7 @@
                 <!-- Tabel Pelanggan -->
                 <table
                     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"
-                    id="booking-table">
+                    id="diskon-table">
                     <thead>
                         <tr>
                             {{-- <th scope="col" class="px-6 py-3"></th> --}}
@@ -71,22 +60,13 @@
     <script>
         //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
         $(document).ready(function() {
-           var table = $('#booking-table').DataTable({
-                dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '{{ route('admin.diskon.getBooking') }}',
-                    data: function(d) {
-                        d.status = $('#statusFilter').val();
-                        console.log(d); // Get the selected status filter
-                    }
-                },
-                ordering: false,
-                columns: [
-
-
-                    {
+                $('#diskon-table').DataTable({
+                    dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
+                    processing: true,
+                    serverSide: true,
+                    ajax: '{{ route('admin.diskon.diskon.getDiskon') }}',
+                    columns: [
+                        {
                         data: 'kode_pesanan',
                         name: 'kode_pesanan',
                         render: function(data, type, row) {
@@ -149,62 +129,94 @@
                         orderable: false,
                         searchable: false
                     }
-                ],
-                buttons: [
+                    ],
+                    buttons: [
 
 
-                    {
-                        extend: 'excel',
-                        text: 'Excel'
+                        {
+                            extend: 'excel',
+                            text: 'Excel'
+                        },
+                        {
+                            extend: 'pdf',
+                            text: 'PDF'
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Print'
+                        }
+                    ],
+
+
+                    language: {
+                        search: "Cari: ",
+                        lengthMenu: "Show _MENU_ Data",
+                        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                        paginate: {
+                            first: "Awal",
+                            last: "Akhir",
+                            next: "Next",
+                            previous: "Previous"
+                        }
                     },
-                    // {
-                    //     extend: 'pdf',
-                    //     text: 'PDF'
-                    // },
-                    {
-                        extend: 'print',
-                        text: 'Print'
-                    }
-                ],
 
-
-                language: {
-                    search: "Cari: ",
-                    lengthMenu: "Show _MENU_ Data",
-                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                    paginate: {
-                        first: "Awal",
-                        last: "Akhir",
-                        next: "Next",
-                        previous: "Previous"
-                    }
-                },
-
-                lengthMenu: [10, 25, 50, 100],
-                pageLength: 10,
-                order: [
-                    [0, 'desc']
-                ],
+                    lengthMenu: [10, 25, 50, 100],
+                    pageLength: 10,
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
             });
 
-        $('.status-filter').on('click', function() {
-            var status = $(this).data('status');
-            $('.status-filter').removeClass('btn-dark').addClass('btn-light text-gray-500');
-            if(status == '') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary');
-            } else if (status == 'diproses') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-warning');
-            } else if (status == 'dikerjakan') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-info');
-            } else if (status == 'teknisi-selesai') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-primary');
-            } else if (status == 'selesai') {
-                $(this).removeClass('btn-light text-gray-500').addClass('btn-success');}
-            // $(this).removeClass('btn-secondary').addClass('btn-dark');
-            $('#statusFilter').val(status);
-            table.ajax.reload();
-        });
-        });
-    </script>
+            // Fungsi untuk mencari di tabel
+            function searchTable() {
+                const searchInput = document.getElementById("search").value.toLowerCase();
+                const table = document.getElementById("customers-table");
+                const rows = table.getElementsByTagName("tr");
+
+                for (let i = 1; i < rows.length; i++) {
+                    let cells = rows[i].getElementsByTagName("td");
+                    let match = false;
+                    for (let j = 0; j < cells.length; j++) {
+                        if (cells[j].textContent.toLowerCase().includes(searchInput)) {
+                            match = true;
+                            break;
+                        }
+                    }
+                    rows[i].style.display = match ? "" : "none";
+                }
+            }
+
+            // Fungsi untuk menyortir tabel berdasarkan kolom
+            function sortTable(n) {
+                const table = document.getElementById("customers-table");
+                let rows = table.rows;
+                let switching = true;
+                let dir = "asc";
+                let switchcount = 0;
+
+                while (switching) {
+                    switching = false;
+                    let rowsArray = Array.from(rows).slice(1); // Mengambil semua baris kecuali header
+                    for (let i = 0; i < rowsArray.length - 1; i++) {
+                        let x = rowsArray[i].getElementsByTagName("TD")[n];
+                        let y = rowsArray[i + 1].getElementsByTagName("TD")[n];
+
+                        if (dir === "asc" && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase() ||
+                            dir === "desc" && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            rowsArray[i].parentNode.insertBefore(rowsArray[i + 1], rowsArray[i]);
+                            switching = true;
+                            switchcount++;
+                            break;
+                        }
+                    }
+
+                    if (switchcount === 0 && dir === "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        </script>
 
 </x-app-layout>

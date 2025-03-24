@@ -24,7 +24,7 @@ class BookingForm extends Component
     protected $listeners = ['refreshComponent' => '$refresh'];
     
     public $nohp;
-    public $diskon = 0;
+    public $diskon;
     public $nama;
     public $alamat;
     public $no_hp_alternatif;
@@ -82,6 +82,18 @@ class BookingForm extends Component
         // Cari customer berdasarkan nomor HP
         $this->models = hpModel::where('hp_merk_id', $merkHpId)->get();
         $this->modelHpId = null;
+    }
+
+    public function updated($propertyName, $value)
+    {
+        if($propertyName == 'diskon'){
+            $value_format = str_replace('.', '', $value);
+            $this->$propertyName = (int) $value_format;
+        }
+        // $value_format = str_replace('.', '', $value);
+
+        // $this->$propertyName = (int) $value_format;
+      
     }
 
     public function submit()
@@ -175,6 +187,7 @@ class BookingForm extends Component
         }else{
             $diskonStatus = 0;
         }
+        $discount = (int) str_replace('.', '', $this->diskon);
 
         //membuat booking
         $createBook = booking::create(([
@@ -193,7 +206,7 @@ class BookingForm extends Component
             'claim' => 0,
             'keterangan' => 'belum ada keterangan',
             'nomor_antrian' => $no_antri,
-            'diskon' => $this->diskon,
+            'diskon' => $discount,
             'diskon_status' => $diskonStatus
         ]));
         if ($this->service_id != null) {
