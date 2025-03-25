@@ -11,6 +11,8 @@
             <img src="{{ asset('images/login_raja_side_bg.svg') }}" class="w-full h-full object-cover" alt="login image">
         </div>
     </div>
+    <h1>TEXT</h1>
 </div>
+
 
 
