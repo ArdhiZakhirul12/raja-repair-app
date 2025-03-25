@@ -210,7 +210,7 @@
 
     <div id="add-service-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-        <div class="bg-white p-10 rounded-lg shadow-lg w-400 flex">
+        <div class="bg-current p-10 rounded-lg shadow-lg w-400 flex">
             <div class="w-1/2">
                 <h2 class="text-xl font-semibold mb-4">Tambah Service</h2>
                 <form action="{{ route('admin.servis.store') }}" method="POST">
@@ -382,7 +382,7 @@
     <div id="edit-service-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
 
-        <div class="bg-white p-6 rounded-lg shadow-lg w-200 flex">
+        <div class="bg-current p-6 rounded-lg shadow-lg w-200 flex">
             <div class="w-1/2">
                 <div class="flex justify-center">
                     <img src="{{ asset('images/edit_data.png') }}" alt="Edit Teknisi"
