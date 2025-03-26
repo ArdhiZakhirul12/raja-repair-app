@@ -15,18 +15,33 @@ class RequestDiskonController extends Controller
     public function index()
     {
         $booking = booking::where('diskon_status', 1)->get();
-        return view('admin.request-diskon.index',compact('booking'));
+        return view('admin.request-diskon.index', compact('booking'));
     }
     public function getDiskon()
     {
-        $query = booking::with(['hpModel', 'user', 'detailBooking', 'customer'])->where('diskon_status',1);
+        $query = booking::with(['hpModel', 'user', 'user.cabang', 'detailBooking', 'sparepart_booking', 'customer'])
+            ->where('diskon_status', 1);
 
-        $bookings = $query->orderBy('created_at', 'desc')->get();
-        
-        
+        $bookings = $query->orderBy('created_at', 'desc')->get()->map(function ($booking) {
+            // Hitung total dari detailBooking
+            $totalDetail = $booking->detailBooking->sum('harga');
+
+            // Hitung total dari sparepart_booking
+            $totalSparepart = $booking->sparepart_booking->sum('harga');
+
+            // Total keseluruhan
+            $booking->total_harga = $totalDetail + $totalSparepart;
+
+            return $booking;
+        });
+
         return DataTables::of($bookings)
+            ->addColumn('total_harga', function ($booking) {
+                return number_format($booking->total_harga, 0, ',', '.'); // Format Rupiah tanpa desimal
+            })
             ->rawColumns(['action'])
             ->make(true);
+
     }
 
     /**
@@ -50,8 +65,8 @@ class RequestDiskonController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.request-diskon.show',['id' => $id]);
-        
+        return view('admin.request-diskon.show', ['id' => $id]);
+
     }
 
     /**

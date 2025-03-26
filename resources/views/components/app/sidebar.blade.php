@@ -82,6 +82,24 @@
                             </div>
                         </div>
                     </a>
+                    <a href="{{ route('admin.sparepart.index') }}"
+                    :active="request() - > routeIs('cs.sparepart.index')">
+                    <div class="flex items-center justify-between p-3">
+                        <div class="flex items-center">
+                            {{-- <i class="fa fa-toolbox"></i> --}}
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"
+                                viewBox="0 0 20 20" fill="none">
+
+                                <image id="image0_26_76" width="20" height="20"
+                                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADeklEQVR4nO2cy2sUQRCHWw8+LhIEUTzoJV7iY6sSFG+5xe3aaPSQP0HwIl4U9ZSjj0gQokchiHjISRSC6HZvEBL/A08SERPxQUDM46DESG8STUJ2M7uZ7Z7Z+X3QLMxOT1d/U1PzYBilAAAAAAAAACDLjPee3m003TSa3llNc+7XCN1wy0PH1jSUOjt3WSFjhRfXNyNUdP83cvxiof1CpDh17rxKM0Zy1zaSvEr21UaMu6jUNqtpwI0RZf2lWPie66eSxnBv2w4jdMcIfa4m00ZtmhdcSYkjNqP54cp2o6z/Pw4aVEnDaLodi2BZL5wej+Rbd9YbV1HzpdXbi9JnzVGmcxdVkrCaphoiWsrZPVY8e2x/rTEZ4cNGeGZrounn6+6OQyopNEyy/JM9aQvtHbXEZDQPrd9OfXOhRyozoqV8gpqxQj1R4nl1jg8aod9xiDZCv0py8oDKimi7lNkLtsDXN41H05WN+tc7FyN8WWVKtKzUTh5yVzqV46HnsYrW/ExlUbQtZzcNVIxH08eYM/qDyqxo4elK8RhN8/FmNM2rpr+8k0oZzZO1ijZCL9yJcqM+b/K0z2oerjDerGrqGxapKvpW5Xh4olI/I/zNFKh3zfoF6nXLK49H71VibsGdbB+ZrWnKjVX1ZKj5aYQdNWzO5I5WyeLVO+eJSgtRJKqYKOn27jh3bkk4r9KCT9F9fWq7EXobU4kac9tTacGnaMdogY4YTd+3ItnV7VIXt6o04Vu0o5jnE+4auC7JmidGdcdxlTZCiHaUenIt5Qf/muYiSp61mvtH8qf2qDQSSvQKL7va9hrhP5ue+HpyLSrNhBbtiCJapR2I9gREewKiPQHRnoBoT0C0JyDaExDtCYj2BERvkajPapNw+2tiiMH7s+nyS+VCD6zQj+U22MwvlI+Hmq8Rvl/LuxZpx4Sar9X8ZYND76tqUmyo+TbtY8akzReiGaIzkdFZawqiGaJtAjIRGS3h5aF0SHixqNEC0cGzziKjObgolA4JLxE1WpLTcMMiEL0YOgubIqNVk2Ih2g8Q7QmI9gREewKisyo6a01BNEO0TUAmIqMlvDyUDgkvFjVaIDp41llkNAcXhdIh4SUmo0aH+DKYJKsZ4U8eRHN/6Ina0E3z3YaLdl/pWv7S+HTwCYv3Nu3mXu1LZQAAAAAAAAAAAAAqA/wFIYhuUZ6HB7IAAAAASUVORK5CYII=" />
+
+                            </svg>
+                            <span
+                                class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sparepart</span>
+                        </div>
+                    </div>
+                </a>
                     <a href="{{ route('admin.diskon.index') }}" :active="request() - > routeIs('admin.diskon.index')">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center">
@@ -93,6 +111,23 @@
                             </div>
                         </div>
                     </a>
+                    <a href="{{ route('cs.pembayaran.index') }}"
+                            :active="request()->routeIs('cs.pembayaran*')">
+                            <div class="flex items-center justify-between p-3">
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="20" height="20" viewBox="0 0 20 20" fill="none">
+
+                                        <image id="image0_50_217" width="20" height="20"
+                                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEeklEQVR4nO2cS4hcRRRAKypRET+4Mir4IZCk730zqCBxoaMw0/dOBvwgLW50IxL8jJnue3ta8NOIOxF0IfhBAro2bk0UjOhCBRcKKmZhFDGKmk2c4F9baibR+dSbdA/1+lPvHribppq6dbr6vqp6j+ecYRiGYRiGYRiGYRhGSZloX3YWNWAPC37ICsdZsVOugOOk+AEJPsSzW88sRDLPZ5eSwCeDHywOS3zsncSfySa5E5Qdc2YvlovBz6DOkMZsNNFLNXngA+oMY5DC+/FEKy4MekA8vLEQU3T41xT8nRTmJ5vbLvbBkrX8Z7Ha84hE4aK9qDVtJWtFa6+jEYWLprntW1a33aWVi2K15xGJwkX7v//qtjP18UtitecRicJFB0uB4sPR2utoROGiFy9kkrV6uRhyD+1HJQoXbYEmmm1GY3L/BCsdaqI7g56FNqN18OKGrnS4ksEmuj+Y6D5RCtFchhxKMcguMNF9ImnR1TqMs+Dj6yyvnqRmdnU/cklSNCuOseLBrtezAu9yY8dVBeeUlmgSuIsV/uh58yDwJwvcU1ReSYmmBhAJ/t2z5P/jn6rC7UXklozoWruymRW/yenvOxJ8ZvG5N4H7WeFpVjgcntl4dLJ1zfmx80tGNAneEerHCw49ejXRnjiDBB4N5wdzsfNLSfRLayQrHGq33Wnrfk/x5UB++2Pnl4xoFnwjUAZe624JCG+tCIW90fNLRTQJHgjM6C997XZDQDKiWWFvTl/7Qs+E9JtkRE8r3J3XFyn8QgKvk+JulkrlVHW7CJIRXavvPNsv4/L6Wykej7Hg26TwBAncWKvVTncFk4xoD2k2uZFdISl8S4qPTcnYOa4gkhJ9UjYJft+r7BMz/euizjySE+3h2a3nscIjLPBVz8IFj87MZVe6yCQpejk0vwNIKw+w4qss8IU/z+hC+D4XmeRFr6Zar1zIzaxGgq/kPSRJCn/dsmf8AheR0oleDrXGL2fBT0P5VZtwk4tIqUV7qvOVa4OiIx+XJiGamtn1rPDRysCDzrlNp/ruzc1t5wbLRwMoZo5JiJ6SMdzorGTF20Lfjb3ySEK0c25T6NB/aQcId+ZtuX0dZoUfAhfDQ5HzS0a0Y6nUc5drfj0t+BwJNKuCD7LiU/5NA3ntp7Vyb/T8UhFda1c2k+J7ubK7DniziEOnZESfXCOTwDsblezPtP3F0RVAUqL/uxe4+EaFtbU3v7TgEVa4r8jj0+RELy8l0w281dfmdSQ/S4Iz/sdxBZOs6NLlUIpBdoGJ7hOlED0MmOg+YaJTEU2CP4c68C81cSVh0r+NIbRBUjwWrZMTt49CnTRcSWAFzdmJfh6tE1J4MWc39quXHXqFTyrQ3PYtVUEhxd/CpQOej9bZ0lHkxs4eUo9dkt3gYuJPxAY9KB6+2F/ITVAS+HEIBtcZiijo2ZEl2YrXkeJPAx+kDjYWJ1w92+mKZErGrihzGSHBA/7f7foFN3GCBV7wy5vE3126QIqf+dVF9AufYRiGYRiGYRiGYRiGG03+Bbc104DvEL5dAAAAAElFTkSuQmCC" />
+
+                                    </svg>
+                                    <span
+                                        class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Metode
+                                        Pembayaran</span>
+                                </div>
+                            </div>
+                        </a>
                 @elseif (Auth::user()->hasRole('teknisi'))
                     {{-- <p>Halo, Teknisi!</p> --}}
 
@@ -479,7 +514,7 @@
             </div>
            </a> --}}
 
-                        <a href="{{ route('cs.pembayaran.index') }}"
+                        {{-- <a href="{{ route('cs.pembayaran.index') }}"
                             :active="request() - > routeIs('cs.pembayaran.index')">
                             <div class="flex items-center justify-between p-3">
                                 <div class="flex items-center">
@@ -494,7 +529,7 @@
                                         class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Metode
                                         Pembayaran</span>
                                 </div>
-                            </div>
+                            </div> --}}
                         </a>
 
                         <a href="{{ route('cs.hp.index') }}" :active="request() - > routeIs('cs.hp.index')">
