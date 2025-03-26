@@ -98,9 +98,9 @@
                         <thead>
                             <tr class="bg-blue-100">
 
-                                <th>
-                                    {{-- <input type="checkbox" id="select-all"> --}}
-                                </th>
+                                {{-- <th>
+                                    <input type="checkbox" id="select-all">
+                                </th> --}}
                                 <th class="border px-4 py-2">ID</th>
 
                                 <th class="border px-4 py-2">Nama</th>
@@ -135,9 +135,9 @@
                         <thead>
                             <tr class="bg-blue-100">
 
-                                <th>
-                                    {{-- <input type="checkbox" id="select-all"> --}}
-                                </th>
+                                {{-- <th>
+                                    <input type="checkbox" id="select-all">
+                                </th> --}}
                                 <th class="border px-4 py-2">ID</th>
 
                                 <th class="border px-4 py-2">Model</th>
@@ -171,7 +171,7 @@
         <div id="add-merk-modal"
             class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50"
             onclick="if (event.target === this) this.classList.add('hidden')">
-            <div class="bg-white p-10 rounded-lg shadow-lg w-full max-w-xl">
+            <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
                 {{-- <div class="w-1/2">
                     <div class="flex justify-center">
                         <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi"
@@ -201,7 +201,7 @@
         <div id="add-model-modal"
             class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50"
             onclick="if (event.target === this) this.classList.add('hidden')">
-            <div class="bg-white p-10 rounded-lg shadow-lg w-full max-w-xl">
+            <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
                 {{-- <div class="w-1/2">
                     <div class="flex justify-center">
                         <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi"
@@ -250,14 +250,14 @@
                     serverSide: true,
                     ajax: '{{ route('cs.hp.getHpMerk') }}',
                     columns: [
-                        {
-                            data: 'id',
-                            render: function (data) {
-                                return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                            },
-                            orderable: false,
-                            searchable: false
-                        },
+                        // {
+                        //     data: 'id',
+                        //     render: function (data) {
+                        //         return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                        //     },
+                        //     orderable: false,
+                        //     searchable: false
+                        // },
                         {
                             data: null,
                             name: 'iteration',
@@ -346,14 +346,14 @@
                     serverSide: true,
                     ajax: '{{ route('cs.hp.getHpModel') }}',
                     columns: [
-                        {
-                            data: 'id',
-                            render: function (data) {
-                                return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                            },
-                            orderable: false,
-                            searchable: false
-                        },
+                        // {
+                        //     data: 'id',
+                        //     render: function (data) {
+                        //         return `<input type="checkbox" class="row-checkbox" value="${data}">`;
+                        //     },
+                        //     orderable: false,
+                        //     searchable: false
+                        // },
                         {
                             data: null,
                             name: 'iteration',

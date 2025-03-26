@@ -12,10 +12,10 @@
     </button> --}}
             <div class="mb-3">
                 <button class="status-filter btn btn-primary" data-status="">All</button>
-                <button class="status-filter btn " data-status="diproses">Diproses</button>
-                <button class="status-filter btn " data-status="dikerjakan">Pengerjaan</button>
-                <button class="status-filter btn " data-status="teknisi-selesai">Teknisi Selesai</button>
-                <button class="status-filter btn " data-status="selesai">Selesai</button>
+                <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="diproses">Diproses</button>
+                <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="dikerjakan">Pengerjaan</button>
+                <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="teknisi-selesai">Teknisi Selesai</button>
+                <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="selesai">Selesai</button>
             </div>
             <input type="hidden" id="statusFilter" value="">
         </div>

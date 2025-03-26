@@ -46,14 +46,15 @@
         </div>
     @endif
     
-        @if (session('success'))
-            <div id="notification"
-                class="fixed top-5 right-5 bg-yellow-400 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity duration-10">
+        {{-- @if (session('success'))
+            <div id="diskon_notif"
+                class="fixed top-5 right-5 bg-green-400 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity duration-10">
                 <p>{{ session('success') }}</p>
             </div>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    const notification = document.getElementById('notification');
+                    const notification = document.getElementById('diskon_notif');
+                    console.log('done before close');
                     if (notification) {
                         notification.classList.add('opacity-0');
                         setTimeout(() => {
@@ -66,14 +67,17 @@
                             notification.classList.add('opacity-0');
                         }, 2000);
     
-                        setTimeout(() => {
+                        notification.addEventListener('transitionend', () => {
                             notification.remove();
-                        }, 3000);
+                            console.log('done');
+         
+                            window.livewire.emit('refreshComponent'); // Refresh Livewire component
+                        });
                     }
                 });
             </script>
             <style>
-                #notification {
+                #diskon_notif {
                     transition: opacity 1s ease-in-out;
                 }
     
@@ -85,7 +89,7 @@
                     opacity: 1;
                 }
             </style>
-        @endif
+        @endif --}}
         <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-between my-2 sm:my-2">
                 <h1 class="text-2xl md:text-2xl text-gray-800 dark:text-gray-100 font-bold">
@@ -280,8 +284,11 @@
     
     
         <div class="bg-white rounded shadow-md p-4 mb-3">
-            <div class="flex items-center ">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30"
+          
+            <div class="flex items-center justify-between w-full">
+             
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30"
                     height="30" fill="none">
     
                     <image id="image0_26_74" width="30" height="30"
@@ -289,6 +296,13 @@
     
                 </svg>
                 <h2 class="text-l font-semibold ">Diskon</h2>
+                </div>
+                   @if (session('success'))
+            <div id="notification"
+            class="bg-green-300 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity duration-10">
+            <p>{{ session('success') }}</p>
+        </div>
+        @endif
             </div>
             <hr class="my-2">
             <div class="flex mb-2">
@@ -356,7 +370,7 @@
     </div>
     @if ($isModalDokumen)
         <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
+            <div class="bg-current rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
                 <!-- Close Button -->
                 <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                     wire:click="$set('isModalDokumen', false)">
@@ -643,7 +657,7 @@
     @endif
     @if ($isModalOpen)
         <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
+            <div class="bg-current rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
                 <!-- Close Button -->
                 <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                     wire:click="$set('isModalOpen', false)">

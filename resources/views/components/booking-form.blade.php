@@ -47,28 +47,28 @@
             search: '',
             items: @js($teknisis),
             selectItem(item) {
-                this.search = item.nama;
-                @this.set('teknisiId', item.id);
-                this.open = false;
+            this.search = item.nama;
+            @this.set('teknisiId', item.id);
+            this.open = false;
             }
         }">
             <label for="dropdown" class="block text-sm font-medium text-gray-700">Pilih Teknisi</label>
             <input type="text"  x-model="search" x-on:click="open = !open" x-on:input="open = true"
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="Cari Teknisi...">
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            placeholder="Cari Teknisi...">
 
             <!-- Dropdown -->
             <div x-show="open" x-transition x-on:click.away="open = false"
-                class="mt-2 w-full max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-white absolute z-10">
-                <ul>
-                    <template x-for="item in items.filter(i => i.nama.toLowerCase().includes(search.toLowerCase()))"
-                        :key="item.id">
-                        <li x-on:click="selectItem(item)"
-                            class="cursor-pointer px-4 py-2 hover:bg-grey-600 hover:text-white">
-                            <span x-text="item.nama"></span>
-                        </li>
-                    </template>
-                </ul>
+            class="mt-2 w-full max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-black absolute z-10">
+            <ul>
+                <template x-for="item in items.filter(i => i.nama.toLowerCase().includes(search.toLowerCase()))"
+                :key="item.id">
+                <li x-on:click="selectItem(item)"
+                    class="cursor-pointer px-4 py-2 hover:bg-blue-600 hover:text-white">
+                    <span x-text="item.nama"></span>
+                </li>
+                </template>
+            </ul>
             </div>
         </div>
 

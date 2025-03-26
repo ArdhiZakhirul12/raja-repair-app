@@ -62,6 +62,63 @@
                             <span class="text-xs text-gray-400 pl-3">({{ number_format($ratings_per_id["average_rating"], 1) }})</span>
                         </div>
                     </div>
+                    {{-- <div>
+                        @php
+                        $rating = number_format($ratings_per_id["average_rating"], 1);
+                        if ($rating >= 1 && $rating <= 2) {
+                            echo '<span style="font-size: 2rem;">😞</span>';
+                        } elseif ($rating > 2 && $rating < 3) {
+                            echo '<span style="font-size: 2rem;">😐</span>';
+                        } elseif ($rating == 3) {
+                            echo '<span style="font-size: 2rem;">😊</span>';
+                        }
+                        @endphp
+                        <span class="text-xs text-gray-400 pl-3">({{ number_format($ratings_per_id["average_rating"], 1) }})</span>
+                    </div> --}}
+              
+                       
+                        <div class="flex ">
+                            @php
+                                $maxAmount = max($ratingCounts->toArray());
+                                // print_r($maxAmount);
+                                $progress_03 = $maxAmount > 0 ? ( $ratingCounts[3] / $maxAmount) * 100 : 0;
+                                $progress_02 = $maxAmount > 0 ? ( $ratingCounts[2] / $maxAmount) * 100 : 0;
+                                $progress_01 = $maxAmount > 0 ? ( $ratingCounts[1] / $maxAmount) * 100 : 0;
+                     
+                            @endphp
+                    
+                            
+                            
+                        </div> 
+
+                        <div class="w-full">
+                            <div class="flex items-center justify-between">
+                                <div class="text-xs text-gray-500 dark:text-gray-100 w-24">Sangat Puas</div>
+                                <div class="w-full ml-2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mr-2">
+                                    <div class="h-2.5 rounded-full" style="width: {{ $progress_03 }}%; background-color: yellow;"></div>
+                                </div>
+                                <div class="text-l  text-black dark:text-gray-100">{{ $ratingCounts[3] }}</div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="text-xs text-gray-500 dark:text-gray-100 w-24">Puas</div>
+                                <div class="w-full ml-2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mr-2">
+                                    <div class="h-2.5 rounded-full" style="width: {{ $progress_02 }}%; background-color: yellow;"></div>
+                                </div>
+                                <div class="text-l  text-black dark:text-gray-100">{{ $ratingCounts[2] }}</div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="text-xs text-gray-500 dark:text-gray-100 w-24">Tidak Puas</div>
+                                <div class="w-full ml-2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mr-2">
+                                    <div class="h-2.5 rounded-full" style="width: {{ $progress_01 }}%; background-color: yellow;"></div>
+                                </div>
+                                <div class="text-l  text-black dark:text-gray-100">{{ $ratingCounts[1] }}</div>
+                            </div>
+                        </div>
+                     
+
+                 
+                    
+                   
                     {{-- <p><strong>Updated At:</strong> {{ $teknisi['updated_at'] }}</p> --}}
                 </div>
             

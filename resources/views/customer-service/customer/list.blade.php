@@ -146,7 +146,7 @@
         <div id="add-customer-modal"
             class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50"
             onclick="if (event.target === this) this.classList.add('hidden')">
-            <div class="bg-white p-10 rounded-lg shadow-lg w-full max-w-xl">
+            <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
                 {{-- <div class="w-1/2">
                     <div class="flex justify-center">
                         <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi"
@@ -195,23 +195,23 @@
                     serverSide: true,
                     ajax: '{{ route('cs.customer.getCustomers') }}',
                     columns: [
-                        {
-                            data: 'id',
-                            render: function(data) {
-                                return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                            },
-                            orderable: false,
-                            searchable: false
-                        },
                         // {
-                        //         data: null,
-                        //         name: 'iteration',
-                        //         render: function(data, type, row, meta) {
-                        //             return meta.row + 1; // Menambahkan nomor urut
-                        //         },
-                        //         orderable: false,
-                        //         searchable: false
+                        //     data: 'id',
+                        //     render: function(data) {
+                        //         return `<input type="checkbox" class="row-checkbox" value="${data}">`;
                         //     },
+                        //     orderable: false,
+                        //     searchable: false
+                        // },
+                        {
+                                data: null,
+                                name: 'iteration',
+                                render: function(data, type, row, meta) {
+                                    return meta.row + 1; // Menambahkan nomor urut
+                                },
+                                orderable: false,
+                                searchable: false
+                            },
 
                         {
                             data: 'nama',

@@ -154,3 +154,11 @@
 .dark .bg-white {
   background-color: #dddddd1d !important; /* Adjust color */
 }
+
+.dark .bg-current {
+  background-color: rgb(22, 31, 50) !important; /* Adjust color */
+}
+
+.bg-current {
+  background-color: #ffffff !important; /* Adjust color */
+}

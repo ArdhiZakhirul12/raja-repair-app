@@ -124,6 +124,7 @@ class DashboardController extends Controller
             ->selectRaw('rating, COUNT(*) as total')
             ->groupBy('rating')
             ->pluck('total', 'rating');
+            
 
         $ratingCounts = $ratingCounts->toArray();
         return view('customer-service/dashboard/dashboard', compact('servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan'));

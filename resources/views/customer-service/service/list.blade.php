@@ -193,7 +193,7 @@
                                     </div>
 
                                 </th>
-                                <th scope="col" class="px-6 py-3"x></th>
+                                {{-- <th scope="col" class="px-6 py-3"x></th> --}}
                             </tr>
                         </thead>
 
@@ -206,7 +206,7 @@
 
     <div id="add-service-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-        <div class="bg-white p-10 rounded-lg shadow-lg w-200 flex">
+        <div class="bg-current p-10 rounded-lg shadow-lg w-200 flex">
             <div class="w-1/2">
                 <div class="flex justify-center">
                     <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi"
@@ -280,7 +280,7 @@
     <div id="edit-service-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
 
-        <div class="bg-white p-6 rounded-lg shadow-lg w-200 flex">
+        <div class="bg-current p-6 rounded-lg shadow-lg w-200 flex">
             <div class="w-1/2">
                 <div class="flex justify-center">
                     <img src="{{ asset('images/edit_data.png') }}" alt="Edit Teknisi"
@@ -429,24 +429,24 @@
                                 currency: 'IDR'
                             }).format(data);
                         }
-                    },
+                    }
 
-                    {
-                        data: 'id',
-                                                render: function(data, type, row) {
-                            return `<button class="text-blue-500 hover:text-blue-700" 
-                                            data-id="${row.id}" 
-                                            data-nama_servis= "${row.nama_servis}"
-                                            data-code="${row.code}"
-                                            data-jenis_servis="${row.jenis_servis}"
-                                            data-harga="${row.harga}"
-                                            data-garansi_1="${row.garansi_1}"
-                                            data-garansi_2="${row.garansi_2}"
-                                            data-garansi_3="${row.garansi_3}"
-                                             onclick="openEditModal(this)">
-                    <i class="fas fa-edit"></i>
-                </button>`;}
-                    },
+                //     {
+                //         data: 'id',
+                //                                 render: function(data, type, row) {
+                //             return `<button class="text-blue-500 hover:text-blue-700" 
+                //                             data-id="${row.id}" 
+                //                             data-nama_servis= "${row.nama_servis}"
+                //                             data-code="${row.code}"
+                //                             data-jenis_servis="${row.jenis_servis}"
+                //                             data-harga="${row.harga}"
+                //                             data-garansi_1="${row.garansi_1}"
+                //                             data-garansi_2="${row.garansi_2}"
+                //                             data-garansi_3="${row.garansi_3}"
+                //                              onclick="openEditModal(this)">
+                //     <i class="fas fa-edit"></i>
+                // </button>`;}
+                //     },
                 ],
                 buttons: [
 
