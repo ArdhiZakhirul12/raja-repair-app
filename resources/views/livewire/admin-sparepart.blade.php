@@ -1,7 +1,7 @@
 <div>
     {{-- If your happiness depends on money, you will never be happy with yourself. --}}
     <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold mx-4 px-10 my-4">
-        Tambah Service
+        Tambah Sparepart
     </h1>
     
     <div class="px-10 w-400 flex mx-4 mb-4 items-start gap-4">

@@ -101,8 +101,8 @@
             </div>
             <div id="add-customer-modal"
                 class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-                <div class="bg-current p-10 rounded-lg shadow-lg w-200 flex">
-                    <div class="w-1/2">
+                <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
+                    {{-- <div class="w-1/2">
                         <div class="flex justify-center">
                             <img src="{{ asset('images/create_data.png') }}" alt="Edit Teknisi"
                                 class="h-42 w-42 object-cover rounded-l-lg">
@@ -111,7 +111,7 @@
                             dan
                             tidak ada form yang kosong</p>
                     </div>
-                    <div class="w-1/2 p-4">
+                    <div class="w-1/2 p-4"> --}}
                         <h2 class="text-xl font-semibold mb-4">Tambah Cabang</h2>
                         <form action="{{ route('admin.cabang.store') }}" method="POST">
                             @csrf
@@ -152,7 +152,7 @@
                                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
                             </div>
                         </form>
-                    </div>
+                    {{-- </div> --}}
                 </div>
             </div>
             <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
