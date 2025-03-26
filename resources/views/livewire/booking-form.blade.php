@@ -142,7 +142,7 @@
 
                         <!-- Dropdown -->
                         <div x-show="open" x-transition x-on:click.away="open = false"
-                            class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-white absolute z-10">
+                            class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
                             <ul>
                                 <template
                                     x-for="item in items.filter(i => i.nama.toLowerCase().includes(search.toLowerCase()))"
@@ -282,7 +282,7 @@
 
                             <!-- Dropdown Merk -->
                             <div x-show="openMerk" x-transition x-on:click.away="openMerk = false"
-                                class="mt-2 max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-white absolute z-10">
+                                class="mt-2 max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
                                 <ul>
                                     <template
                                         x-for="item in itemsMerk.filter(i => i.merk.toLowerCase().includes(searchMerk.toLowerCase()))"
@@ -323,7 +323,7 @@
 
                             <!-- Dropdown Model -->
                             <div x-show="openModel && merkHpId" x-transition x-on:click.away="openModel = false"
-                                class="mt-2 max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-white absolute z-10">
+                                class="mt-2 max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
                                 <ul>
                                     <template
                                         x-for="item in filteredModels().filter(i => i.model.toLowerCase().includes(searchModel.toLowerCase()))"
@@ -411,7 +411,7 @@
 
                         <!-- Dropdown -->
                         <div x-show="open" x-transition x-on:click.away="open = false"
-                            class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-white absolute z-10">
+                            class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
                             <ul>
                                 <template
                                     x-for="item in items.filter(i => i.nama_servis.toLowerCase().includes(search.toLowerCase()))"
@@ -483,7 +483,7 @@
 
                         <!-- Dropdown -->
                         <div x-show="open" x-transition x-on:click.away="open = false"
-                            class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-white absolute z-10">
+                            class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
                             <ul>
                                 <template
                                     x-for="item in items.filter(i => i.nama_sparepart.toLowerCase().includes(search.toLowerCase()))"

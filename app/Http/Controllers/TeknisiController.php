@@ -93,8 +93,21 @@ class TeknisiController extends Controller
         ->orderBy('bulan', 'asc')
         ->get();
 
-        $rating = rating::where('user_id', $id)->get();
 
+        $teknisi_id = teknisi::where('id', $id)->first()->user_id;
+    
+        $rating_all = rating::where('user_id', $teknisi_id)->get();
+    $ratingCounts = $rating_all->groupBy('rating')->map(function ($group) {
+        return $group->count();
+    });
+
+    // Ensure all ratings (1, 2, 3) are present, even if they have 0 count
+    foreach ([1, 2, 3] as $rating) {
+        if (!$ratingCounts->has($rating)) {
+            $ratingCounts[$rating] = 0;
+        }
+    }
+    //    dd($ratingCounts);
         $ratings_per_id = rating::select('user_id', DB::raw('AVG(rating) as average_rating'))
         ->groupBy('user_id')
         ->where('id', $id)
@@ -121,7 +134,7 @@ class TeknisiController extends Controller
             }
         }
 
-        return view('customer-service.teknisi.detail', compact('bookings', 'garansi', 'total', 'teknisi', 'bulanLabels', 'jumlahServis','rating','ratings_per_id'));
+        return view('customer-service.teknisi.detail', compact('bookings', 'garansi', 'total', 'teknisi', 'bulanLabels', 'jumlahServis','ratingCounts','ratings_per_id'));
 
     }
 

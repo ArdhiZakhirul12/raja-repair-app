@@ -138,15 +138,25 @@
         <h1 class="mt-3 text-2md md:text-2md text-blue-700 dark:text-gray-100">
             #{{ $booking->kode_pesanan }}
             <span
-                class=" 
-                @if ($booking->status == 'diproses') bg-blue-500 text-white
-                    text-md ml-4 px-2 py-1.5 rounded ">
+                class="
+                @if ($booking->status == 'diproses') bg-yellow-500 text-white
+                    text-md ml-4 px-2 py-1.5 rounded">
                 Diproses
+                @elseif($booking->status == 'dikerjakan') 
+                    bg-cyan-500 text-white 
+                    text-md ml-4 px-2 py-1.5 rounded">
+                Dikerjakan
+                @elseif($booking->status == 'teknisi-selesai') 
+                    bg-blue-500 text-white 
+                    text-md ml-4 px-2 py-1.5 rounded">
+                Teknisi Selesai
                 @elseif($booking->status == 'selesai') 
                     bg-green-500 text-white 
-                    text-md ml-4     px-2 py-1.5 rounded">
-                Selesai @endif 
-                
+                    text-md ml-4 px-2 py-1.5 rounded">
+                Selesai
+                @else
+                ">{{ $booking->status }}
+                @endif 
             </span>
         </h1>      
         <h2 class="mt-2
@@ -174,13 +184,13 @@
                                 </svg>
                                 <h2 class="text-l font-semibold ml-2">Data Handphone</h2>
                             </div>
-                        <h2 class="text-xs md:text-sm text-white px-2 py-1 rounded
+                        {{-- <h2 class="text-xs md:text-sm text-white px-2 py-1 rounded
                             @if ($booking->status == 'diproses') bg-blue-500
                             @elseif($booking->status == 'dikerjakan') bg-yellow-500
                             @elseif($booking->status == 'teknisi-selesai') bg-orange-500
                             @elseif($booking->status == 'selesai') bg-green-500 @endif">
                             {{ $booking->status }}
-                        </h2>
+                        </h2> --}}
                         <h2 class="text-xs md:text-sm text-white px-2 py-1 rounded        
                         @if ($booking->diskon_status != 0) @if ($booking->diskon_status == '1') bg-yellow-500"> menunggu diskon disetujui                            
                             @elseif($booking->diskon_status == '2') bg-green-500"> diskon disetujui @endif
@@ -410,7 +420,7 @@
 </div>
 @if ($isModalDokumen)
     <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 relative">
+        <div class="bg-current rounded-lg shadow-lg w-full max-w-4xl p-6 relative">
             <!-- Close Button -->
             <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                 wire:click="$set('isModalDokumen', false)">
@@ -550,12 +560,12 @@
 
             <form wire:submit.prevent="submitDokumen" class="space-y-6 mb-5 mt-2">
                 <div class="flex justify-center">
-                    <div class="max-w-4xl mx-3 p-6 bg-white shadow-md rounded-lg">
-                        <div class="flex items-center mb-2">
+                    <div class="max-w-4xl mx-3 p-6  shadow-md rounded-lg">
+                        {{-- <div class="flex items-center mb-2">
                             <img src="{{ asset('images/save_out.svg') }}" alt="logo" class="w-8 mr-2">
                             <h3 class="font-semibold text-gray-800 dark:text-gray-100">Data Kas/Bank Keluar</h3>
                         </div>
-                        <hr class="mb-4">
+                        <hr class="mb-4"> --}}
                         <div class="grid grid-cols-1 gap-6">
                             <div class="flex">
                                 <div class="mr-2">
@@ -750,7 +760,7 @@
 @endif
 @if ($isModalOpen)
     <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
+        <div class="bg-current rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
             <!-- Close Button -->
             <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                 wire:click="$set('isModalOpen', false)">
@@ -851,7 +861,7 @@
 @endif
 @if ($isModalDone)
     <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white w-11/12 max-w-3xl rounded-lg shadow-lg">
+        <div class="bg-current w-11/12 max-w-3xl rounded-lg shadow-lg">
             <!-- Modal Header -->
             <div class="flex justify-between items-center border-b px-6 py-4">
                 <h2 class="text-lg font-bold">Kode Pesanan: <span
