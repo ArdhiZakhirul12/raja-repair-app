@@ -116,7 +116,7 @@
             
                 <div class="flex items-center gap-4">
                     
-                    <div class="mb-3">
+                    <div >
                         <select id="cabangFilter" class="form-select">
                             <option value="">Semua</option>
                             @foreach ($cabangs as $cabang)
@@ -385,16 +385,8 @@
     <div id="edit-service-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
 
-        <div class="bg-current p-6 rounded-lg shadow-lg w-200 flex">
-            <div class="w-1/2">
-                <div class="flex justify-center">
-                    <img src="{{ asset('images/edit_data.png') }}" alt="Edit Teknisi"
-                        class="h-42 w-42 object-cover rounded-l-lg">
-                </div>
-                <p class="text-center text-sm mt-2 px-10 text-gray-300">Pastikan data yang ada masukkan sudah benar dan
-                    tidak ada form yang kosong</p>
-            </div>
-            <div class="w-1/2 p-4">
+        <div class="bg-current p-6 rounded-lg shadow-lg w-full max-w-xl">
+           
                 <h2 class="text-xl font-semibold mb-4">Edit Service</h2>
                 <form action="{{ route('cs.service.update') }}" method="POST">
                     @method('PUT')
@@ -452,7 +444,7 @@
                         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
                     </div>
                 </form>
-            </div>
+            
         </div>
     </div>
 
