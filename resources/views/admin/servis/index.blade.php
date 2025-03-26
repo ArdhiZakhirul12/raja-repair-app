@@ -50,17 +50,8 @@
             {{ __('Data Servis') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
-
-
-
-
-
-
         <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
-
-
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -118,19 +109,31 @@
             @endif
 
 
-            <div class="flex justify-between mb-4 sm:mb-5">
+            <div class="flex justify-between items-center mb-4 sm:mb-5">
                 <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                     Data Servis
                 </h1>
-                {{-- <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-                    onclick="document.getElementById('add-service-modal').classList.remove('hidden')">
-                    Tambah Servis
-                </button> --}}
-                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-                onclick="window.location.href='{{ route('admin.servis.create') }}'">
-                Tambah Servis
-            </button>
+            
+                <div class="flex items-center gap-4">
+                    
+                    <div class="mb-3">
+                        <select id="cabangFilter" class="form-select">
+                            <option value="">Semua</option>
+                            @foreach ($cabangs as $cabang)
+                                <option value="{{ $cabang->id }}">{{ $cabang->cabang->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+            
+                    <!-- Tombol Tambah Servis -->
+                    <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        onclick="window.location.href='{{ route('admin.servis.create') }}'">
+                        Tambah Servis
+                    </button>
+                </div>
             </div>
+            
 
 
             <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
@@ -455,38 +458,35 @@
 
 
     <script>
-        //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
         $(document).ready(function() {
-            $('#services-table').DataTable({
+            // Inisialisasi DataTable
+            var table = $('#services-table').DataTable({
                 dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('admin.servis.getServices') }}',
+                ajax: {
+                    url: '{{ route('admin.servis.getServices') }}',
+                    data: function(d) {
+                        console.log('Cabang yang dipilih:', $('#cabangFilter').val());
+                        d.cabang = $('#cabangFilter').val(); // Ambil nilai cabang yang dipilih
+                    }
+                },
+                ordering: false,
                 columns: [
-                    // {
-                    //     data: 'id',
-                    //     render: function(data) {
-                    //         return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                    //     },
-                    //     orderable: false,
-                    //     searchable: false
-                    // },
                     {
-                            data: null,
-                            name: 'iteration',
-                            render: function(data, type, row, meta) {
-                                return meta.row + 1; // Menambahkan nomor urut
-                            },
-                            orderable: false,
-                            searchable: false
+                        data: null,
+                        name: 'iteration',
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // Menambahkan nomor urut
                         },
-
+                        orderable: false,
+                        searchable: false
+                    },
                     {
                         data: 'nama_servis',
                         name: 'nama_servis',
                         render: function(data, type, row) {
                             return `<a href="/customer/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
-
                         }
                     },
                     {
@@ -495,32 +495,29 @@
                         render: function(data, type, row) {
                             let textColor = 'text-black';
                             let bgColor = 'bg-yellow-50'; // Default untuk 'software'
-
+        
                             if (data === 'hardware') {
                                 textColor = 'text-purple-700';
                                 bgColor = 'bg-purple-50';
-                                data = 'Hardware'; // Untuk 'hardware'
+                                data = 'Hardware';
                             } else if (data === 'software') {
                                 textColor = 'text-yellow-700';
                                 bgColor = 'bg-yellow-50';
-                                data = 'Software' ;// Untuk 'software'
+                                data = 'Software';
                             }
-                            return `  
-                            <td class="px-4 py-2">
-                            <span class="${textColor} ${bgColor} px-2 py-1 rounded">${data}</span>
-                            </td>`;
+                            return `<td class="px-4 py-2"><span class="${textColor} ${bgColor} px-2 py-1 rounded">${data}</span></td>`;
                         }
                     },
                     {
                         data: 'status',
                         render: function(data, type, row) {
                             return `<label class="switch">
-                            <input type="checkbox" data-id="${row.id}"
-                                onchange="toggleStatus(this)"
-                                ${data == 1 ? 'checked' : ''}>
-                            <span class="slider round"></span>
-                        </label>`;
-                        },
+                                    <input type="checkbox" data-id="${row.id}"
+                                        onchange="toggleStatus(this)"
+                                        ${data == 1 ? 'checked' : ''}>
+                                    <span class="slider round"></span>
+                                </label>`;
+                        }
                     },
                     {
                         data: 'harga',
@@ -532,42 +529,30 @@
                             }).format(data);
                         }
                     },
-
                     {
                         data: 'id',
-                                                render: function(data, type, row) {
-                            return `<button class="text-blue-500 hover:text-blue-700" 
-                                            data-id="${row.id}" 
-                                            data-nama_servis= "${row.nama_servis}"
-                                            data-code="${row.code}"
-                                            data-jenis_servis="${row.jenis_servis}"
-                                            data-harga="${row.harga}"
-                                            data-garansi_1="${row.garansi_1}"
-                                            data-garansi_2="${row.garansi_2}"
-                                            data-garansi_3="${row.garansi_3}"
-                                             onclick="openEditModal(this)">
-                    <i class="fas fa-edit"></i>
-                </button>`;}
-                    },
+                        render: function(data, type, row) {
+                            return `<button class="text-blue-500 hover:text-blue-700"
+                                data-id="${row.id}" 
+                                data-nama_servis= "${row.nama_servis}"
+                                data-code="${row.code}"
+                                data-jenis_servis="${row.jenis_servis}"
+                                data-harga="${row.harga}"
+                                data-garansi_1="${row.garansi_1}"
+                                data-garansi_2="${row.garansi_2}"
+                                data-garansi_3="${row.garansi_3}"
+                                onclick="openEditModal(this)">
+                                <i class="fas fa-edit"></i>
+                            </button>`;
+                        }
+                    }
                 ],
                 buttons: [
-
-
                     {
                         extend: 'excel',
                         text: 'Download'
-                    },
-                    // {
-                    //     extend: 'pdf',
-                    //     text: 'PDF'
-                    // },
-                    // {
-                    //     extend: 'print',
-                    //     text: 'Print'
-                    // }
+                    }
                 ],
-
-
                 language: {
                     search: "Cari: ",
                     lengthMenu: "Show _MENU_ Data",
@@ -579,15 +564,19 @@
                         previous: "Previous"
                     }
                 },
-
                 lengthMenu: [10, 25, 50, 100],
                 pageLength: 10,
                 order: [
                     [0, 'desc']
-                ],
+                ]
+            });
+        
+            // Memfilter berdasarkan cabang saat memilih dropdown
+            $('#cabangFilter').on('change', function() {
+                table.ajax.reload(); // Reload table dengan filter cabang yang dipilih
             });
         });
-    </script>
+        </script>
 
 
 <script>
