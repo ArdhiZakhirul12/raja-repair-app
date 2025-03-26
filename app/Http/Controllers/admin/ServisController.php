@@ -20,9 +20,9 @@ class ServisController extends Controller
      */
     public function index()
     {
-
+        $cabangs = User::role('cabang')->get();
         
-        return view('admin.servis.index');
+        return view('admin.servis.index', compact('cabangs'));
     }
 
     /**
@@ -33,9 +33,14 @@ class ServisController extends Controller
         $cabangs = cabang::all();
         return view('admin.servis.add-service', compact('cabangs'));
     }
-    public function getServices()
+    public function getServices(Request $request)
     {
-        $services = dataService::all()->unique('code');
+        $query = dataService::with('user');
+
+        if ($request->has('cabang') && !empty($request->cabang)) {
+            $query->where('user_id', $request->cabang);
+        }
+        $services = $query->get()->unique('code');
 
         return DataTables::of($services)
             ->addColumn('action', function ($service) {
