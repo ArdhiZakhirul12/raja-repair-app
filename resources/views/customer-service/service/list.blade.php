@@ -193,7 +193,7 @@
                                     </div>
 
                                 </th>
-                                <th scope="col" class="px-6 py-3"x></th>
+                                {{-- <th scope="col" class="px-6 py-3"x></th> --}}
                             </tr>
                         </thead>
 
@@ -429,24 +429,24 @@
                                 currency: 'IDR'
                             }).format(data);
                         }
-                    },
+                    }
 
-                    {
-                        data: 'id',
-                                                render: function(data, type, row) {
-                            return `<button class="text-blue-500 hover:text-blue-700" 
-                                            data-id="${row.id}" 
-                                            data-nama_servis= "${row.nama_servis}"
-                                            data-code="${row.code}"
-                                            data-jenis_servis="${row.jenis_servis}"
-                                            data-harga="${row.harga}"
-                                            data-garansi_1="${row.garansi_1}"
-                                            data-garansi_2="${row.garansi_2}"
-                                            data-garansi_3="${row.garansi_3}"
-                                             onclick="openEditModal(this)">
-                    <i class="fas fa-edit"></i>
-                </button>`;}
-                    },
+                //     {
+                //         data: 'id',
+                //                                 render: function(data, type, row) {
+                //             return `<button class="text-blue-500 hover:text-blue-700" 
+                //                             data-id="${row.id}" 
+                //                             data-nama_servis= "${row.nama_servis}"
+                //                             data-code="${row.code}"
+                //                             data-jenis_servis="${row.jenis_servis}"
+                //                             data-harga="${row.harga}"
+                //                             data-garansi_1="${row.garansi_1}"
+                //                             data-garansi_2="${row.garansi_2}"
+                //                             data-garansi_3="${row.garansi_3}"
+                //                              onclick="openEditModal(this)">
+                //     <i class="fas fa-edit"></i>
+                // </button>`;}
+                //     },
                 ],
                 buttons: [
 

@@ -237,14 +237,14 @@
     </div>
     <div id="edit-sparepart-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-        <div class="bg-current p-10 rounded-lg shadow-lg w-200 flex">
-            <div class="w-1/2">
+        <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
+            {{-- <div class="w-1/2">
                 <div class="flex justify-center">
                     <img src="{{ asset('images/edit_data.png') }}" alt="Edit Teknisi" class="h-42 w-42 object-cover rounded-l-lg">
                 </div>
                 <p class="text-center text-sm mt-2 px-10 text-gray-400">Pastikan data yang ada masukkan sudah benar dan tidak ada form yang kosong</p>
             </div>
-            <div class="w-1/2 p-4">
+            <div class="w-1/2 p-4"> --}}
                 <h2 class="text-xl font-semibold mb-4 ">Edit Sparepart</h2>
                 <form action="{{ route('cs.sparepart.update') }}" method="POST">
                     @method('PUT')
@@ -267,7 +267,7 @@
                     </div>
                 </form>
 
-            </div>
+            {{-- </div> --}}
            
         </div>
     </div>

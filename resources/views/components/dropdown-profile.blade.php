@@ -18,7 +18,7 @@
         </div>
     </button>
     <div
-        class="origin-top-right z-10 absolute top-full min-w-44 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700/60 py-1.5 rounded-lg shadow-lg overflow-hidden mt-1 {{$align === 'right' ? 'right-0' : 'left-0'}}"                
+        class="origin-top-right z-10 absolute top-full min-w-44 bg-current border border-gray-200 dark:border-gray-700/60 py-1.5 rounded-lg shadow-lg overflow-hidden mt-1 {{$align === 'right' ? 'right-0' : 'left-0'}}"                
         @click.outside="open = false"
         @keydown.escape.window="open = false"
         x-show="open"
@@ -38,9 +38,11 @@
             <li>
                 <a class="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3" href="{{ route('cs.profile-cabang') }}" @click="open = false" @focus="open = true" @focusout="open = false">Profile</a>
             </li>
+            @if(Auth::user()->getRoleNames()->first() == 'super-admin')
             <li>
                 <a class="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3" href="{{ route('profile.show') }}" @click="open = false" @focus="open = true" @focusout="open = false">Settings</a>
             </li>
+            @endif
             <li>
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
