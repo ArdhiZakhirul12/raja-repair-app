@@ -12,8 +12,6 @@
             <div class="p-6">
 
                 {{-- <p>{{ $bookings }}</p> --}}
-
-
                 <!-- Tabel Pelanggan -->
                 <table
                     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"
@@ -26,7 +24,7 @@
 
                             <th scope="col" class="px-6 py-3">
                                 <div class="flex items-center">
-                                    Nama
+                                    Cabang
                                     <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -44,10 +42,10 @@
                                         </svg></a>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">Model Hp</th>
+                            <th scope="col" class="px-6 py-3">Diskon</th>
+                            <th scope="col" class="px-6 py-3">Total</th>
 
-                            <th scope="col" class="px-6 py-3"></th>
+                            <th scope="col" class="px-6 py-3">Aksi</th>
 
                         </tr>
                     </thead>
@@ -60,13 +58,12 @@
     <script>
         //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
         $(document).ready(function() {
-                $('#diskon-table').DataTable({
-                    dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
-                    processing: true,
-                    serverSide: true,
-                    ajax: '{{ route('admin.diskon.diskon.getDiskon') }}',
-                    columns: [
-                        {
+            $('#diskon-table').DataTable({
+                dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('admin.diskon.diskon.getDiskon') }}',
+                columns: [{
                         data: 'kode_pesanan',
                         name: 'kode_pesanan',
                         render: function(data, type, row) {
@@ -80,7 +77,7 @@
                         data: 'customer_id',
                         name: 'customer_id',
                         render: function(data, type, row) {
-                            return `<a href="" class="text-black-500 hover:text-black-500 ">${row.customer.nama}</a>`;
+                            return `<a href="" class="text-black-500 hover:text-black-500 ">${row.user.cabang.nama}</a>`;
 
                         }
                     },
@@ -91,29 +88,24 @@
 
                     },
                     {
-                        data: 'status',
-                        name: 'status',
+                        data: 'diskon',
+                        name: 'diskon',
                         render: function(data, type, row) {
-                            let bgColor = '';
-                            if (data.toLowerCase() === 'diproses') {
-                                bgColor = 'bg-yellow-500 text-white';
-                            } else if (data.toLowerCase() === 'selesai') {
-                                bgColor = 'bg-green-500 text-white';
-                            } else if (data.toLowerCase() === 'dikerjakan') {
-                                bgColor = 'bg-blue-300 text-white';
-                            } else if (data.toLowerCase() === 'teknisi-selesai') {
-                                bgColor = 'bg-primary text-white';
-                            }
-                            return `<span class="px-2 py-1 rounded ${bgColor}">${data}</span>`;
+                            let angka = parseFloat(data); // Pastikan angka
+                            return isNaN(angka) ?
+                                "-" :
+                                new Intl.NumberFormat('id-ID', {
+                                    style: 'currency',
+                                    currency: 'IDR',
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: 0
+                                }).format(angka) + ',-';
                         }
                     },
                     {
-                        data: 'hp_model_id',
-                        name: 'hp_model_id',
-                        render: function(data, type, row) {
-                            // console.log(row);
-                            return `<a href='' class="text-black-900 hover:text-black-500 font-bold">${row.hp_model.model}</a>`;
-                        }
+                        data: 'total_harga',
+                        name: 'total_harga',
+                        
                     },
                     {
                         data: 'id',
@@ -129,94 +121,94 @@
                         orderable: false,
                         searchable: false
                     }
-                    ],
-                    buttons: [
+                ],
+                buttons: [
 
 
-                        {
-                            extend: 'excel',
-                            text: 'Excel'
-                        },
-                        {
-                            extend: 'pdf',
-                            text: 'PDF'
-                        },
-                        {
-                            extend: 'print',
-                            text: 'Print'
-                        }
-                    ],
-
-
-                    language: {
-                        search: "Cari: ",
-                        lengthMenu: "Show _MENU_ Data",
-                        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                        paginate: {
-                            first: "Awal",
-                            last: "Akhir",
-                            next: "Next",
-                            previous: "Previous"
-                        }
+                    {
+                        extend: 'excel',
+                        text: 'Excel'
                     },
+                    {
+                        extend: 'pdf',
+                        text: 'PDF'
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Print'
+                    }
+                ],
 
-                    lengthMenu: [10, 25, 50, 100],
-                    pageLength: 10,
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
+
+                language: {
+                    search: "Cari: ",
+                    lengthMenu: "Show _MENU_ Data",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    paginate: {
+                        first: "Awal",
+                        last: "Akhir",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                },
+
+                lengthMenu: [10, 25, 50, 100],
+                pageLength: 10,
+                order: [
+                    [0, 'desc']
+                ],
             });
+        });
 
-            // Fungsi untuk mencari di tabel
-            function searchTable() {
-                const searchInput = document.getElementById("search").value.toLowerCase();
-                const table = document.getElementById("customers-table");
-                const rows = table.getElementsByTagName("tr");
+        // Fungsi untuk mencari di tabel
+        function searchTable() {
+            const searchInput = document.getElementById("search").value.toLowerCase();
+            const table = document.getElementById("customers-table");
+            const rows = table.getElementsByTagName("tr");
 
-                for (let i = 1; i < rows.length; i++) {
-                    let cells = rows[i].getElementsByTagName("td");
-                    let match = false;
-                    for (let j = 0; j < cells.length; j++) {
-                        if (cells[j].textContent.toLowerCase().includes(searchInput)) {
-                            match = true;
-                            break;
-                        }
+            for (let i = 1; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName("td");
+                let match = false;
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].textContent.toLowerCase().includes(searchInput)) {
+                        match = true;
+                        break;
                     }
-                    rows[i].style.display = match ? "" : "none";
                 }
+                rows[i].style.display = match ? "" : "none";
             }
+        }
 
-            // Fungsi untuk menyortir tabel berdasarkan kolom
-            function sortTable(n) {
-                const table = document.getElementById("customers-table");
-                let rows = table.rows;
-                let switching = true;
-                let dir = "asc";
-                let switchcount = 0;
+        // Fungsi untuk menyortir tabel berdasarkan kolom
+        function sortTable(n) {
+            const table = document.getElementById("customers-table");
+            let rows = table.rows;
+            let switching = true;
+            let dir = "asc";
+            let switchcount = 0;
 
-                while (switching) {
-                    switching = false;
-                    let rowsArray = Array.from(rows).slice(1); // Mengambil semua baris kecuali header
-                    for (let i = 0; i < rowsArray.length - 1; i++) {
-                        let x = rowsArray[i].getElementsByTagName("TD")[n];
-                        let y = rowsArray[i + 1].getElementsByTagName("TD")[n];
+            while (switching) {
+                switching = false;
+                let rowsArray = Array.from(rows).slice(1); // Mengambil semua baris kecuali header
+                for (let i = 0; i < rowsArray.length - 1; i++) {
+                    let x = rowsArray[i].getElementsByTagName("TD")[n];
+                    let y = rowsArray[i + 1].getElementsByTagName("TD")[n];
 
-                        if (dir === "asc" && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase() ||
-                            dir === "desc" && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            rowsArray[i].parentNode.insertBefore(rowsArray[i + 1], rowsArray[i]);
-                            switching = true;
-                            switchcount++;
-                            break;
-                        }
-                    }
-
-                    if (switchcount === 0 && dir === "asc") {
-                        dir = "desc";
+                    if (dir === "asc" && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase() ||
+                        dir === "desc" && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        rowsArray[i].parentNode.insertBefore(rowsArray[i + 1], rowsArray[i]);
                         switching = true;
+                        switchcount++;
+                        break;
                     }
                 }
+
+                if (switchcount === 0 && dir === "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
             }
-        </script>
+        }
+    </script>
 
 </x-app-layout>

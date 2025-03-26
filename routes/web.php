@@ -22,6 +22,7 @@ use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\admin\CabangControllerr as AdminCabangController;
 use App\Http\Controllers\admin\ServisController as AdminServisController;
 use App\Http\Controllers\admin\RequestDiskonController;
+use App\Http\Controllers\admin\SparepartController as AdminSparepartController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -57,19 +58,29 @@ Route::middleware([
             Route::post('/', [AdminServisController::class, 'store'])->name('store');
             Route::get('/get-services', [AdminServisController::class, 'getServices'])->name('getServices');
             Route::get('/add-services', [AdminServisController::class, 'create'])->name('create');
-            Route::get('/test-route', function() {
+            Route::get('/test-route', function () {
                 return "Route berhasil dipanggil!";
             });
         });
         Route::group(['prefix' => 'diskon', 'as' => 'diskon.'], function () {
             Route::get('/', [RequestDiskonController::class, 'index'])->name('index');
             Route::get('/get-booking-diskon', [RequestDiskonController::class, 'getDiskon'])->name('diskon.getDiskon');
-            Route::get('/test-route', function() {
+            Route::get('/test-route', function () {
                 return "Route berhasil dipanggil!";
             });
             Route::get('/{id}', [RequestDiskonController::class, 'show'])->name('show');
             Route::put('/{id}', [RequestDiskonController::class, 'update'])->name('update');
- 
+
+        });
+        Route::group(['prefix' => 'sparepart', 'as' => 'sparepart.'], function () {
+            Route::get('/', [AdminSparepartController::class, 'index'])->name('index');
+            Route::get('/get-getSpareparts', [AdminSparepartController::class, 'getSpareparts'])->name('getSpareparts');
+            Route::get('/create-sparepart', [AdminSparepartController::class, 'create'])->name('create');
+            Route::post('/create-sparepart', [AdminSparepartController::class, 'store'])->name('store');
+            Route::get('/{id}', [AdminSparepartController::class, 'show'])->name('show');
+            Route::put('/{id}', [AdminSparepartController::class, 'update'])->name('update');
+            // Route::get('/get-booking-diskon', [AdminSparepartController::class, 'getBooking'])->name('getBooking');
+
         });
     });
 });
@@ -101,6 +112,14 @@ Route::middleware([
     // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
+Route::group([
+    'prefix' => 'cs/pembayaran',
+    'as' => 'cs.pembayaran.',
+    'middleware' => 'role:cabang|super-admin'
+], function () {
+    Route::get('/', [MetodePembayaranController::class, 'index'])->name('index');
+    Route::post('/store', [MetodePembayaranController::class, 'store'])->name('store');
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -161,13 +180,7 @@ Route::middleware([
             // Route::put('/update', [BookingController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
-        Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {
-            Route::get('/', [MetodePembayaranController::class, 'index'])->name('index');
-            Route::post('/store', [MetodePembayaranController::class, 'store'])->name('store');
-            // Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
-            // Route::put('/update', [BookingController::class, 'update'])->name('update');
-            // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
-        });
+
         Route::group(['prefix' => 'spending', 'as' => 'spending.'], function () {
             Route::get('/', [SpendingController::class, 'index'])->name('index');
             Route::get('/create', [SpendingController::class, 'create'])->name('create');
