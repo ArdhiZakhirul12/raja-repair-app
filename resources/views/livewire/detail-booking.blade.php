@@ -200,23 +200,46 @@
                         
                         
                         <hr class="my-2">
-                <div id="keterangan" class="border-bottom pb-2 mb-3">
-                    <h2
-                        class="mt-1
-                                text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                        Merk HP : {{ $booking->hpModel->hpMerk->merk }}
-                    </h2>
-                    <h2
-                        class="mt-1
-                                text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                        Model HP : {{ $booking->hpModel->model }}
-                    </h2>
-                    <h2
-                        class="mt-1
-                                text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                        Imei : {{ $booking->imei }}
-                    </h2>
-                </div>
+                        <div class="flex justify-between">
+                            
+                            <div id="keterangan" class="border-bottom pb-2 mb-3">
+                                <h2
+                                    class="mt-1
+                                            text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
+                                    Merk HP : {{ $booking->hpModel->hpMerk->merk }}
+                                </h2>
+                                <h2
+                                    class="mt-1
+                                            text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
+                                    Model HP : {{ $booking->hpModel->model }}
+                                </h2>
+                                <h2
+                                    class="mt-1
+                                            text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
+                                    Imei : {{ $booking->imei }}
+                                </h2>
+                            </div>
+                            <div>
+                                @if (in_array($booking['status'], ['teknisi-selesai', 'selesai']))
+                                @php
+                                    $duration = \Carbon\Carbon::parse($booking->workTimeBooking->end)->diff(\Carbon\Carbon::parse($booking->workTimeBooking->start));
+                                    $formattedDuration = '';
+                                    if ($duration->h > 0) {
+                                        $formattedDuration .= $duration->h . ' jam ';
+                                    }
+                                    if ($duration->i > 0) {
+                                        $formattedDuration .= $duration->i . ' menit ';
+                                    }
+                                    if ($duration->s > 0) {
+                                        $formattedDuration .= $duration->s . ' detik';
+                                    }
+                                @endphp
+                                Selesai dalam {{ $formattedDuration }}
+                                    
+                                @endif
+                            </div>
+                        </div>
+                
                 <div class="flex items-center mb-2">
 
                     <h2 class="text-l text-blue-500">Rincian Servis</h2>
@@ -714,22 +737,8 @@
                                     </div>
         
                                 </div>
-        
-        
-        
-        
+
                             </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
                         </div>
             </form>

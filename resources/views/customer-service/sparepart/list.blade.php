@@ -120,10 +120,10 @@
                 <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                     Data Sparepart
                 </h1>
-                <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+                {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                 onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
                 Tambah Sparepart
-            </button>
+            </button> --}}
             </div>
             <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
                 <div class="p-6">
@@ -159,7 +159,7 @@
                                 </th>
                                 <th  scope="col" class="px-6 py-3">Status</th>
                                 <th  scope="col" class="px-6 py-3">Terjual</th>
-                                <th  scope="col" class="px-6 py-3"></th>
+                                {{-- <th  scope="col" class="px-6 py-3"></th> --}}
 
                             </tr>
                         </thead>
@@ -312,21 +312,21 @@
            
 
          
-            {
-    data: 'id',
-    render: function (data, type, row) {
-        return `<button class="text-blue-500 hover:text-blue-700" 
-                                            data-id="${row.id}" 
-                                            data-nama="${row.nama_sparepart}"
-                                            data-harga="${row.harga}"
+//             {
+//     data: 'id',
+//     render: function (data, type, row) {
+//         return `<button class="text-blue-500 hover:text-blue-700" 
+//                                             data-id="${row.id}" 
+//                                             data-nama="${row.nama_sparepart}"
+//                                             data-harga="${row.harga}"
                                           
-                                             onclick="openEditModal(this)">
-                    <i class="fas fa-edit"></i>
-                </button>`;
-    },
-    orderable: false,
-    searchable: false
-}
+//                                              onclick="openEditModal(this)">
+//                     <i class="fas fa-edit"></i>
+//                 </button>`;
+//     },
+//     orderable: false,
+//     searchable: false
+// }
         ],
         buttons: [
 
