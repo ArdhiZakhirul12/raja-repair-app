@@ -15,9 +15,9 @@
     </div>
     </div>
 
-    <div class=" mx-6 my-3">
-        <div class="flex">
-            <div class="w-1/2 bg-white rounded shadow p-4 mr-4">
+    <div class="flex flex-wrap gap-4 p-4">
+       
+            <div class="w-full md:w-1/3 bg-white rounded shadow p-4">
                 <h1 class="text-xl font-bold mb-4">Data Handphone</h1>
                 
                 
@@ -28,7 +28,7 @@
                 </div>
                 <hr class="my-4 px-4">
                 <h1 class="font-bold my-2">Kendala :</h1>
-                
+        
                 <h1>{{ $booking->kendala }}</h1>
                 <h1 class="font-bold my-2 pt-2">Keterangan :</h1>
                 <h1>{{ $booking->keterangan }}</h1>
@@ -37,9 +37,16 @@
                     <p>{{ $sparepart->sparepart->nama_sparepart }}</p>
                 @endforeach
             </div>
-            <div class="w-1/2 bg-white rounded shadow p-4">
+            <div class="w-full md:w-1/3 bg-white rounded shadow p-4">
+                @if ($booking['status'] == 'diproses')   
+                {{-- <input type="hidden" name='status' value="dikerjakan"> --}}
+                <button class="bg-blue-500 text-white rounded p-2 ml-2" onclick="document.getElementById('start-service-modal').classList.remove('hidden')" >Kerjakan Pesanan ini</button>
+                @elseif($booking['status'] == 'dikerjakan')
+                {{-- <input type="hidden" name="status" value="teknisi-selesai"> --}}
+                <button class="bg-blue-500 text-white rounded p-2 ml-2" onclick="document.getElementById('start-service-modal').classList.remove('hidden')">Selesaikan pesanan ini</button>
+                @endif
                
-                <form method="POST" action="{{route('teknisi.booking.update', ['id'=> $booking->id])}}">
+                {{-- <form method="POST" action="{{route('teknisi.booking.update', ['id'=> $booking->id])}}">
                     @csrf
                     @method('PUT')
                     @if ($booking['status'] == 'diproses')   
@@ -49,7 +56,7 @@
                     <input type="hidden" name="status" value="teknisi-selesai">
                     <button type="submit" class="bg-blue-500 text-white rounded p-2 ml-2">Selesaikan pesanan ini</button>
                     @endif
-                </form>
+                </form> --}}
                 
                 @if (in_array($booking['status'], ['teknisi-selesai', 'selesai']))
                 @php
@@ -75,14 +82,51 @@
                 <h1 class="mb-3"><i class="fas fa-phone mr-2 text-blue-500"></i> {{ $booking->no_hp_alternatif }}</h1>
                 <h1 class="mb-3"><i class="fas fa-shield-alt mr-2 text-blue-500"></i> Klaim Garansi : @if($booking->claim) Iya @else Tidak @endif</h1>
             </div>
-
-         
-           
-
-
-        </div>
+     
     </div>
 
+    {{-- <button onclick="document.getElementById('start-service-modal').classList.remove('hidden')">Testing Dialog</button> --}}
 
+    <div id="start-service-modal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+    <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
+   
+        
+
+        
+        @if ($booking['status'] == 'diproses')  
+        <h2 class="text-xl font-semibold mb-4 ">Mulai Pengerjaan</h2> 
+        <h2 class="text-l mb-4 ">Apa anda yakin memulai pengerjaan service ?</h2>
+        @elseif($booking['status'] == 'dikerjakan')
+        <h2 class="text-xl font-semibold mb-4 ">Selesaikan Pengerjaan</h2>
+        <h2 class="text-l mb-4 ">Apa anda yakin menyelesaikan pengerjaan service ?</h2>
+        @endif
+        <form method="POST" action="{{route('teknisi.booking.update', ['id'=> $booking->id])}}">
+            <div class="flex justify-end">
+                <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                    onclick="document.getElementById('start-service-modal').classList.add('hidden')">Tidak</button>
+            
+            
+    
+                @csrf
+                @method('PUT')
+                @if ($booking['status'] == 'diproses')   
+                <input type="hidden" name='status' value="dikerjakan">
+                <button type="submit" class="bg-blue-500 text-white rounded px-4 ml-2">Ya</button>
+                @elseif($booking['status'] == 'dikerjakan')
+                <input type="hidden" name="status" value="teknisi-selesai">
+                <button type="submit" class="bg-blue-500 text-white rounded px-4 ml-2">Ya</button>
+                @endif
+            </div>
+        </form>
+        {{-- <div class="flex justify-end">
+            <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                onclick="document.getElementById('start-service-modal').classList.add('hidden')">Tidak</button>
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Ya</button>
+        </div> --}}
+
+       
+    </div>
+</div>
 
 </x-app-layout>

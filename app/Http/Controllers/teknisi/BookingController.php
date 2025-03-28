@@ -50,6 +50,7 @@ class BookingController extends Controller
             ->where('id', $id)
             ->first();
         //
+        // dd($booking);
         return view('teknisi.booking.teknisi-booking-detail',compact('booking'));
     }
 

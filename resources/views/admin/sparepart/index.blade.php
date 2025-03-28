@@ -124,7 +124,7 @@
                 </h1>
                 <div class="flex items-center gap-4">
 
-                    <div class="mb-3">
+                    <div>
                         <select id="cabangFilter" class="form-select">
                             <option value="">Semua</option>
                             @foreach ($cabangs as $cabang)

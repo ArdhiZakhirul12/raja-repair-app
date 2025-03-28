@@ -85,6 +85,31 @@ class DashboardController extends Controller
 
 
         $bookings = booking::with(['sparepart_booking', 'detailBooking'])->get();
+
+
+        // GET MOST ORDERED SERVICES
+        $mostOrderedServices = DetailBooking::select('data_service_id', DB::raw('COUNT(data_service_id) as total_orders'))
+    ->groupBy('data_service_id')
+    ->orderByDesc('total_orders')
+    ->limit(10)
+    ->get();
+
+    $serviceMost10Data = [];
+    foreach ($mostOrderedServices as $service) {
+        $serviceMost10Data[] = [
+            'service_id' => $service->data_service_id,
+            'service_name' => dataService::find($service->data_service_id)->nama_servis ?? 'Unknown', // Getting service name
+            'total_orders' => $service->total_orders,
+        ];
+    }
+    $serviceMost10Data2D = [
+        array_column($serviceMost10Data, 'service_name'),
+        array_column($serviceMost10Data, 'total_orders')
+    ];
+    // dd($serviceMost10Data2D);
+    
+  
+   
         $totalCustomers = customer::where('user_id', Auth::user()->id)->get();
 
 
@@ -92,6 +117,8 @@ class DashboardController extends Controller
 
 
         $totalServices = dataService::where('user_id', Auth::user()->id)->get();
+        $most_10_ordered_service = dataService::where('user_id', Auth::user()->id)->select('nama_servis',DB::raw('COUNT(nama_servis) as total_servis'))->groupBy('nama_servis')->orderBy('nama_servis', 'desc')->take(10)->get();
+        // dd($totalServices);
         $totalSpareparts = sparepart::where('user_id', Auth::user()->id)->get();
         $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
 
@@ -102,6 +129,8 @@ class DashboardController extends Controller
         ->select('user_id', DB::raw('AVG(rating) as average_rating'))
         ->groupBy('user_id')
         ->get();
+
+
 
         $teknisis_rating = $teknisis->map(function ($teknisi) use ($ratings_per_id) {
           
@@ -127,7 +156,7 @@ class DashboardController extends Controller
             
 
         $ratingCounts = $ratingCounts->toArray();
-        return view('customer-service/dashboard/dashboard', compact('servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan'));
+        return view('customer-service/dashboard/dashboard', compact('servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D'));
     }
 
     /**
