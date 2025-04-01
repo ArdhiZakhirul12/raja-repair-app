@@ -145,27 +145,25 @@ class DashboardController extends Controller
 
 
         // Get Most Requested Model
-        // $modelTotalInBookings = booking::select("hp_model_id", DB::raw('COUNT(*) as total'))->groupBy("hp_model_id")->get();
-        
-        $hpModelCounts = hpModel::leftJoin('bookings', 'hp_models.id', '=', 'bookings.hp_model_id')
-        ->select('hp_models.model as hp_model_name', DB::raw('COUNT(bookings.id) as total'))
-        ->groupBy('hp_models.id', 'hp_models.model')
-        ->limit(10)
+
+
+        $hpModelCountsFullName = hpModel::leftJoin('bookings', 'hp_models.id', '=', 'bookings.hp_model_id')
+        ->leftJoin('hp_merks', 'hp_models.hp_merk_id', '=', 'hp_merks.id') 
+        ->select(
+            DB::raw("CONCAT(hp_merks.merk, ' ', hp_models.model) as full_model_name"), 
+            DB::raw('COUNT(bookings.id) as total')
+        )
+        ->groupBy('hp_models.id', 'hp_models.model', 'hp_merks.merk')
         ->get();
+        
     
-        $modelNames = $hpModelCounts->pluck('hp_model_name')->toArray();
-        $totalsModel = $hpModelCounts->pluck('total')->toArray();
+        $modelNames = $hpModelCountsFullName->pluck('full_model_name')->toArray();
+        $totalsModel = $hpModelCountsFullName->pluck('total')->toArray();
         $hpModelTotalDataList = [
             $modelNames,
             $totalsModel
         ];
 
-
-    
-
-        // $query = booking::with(['hpModel', 'user', 'detailBooking'])->get();
-        // $getHpModelData = hpModel::select()->get();
-        // dd($getHpModelData,$bookings,$modelTotalInBookings);
         
         
 
