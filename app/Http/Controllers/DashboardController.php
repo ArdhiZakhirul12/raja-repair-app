@@ -12,6 +12,7 @@ use App\Models\dataService;
 use App\Models\detailBooking;
 use App\Models\sparepart;
 use App\Models\sparepart_booking;
+use App\Models\hpModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Termwind\Components\Raw;
@@ -142,6 +143,32 @@ class DashboardController extends Controller
             return $teknisi;
         });
 
+
+        // Get Most Requested Model
+        // $modelTotalInBookings = booking::select("hp_model_id", DB::raw('COUNT(*) as total'))->groupBy("hp_model_id")->get();
+        
+        $hpModelCounts = hpModel::leftJoin('bookings', 'hp_models.id', '=', 'bookings.hp_model_id')
+        ->select('hp_models.model as hp_model_name', DB::raw('COUNT(bookings.id) as total'))
+        ->groupBy('hp_models.id', 'hp_models.model')
+        ->limit(10)
+        ->get();
+    
+        $modelNames = $hpModelCounts->pluck('hp_model_name')->toArray();
+        $totalsModel = $hpModelCounts->pluck('total')->toArray();
+        $hpModelTotalDataList = [
+            $modelNames,
+            $totalsModel
+        ];
+
+
+    
+
+        // $query = booking::with(['hpModel', 'user', 'detailBooking'])->get();
+        // $getHpModelData = hpModel::select()->get();
+        // dd($getHpModelData,$bookings,$modelTotalInBookings);
+        
+        
+
       
 
         $ratings = rating::where('user_id', auth()->id())->get();
@@ -156,7 +183,7 @@ class DashboardController extends Controller
             
 
         $ratingCounts = $ratingCounts->toArray();
-        return view('customer-service/dashboard/dashboard', compact('servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D'));
+        return view('customer-service/dashboard/dashboard', compact('servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D', 'hpModelTotalDataList'));
     }
 
     /**
