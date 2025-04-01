@@ -12,6 +12,7 @@ use App\Models\dataService;
 use App\Models\detailBooking;
 use App\Models\sparepart;
 use App\Models\sparepart_booking;
+use App\Models\hpModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Termwind\Components\Raw;
@@ -142,6 +143,30 @@ class DashboardController extends Controller
             return $teknisi;
         });
 
+
+        // Get Most Requested Model
+
+
+        $hpModelCountsFullName = hpModel::leftJoin('bookings', 'hp_models.id', '=', 'bookings.hp_model_id')
+        ->leftJoin('hp_merks', 'hp_models.hp_merk_id', '=', 'hp_merks.id') 
+        ->select(
+            DB::raw("CONCAT(hp_merks.merk, ' ', hp_models.model) as full_model_name"), 
+            DB::raw('COUNT(bookings.id) as total')
+        )
+        ->groupBy('hp_models.id', 'hp_models.model', 'hp_merks.merk')
+        ->get();
+        
+    
+        $modelNames = $hpModelCountsFullName->pluck('full_model_name')->toArray();
+        $totalsModel = $hpModelCountsFullName->pluck('total')->toArray();
+        $hpModelTotalDataList = [
+            $modelNames,
+            $totalsModel
+        ];
+
+        
+        
+
       
 
         $ratings = rating::where('user_id', auth()->id())->get();
@@ -156,7 +181,7 @@ class DashboardController extends Controller
             
 
         $ratingCounts = $ratingCounts->toArray();
-        return view('customer-service/dashboard/dashboard', compact('servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D'));
+        return view('customer-service/dashboard/dashboard', compact('servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D', 'hpModelTotalDataList'));
     }
 
     /**
