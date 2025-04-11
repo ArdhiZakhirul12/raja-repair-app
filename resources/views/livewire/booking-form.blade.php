@@ -28,7 +28,7 @@
 
     <form wire:submit.prevent="submit" class="space-y-6">
         <div class="flex justify-center">
-            <div class="max-w-4xl mx-3 p-6 bg-white shadow-md rounded-lg">
+            <div class="max-w-3xl mx-3 p-6 bg-white shadow-md rounded-lg">
 
                 <div class="flex ">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30"

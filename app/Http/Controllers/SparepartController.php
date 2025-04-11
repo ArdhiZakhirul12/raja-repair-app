@@ -20,6 +20,7 @@ class SparepartController extends Controller
     public function index()
     {
         $spareparts = sparepart::where('user_id',Auth::user()->id)->get();
+ 
 
         return view('customer-service.sparepart.list',compact('spareparts'));
     }
@@ -30,7 +31,15 @@ class SparepartController extends Controller
      */
     public function getSpareparts()
     {
-        $spareparts = sparepart::where('user_id',Auth::user()->id)->get();
+        // $spareparts = sparepart::where('user_id',Auth::user()->id)->get();
+        $query = sparepart::with('user');
+    
+
+        $spareparts = $query->get()->unique('code');
+
+        // dd($spareparts);
+
+
     
         return DataTables::of($spareparts)
             // ->addColumn('action', function ($teknisi) {
