@@ -76,7 +76,9 @@ class BookingForm extends Component
     public function updatedNohp($value)
     {
         // Cari customer berdasarkan nomor HP
-        $customer = customer::where('no_hp', $value)->first();
+        $customer = customer::where('no_hp', $value)
+                    ->where('user_id', auth()->id())
+                    ->first();
 
         if (isset($customer)) {
             $this->nama = $customer->nama;

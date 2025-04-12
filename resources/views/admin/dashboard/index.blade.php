@@ -98,7 +98,7 @@
 
             <x-dashboard.dashboard-card-06 title="10 Model terbanyak" :dataName="$hpModelTotalDataList[0]" :amountData="$hpModelTotalDataList[1]" />
             <x-dashboard.dashboard-card-06 title="10 servis terbanyak" :dataName="$serviceMost10Data2D[0]" :amountData="$serviceMost10Data2D[1]" />
-            <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$serviceMost10Data2D[0]" :amountData="$serviceMost10Data2D[1]" />
+            <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$customerTotalDataList2D[0]" :amountData="$customerTotalDataList2D[1]" />
 
 
             <x-dashboard.dashboard-card-06-data-cabang title="Customer" total="{{ count($totalCustomers) }}" />

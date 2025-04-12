@@ -14,8 +14,8 @@
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end">
 
                 <!-- Filter button -->
-                <x-dropdown-filter align="right" />
-                <div class="mr-2"></div>
+                {{-- <x-dropdown-filter align="right" />
+                <div class="mr-2"></div> --}}
                 <!-- Datepicker built with flatpickr -->
                 <x-datepicker />
                 <div class="mr-2"></div>
@@ -50,7 +50,7 @@
 
             <x-dashboard.dashboard-card-06 title="10 Model terbanyak" :dataName="$hpModelTotalDataList[0]" :amountData="$hpModelTotalDataList[1]" />
             <x-dashboard.dashboard-card-06 title="10 servis terbanyak" :dataName="$serviceMost10Data2D[0]" :amountData="$serviceMost10Data2D[1]" />
-            <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$phoneBrands" :amountData="$brandPercentages" />
+            <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$customerTotalDataList2D[0]" :amountData="$customerTotalDataList2D[1]" />
 
 
             <x-dashboard.dashboard-card-06-data-cabang title="Customer" total="{{ count($totalCustomers) }}" />

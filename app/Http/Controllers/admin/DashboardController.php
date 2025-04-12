@@ -193,7 +193,26 @@ class DashboardController extends Controller
             $totalsModel
         ];
 
-        return view('admin.dashboard.index', compact('cabangs','cabangNama','servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D','hpModelTotalDataList'));
+
+        // GET MOST ORDERED CUSTOMER
+        $customerCounts = customer::leftJoin('bookings', 'customers.id', '=', 'bookings.customer_id')
+            ->select('customers.nama', DB::raw('COUNT(bookings.id) as total'))
+            ->when($cabangId, function ($query) use ($cabangId) {
+                return $query->where('bookings.user_id', $cabangId);
+            })
+            ->groupBy('customers.id', 'customers.nama')
+            ->orderByDesc('total')
+            ->limit(10)
+            ->get();
+        $customerNames = $customerCounts->pluck('nama')->toArray();
+        $customerTotals = $customerCounts->pluck('total')->toArray();
+        $customerTotalDataList2D = [
+            $customerNames,
+            $customerTotals
+        ];
+     
+
+        return view('admin.dashboard.index', compact('cabangs','cabangNama','servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D','hpModelTotalDataList','customerTotalDataList2D'));
    
     }
 
