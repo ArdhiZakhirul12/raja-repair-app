@@ -24,16 +24,18 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+        //GET ALL CABANG DATA
         $cabangs = cabang::all();
         $selectedCabang =  cabang::where('nama', $request->query('cabang'))->first();
         $cabangId = $selectedCabang ? $selectedCabang->user_id : null;
         $cabangIdTeknisi =  $selectedCabang ? $selectedCabang->id : null;
         $cabangNama = $selectedCabang ? $selectedCabang->nama : null;
-        // dd($cabangId);
+        
+        //ALL MONTH YEARS
         $exMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
         $tahun = now()->year;
-        // Data Sparepart
 
+        //DATA SPAREPART
         $sparepart = sparepart_booking::whereHas('booking', function ($query) use ($cabangId) {
             if ($cabangId) {
             $query->where('user_id', $cabangId);
@@ -43,7 +45,7 @@ class DashboardController extends Controller
         $pendapatan_sparepart = $sparepart->sum('harga');
 
 
-               
+        //GET ALL SPARPART REVENUE MONTHS
         $sparepartMonths = $sparepart->groupBy(function($date) {
             return \Carbon\Carbon::parse($date->created_at)->format('M-Y');
         })->filter(function($group, $key) {
@@ -61,8 +63,7 @@ class DashboardController extends Controller
 
 
 
-        // Data Servis
-
+        // DATA SERVIS
         $servis = detailBooking::whereHas('booking', function ($query) use ($cabangId) {
             if ($cabangId) {
             $query->where('user_id', $cabangId);
@@ -89,6 +90,7 @@ class DashboardController extends Controller
 
 
 
+        //GET ALL TOTAL ITEM BOOKINGS, SERVICE, SPAREPART, TEKNISI
         $bookings = booking::with(['sparepart_booking', 'detailBooking'])->get();
         $totalCustomers = customer::when($cabangId, function ($query) use ($cabangId) {
             return $query->where('user_id', $cabangId);
@@ -110,7 +112,7 @@ class DashboardController extends Controller
         })->get();
 
 
-        // $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
+        //GET ALL RATING
         $ratings_per_id = rating::select()
         ->select('user_id', DB::raw('AVG(rating) as average_rating'))
         ->groupBy('user_id')
@@ -122,15 +124,11 @@ class DashboardController extends Controller
          
             $teknisi->average_rating = $rating ? $rating->average_rating : 0; // Default to 0 if no rating
             
-            // $teknisi->average_rating = $ratings_per_id[$teknisi->user_id] ?? 0; // Default to 0 if no rating
             return $teknisi;
         });
 
-      
-
         $ratings = rating::where('user_id', auth()->id())->get();
  
-    
         $rating = round($ratings->avg('rating'), 1);
 
         $ratingCounts = rating::where('user_id', auth()->id())
@@ -167,13 +165,8 @@ class DashboardController extends Controller
                 ];
 
 
-
-   
- 
-     
-
+                
         // GET MOST ORDERED models
-
         $hpModelCountsFullName = hpModel::leftJoin('bookings', 'hp_models.id', '=', 'bookings.hp_model_id')
             ->leftJoin('hp_merks', 'hp_models.hp_merk_id', '=', 'hp_merks.id') 
             ->select(

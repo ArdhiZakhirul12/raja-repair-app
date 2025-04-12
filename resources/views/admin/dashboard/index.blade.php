@@ -37,8 +37,7 @@
                         <div class="py-1" role="none">
                             <a 
                             @click="window.location.href='{{ route('admin.dashboard')}}'"
-                            {{-- href="{{ route('admin.dashboard') }}" --}}
-                          
+                
                             class="text-gray-700 block px-4 py-2 text-sm" 
                             role="menuitem" tabindex="-1">
                                 Seluruh Cabang
@@ -48,7 +47,6 @@
                             
                                 <a 
                                 @click="window.location.href='{{ route('admin.dashboard', ['cabang' => $cabang->nama]) }}'"
-                                {{-- href="{{ route('admin.dashboard', ['cabang' => $cabang->id]) }}" --}}
                            
                                 class="text-gray-700 block px-4 py-2 text-sm" 
                                 role="menuitem" tabindex="-1">
@@ -58,19 +56,6 @@
                         </div>
                     </div>
                     
-                    {{-- <div id="list-dropdown-cabang"
-                        class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
-                        role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                        <div class="py-1" role="none">
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                            tabindex="-1">Seluruh Cabang</a>
-                            @foreach ($cabangs as $cabang)
-                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                    tabindex="-1">Cabang {{ $cabang->nama }}</a>
-                           
-                            @endforeach
-                        </div>
-                    </div> --}}
                 </div>
 
             </div>
