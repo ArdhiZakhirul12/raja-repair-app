@@ -57,17 +57,28 @@ class BookingForm extends Component
     public function mount()
     {
         // Ambil daftar teknisi dari database
-        $this->teknisis = teknisi::all();
+        $this->teknisis = teknisi::where('cabang_id', auth()->user()->cabang->id)
+       
+            ->get();
         $this->merks = hpMerk::where('user_id', auth()->id())->get();
         $this->models = HpModel::all();
         $this->services = dataService::where('user_id', auth()->id())->get();
-        $this->spareparts = sparepart::where('user_id', auth()->id())->get();
+        // $query = dataService::with('user');
+
+        // if ($request->has('cabang') && !empty($request->cabang)) {
+        //     $query->where('user_id', $request->cabang);
+        // }
+        // $services = $query->get()->unique('code');
+        // $this->spareparts = sparepart::where('user_id', auth()->id())->get();
+        $this->spareparts = sparepart::with('user')->get();
 
     }
     public function updatedNohp($value)
     {
         // Cari customer berdasarkan nomor HP
-        $customer = customer::where('no_hp', $value)->first();
+        $customer = customer::where('no_hp', $value)
+                    ->where('user_id', auth()->id())
+                    ->first();
 
         if (isset($customer)) {
             $this->nama = $customer->nama;

@@ -27,7 +27,13 @@ class ServiceController extends Controller
      */
     public function getServices()
     {
-        $services = dataService::where('user_id',Auth::user()->id)->get();
+        // $services = dataService::where('user_id',Auth::user()->id)->get();
+        $query = dataService::with('user');
+
+        // if ($request->has('cabang') && !empty($request->cabang)) {
+        //     $query->where('user_id', $request->cabang);
+        // }
+        $services = $query->get()->unique('code');
     
         return DataTables::of($services)
             ->addColumn('action', function ($service) {

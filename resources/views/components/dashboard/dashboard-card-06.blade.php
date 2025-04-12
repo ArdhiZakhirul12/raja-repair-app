@@ -8,7 +8,7 @@
 <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
     <header class="flex items-center px-3 py-4 border-b border-gray-100 dark:border-gray-700/60">
         
-        @if($title == '10 brand terbanyak')
+        @if($title == '10 Model terbanyak')
             <img src="{{ asset('images/Multiple_Devices.svg') }}"  class="w-7 h-7 mr-2">
         @elseif($title == '10 servis terbanyak')
             <img src="{{ asset('images/Request_service.svg') }}"  class="w-7 h-7 mr-2">

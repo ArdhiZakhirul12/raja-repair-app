@@ -81,7 +81,7 @@ class BookingController extends Controller
      */
     public function show(string $id)
     {
-        // $bookings = booking::with(['sparepart_booking','detailBooking'])->where('user_id', auth()->id())->get();
+       
         return view('customer-service.booking.detail', ['id' => $id]);
     }
 

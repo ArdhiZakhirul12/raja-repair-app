@@ -17,7 +17,7 @@
                     <div class="flex items-center space-x-4">
                         <input type="text" id="selected-cabang"
                             class="border border-gray-300 rounded-md px-4 py-2 text-sm" placeholder="Selected Cabang" 
-                            value="Semua Cabang" readonly>
+                            value="{{ $cabangNama ? 'Cabang ' . ($cabangNama ?? 'Tidak Diketahui') : 'Semua Cabang' }}" readonly>
                         <button type="button" id="menu-button-cabang"
                             class="bg-primary inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             aria-expanded="true" aria-haspopup="true">
@@ -31,25 +31,31 @@
                         </button>
                     </div>
 
-
                     <div id="list-dropdown-cabang"
                         class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
                         role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                         <div class="py-1" role="none">
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                            tabindex="-1">Seluruh Cabang</a>
+                            <a 
+                            @click="window.location.href='{{ route('admin.dashboard')}}'"
+                
+                            class="text-gray-700 block px-4 py-2 text-sm" 
+                            role="menuitem" tabindex="-1">
+                                Seluruh Cabang
+                            </a>
+                           
                             @foreach ($cabangs as $cabang)
-                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                    tabindex="-1">Cabang {{ $cabang->nama }}</a>
-                            {{-- <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                tabindex="-1" id="menu-item-0">Option 1</a>
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                tabindex="-1" id="menu-item-1">Option 2</a>
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                tabindex="-1" id="menu-item-2">Option 3</a> --}}
+                            
+                                <a 
+                                @click="window.location.href='{{ route('admin.dashboard', ['cabang' => $cabang->nama]) }}'"
+                           
+                                class="text-gray-700 block px-4 py-2 text-sm" 
+                                role="menuitem" tabindex="-1">
+                                    Cabang {{ $cabang->nama }}
+                                </a>
                             @endforeach
                         </div>
                     </div>
+                    
                 </div>
 
             </div>
@@ -75,9 +81,9 @@
                 :exSales="$servisSales" :thisYearTotal="$servisThisYear" />
 
 
-            <x-dashboard.dashboard-card-06 title="10 brand terbanyak" :dataName="$phoneBrands" :amountData="$brandPercentages" />
-            <x-dashboard.dashboard-card-06 title="10 servis terbanyak" :dataName="$phoneBrands" :amountData="$brandPercentages" />
-            <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$phoneBrands" :amountData="$brandPercentages" />
+            <x-dashboard.dashboard-card-06 title="10 Model terbanyak" :dataName="$hpModelTotalDataList[0]" :amountData="$hpModelTotalDataList[1]" />
+            <x-dashboard.dashboard-card-06 title="10 servis terbanyak" :dataName="$serviceMost10Data2D[0]" :amountData="$serviceMost10Data2D[1]" />
+            <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$customerTotalDataList2D[0]" :amountData="$customerTotalDataList2D[1]" />
 
 
             <x-dashboard.dashboard-card-06-data-cabang title="Customer" total="{{ count($totalCustomers) }}" />
@@ -85,7 +91,7 @@
             <x-dashboard.dashboard-card-06-data-cabang title="Servis" total="{{ count($totalServices) }}" />
 
             <x-dashboard.dashboard-card-06-teknisi title="Pelayanan per teknisi" :dataName="$teknisis"
-                :amountData="$brandPercentages" />
+                amountData="serviceMost10Data2D[1]" />
         </div>
     </div>
 
