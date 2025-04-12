@@ -15,20 +15,30 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\teknisi;
 use Illuminate\Support\Facades\DB;
 use App\Models\cabang;
+use App\Models\hpModel;
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $cabangs = cabang::all();
+        $selectedCabang =  cabang::where('nama', $request->query('cabang'))->first();
+        $cabangId = $selectedCabang ? $selectedCabang->user_id : null;
+        $cabangIdTeknisi =  $selectedCabang ? $selectedCabang->id : null;
+        $cabangNama = $selectedCabang ? $selectedCabang->nama : null;
+        // dd($cabangId);
         $exMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
         $tahun = now()->year;
         // Data Sparepart
 
-        $sparepart = sparepart_booking::all();
+        $sparepart = sparepart_booking::whereHas('booking', function ($query) use ($cabangId) {
+            if ($cabangId) {
+            $query->where('user_id', $cabangId);
+            }
+        })->get();
 
         $pendapatan_sparepart = $sparepart->sum('harga');
 
@@ -53,7 +63,11 @@ class DashboardController extends Controller
 
         // Data Servis
 
-        $servis = detailBooking::all();
+        $servis = detailBooking::whereHas('booking', function ($query) use ($cabangId) {
+            if ($cabangId) {
+            $query->where('user_id', $cabangId);
+            }
+        })->get();
 
         $pendapatan_servis = $servis->sum('harga');
         
@@ -74,25 +88,26 @@ class DashboardController extends Controller
         $servisThisYear = array_sum($servisSales);
 
 
-   
-
-        $phoneBrands = ['Samsung', 'Apple', 'Huawei', 'Xiaomi', 'Oppo', 'Vivo', 'OnePlus', 'Nokia', 'Sony', 'LG'];
-        $brandPercentages = [20, 15, 10, 12, 8, 7, 5, 6, 9, 8];
-
-        $technicianNames = ['John Doe', 'Jane Smith', 'Michael Johnson', 'Emily Davis', 'David Wilson', 'bagio', 'budi', 'susi', 'joko', 'joni'];
-        $serviceAmounts = [30, 25, 40, 35, 20, 15, 10, 5, 3, 2];
-
 
         $bookings = booking::with(['sparepart_booking', 'detailBooking'])->get();
-        $totalCustomers = customer::all();
+        $totalCustomers = customer::when($cabangId, function ($query) use ($cabangId) {
+            return $query->where('user_id', $cabangId);
+        })->get();
 
 
         $total_pendapatan = $pendapatan_sparepart + $pendapatan_servis;
 
+        $totalServices = dataService::when($cabangId, function ($query) use ($cabangId) {
+            return $query->where('user_id', $cabangId);
+        })->get();
 
-        $totalServices = dataService::all();
-        $totalSpareparts = sparepart::all();
-        $teknisis = teknisi::all();
+        $totalSpareparts = sparepart::when($cabangId, function ($query) use ($cabangId) {
+            return $query->where('user_id', $cabangId);
+        })->get();
+
+        $teknisis = teknisi::when($cabangIdTeknisi, function ($query) use ($cabangIdTeknisi) {
+            return $query->where('cabang_id', $cabangIdTeknisi);
+        })->get();
 
 
         // $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
@@ -124,7 +139,80 @@ class DashboardController extends Controller
             ->pluck('total', 'rating');
 
         $ratingCounts = $ratingCounts->toArray();
-        return view('admin.dashboard.index', compact('cabangs','servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan'));
+
+
+
+        // GET MOST ORDERED SERVICES
+        $mostOrderedServices = DetailBooking::whereHas('booking', function ($query) use ($cabangId) {
+            if ($cabangId) {
+            $query->where('user_id', $cabangId);
+            }
+        })->select('data_service_id', DB::raw('COUNT(data_service_id) as total_orders'))
+        ->groupBy('data_service_id')
+        ->orderByDesc('total_orders')
+        ->limit(10)
+        ->get();
+    
+        $serviceMost10Data = [];
+        foreach ($mostOrderedServices as $service) {
+            $serviceMost10Data[] = [
+                'service_id' => $service->data_service_id,
+                'service_name' => dataService::find($service->data_service_id)->nama_servis ?? 'Unknown', // Getting service name
+                'total_orders' => $service->total_orders,
+            ];
+        }
+        $serviceMost10Data2D = [
+            array_column($serviceMost10Data, 'service_name'),
+            array_column($serviceMost10Data, 'total_orders')
+                ];
+
+
+
+   
+ 
+     
+
+        // GET MOST ORDERED models
+
+        $hpModelCountsFullName = hpModel::leftJoin('bookings', 'hp_models.id', '=', 'bookings.hp_model_id')
+            ->leftJoin('hp_merks', 'hp_models.hp_merk_id', '=', 'hp_merks.id') 
+            ->select(
+                DB::raw("CONCAT(hp_merks.merk, ' ', hp_models.model) as full_model_name"), 
+                DB::raw('COUNT(bookings.id) as total')
+            )
+            ->when($cabangId, function ($query) use ($cabangId) {
+                return $query->where('bookings.user_id', $cabangId);
+            })
+            ->groupBy('hp_models.id', 'hp_models.model', 'hp_merks.merk')
+            ->get();
+
+        $modelNames = $hpModelCountsFullName->pluck('full_model_name')->toArray();
+        $totalsModel = $hpModelCountsFullName->pluck('total')->toArray();
+        $hpModelTotalDataList = [
+            $modelNames,
+            $totalsModel
+        ];
+
+
+        // GET MOST ORDERED CUSTOMER
+        $customerCounts = customer::leftJoin('bookings', 'customers.id', '=', 'bookings.customer_id')
+            ->select('customers.nama', DB::raw('COUNT(bookings.id) as total'))
+            ->when($cabangId, function ($query) use ($cabangId) {
+                return $query->where('bookings.user_id', $cabangId);
+            })
+            ->groupBy('customers.id', 'customers.nama')
+            ->orderByDesc('total')
+            ->limit(10)
+            ->get();
+        $customerNames = $customerCounts->pluck('nama')->toArray();
+        $customerTotals = $customerCounts->pluck('total')->toArray();
+        $customerTotalDataList2D = [
+            $customerNames,
+            $customerTotals
+        ];
+     
+
+        return view('admin.dashboard.index', compact('cabangs','cabangNama','servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D','hpModelTotalDataList','customerTotalDataList2D'));
    
     }
 

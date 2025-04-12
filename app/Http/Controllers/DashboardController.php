@@ -89,7 +89,11 @@ class DashboardController extends Controller
 
 
         // GET MOST ORDERED SERVICES
-        $mostOrderedServices = DetailBooking::select('data_service_id', DB::raw('COUNT(data_service_id) as total_orders'))
+        $mostOrderedServices = DetailBooking::whereHas('booking', function ($query) {
+         
+            $query->where('user_id',Auth::user()->id );
+            
+        })->select('data_service_id', DB::raw('COUNT(data_service_id) as total_orders'))
     ->groupBy('data_service_id')
     ->orderByDesc('total_orders')
     ->limit(10)
@@ -149,6 +153,7 @@ class DashboardController extends Controller
 
         $hpModelCountsFullName = hpModel::leftJoin('bookings', 'hp_models.id', '=', 'bookings.hp_model_id')
         ->leftJoin('hp_merks', 'hp_models.hp_merk_id', '=', 'hp_merks.id') 
+        ->where('bookings.user_id', Auth::user()->id)
         ->select(
             DB::raw("CONCAT(hp_merks.merk, ' ', hp_models.model) as full_model_name"), 
             DB::raw('COUNT(bookings.id) as total')
@@ -181,7 +186,24 @@ class DashboardController extends Controller
             
 
         $ratingCounts = $ratingCounts->toArray();
-        return view('customer-service/dashboard/dashboard', compact('servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D', 'hpModelTotalDataList'));
+
+
+         // GET MOST ORDERED CUSTOMER
+         $customerCounts = customer::leftJoin('bookings', 'customers.id', '=', 'bookings.customer_id')
+         ->select('customers.nama', DB::raw('COUNT(bookings.id) as total'))
+         ->where('bookings.user_id', Auth::user()->id)
+         ->groupBy('customers.id', 'customers.nama')
+         ->orderByDesc('total')
+         ->limit(10)
+         ->get();
+     $customerNames = $customerCounts->pluck('nama')->toArray();
+     $customerTotals = $customerCounts->pluck('total')->toArray();
+     $customerTotalDataList2D = [
+         $customerNames,
+         $customerTotals
+     ];
+
+        return view('customer-service/dashboard/dashboard', compact('servisThisYear','sparepartThisYear','servisSales','sparepartSales','totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths', 'phoneBrands', 'brandPercentages', 'bookings', 'rating', 'ratingCounts','pendapatan_sparepart','pendapatan_servis','total_pendapatan','serviceMost10Data2D', 'hpModelTotalDataList','customerTotalDataList2D'));
     }
 
     /**

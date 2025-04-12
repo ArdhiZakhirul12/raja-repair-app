@@ -47,7 +47,7 @@ Route::middleware([
     'role:super-admin'
 ])->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::match(['get','post'],'/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::group(['prefix' => 'cabang', 'as' => 'cabang.'], function () {
             Route::get('/', [AdminCabangController::class, 'index'])->name('index');
             Route::get('/get-cabang', [AdminCabangController::class, 'getCabang'])->name('getCabang');
