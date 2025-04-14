@@ -15,7 +15,7 @@ class HpController extends Controller
      */
     public function index()
     {
-        $merks = hpMerk::where('user_id',auth()->id())->get();
+        $merks = hpMerk::all();
         $merkIds = $merks->pluck('id'); // Mengambil hanya ID
 
         // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
@@ -32,7 +32,7 @@ class HpController extends Controller
      */
     public function getHpModel()
     {
-        $merks = hpMerk::where('user_id',auth()->id())->get();
+        $merks = hpMerk::all();
         $merkIds = $merks->pluck('id'); // Mengambil hanya ID
 
         // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
@@ -52,7 +52,7 @@ class HpController extends Controller
      */
     public function getHpMerk()
     {
-        $merks = hpMerk::where('user_id',auth()->id())->get();
+        $merks = hpMerk::all();
         // $merkIds = $merks->pluck('id'); // Mengambil hanya ID
 
         // // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
@@ -82,7 +82,7 @@ class HpController extends Controller
     {
         $auth = Auth::user();
         $validated = $request->validate([
-            'merk' => 'required|string|min:2',
+            'merk' => 'required|string|min:2|unique:hp_merks,merk',
         ]);        
         $validated['user_id'] = $auth->id;
         hpMerk::create($validated);
@@ -93,7 +93,7 @@ class HpController extends Controller
 
         $validated = $request->validate([
             'hp_merk_id' => 'required',
-            'model' => 'required|string|min:2',
+            'model' => 'required|string|min:2|unique:hp_models,model',
         ]);        
         hpModel::create($validated);
         return redirect()->back()->with('success', 'Data Model Hp berhasil ditambahkan!');;;
