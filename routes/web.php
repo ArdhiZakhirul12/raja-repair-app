@@ -120,6 +120,18 @@ Route::group([
     Route::get('/', [MetodePembayaranController::class, 'index'])->name('index');
     Route::post('/store', [MetodePembayaranController::class, 'store'])->name('store');
 });
+Route::group([
+    'prefix' => 'cs/hp',
+    'as' => 'cs.hp.',
+    'middleware' => 'role:cabang|super-admin'
+], function () {
+    Route::get('/', [HpController::class, 'index'])->name('index');
+            Route::get('/merk-getall', [HpController::class, 'getHpMerk'])->name('getHpMerk');
+            Route::get('/model-getall', [HpController::class, 'getHpModel'])->name('getHpModel');
+            // Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
+            Route::post('/merk-store', [HpController::class, 'merkStore'])->name('merkStore');
+            Route::post('/model-store', [HpController::class, 'modelStore'])->name('modelStore');
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -159,16 +171,14 @@ Route::middleware([
             // Route::get('/detail/{id}', [TeknisiController::class, 'displayDetail'])->name('displayDetail');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
-        Route::group(['prefix' => 'hp', 'as' => 'hp.'], function () {
-            Route::get('/', [HpController::class, 'index'])->name('index');
-            Route::get('/merk-getall', [HpController::class, 'getHpMerk'])->name('getHpMerk');
-            Route::get('/model-getall', [HpController::class, 'getHpModel'])->name('getHpModel');
-            // Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
-            Route::post('/merk-store', [HpController::class, 'merkStore'])->name('merkStore');
-            Route::post('/model-store', [HpController::class, 'modelStore'])->name('modelStore');
-            // Route::put('/update', [TeknisiController::class, 'update'])->name('update');
-            // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
-        });
+        // Route::group(['prefix' => 'hp', 'as' => 'hp.'], function () {
+        //     Route::get('/', [HpController::class, 'index'])->name('index');
+        //     Route::get('/merk-getall', [HpController::class, 'getHpMerk'])->name('getHpMerk');
+        //     Route::get('/model-getall', [HpController::class, 'getHpModel'])->name('getHpModel');
+        //     Route::post('/merk-store', [HpController::class, 'merkStore'])->name('merkStore');
+        //     Route::post('/model-store', [HpController::class, 'modelStore'])->name('modelStore');
+            
+        // });
         Route::group(['prefix' => 'booking', 'as' => 'booking.'], function () {
             Route::get('/', [BookingController::class, 'index'])->name('index');
             Route::get('/get-booking', [BookingController::class, 'getBooking'])->name('getBooking');

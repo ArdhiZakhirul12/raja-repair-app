@@ -111,6 +111,21 @@
                             </div>
                         </div>
                     </a>
+                    <a href="{{ route('cs.hp.index') }}" :active="request() - > routeIs('cs.hp.index')">
+                        <div class="flex items-center justify-between p-3">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="20" height="20" viewBox="0 0 20 20" fill="none">
+
+                                    <image id="image0_50_215" width="20" height="20"
+                                        xlink:href="data:image/png;base64,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" />
+
+                                </svg>
+                                <span
+                                    class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">HP</span>
+                            </div>
+                        </div>
+                    </a>
                     <a href="{{ route('cs.pembayaran.index') }}"
                             :active="request()->routeIs('cs.pembayaran*')">
                             <div class="flex items-center justify-between p-3">
@@ -532,7 +547,7 @@
                             </div> --}}
                         </a>
 
-                        <a href="{{ route('cs.hp.index') }}" :active="request() - > routeIs('cs.hp.index')">
+                        {{-- <a href="{{ route('cs.hp.index') }}" :active="request() - > routeIs('cs.hp.index')">
                             <div class="flex items-center justify-between p-3">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -546,7 +561,7 @@
                                         class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">HP</span>
                                 </div>
                             </div>
-                        </a>
+                        </a> --}}
 
                         <a href="{{ route('cs.customer.index') }}"
                             :active="request() - > routeIs('cs.customer.index')">
