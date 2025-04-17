@@ -106,7 +106,7 @@
                         Edit Service
                     </button>
                 @endif
-                @if ($booking->status == 'teknisi-selesai' && $booking->diskon_status != 1)
+                @if ($booking->status == 'teknisi-selesai' && $booking->diskon_status != 1 && $dokumenStatus == 1)
                     <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                         wire:click="$set('isModalDone', true)">
                         Selesaikan

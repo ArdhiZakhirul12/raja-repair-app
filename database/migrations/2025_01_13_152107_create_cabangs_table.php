@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('no_hp')->nullable();
             $table->string('nama')->nullable();
             $table->text('alamat')->nullable();
+            $table->text('link_map')->nullable();
             $table->timestamps();
         });
     }
