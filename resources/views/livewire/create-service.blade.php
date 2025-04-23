@@ -103,10 +103,7 @@
                 <h2 class="text-xl font-semibold">Harga Cabang</h2>
             </div>
             <hr class="my-3">
-            {{-- <div class="flex items-center justify-between">
-               
-                <x-dropdown-list :items="['Cabang Surabaya', 'Cabang Bandung']" />
-            </div> --}}
+     
 {{-- 
             <div >
                 <div class="overflow-y-auto max-h-[525px] p-3 border border-gray-300 rounded shadow-md"> --}}

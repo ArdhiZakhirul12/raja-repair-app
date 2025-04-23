@@ -19,6 +19,12 @@ class PcAntrianController extends Controller
         return view('customer-service.pc-antrian', compact('antrian'));
     }
 
+    public function antrianDitangani()
+    {
+        $antrian = antrian::where('user_id', Auth::user()?->id)->first();
+        return view('customer-service.current-antrian', compact('antrian'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
