@@ -486,7 +486,7 @@
                                 </div>
                             </a>
 
-                            <a href="{{ route('cs.antrian-ditangani') }}" :active="request() - > routeIs('cs.antrian-ditangani')">
+                            <a href="{{ route('cs.info-antrian') }}" :active="request() - > routeIs('cs.info-antrian')">
                                 <div class="flex items-center justify-between p-3">
                                     <div class="flex items-center">
                                         <img src="{{ asset('images/displayantrian.svg') }}" alt="logo"
