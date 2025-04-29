@@ -137,6 +137,10 @@
                                 <textarea name="alamat" id="alamat" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
                             </div>
                             <div class="mb-4">
+                                <label for="link_map" class="block text-sm font-medium text-gray-400">Link Google Map</label>
+                                <textarea name="link_map" id="link_map" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
+                            </div>
+                            <div class="mb-4">
                                 <label for="email" class="block text-sm font-medium text-gray-400">email</label>
                                 <input type="email" name="email" id="email"
                                     class="mt-1 p-2 w-full border border-gray-300 rounded" required>

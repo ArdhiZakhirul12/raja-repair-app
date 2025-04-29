@@ -33,6 +33,7 @@ class CabangControllerr extends Controller
                 },
             ],
             'alamat' => 'required',
+            'link_map' => 'required',
             'email' => 'required|email',
             'password' => 'required | min:5'
         ]);
@@ -47,7 +48,8 @@ class CabangControllerr extends Controller
             'user_id' => $user->id,
             'no_hp' => $request->no_hp,
             'nama' => $request->nama_cabang,
-            'alamat' => $request->alamat
+            'alamat' => $request->alamat,
+            'link_map' => $request->link_map
         ]);
         return redirect()->back()->with('success', 'Cabang Baru berhasil ditambahkan!');
     }
