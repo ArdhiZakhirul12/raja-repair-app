@@ -60,7 +60,7 @@ class BookingForm extends Component
         $this->teknisis = teknisi::where('cabang_id', auth()->user()->cabang->id)
        
             ->get();
-        $this->merks = hpMerk::where('user_id', auth()->id())->get();
+        $this->merks = hpMerk::all();
         $this->models = HpModel::all();
         $this->services = dataService::where('user_id', auth()->id())->get();
         // $query = dataService::with('user');
