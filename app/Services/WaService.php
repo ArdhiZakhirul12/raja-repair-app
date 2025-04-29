@@ -4,25 +4,60 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 
+use Twilio\Rest\Client;
+
 class WaService
 {
     protected $token;
+    protected $sid;
 
     public function __construct()
     {
-        $this->token = env('FONNTE_TOKEN');
+        $this->token = env('TWILIO_TOKEN');
+        $this->sid = env('SID_TOKEN');
     }
 
-    public function sendMessage($to, $message)
+    // Update the path below to your autoload.php,
+    // see https://getcomposer.org/doc/01-basic-usage.md
+    
+    
+    
+    public function sendMessage($to, $msg)
     {
-        $response = Http::withHeaders([
-            'Authorization' => $this->token,
-        ])->post('https://api.fonnte.com/send', [
-            'target' => $to, // Contoh: 6281234567890
-            'message' => $message,
-            'countryCode' => '62',
-        ]);
+        $sid    = $this->sid;
+    $token  = $this->token;
+    $twilio = new Client($sid, $token);
+    $cleanNumber = preg_replace('/[^0-9]/', '', $to);
+    
+    // Handle semua kemungkinan format:
+    if (str_starts_with($cleanNumber, '0')) {
+        $formattedTo = 'whatsapp:+62' . substr($cleanNumber, 1);
+    } elseif (str_starts_with($cleanNumber, '62')) {
+        $formattedTo = 'whatsapp:+' . $cleanNumber;
+    } else {
+        $formattedTo = 'whatsapp:+' . $cleanNumber; // Untuk format internasional lain
+    }
+    // var_dump($formattedTo);
+    $message = $twilio->messages
+      ->create($formattedTo, // to
+        [
+            "from" => "whatsapp:+14155238886",
+            "body" => $msg
+        ]
+      );
 
-        return $response->json();
+print($message->sid);
+
+        // $response = Http::withHeaders([
+        //     'Authorization' => $this->token,
+        // ])->post('https://api.fonnte.com/send', [
+        //     'target' => $to, // Contoh: 6281234567890
+        //     'message' => $message,
+        //     'countryCode' => '62',
+        // ]);
+
+        // return $response->json();
     }
 }
+
+    

@@ -8,6 +8,7 @@ use App\Models\metodePembayaran;
 use App\Models\pengeluaran;
 use App\Models\sparepart;
 use App\Models\teknisi;
+use App\Services\WaService;
 use Http;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -210,19 +211,20 @@ class DetailBooking extends Component
             . "🔄 *Kembalian:* Rp. " . number_format($kembalian, 0, ',', '.') . "\n\n"
 
             . "Mohon mengisi review untuk kami di link berikut!" . "\n"
-            . "https://maps.app.goo.gl/4N8Vyt7oCazwiXbu5" . "\n"
+            . "{$log->cabang->link_map}" . "\n"
             . "🙏 Terima kasih telah menggunakan layanan kami.\n"
             . "Silakan hubungi kami jika ada pertanyaan lebih lanjut.\n"
             . "📞 *{$log->cabang->no_hp}*";
+        $wa = new WaService();
+        $wa->sendMessage($this->booking->customer->no_hp, $message);
 
-
-        Http::withHeaders([
-            'Authorization' => env('FONNTE_TOKEN')
-        ])->post('https://api.fonnte.com/send', [
-                    'target' => $this->booking->customer->no_hp, // Ganti dengan nomor tujuan dari database atau input user
-                    'message' => $message,
-                    'countryCode' => '62',
-                ]);
+        // Http::withHeaders([
+        //     'Authorization' => env('FONNTE_TOKEN')
+        // ])->post('https://api.fonnte.com/send', [
+        //             'target' => $this->booking->customer->no_hp, // Ganti dengan nomor tujuan dari database atau input user
+        //             'message' => $message,
+        //             'countryCode' => '62',
+        //         ]);
 
         // Redirect atau tampilkan notifikasi
         // session()->flash('message', 'Pesan WA terkirim!');
