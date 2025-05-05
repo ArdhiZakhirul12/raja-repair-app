@@ -125,7 +125,7 @@
                 Tambah Sparepart
             </button> --}}
             </div>
-            <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
+            <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-400 dark:text-slate-300">
                 <div class="p-6">
              
                   
@@ -294,7 +294,7 @@
                         },
            
             { data: 'nama_sparepart', name: 'nama_sparepart', render: function(data, type, row) {
-                return `<a href="/teknisi/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
+                return `<a class="main-item-data text-black dark:text-white hover:text-black-500 font-bold">${data}</a>`;
         
             }},
             { data: 'harga', name: 'harga', render: function(data) {

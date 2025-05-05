@@ -142,9 +142,6 @@
             <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
                 <div class="p-6">
 
-
-
-
                     <!-- Tabel Pelanggan -->
                     <table
                         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"

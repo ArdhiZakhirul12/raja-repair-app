@@ -19,16 +19,39 @@ use Termwind\Components\Raw;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
+
+        // dd($request->all());
         $exMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
         $tahun = now()->year;
         // Data Sparepart
 
         $sparepart = sparepart_booking::whereHas('booking', function ($query) {
             $query->where('user_id', auth()->id());
-        })->get();
+        });
+
+         if ($request->has('date_range') && $request->date_range) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) === 2) {
+                $startDate = $dates[0] ;
+                $endDate = $dates[1];
+
+                $sparepart->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+
+                
+            }
+          
+        }
+
+        
+
+        $sparepart = $sparepart->get();
+
 
         $pendapatan_sparepart = $sparepart->sum('harga');
 
@@ -189,6 +212,10 @@ class DashboardController extends Controller
             $customerNames,
             $customerTotals
         ];
+
+
+        // Get Range Data
+        
 
         return view('customer-service/dashboard/dashboard', compact('servisThisYear', 'sparepartThisYear', 'servisSales', 'sparepartSales', 'totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths',  'bookings', 'rating', 'ratingCounts', 'pendapatan_sparepart', 'pendapatan_servis', 'total_pendapatan', 'serviceMost10Data2D', 'hpModelTotalDataList', 'customerTotalDataList2D'));
     }

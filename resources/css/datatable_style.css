@@ -9,6 +9,34 @@
     background-color: #f3f4f6; /* bg-gray-100 */
 }
 
+.dark .dataTable thead tr {
+    background-color: #1a232faf; /* Tailwind's gray-800 */
+    color: #ffffff; /* White text */
+}
+
+.dark .dataTable tbody tr:nth-child(odd) {
+    background-color: #1f293765; /* Tailwind's gray-800 */
+}
+
+.dark .dataTable tbody tr:nth-child(even) {
+    background-color: #37415166; /* Tailwind's gray-700 */
+}
+
+.dataTable tbody tr:hover {
+    background-color: #e2e8f0a3 !important; /* Light gray for hover effect */
+    transition: background-color 0.3s ease !important; /* Smooth transition */
+}
+
+.dark .main-item-data {
+    color: #ffffff !important;
+    
+}
+
+.dark .dataTable tbody tr:hover {
+    background-color: #4b5563 !important; /* Tailwind's gray-600 for dark mode hover */
+    transition: background-color 0.3s ease !important; /* Smooth transition */
+}
+
 
 /* Styling Pagination */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current{
