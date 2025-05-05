@@ -6,6 +6,15 @@
     width: 100%;
     user-select: none;
   }
+
+.dark .dropdown-cabang{
+  background-color: #00000089 !important; /* Adjust color */
+
+}
+
+.dark .dropdown-cabang a {
+  color: #ffffff !important; /* Adjust color */
+}
   .multi-select .multi-select-header {
     border: 1px solid #dee2e6;
     padding: 7px 30px 7px 12px;
