@@ -101,10 +101,10 @@
                                 {{-- <th>
                                     <input type="checkbox" id="select-all">
                                 </th> --}}
-                                <th class="border px-4 py-2">ID</th>
+                                <th class="px-4 py-2">ID</th>
 
-                                <th class="border px-4 py-2">Nama</th>
-                                <th class="border px-4 py-2"></th>
+                                <th class="px-4 py-2">Nama</th>
+                                <th class="px-4 py-2"></th>
                             </tr>
                         </thead>
 
@@ -138,11 +138,11 @@
                                 {{-- <th>
                                     <input type="checkbox" id="select-all">
                                 </th> --}}
-                                <th class="border px-4 py-2">ID</th>
+                                <th class=" px-4 py-2">ID</th>
 
-                                <th class="border px-4 py-2">Model</th>
-                                <th class="border px-4 py-2">Merk</th>
-                                <th class="border px-4 py-2"></th>
+                                <th class=" px-4 py-2">Model</th>
+                                <th class=" px-4 py-2">Merk</th>
+                                <th class=" px-4 py-2"></th>
                             </tr>
                         </thead>
                         {{-- <tbody>
@@ -272,14 +272,10 @@
                             data: 'merk',
                             name: 'merk',
                             render: function(data, type, row) {
-                                return `<a href="/teknisi/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
+                                return `<a  class="main-item-data text-black hover:text-black-500 font-bold">${data}</a>`;
 
                             }
                         },
-
-
-
-
 
                         {
                             data: 'id',
@@ -346,14 +342,7 @@
                     serverSide: true,
                     ajax: '{{ route('cs.hp.getHpModel') }}',
                     columns: [
-                        // {
-                        //     data: 'id',
-                        //     render: function (data) {
-                        //         return `<input type="checkbox" class="row-checkbox" value="${data}">`;
-                        //     },
-                        //     orderable: false,
-                        //     searchable: false
-                        // },
+                       
                         {
                             data: null,
                             name: 'iteration',
@@ -368,7 +357,7 @@
                             data: 'model',
                             name: 'model    ',
                             render: function(data, type, row) {
-                                return `<a href="" class="text-black hover:text-black-500 font-bold">${data}</a>`;
+                                return `<a class="main-item-data text-black hover:text-black-500 font-bold">${data}</a>`;
 
                             }
                         },

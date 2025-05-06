@@ -217,7 +217,7 @@
                             data: 'nama',
                             name: 'nama',
                             render: function(data, type, row) {
-                                return `<a href="/customer/detail/${row.id}" class="text-black hover:text-black-500 font-bold">${data}</a>`;
+                                return `<a class="main-item-data text-black hover:text-black-500 font-bold">${data}</a>`;
 
                             }
                         },

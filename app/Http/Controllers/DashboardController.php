@@ -19,16 +19,39 @@ use Termwind\Components\Raw;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
+
+        // dd($request->all());
         $exMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
         $tahun = now()->year;
         // Data Sparepart
 
         $sparepart = sparepart_booking::whereHas('booking', function ($query) {
             $query->where('user_id', auth()->id());
-        })->get();
+        });
+
+         if ($request->has('date_range') && $request->date_range) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) === 2) {
+                $startDate = $dates[0] ;
+                $endDate = $dates[1];
+
+                $sparepart->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+
+                
+            }
+          
+        }
+
+        
+
+        $sparepart = $sparepart->get();
+
 
         $pendapatan_sparepart = $sparepart->sum('harga');
 
@@ -55,7 +78,26 @@ class DashboardController extends Controller
 
         $servis = detailBooking::whereHas('booking', function ($query) {
             $query->where('user_id', auth()->id());
-        })->get();
+        });
+
+
+        if ($request->has('date_range') && $request->date_range) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) === 2) {
+                $startDate = $dates[0] ;
+                $endDate = $dates[1];
+
+                $servis->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+
+                
+            }
+          
+        }
+
+        $servis = $servis->get();
 
         $pendapatan_servis = $servis->sum('harga');
 
@@ -77,9 +119,6 @@ class DashboardController extends Controller
 
 
 
-
-
-
         $bookings = booking::with(['sparepart_booking', 'detailBooking'])->get();
 
 
@@ -90,8 +129,24 @@ class DashboardController extends Controller
         })->select('data_service_id', DB::raw('COUNT(data_service_id) as total_orders'))
             ->groupBy('data_service_id')
             ->orderByDesc('total_orders')
-            ->limit(10)
-            ->get();
+            ->limit(10);
+
+            if ($request->has('date_range') && $request->date_range) {
+                $dates = explode(' - ', $request->date_range);
+                if (count($dates) === 2) {
+                    $startDate = $dates[0] ;
+                    $endDate = $dates[1];
+    
+                    $mostOrderedServices->whereBetween('created_at', [
+                        $startDate,
+                        $endDate
+                    ]);
+    
+                    
+                }
+              
+            }
+        $mostOrderedServices = $mostOrderedServices->get();
 
         $serviceMost10Data = [];
         foreach ($mostOrderedServices as $service) {
@@ -108,21 +163,52 @@ class DashboardController extends Controller
 
 
         // GET ALL TOTAL ITEM BOOKINGS, SERVICE, SPAREPART, TEKNISI
-        $totalCustomers = customer::where('user_id', Auth::user()->id)->get();
+
+        
+        $totalCustomers = customer::where('user_id', Auth::user()->id);
 
         $total_pendapatan = $pendapatan_sparepart + $pendapatan_servis;
 
-        $totalServices = dataService::where('user_id', Auth::user()->id)->get();
+        $totalServices = dataService::where('user_id', Auth::user()->id);
 
         $most_10_ordered_service = dataService::where('user_id', Auth::user()->id)->select('nama_servis', DB::raw('COUNT(nama_servis) as total_servis'))->groupBy('nama_servis')->orderBy('nama_servis', 'desc')->take(10)->get();
 
         $totalSpareparts = sparepart::where('user_id', Auth::user()->id)->get();
 
-        $teknisis = teknisi::where('cabang_id', Auth::user()->id)->get();
+        // $teknisis = teknisi::where('cabang_id', Auth::user()->id);
 
         $cabang = cabang::where('user_id', Auth::user()->id)->pluck('id')->first();
 
-        $teknisis = teknisi::where('cabang_id', $cabang)->get();
+        $teknisis = teknisi::where('cabang_id', $cabang);
+
+        if ($request->has('date_range') && $request->date_range) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) === 2) {
+                $startDate = $dates[0] ;
+                $endDate = $dates[1];
+
+                $totalCustomers->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $totalServices->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $teknisis->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+
+                
+            }
+          
+        }
+
+        $totalCustomers = $totalCustomers->get();
+        $totalServices = $totalServices->get();
+        $teknisis = $teknisis->get();
+
 
 
         //GET ALL TEKNISI RATING
@@ -149,9 +235,25 @@ class DashboardController extends Controller
                 DB::raw("CONCAT(hp_merks.merk, ' ', hp_models.model) as full_model_name"),
                 DB::raw('COUNT(bookings.id) as total')
             )
-            ->groupBy('hp_models.id', 'hp_models.model', 'hp_merks.merk')
-            ->get();
+            ->groupBy('hp_models.id', 'hp_models.model', 'hp_merks.merk');
 
+            if ($request->has('date_range') && $request->date_range) {
+                $dates = explode(' - ', $request->date_range);
+                if (count($dates) === 2) {
+                    $startDate = $dates[0] ;
+                    $endDate = $dates[1];
+    
+                    $hpModelCountsFullName->whereBetween('bookings.created_at', [
+                        $startDate,
+                        $endDate
+                    ]);
+    
+                    
+                }
+              
+            }
+        
+        $hpModelCountsFullName = $hpModelCountsFullName->get();
 
         $modelNames = $hpModelCountsFullName->pluck('full_model_name')->toArray();
         $totalsModel = $hpModelCountsFullName->pluck('total')->toArray();
@@ -181,14 +283,35 @@ class DashboardController extends Controller
             ->where('bookings.user_id', Auth::user()->id)
             ->groupBy('customers.id', 'customers.nama')
             ->orderByDesc('total')
-            ->limit(10)
-            ->get();
+            ->limit(10);
+
+            if ($request->has('date_range') && $request->date_range) {
+                $dates = explode(' - ', $request->date_range);
+                if (count($dates) === 2) {
+                    $startDate = $dates[0] ;
+                    $endDate = $dates[1];
+    
+                    $customerCounts->whereBetween('bookings.created_at', [
+                        $startDate,
+                        $endDate
+                    ]);
+    
+                    
+                }
+              
+            }
+        $customerCounts = $customerCounts->get();
+
         $customerNames = $customerCounts->pluck('nama')->toArray();
         $customerTotals = $customerCounts->pluck('total')->toArray();
         $customerTotalDataList2D = [
             $customerNames,
             $customerTotals
         ];
+
+
+        // Get Range Data
+        
 
         return view('customer-service/dashboard/dashboard', compact('servisThisYear', 'sparepartThisYear', 'servisSales', 'sparepartSales', 'totalCustomers', 'totalServices', 'totalSpareparts', 'teknisis', 'exMonths',  'bookings', 'rating', 'ratingCounts', 'pendapatan_sparepart', 'pendapatan_servis', 'total_pendapatan', 'serviceMost10Data2D', 'hpModelTotalDataList', 'customerTotalDataList2D'));
     }
