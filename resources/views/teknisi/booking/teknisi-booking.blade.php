@@ -37,6 +37,10 @@
                             @click="window.location.href='{{ route('teknisi.booking.index', ['status' => 'teknisi-selesai']) }}'"
                             :class="selectedStatus === 'teknisi-selesai' ? 'bg-white ' : 'text-gray-400'"
                             class="px-4 py-2 rounded">Teknisi Selesai</button>
+                        <button
+                            @click="window.location.href='{{ route('teknisi.booking.index', ['status' => 'teknisi-batal']) }}'"
+                            :class="selectedStatus === 'teknisi-batal' ? 'bg-white ' : 'text-gray-400'"
+                            class="px-4 py-2 rounded">Teknisi batal</button>
 
                         <button
                             @click="window.location.href='{{ route('teknisi.booking.index', ['status' => 'selesai']) }}'"

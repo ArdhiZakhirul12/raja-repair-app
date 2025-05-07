@@ -106,14 +106,21 @@
                         Edit Service
                     </button>
                 @endif
-                @if ($booking->status == 'teknisi-selesai' && $booking->diskon_status != 1 && $dokumenStatus == 1)
+                @if ($booking->status == 'teknisi-selesai' && $booking->diskon_status != 1 && $dokumenStatus != 0)
                     <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                         wire:click="$set('isModalDone', true)">
                         Selesaikan
                     </button>
                 @endif
+                @if ($booking->status == 'teknisi-batal')
+                    <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        wire:click="$set('isModalBatal', true)">
+                        selesaikan pesanan dibatalkan
+                    </button>
+                @endif
+                
                 {{-- @dd($upDokumen) --}}
-                @if (!$pengeluaran)
+                @if ($dokumenStatus == 0 && $booking->status != 'teknisi-batal')
                 <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700"
               onclick="printDiv('struk-pembayaran')">
                 Cetak Invoice   
@@ -123,10 +130,13 @@
                         Upload Dokumen
                     </button>
                 @else
+                @if ($dokumenStatus == 1)            
                     <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
                         wire:click="redirectNow">
                         Cek Dokumen
                     </button>
+                @endif
+
                 @endif
 
             </div>
@@ -1064,6 +1074,155 @@
                     <button class="bg-red-400 text-white px-4 py-2 rounded-lg mr-2"
                         wire:click="$set('isModalDone', false)">Kembali</button>
                     <button wire:click="selesaikan" {{-- onclick="printDiv('struk-pembayaran')"  --}}
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg">Simpan</button>
+                </div>
+            </div>
+        </div>
+@endif
+@if ($isModalBatal)
+    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-current w-11/12 max-w-3xl rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b px-6 py-4">
+                <h2 class="text-lg font-bold">Kode Pesanan: <span
+                        class="text-blue-600">#{{ $booking->kode_pesanan }}</span></h2>
+                <button class="text-gray-500 hover:text-red-600"
+                    wire:click="$set('isModalBatal', false)">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 space-y-6 overflow-y-auto max-h-[75vh]">
+                <!-- Customer Data and Handphone Data Side by Side -->
+                <div class="flex space-x-4">
+                    <!-- Customer Data -->
+                    <div class="w-1/2">
+                        {{-- <h3 class="text-sm font-semibold mb-2">Data Customer</h3> --}}
+                        <div class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="20" height="20" viewBox="0 0 20 20" fill="none" class="mr-2">
+
+                                <image id="image0_76_221" width="20" height="20"
+                                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFIUlEQVR4nO2dW2gcZRSAT70j3sUK3luf1Af1QXySKlqsSlGKS/acTVooGsEblpo9ZxrLKCqIPkhVhKCQdvc/G9k3KxXqrUXESlFUKlYRbQXFS9EH6yWmauTfbJqYmsskM/PP/jMfnJc87M7/8e+Z/3oCUFBQUFBQUFBQUFBQUBCNB4e6LuZ6Za0YekEUd4ji16L0Mxs6JIq/suJ++3dWfJgb5Ssjfny+CQd6T2RD97DiB6I0GiVY8Y1qo3yZ6zZkm1FYxIp3iKEDUQVPkf2HKFZcNyeTyJaeM1lx+0IET5H9Nxu61XW7MkW1XjmPFb+IS/LhsL8MQ/ez4sr1te7FkGdE6XRR/Cx2yUdKH2bFzX2N8jmQy5xsaFvikv8r/FupV66CPMGKq1OVPCH7p35DF0IeuO/VFcez4jdORNuXpaGdkAcCQ3e6kjwe1UZ5OfiOKO5yLVqUXgefWV/rXpwByTZ9HFrXLJ0BvhIo3uZa8kR4PINkxafcC273asWnwVdY8a0Mid4OvsKKe1wLnhRfgq+InZ25FzwWhg6Ar3BrGTMzoofBV9jQQeeCDwf+Ar7Chj53L3gs7LOAr3CMC/wxpI43wVdEcWOGRD8CviKN8tXOBbcjUFwGPsOG9rqWzIpfhWF4FPgMG3rWtWhRfA58JjB0nd2ldi26tVNer1wLviKGtrqWPEn2y+ArnKG1Djb0MfgKG3rPteCJwF3gK6I04F5wOww9D74iijc7FzwejfIK8BlWfMe1ZDb0rj3EAz7TX+teIoofOZOs+CEPdV0EeYEVNzmQvAnyBiuuTF10o3wL5I2wWTpOFH9ITbSh73oHeo+FPCJKnF6Pxnshz3dWxNC+FHLznnDHsmMgz1Qb5eVJLjR5v4AUBTb0UIK5OXDdvqzdynopAclD3k9MolJqlo6OeWw9kNtRxlyIS/ScvizPSCG6EO0V0oE9uu/FtSeLodDem2RDf7KhH+3LfYOhKyCrSIeJtiuB0x+hwBEx1ANZRDpItJU8+8wWR7jWfTlkiaBeuT4u0UG9ck0as1p7/He2Z7FpBDJVq0Oj1+mYoXG7w8E1JyT93FVDN80mmw19D1kgrFdOsYVN4pI8qYHbuFk61bVsewAfnDIKi4J65fYkryzbc3aBoVVJT8VnlG3oE3B3sRPvTvPAoz14zop9QaN89nxffLNdbZ5eNm6ENIugiC1WYminGPorLcH/0+gRm1Kqindt2Lz63EijC0PDVmYk2YY+DZulkyBJgnrlUrtMyYq7xdA/7uROE61nmvkG7RFDuCiyDe1LbMe9OtR1iSg9kaX7KjJ9OnlsXuPkuci2GxqxS7YvNUOrsnA4RpKWHEF2rFQVb7QnM12LkzQlpyk7HFxzmigOupYmMUu2pYAibRgnKbt/qOv8LNxFEdeSJ8uOu6qNKC1t1wl1Lk6yIHlMdLyji3bhqdjWIyStMPTkTO3iLT0X2GoH8/v8VqdbCnEihp5xLk097smtB6p1LxkrKexenvjaky32KoJzceq55PYZud+dy1NP08U4onSDa3nic0+eEI2Pdojkx2fryXZ9el6/EsX9iV/JEEOvdYDkrTMt7mdecku0w8s9MjfJw0GzdFZHS7a4rI4rc5PxSkfm5KlkfcTBhtZ1dE/udFixVkhOAVF6P/PpwpP/I3CwkJww7Zdg0ZPT2GIr0kUKSL3yQJGTM1OEpXjxLRhWfHua8fFvY7tEqHaNfeHflHPY0N627AE7obEVZ1oTEEf3Dv8FYD/aWmoSqxwAAAAASUVORK5CYII=" />
+
+                            </svg>
+                            <h2 class="text-l font-semibold">Data Pelanggan</h2>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            
+                            <p><span class="text-gray-400">Nama</span> <span class="ml-6">:
+                                    {{ $booking->customer->nama }}</span></p>
+
+                            <p class="mb-2"><span class="text-gray-400">Telepon</span> <span class="ml-2">:
+                                    {{ $booking->customer->no_hp }}</span></p>
+                            <p class="text-sm text-gray-300"><span class="text-gray-400"><i
+                                        class="fa-solid fa-location-dot" style="color: #ff0000;"></i></span> <span
+                                    class="ml-4">{{ $booking->customer->alamat }}</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Handphone and Issue Data -->
+                    <div class="w-1/2">
+                        {{-- <h3 class="text-sm font-semibold mb-2">Data Handphone dan Kendala</h3> --}}
+                        <div class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="20" height="20" viewBox="0 0 20 20" fill="none">
+
+                                <image id="image0_76_220" width="20" height="20"
+                                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADZUlEQVR4nO2dsWpUQRiFB8So+AQm+AKCjU9ha/EfUwhapZCIViZWW7gzmyApLFNIwNJOUPEF1CgBIWwQbJx/USNYSURItTLXILjJ7t69O5s7x50D0ywL+32HyT83xXCNycnJyUkr1xufTovV23D+rVj/E067Ka3AJNZvwvpblx9+PGUYc/X+5/OwfrvuMlF+vZdmZ86w7WSykrt/y260ZwxL4PROAqV1qyxxftGwRKx/R1u09ZuGJXB+r+7CUHn5PcOS+svSsZZhSd1FIRettZc4FTvaJBYWTnoBkHDSC4CEk14AJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMKZnMC1B7tnxemqOP0m1n+B1RV50j2RGme01CEg1l+A053Dv+tbKXFGzXELSFNv9L26YXU3Fc7oGVVAGu2Z8GceSoHTr2EXlrlTEkYFnN/o93u56J4UJfcUJFafDyq7/6jIo6Pbr7SDndwtW/bAUfHvbn6UD8MSRRdlO/8yXD4K35O1zhlYXR9esP8lLV0wQzJ1MxrOtwYVJ05foOkvlRsVuhPGyiQ4/4/D0OmzEiUOm8cb4YCcFGdyqSIgxZOHf1qp4JKjIgZnUqkqINXK/iArnYvHyZlMxhGQUcq2+niUURGTM4mMKyDDyq44KmJz1p4YAtK/7MqjYhKctSaWgDTaM2K9C/+Wi/XfYf3aOKNiUpy1hUUAJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMI5sgBIlmFJ3UUhF621l5h3tBtawj6svzu/qrNhSUuXis9y0XF3mbR0qXdEidXlXHTkoq80/bneosNnuejIRc+v6uyhHd3szOWiY48Oq8tHPN3cy0XHP6T2Q9nFQfhnJ4eSp/0w5H3hjTj9YVhSvLougdJQZVl9bVgS3g9Ye2Gu6urcNCwJ14rDK+sId/PWwvrWScOUgwOLp2yrW0c9q1OkuIPi/KI4fZPmAen3xOmrMC7odnJOTo6ZgvwGAxegPr5PH1wAAAAASUVORK5CYII=" />
+
+                            </svg>
+                            <h2 class="text-l font-semibold ">Data Handphone</h2>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <table>
+                                <tr>
+                                    <td class="text-gray-400">Handphone</td>
+                                    <td>: {{ $booking->hpModel->hpMerk->merk }} {{ $booking->hpModel->model }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-gray-400">Kode Imei</td>
+                                    <td>: {{ $booking->imei }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-gray-400">Kendala</td>
+                                    <td class="text-sm text-gray-400">: {{ $booking->kendala }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service and Sparepart Table -->
+                <div>
+                    <h3 class="text-sm font-semibold mb-2">Detail Service dan Sparepart</h3>
+                    <table
+                        class="w-full border-collapse border border-gray-300 text-sm min-w-full rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-blue-100">
+                                <th class="border border-gray-300 px-4 py-2 text-left">Deskripsi</th>
+                                {{-- <th class="border border-gray-300 px-4 py-2 text-right">Harga</th> --}}
+                                <th class="border border-gray-300 px-4 py-2 text-center">Tipe Servis</th>
+                                <th class="border border-gray-300 px-4 py-2 text-right">Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($booking->detailBooking as $item)
+                                <tr class="">
+                                    {{-- <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th> --}}
+                                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
+                                    <td class="px-4 py-2 text-gray-500 text-center">
+                                        {{ $item->dataService->jenis_servis }} </td>
+                                    <td class="px-4 py-2 text-gray-500 text-right">
+                                        Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                                </tr>
+                            @endforeach
+                            @foreach ($booking->sparepart_booking as $item)
+                                <tr class="">
+                                    {{-- <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th> --}}
+                                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
+                                    <td class="px-4 py-2 text-gray-500 text-center">Sparepart </td>
+                                    <td class="px-4 py-2 text-gray-500 text-right">
+                                        Rp{{ number_format($item->harga, 0, ',', '.') }},- </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-gray-200 font-bold">
+                                <td class="border border-gray-300 px-4 py-2" colspan="2">Total</td>
+                                <td class="border border-gray-300 px-4 py-2 text-right">
+                                    Rp{{ number_format($total, 0, ',', '.') }},-</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Payment Section -->
+                <div>
+                    {{-- <h3 class="text-sm font-semibold mb-2">Pembayaran</h3> --}}
+                    <div class="space-y-4">
+                        <div>
+                            <label for="amount-paid" class="block text-sm font-medium text-gray-400">Catatan</label>
+                            <input type="text" id="amount-paid" wire:model="catatan"
+                                class="w-full border-gray-300 rounded-lg shadow-sm" placeholder="Masukkan catatan">
+                            @error('catatan')
+                                <span class="text-red-600 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <!-- Dropdown Metode Pembayaran -->
+                        
+
+                        <!-- Input Jumlah Bayar -->
+
+                        
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-end items-center border-t px-6 py-4">
+                    <button class="bg-red-400 text-white px-4 py-2 rounded-lg mr-2"
+                        wire:click="$set('isModalBatal', false)">Kembali</button>
+                    <button wire:click="dibatalkan" {{-- onclick="printDiv('struk-pembayaran')"  --}}
                         class="bg-blue-600 text-white px-4 py-2 rounded-lg">Simpan</button>
                 </div>
             </div>
