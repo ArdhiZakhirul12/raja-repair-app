@@ -57,7 +57,7 @@
 
 
                 <!-- Input Nomor HP -->
-                <div class="flex space-x-4 mb-3">
+                <div class="flex space-x-4 mb-4">
                     <div class="w-1/2">
                         <label for="no_hp" class="block text-sm font-medium text-gray-400">Nomor HP</label>
                         <input type="text" id="nohp" wire:model="nohp"
@@ -99,7 +99,7 @@
                 </div>
 
                 <!-- Input Alamat -->
-                <div class="mb-3">
+                <div class="mb-4">
                     <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
                     <textarea id="alamat" wire:model="alamat" rows="3"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
@@ -122,7 +122,7 @@
 
 
                 <!-- Input No HP Alternatif -->
-                <div class="flex space-x-4 mb-3">
+                <div class="flex space-x-4 mb-4">
 
                     {{-- @dd($teknisis) --}}
                     <div class="w-1/2" x-data="{

@@ -9,6 +9,9 @@
                     Dashboard
                 </h1>
             </div>
+            <form method="GET" action="{{ route('dashboard') }}">
+              
+            
 
             <!-- Right: Actions -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end">
@@ -20,14 +23,14 @@
                 <x-datepicker />
                 <div class="mr-2"></div>
                 <!-- Add view button -->
-                <button
+                <button type="submit"
                     class="btn bg-blue-400 text-white hover:bg-gray-800  dark:text-gray-800 dark:hover:bg-white">
 
                     <span class="max-xs:sr-only">Sesuaikan</span>
                 </button>
 
             </div>
-
+        </form>
         </div>
 
 

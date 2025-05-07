@@ -114,6 +114,10 @@
                 @endif
                 {{-- @dd($upDokumen) --}}
                 @if (!$pengeluaran)
+                <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700"
+              onclick="printDiv('struk-pembayaran')">
+                Cetak Invoice   
+            </button>
                     <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
                         wire:click="$set('isModalDokumen', true)">
                         Upload Dokumen
@@ -896,7 +900,9 @@
                             </svg>
                             <h2 class="text-l font-semibold">Data Pelanggan</h2>
                         </div>
+                        
                         <div class="bg-white p-4 rounded-lg shadow-md">
+                            
                             <p><span class="text-gray-400">Nama</span> <span class="ml-6">:
                                     {{ $booking->customer->nama }}</span></p>
 
@@ -1070,8 +1076,8 @@
 <div class="bg-white rounded shadow-md p-4 my-3 " style="display:none;width:mm;text-align: center;"
     id="struk-pembayaran">
     <div class="struk-header">
-        <div class="logo-center justify-center text-center">
-            <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
+        <div class="logo-center justify-center text-center mb-4">
+            <img src="{{ asset('images/raja_repair.svg') }}" alt="logo" class="w-20 mx-auto">
         </div>
         <div class="address-center text-center">
             <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
@@ -1091,25 +1097,25 @@
 
 
         <div class="flex justify-center">
-            <table>
+            <table style="width: 100%;">
                 <tr>
-                    <td class="px-4 py-2">Nama</td>
-                    <td class="px-4 py-2">: {{ $booking->customer->nama }}</td>
+                    <td class=" py-2">Nama</td>
+                    <td class="py-2">: {{ $booking->customer->nama }}</td>
                 </tr>
                 <tr>
-                    <td class="px-4 py-2">No.HP</td>
-                    <td class="px-4 py-2">: {{ $booking->customer->no_hp }}</td>
+                    <td class=" py-2">No.HP</td>
+                    <td class="py-2">: {{ $booking->customer->no_hp }}</td>
                 </tr>
                 <tr>
-                    <td class="px-4 py-2">Kendala</td>
-                    <td class="px-4 py-2">: {{ $booking->kendala }}</td>
+                    <td class="py-2">Kendala</td>
+                    <td class="py-2">: {{ $booking->kendala }}</td>
                 </tr>
                 <tr>
-                    <td class="px-4 py-2">Teknisi</td>
-                    <td class="px-4 py-2">: {{ $booking->teknisi->nama }}</td>
+                    <td class="py-2">Teknisi</td>
+                    <td class="py-2">: {{ $booking->teknisi->nama }}</td>
                 </tr>
                 {{-- <tr>
-                    <td class="px-4 py-2"></td>
+                    <td class="py-2"></td>
                     <td class="px-4 py-2">: {{ $booking->teknisi->no_hp }}</td>
                 </tr> --}}
             </table>
@@ -1128,7 +1134,7 @@
                         <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
                         <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
                         <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe</th>
-                        <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
+                        {{-- <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -1137,8 +1143,8 @@
                             <td class="px-4 py-2 text-gray-500">{{ $item->dataService->code }}</td>
                             <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }}</td>
                             <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }}</td>
-                            <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
-                            </td>
+                            {{-- <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                            </td> --}}
                         </tr>
                     @endforeach
 
@@ -1147,8 +1153,8 @@
                             <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }}</td>
                             <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }}</td>
                             <td class="px-4 py-2 text-gray-500">Sparepart</td>
-                            <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
-                            </td>
+                            {{-- <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                            </td> --}}
                         </tr>
                     @endforeach
 
@@ -1156,7 +1162,7 @@
                         <td>
                             <h2 class="text-l font-semibold mt-4">TOTAL :</h2>
                         </td>
-                        <td></td>
+                
                         <td class="px-4 text-right"></td>
                         <td class="px-4 py-2">
                             <h2 class="text-l font-semibold mt-4">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
@@ -1165,14 +1171,14 @@
 
                     <tr>
                         <td>Bayar</td>
-                        <td></td>
+                
                         <td></td>
                         <td class="px-4 py-2">Rp.sekian</td>
                     </tr>
 
                     <tr>
                         <td>Kembali</td>
-                        <td></td>
+                       
                         <td></td>
                         <td class="px-4 py-2">Rp.sekian</td>
                     </tr>

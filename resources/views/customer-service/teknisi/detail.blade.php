@@ -49,17 +49,29 @@
                         <div class="flex items-center">
                             <span class="text-l text-gray-400">
                                 @php
-                                    $rating = number_format($ratings_per_id["average_rating"], 1);
-                                    if ($rating >= 1 && $rating <= 2) {
-                                        echo '😞 Tidak Puas';
-                                    } elseif ($rating > 2 && $rating < 3) {
-                                        echo '😐 Puas';
-                                    } elseif ($rating == 3) {
-                                        echo '😊 Sangat Puas';
+                                    if($ratings_per_id == null){
+                                        echo 'Belum ada rating';
+                                    } else {
+                                        $rating = number_format($ratings_per_id["average_rating"], 1);
+                                        if ($rating >= 1 && $rating <= 2) {
+                                            echo '😞 Tidak Puas';
+                                        } elseif ($rating > 2 && $rating < 3) {
+                                            echo '😐 Puas';
+                                        } elseif ($rating == 3) {
+                                            echo '😊 Sangat Puas';
+                                        }
                                     }
+                                 
                                 @endphp
                             </span>
-                            <span class="text-xs text-gray-400 pl-3">({{ number_format($ratings_per_id["average_rating"], 1) }})</span>
+                            @php
+                                if($ratings_per_id == null){
+                                    echo '<span class="text-xs text-gray-400 pl-3">(0)</span>';
+                                } else {
+                                    echo '<span class="text-xs text-gray-400 pl-3">(' . 
+                                    number_format($ratings_per_id["average_rating"], 1) . ')</span>';
+                                }
+                            @endphp
                         </div>
                     </div>
                     {{-- <div>

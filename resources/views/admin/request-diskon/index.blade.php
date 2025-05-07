@@ -45,7 +45,7 @@
                             <th scope="col" class="px-6 py-3">Diskon</th>
                             <th scope="col" class="px-6 py-3">Total</th>
 
-                            <th scope="col" class="px-6 py-3">Aksi</th>
+                            <th scope="col" class="px-6 py-3"></th>
 
                         </tr>
                     </thead>
@@ -69,7 +69,7 @@
                         render: function(data, type, row) {
                             let url = "{{ route('admin.diskon.show', ['id' => '__ID__']) }}";
                             url = url.replace('__ID__', row.id);
-                            return `<a href="${url}" class="text-black-900 hover:text-black-400 font-bold">${data}</a>`;
+                            return `<a  class="main-item-data text-black-900 hover:text-black-400 font-bold">${data}</a>`;
 
                         }
                     },
