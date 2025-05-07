@@ -9,11 +9,13 @@ use Twilio\Rest\Client;
 class WaService
 {
     protected $token;
+    protected $tokenFonnte;
     protected $sid;
 
     public function __construct()
     {
         $this->token = env('TWILIO_TOKEN');
+        $this->tokenFonnte = env('FONNTE_TOKEN');
         $this->sid = env('SID_TOKEN');
     }
 
@@ -37,26 +39,26 @@ class WaService
     } else {
         $formattedTo = 'whatsapp:+' . $cleanNumber; // Untuk format internasional lain
     }
-    // var_dump($formattedTo);
-    $message = $twilio->messages
-      ->create($formattedTo, // to
-        [
-            "from" => "whatsapp:+14155238886",
-            "body" => $msg
-        ]
-      );
+//     var_dump($formattedTo);
+//     $message = $twilio->messages
+//       ->create($formattedTo, // to
+//         [
+//             "from" => "whatsapp:+14155238886",
+//             "body" => $msg
+//         ]
+//       );
 
-print($message->sid);
+// print($message->sid);
 
-        // $response = Http::withHeaders([
-        //     'Authorization' => $this->token,
-        // ])->post('https://api.fonnte.com/send', [
-        //     'target' => $to, // Contoh: 6281234567890
-        //     'message' => $message,
-        //     'countryCode' => '62',
-        // ]);
+        $response = Http::withHeaders([
+            'Authorization' => $this->tokenFonnte,
+        ])->post('https://api.fonnte.com/send', [
+            'target' => $to, // Contoh: 6281234567890
+            'message' => $msg,
+            'countryCode' => '62',
+        ]);
 
-        // return $response->json();
+        return $response->json();
     }
 }
 
