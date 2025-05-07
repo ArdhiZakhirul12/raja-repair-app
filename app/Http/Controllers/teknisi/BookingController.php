@@ -68,7 +68,7 @@ class BookingController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'status' => 'required|in:dikerjakan,teknisi-selesai'
+            'status' => 'required|in:dikerjakan,teknisi-selesai,teknisi-batal'
         ]);
         
         if ($validated['status'] == 'dikerjakan') {

@@ -29,6 +29,7 @@ class DetailBooking extends Component
     public $addedServices = [];
     public $isModalOpen = false;
     public $isModalDone = false;
+    public $isModalBatal = false;
     public $isModalDokumen = false;
     public $isEditTeknisi = false;
     public $teknisis = [];
@@ -63,7 +64,11 @@ class DetailBooking extends Component
         $this->booking = booking::with(['sparepart_booking', 'detailBooking'])->where('id', $id)->first();
         if ($this->booking->pengeluaran){
             $this->dokumenStatus = 1;
-        } else {
+        }elseif(count($this->booking->sparepart_booking) == 0) 
+        {
+            $this->dokumenStatus = 2;
+
+        }else {
             $this->dokumenStatus = 0;
         }
         
@@ -236,6 +241,25 @@ class DetailBooking extends Component
         session()->flash('doneMsg', 'Berhasil menyelesaikan servis! Kembalian Rp' . $kembalian);
         // $this-> dispatch("print-invoice");
 
+
+    }
+
+    public function dibatalkan()
+    {
+        $this->validate([
+            'catatan' => 'string',
+        ]);
+        $saveBooking = [
+            'status' => 'dibatalkan',
+        ];
+        if ($this->catatan != null) {
+            $saveBooking["keterangan"] = $this->catatan;
+        }
+
+        $save = booking::where('id', $this->bookingId)->update($saveBooking);
+        $this->isModalBatal = false;
+
+        session()->flash('doneMsg', 'Berhasil membatalkan servis!');
 
     }
     public function closeAndPrint()

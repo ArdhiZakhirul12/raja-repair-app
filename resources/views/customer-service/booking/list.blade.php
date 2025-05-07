@@ -15,6 +15,8 @@
                 <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="diproses">Diproses</button>
                 <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="dikerjakan">Pengerjaan</button>
                 <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="teknisi-selesai">Teknisi Selesai</button>
+                <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="teknisi-batal">Teknisi batal</button>
+                <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="dibatalkan">dibatalkan</button>
                 <button class="status-filter btn btn-light text-gray-500" style="opacity: 0.5" data-status="selesai">Selesai</button>
             </div>
             <input type="hidden" id="statusFilter" value="">
