@@ -3,17 +3,17 @@ import {
   Chart, LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip,
 } from 'chart.js';
 import 'chartjs-adapter-moment';
-import { chartAreaGradient } from '../app';
+import { chartAreaGradient } from '../../../resources/js/app';
 
 // Import utilities
-import { tailwindConfig, formatValue, hexToRGB } from '../utils';
+import { tailwindConfig, formatValue, hexToRGB } from '../utils.js';
 
 Chart.register(LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip);
 
 // A chart built with Chart.js 3
 // https://www.chartjs.org/
-const dashboardCard02 = () => {
-  const ctx = document.getElementById('dashboard-card-02');
+const dashboardCard01 = () => {
+  const ctx = document.getElementById('dashboard-card-01');
   if (!ctx) return;
 
   const darkMode = localStorage.getItem('dark-mode') === 'true';
@@ -31,9 +31,9 @@ const dashboardCard02 = () => {
   const tooltipBorderColor = {
     light: '#E5E7EB',
     dark: '#4B5563'
-  };   
+  };  
 
-  fetch('/json-data-feed?datatype=2')
+  fetch('/json-data-feed?datatype=1')
     .then(a => {
       return a.json();
     })
@@ -112,7 +112,7 @@ const dashboardCard02 = () => {
               },
               bodyColor: darkMode ? tooltipBodyColor.dark : tooltipBodyColor.light,
               backgroundColor: darkMode ? tooltipBgColor.dark : tooltipBgColor.light,
-              borderColor: darkMode ? tooltipBorderColor.dark : tooltipBorderColor.light,    
+              borderColor: darkMode ? tooltipBorderColor.dark : tooltipBorderColor.light,     
             },
             legend: {
               display: false,
@@ -142,4 +142,4 @@ const dashboardCard02 = () => {
     });
 };
 
-export default dashboardCard02;
+export default dashboardCard01;
