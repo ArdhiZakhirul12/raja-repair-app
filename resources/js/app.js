@@ -119,13 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
       instance.element.value = dateStr.replace('to', '-');
     },
   });
-  dashboardCard01();
-  dashboardCard02();
-  dashboardCard03();
-  dashboardCard04();
-  dashboardCard05();
-  dashboardCard06();
-  dashboardCard08();
-  dashboardCard09();
-  dashboardCard11();
+  // dashboardCard01();
+  // dashboardCard02();
+  // dashboardCard03();
+  // dashboardCard04();
+  // dashboardCard05();
+  // dashboardCard06();
+  // dashboardCard08();
+  // dashboardCard09();
+  // dashboardCard11();
 });
