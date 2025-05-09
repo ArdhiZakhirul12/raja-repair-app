@@ -5,7 +5,7 @@
 /* @import 'additional-styles/utility-patterns.css';
 @import 'additional-styles/flatpickr.css'; */
 
-@import 'public\css\additional-styles\utility-patterns.css';
-@import 'public\css\additional-styles\flatpickr.css'; *
+/* @import 'public\css\additional-styles\utility-patterns.css';
+@import 'public\css\additional-styles\flatpickr.css';  */
 
 @import 'tailwindcss/utilities';
