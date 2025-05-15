@@ -388,7 +388,7 @@
         <div class="bg-current p-6 rounded-lg shadow-lg w-full max-w-xl">
            
                 <h2 class="text-xl font-semibold mb-4">Edit Service</h2>
-                <form action="{{ route('cs.service.update') }}" method="POST">
+                <form action="{{ route('admin.servis.update') }}" method="POST">
                     @method('PUT')
                     @csrf
                     <input type="hidden" id="id" name="id">
