@@ -165,6 +165,8 @@
                                             </svg></a>
                                     </div>
                                 </th>
+                                <th scope="col" class="px-6 py-3">Code</th>
+
                                 <th scope="col" class="px-6 py-3">
                                     <div class="flex items-center">
                                         Harga
@@ -259,7 +261,7 @@
         <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
          
                 <h2 class="text-xl font-semibold mb-4 ">Edit Sparepart</h2>
-                <form action="{{ route('cs.sparepart.update') }}" method="POST">
+                <form action="{{ route('admin.sparepart.update') }}" method="POST">
                     @method('PUT')
                     @csrf
                     <input type="hidden" id="sparepart-id" name="id">
@@ -267,6 +269,11 @@
                         <label for="nama_sparepart" class="block text-sm font-medium text-gray-400 ">Nama
                             Sparepart</label>
                         <input type="text" name="nama_sparepart" id="nama_sparepart"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="code" class="block text-sm font-medium text-gray-400 ">code</label>
+                        <input type="text" name="code" id="code"
                             class="mt-1 p-2 w-full border border-gray-300 rounded" required>
                     </div>
                     <div class="mb-4">
@@ -322,6 +329,14 @@
                         }
                     },
                     {
+                        data: 'code',
+                        name: 'code',
+                        render: function(data, type, row) {
+                            return `<a class="main-item-data text-black hover:text-black-500 font-bold">${data}</a>`;
+
+                        }
+                    },
+                    {
                         data: 'harga',
                         name: 'harga',
                         render: function(data) {
@@ -356,6 +371,7 @@
                                             data-id="${row.id}" 
                                             data-nama="${row.nama_sparepart}"
                                             data-harga="${row.harga}"
+                                            data-code="${row.code}"
                                           
                                              onclick="openEditModal(this)">
                     <i class="fas fa-edit"></i>
@@ -469,6 +485,7 @@
             const sparepartId = button.getAttribute('data-id');
             const sparepartNama = button.getAttribute('data-nama');
             const sparepartHarga = button.getAttribute('data-harga');
+            const sparepartCode = button.getAttribute('data-code');
 
             // Tampilkan modal
             const modal = document.getElementById('edit-sparepart-modal');
@@ -476,12 +493,13 @@
 
             // Isi data di modal
             modal.querySelector('#sparepart-id').value = sparepartId;
+            modal.querySelector('#code').value =sparepartCode;
             modal.querySelector('#nama_sparepart').value = sparepartNama;
             modal.querySelector('#harga').value = sparepartHarga;
         }
     </script>
     {{-- status --}}
-    <script>
+    {{-- <script>
         function toggleStatus(checkbox) {
             const sparepartId = checkbox.getAttribute('data-id');
             const newStatus = checkbox.checked ? '1' : '0';
@@ -525,7 +543,7 @@
                     alert('An error occurred');
                 });
         }
-    </script>
+    </script> --}}
 
 
 </x-app-layout>

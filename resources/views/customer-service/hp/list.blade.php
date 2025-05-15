@@ -66,11 +66,11 @@
                 <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                     Data Handphone
                 </h1>
-               
+
             </div>
 
             <div class="grid grid-cols-2 gap-8">
-                
+
                 <!-- Merk HP -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
 
@@ -82,8 +82,8 @@
                                 Merk HP
                             </h3>
                         </div>
-                        <button class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-700 flex items-center justify-center"
-
+                        <button
+                            class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-700 flex items-center justify-center"
                             onclick="document.getElementById('add-merk-modal').classList.remove('hidden')">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -121,17 +121,22 @@
                                 Model HP
                             </h3>
                         </div>
-                 
-             
-                        <button class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-700 flex items-center justify-center"
-                        onclick="document.getElementById('add-model-modal').classList.remove('hidden')">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </button>
+
+
+                        <button
+                            class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-700 flex items-center justify-center"
+                            onclick="document.getElementById('add-model-modal').classList.remove('hidden')">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </button>
 
                     </div>
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden" id="hp-model-table">
+                    <table
+                        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"
+                        id="hp-model-table">
                         <thead>
                             <tr class="bg-blue-100">
 
@@ -181,20 +186,20 @@
                         tidak ada form yang kosong</p>
                 </div>
                 <div class="w-1/2 p-4"> --}}
-                    <h2 class="text-xl font-semibold mb-4">Tambah Merk HP</h2>
-                    <form action="{{ route('cs.hp.merkStore') }}" method="POST">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="merk" class="block text-sm font-medium text-gray-400">Merk HP</label>
-                            <input type="text" name="merk" id="merk"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                        </div>
-                        <div class="flex justify-end">
-                            <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
-                                onclick="document.getElementById('add-merk-modal').classList.add('hidden')">Kembali</button>
-                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
-                        </div>
-                    </form>
+                <h2 class="text-xl font-semibold mb-4">Tambah Merk HP</h2>
+                <form action="{{ route('cs.hp.merkStore') }}" method="POST">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="merk" class="block text-sm font-medium text-gray-400">Merk HP</label>
+                        <input type="text" name="merk" id="merk"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                            onclick="document.getElementById('add-merk-modal').classList.add('hidden')">Kembali</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
+                    </div>
+                </form>
                 {{-- </div> --}}
             </div>
         </div>
@@ -211,36 +216,84 @@
                         tidak ada form yang kosong</p>
                 </div>
                 <div class="w-1/2 p-4"> --}}
-                    <h2 class="text-xl font-semibold mb-4">Tambah Model HP</h2>
-                    <form action="{{ route('cs.hp.modelStore') }}" method="POST">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="merk" class="block text-sm font-medium text-gray-400">Merk HP</label>
-                            <select name="hp_merk_id" id="merk"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                                <option value="" disabled selected>Pilih Merk HP</option>
-                                @foreach ($merks as $merk)
-                                    <option value="{{ $merk->id }}">{{ $merk->merk }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label for="model" class="block text-sm font-medium text-gray-400">Model HP</label>
-                            <input type="text" name="model" id="model"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                        </div>
-                        <div class="flex justify-end">
-                            <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
-                                onclick="document.getElementById('add-model-modal').classList.add('hidden')">Kembali</button>
-                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
-                        </div>
-                    </form>
+                <h2 class="text-xl font-semibold mb-4">Tambah Model HP</h2>
+                <form action="{{ route('cs.hp.modelStore') }}" method="POST">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="merk" class="block text-sm font-medium text-gray-400">Merk HP</label>
+                        <select name="hp_merk_id" id="merk" class="mt-1 p-2 w-full border border-gray-300 rounded"
+                            required>
+                            <option value="" disabled selected>Pilih Merk HP</option>
+                            @foreach ($merks as $merk)
+                                <option value="{{ $merk->id }}">{{ $merk->merk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="model" class="block text-sm font-medium text-gray-400">Model HP</label>
+                        <input type="text" name="model" id="model"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                            onclick="document.getElementById('add-model-modal').classList.add('hidden')">Kembali</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
+                    </div>
+                </form>
                 {{-- </div> --}}
             </div>
         </div>
 
+        <div id="edit-merk-modal"
+            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+            <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
 
+                <h2 class="text-xl font-semibold mb-4 ">Edit Merk</h2>
+                <form action="{{ route('cs.hp.merkUpdate') }}" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <input type="hidden" id="hp-id" name="id">
 
+                    <div class="mb-4">
+                        <label for="merk" class="block text-sm font-medium text-gray-400 ">merk</label>
+                        <input type="text" name="merk" id="merk"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                            onclick="document.getElementById('edit-merk-modal').classList.add('hidden')">Kembali</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="edit-model-modal"
+            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+            <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
+
+                <h2 class="text-xl font-semibold mb-4 ">Edit Model</h2>
+                <form action="{{ route('cs.hp.modelUpdate') }}" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <input type="hidden" id="hp-id" name="id">
+
+                    <div class="mb-4">
+                        <label for="model" class="block text-sm font-medium text-gray-400 ">model</label>
+                        <input type="text" name="model" id="model"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                            onclick="document.getElementById('edit-model-modal').classList.add('hidden')">Kembali</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        
         <script>
             //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
             $(document).ready(function() {
@@ -281,11 +334,10 @@
                             data: 'id',
                             render: function(data, type, row) {
                                 return `<button class="text-blue-500 hover:text-blue-700" 
-                                                data-id="${row.id}" 
-                                                data-nama="${row.nama_sparepart}"
-                                                data-harga="${row.harga}"
+                                                data-id="${row.id}"                                                
+                                                data-merk="${row.merk}"
                                               
-                                                 onclick="openEditModal(this)">
+                                                 onclick="openEditMerkModal(this)">
                         <i class="fas fa-edit"></i>
                     </button>`;
                             },
@@ -331,6 +383,22 @@
                 });
             });
         </script>
+        <script>
+            function openEditMerkModal(button) {
+                // Ambil data dari tombol yang diklik
+                const hpId = button.getAttribute('data-id');
+                const hpMerk = button.getAttribute('data-merk');                
+                // Tampilkan modal
+                const modal = document.getElementById('edit-merk-modal');
+                modal.classList.remove('hidden');
+
+                // Isi data di modal
+                modal.querySelector('#hp-id').value = hpId;
+                modal.querySelector('#merk').value = hpMerk;
+                // modal.querySelector('#nama_sparepart').value = sparepartNama;
+                // modal.querySelector('#harga').value = sparepartHarga;
+            }
+        </script>
 
 
         <script>
@@ -342,7 +410,7 @@
                     serverSide: true,
                     ajax: '{{ route('cs.hp.getHpModel') }}',
                     columns: [
-                       
+
                         {
                             data: null,
                             name: 'iteration',
@@ -365,18 +433,18 @@
                             data: 'hp_merk_id',
                             name: 'hp_merk_id',
                             render: function(data, type, row) {
-                            return `<a href="" class="text-black-500 hover:text-black-500 ">${row.hp_merk.merk}</a>`;}
+                                return `<a href="" class="text-black-500 hover:text-black-500 ">${row.hp_merk.merk}</a>`;
+                            }
                         },
 
                         {
                             data: 'id',
                             render: function(data, type, row) {
                                 return `<button class="text-blue-500 hover:text-blue-700" 
-                                        data-id="${row.id}" 
-                                        data-nama="${row.nama_sparepart}"
-                                        data-harga="${row.harga}"
+                                        data-id="${row.id}"                                         
+                                        data-model="${row.model}"
                                       
-                                         onclick="openEditModal(this)">
+                                         onclick="openEditModelModal(this)">
                 <i class="fas fa-edit"></i>
             </button>`;
                             },
@@ -421,6 +489,22 @@
                     ],
                 });
             });
+        </script>
+        <script>
+            function openEditModelModal(button) {
+                // Ambil data dari tombol yang diklik
+                const hpId = button.getAttribute('data-id');
+                const hpModel = button.getAttribute('data-model');                
+                // Tampilkan modal
+                const modal = document.getElementById('edit-model-modal');
+                modal.classList.remove('hidden');
+
+                // Isi data di modal
+                modal.querySelector('#hp-id').value = hpId;
+                modal.querySelector('#model').value = hpModel;
+                // modal.querySelector('#nama_sparepart').value = sparepartNama;
+                // modal.querySelector('#harga').value = sparepartHarga;
+            }
         </script>
 
 </x-app-layout>
