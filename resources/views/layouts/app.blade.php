@@ -18,9 +18,13 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-   
+        <link rel="stylesheet" href="{{ asset('css/datatable_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/additional-styles/utility-patterns.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/additional-styles/flatpickr.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/datatable_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/MultiSelect.css') }}">
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/datatable_style.css', 'resources/js/components/MultiSelect.js','resources\css\MultiSelect.css'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
@@ -83,7 +87,7 @@
     </div>
 
     @livewireScripts
- 
+    <script src="{{ asset('js/components/MultiSelect.js') }}"></script>
 
 </body>
 

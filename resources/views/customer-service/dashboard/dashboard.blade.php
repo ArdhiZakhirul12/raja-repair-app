@@ -20,14 +20,13 @@
                 {{-- <x-dropdown-filter align="right" />
                 <div class="mr-2"></div> --}}
                 <!-- Datepicker built with flatpickr -->
-                <x-datepicker />
+                {{-- <x-datepicker />
                 <div class="mr-2"></div>
-                <!-- Add view button -->
                 <button type="submit"
                     class="btn bg-blue-400 text-white hover:bg-gray-800  dark:text-gray-800 dark:hover:bg-white">
 
                     <span class="max-xs:sr-only">Sesuaikan</span>
-                </button>
+                </button> --}}
 
             </div>
         </form>
