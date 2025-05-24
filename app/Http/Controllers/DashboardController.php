@@ -33,11 +33,12 @@ class DashboardController extends Controller
         });
 
          if ($request->has('date_range') && $request->date_range) {
+           
             $dates = explode(' - ', $request->date_range);
             if (count($dates) === 2) {
                 $startDate = $dates[0] ;
                 $endDate = $dates[1];
-
+              
                 $sparepart->whereBetween('created_at', [
                     $startDate,
                     $endDate
@@ -84,13 +85,14 @@ class DashboardController extends Controller
         if ($request->has('date_range') && $request->date_range) {
             $dates = explode(' - ', $request->date_range);
             if (count($dates) === 2) {
-                $startDate = $dates[0] ;
-                $endDate = $dates[1];
+                $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', $dates[0])->format('Y-m-d');
+                $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', $dates[1])->format('Y-m-d');
 
                 $servis->whereBetween('created_at', [
                     $startDate,
                     $endDate
                 ]);
+                // dd($startDate, $endDate);
 
                 
             }
@@ -98,6 +100,7 @@ class DashboardController extends Controller
         }
 
         $servis = $servis->get();
+        // dd($servis);
 
         $pendapatan_servis = $servis->sum('harga');
 
