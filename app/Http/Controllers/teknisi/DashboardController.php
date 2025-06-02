@@ -4,7 +4,7 @@ namespace App\Http\Controllers\teknisi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Teknisi;
+use App\Models\teknisi;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\AssignOp\Concat;
 use App\Models\Booking;
@@ -16,7 +16,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $teknisi_data = Teknisi::where('user_id', Auth::user()->id)->first();
+        $teknisi_data = teknisi::where('user_id', Auth::user()->id)->first();
         $id = Auth::user()->id;
         $data = booking::with('detailBooking')
             ->select(booking::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan, COUNT(id) as jumlah_servis"))
