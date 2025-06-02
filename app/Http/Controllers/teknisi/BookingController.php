@@ -24,6 +24,7 @@ class BookingController extends Controller
         return view('teknisi.booking.teknisi-booking',compact('bookings'));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      */
