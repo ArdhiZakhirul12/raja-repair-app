@@ -16,6 +16,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        
         $teknisi_data = teknisi::where('user_id', Auth::user()->id)->first();
         $id = Auth::user()->id;
         $data = booking::with('detailBooking')
