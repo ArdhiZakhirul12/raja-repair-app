@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\teknisi;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\AssignOp\Concat;
-use App\Models\Booking;
+use App\Models\booking;
 
 class DashboardController extends Controller
 {
