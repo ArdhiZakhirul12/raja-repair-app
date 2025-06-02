@@ -118,24 +118,24 @@
                         selesaikan pesanan dibatalkan
                     </button>
                 @endif
-                
+
                 {{-- @dd($upDokumen) --}}
                 @if ($dokumenStatus == 0 && $booking->status != 'teknisi-batal')
-                <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700"
-              onclick="printDiv('struk-pembayaran')">
-                Cetak Invoice   
-            </button>
+                    <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700"
+                        onclick="printDiv('struk-pembayaran')">
+                        Cetak Invoice
+                    </button>
                     <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
                         wire:click="$set('isModalDokumen', true)">
                         Upload Dokumen
                     </button>
                 @else
-                @if ($dokumenStatus == 1)            
-                    <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
-                        wire:click="redirectNow">
-                        Cek Dokumen
-                    </button>
-                @endif
+                    @if ($dokumenStatus == 1)
+                        <button class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
+                            wire:click="redirectNow">
+                            Cek Dokumen
+                        </button>
+                    @endif
 
                 @endif
 
@@ -169,8 +169,7 @@
                     text-md ml-4 px-2 py-1.5 rounded">
                 Selesai
                 @else
-                ">{{ $booking->status }}
-                @endif 
+                ">{{ $booking->status }} @endif 
             </span>
         </h1>      
         <h2 class="mt-2
@@ -205,55 +204,63 @@
                             @elseif($booking->status == 'selesai') bg-green-500 @endif">
                             {{ $booking->status }}
                         </h2> --}}
-                        <h2 class="text-xs md:text-sm text-white px-2 py-1 rounded        
-                        @if ($booking->diskon_status != 0) @if ($booking->diskon_status == '1') bg-yellow-500"> menunggu diskon disetujui                            
-                            @elseif($booking->diskon_status == '2') bg-green-500"> diskon disetujui @endif
-                            @endif  
-                        </h2>
+                        @if ($booking->diskon_status != 0) 
+                            <h2 class="text-xs md:text-sm text-white px-2 py-1 rounded        
+                            
+                                    @if ($booking->diskon_status == '1') bg-yellow-500"> menunggu diskon disetujui                            
+                                    @elseif($booking->diskon_status == '2') bg-green-500"> diskon disetujui 
+                                    
+                                    @endif
+                        
+
+                            </h2>
+                        @endif
                         </div>
                         
                         
                         <hr class="my-2">
-                        <div class="flex justify-between">
-                            
-                            <div id="keterangan" class="border-bottom pb-2 mb-3">
-                                <h2
-                                    class="mt-1
+                <div class="flex justify-between">
+
+                    <div id="keterangan" class="border-bottom pb-2 mb-3">
+                        <h2
+                            class="mt-1
                                             text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                                    Merk HP : {{ $booking->hpModel->hpMerk->merk }}
-                                </h2>
-                                <h2
-                                    class="mt-1
+                            Merk HP : {{ $booking->hpModel->hpMerk->merk }}
+                        </h2>
+                        <h2
+                            class="mt-1
                                             text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                                    Model HP : {{ $booking->hpModel->model }}
-                                </h2>
-                                <h2
-                                    class="mt-1
+                            Model HP : {{ $booking->hpModel->model }}
+                        </h2>
+                        <h2
+                            class="mt-1
                                             text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                                    Imei : {{ $booking->imei }}
-                                </h2>
-                            </div>
-                            <div>
-                                @if (in_array($booking['status'], ['teknisi-selesai', 'selesai']))
-                                @php
-                                    $duration = \Carbon\Carbon::parse($booking->workTimeBooking->end)->diff(\Carbon\Carbon::parse($booking->workTimeBooking->start));
-                                    $formattedDuration = '';
-                                    if ($duration->h > 0) {
-                                        $formattedDuration .= $duration->h . ' jam ';
-                                    }
-                                    if ($duration->i > 0) {
-                                        $formattedDuration .= $duration->i . ' menit ';
-                                    }
-                                    if ($duration->s > 0) {
-                                        $formattedDuration .= $duration->s . ' detik';
-                                    }
-                                @endphp
-                                Selesai dalam {{ $formattedDuration }}
-                                    
-                                @endif
-                            </div>
-                        </div>
-                
+                            Imei : {{ $booking->imei }}
+                        </h2>
+                    </div>
+                    <div>
+                        @if (in_array($booking['status'], ['teknisi-selesai', 'selesai']))
+                            @php
+                                $duration = \Carbon\Carbon::parse($booking->workTimeBooking->end)->diff(
+                                    \Carbon\Carbon::parse($booking->workTimeBooking->start),
+                                );
+                                $formattedDuration = '';
+                                if ($duration->h > 0) {
+                                    $formattedDuration .= $duration->h . ' jam ';
+                                }
+                                if ($duration->i > 0) {
+                                    $formattedDuration .= $duration->i . ' menit ';
+                                }
+                                if ($duration->s > 0) {
+                                    $formattedDuration .= $duration->s . ' detik';
+                                }
+                            @endphp
+                            Selesai dalam {{ $formattedDuration }}
+
+                        @endif
+                    </div>
+                </div>
+
                 <div class="flex items-center mb-2">
 
                     <h2 class="text-l text-blue-500">Rincian Servis</h2>
@@ -606,56 +613,58 @@
                         <div class="grid grid-cols-1 gap-6">
                             <div class="flex">
                                 <div class="mr-2">
-                                    <label for="dokumen" class="block text-sm font-medium text-gray-400">Dokumen</label>
+                                    <label for="dokumen"
+                                        class="block text-sm font-medium text-gray-400">Dokumen</label>
                                     <div
                                         class="mt-1 flex justify-center px-6 pt-2 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                         <div class="space-y-1 text-center">
                                             @if ($dokumen)
-                                                <img src="{{ $dokumen->temporaryUrl() }}" class="h-24 w-24 object-cover mx-auto my-3 cursor-pointer" onclick="showImageModal('{{ $dokumen->temporaryUrl() }}')">
-                                             
+                                                <img src="{{ $dokumen->temporaryUrl() }}"
+                                                    class="h-24 w-24 object-cover mx-auto my-3 cursor-pointer"
+                                                    onclick="showImageModal('{{ $dokumen->temporaryUrl() }}')">
                                             @else
                                                 <img src="{{ asset('images/upload_to_cloud.svg') }}"
                                                     class="mx-auto h-12 w-12 text-gray-400 my-3">
                                             @endif
-        
-        
+
+
                                             {{-- <div class="flex text-sm text-gray-600"> --}}
                                             <label for="dokumen"
                                                 class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 px-4 py-2 border border-gray-300">
                                                 {{-- <span>Upload a file</span> --}}
-                                                <input type="file" wire:model="dokumen" id="dokumen" name="dokumen"
-                                                    wire:model="dokumen">
+                                                <input type="file" wire:model="dokumen" id="dokumen"
+                                                    name="dokumen" wire:model="dokumen">
                                             </label>
                                             {{-- <p class="pl-1">or drag and drop</p> --}}
                                             {{-- </div> --}}
                                             @if ($dokumen)
-                                            <p class="mt-2 text-sm text-gray-600">
-                                                Ukuran File: {{ number_format($dokumen->getSize() / 1024, 2) }} KB
-                                            </p>
+                                                <p class="mt-2 text-sm text-gray-600">
+                                                    Ukuran File: {{ number_format($dokumen->getSize() / 1024, 2) }} KB
+                                                </p>
                                             @else
-                                            <p class="text-xs text-gray-500">
-                                                PNG or JPG up to 2MB
-                                            </p>
+                                                <p class="text-xs text-gray-500">
+                                                    PNG or JPG up to 2MB
+                                                </p>
                                             @endif
                                         </div>
                                     </div>
                                     @error('dokumen')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
-        
-        
+
+
                                     <div class="mt-2">
                                         <label for="keterangan"
                                             class="block text-sm font-medium text-gray-400">Keterangan</label>
                                         <textarea type="text" wire:model="keterangan" id="keterangan" name="keterangan" rows="4"
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                                     </div>
-        
-        
-        
+
+
+
                                 </div>
-        
-        
+
+
                                 <div class="ml-4">
                                     <div class="flex">
                                         {{-- <div class="mr-2">
@@ -663,13 +672,13 @@
                                                 <input type="file" wire:model="dokumen" id="dokumen" name="dokumen"
                                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                             </div> --}}
-        
-        
+
+
                                         <div class="mr-2">
                                             <label for="referensi" class="block text-sm font-medium text-gray-400">#
                                                 Referensi</label>
-                                            <input type="text" wire:model="referensi" id="referensi" name="referensi"
-                                                value=""
+                                            <input type="text" wire:model="referensi" id="referensi"
+                                                name="referensi" value=""
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         </div>
                                         <div>
@@ -679,27 +688,29 @@
                                                 class="mt-1  mb-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         </div>
                                     </div>
-        
-        
-        
-        
+
+
+
+
                                     <div class="flex">
                                         <div class="mr-2">
-                                            <label for="harga" class="block text-sm font-medium text-gray-400">Harga</label>
-                                            <input type="text" wire:model.lazy="harga" id="harga" name="harga"
+                                            <label for="harga"
+                                                class="block text-sm font-medium text-gray-400">Harga</label>
+                                            <input type="text" wire:model.lazy="harga" id="harga"
+                                                name="harga"
                                                 class="mt-1  mb-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                {{-- onkeyup="formatRupiah(this)" oninput="updateHiddenInput(this)" --}}
-                                                oninput="formatRupiah(this)">
-                                                
+                                                {{-- onkeyup="formatRupiah(this)" oninput="updateHiddenInput(this)" --}} oninput="formatRupiah(this)">
+
                                             <input type="hidden" id="hargaHidden" name="harga_real">
-        
-        
+
+
                                             @if ($errors->has('harga'))
                                                 <div
                                                     class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
                                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
                                                             d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
                                                     </svg>
                                                     @error('harga')
@@ -709,7 +720,8 @@
                                             @endif
                                         </div>
                                         <div class="mr-2">
-                                            <label for="cara_bayar" class="block text-sm font-medium text-gray-400">Cara
+                                            <label for="cara_bayar"
+                                                class="block text-sm font-medium text-gray-400">Cara
                                                 Bayar</label>
                                             <select id="dataDropdown" name="dataDropdown"
                                                 class="mt-1 block w-full pl-3 mb-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
@@ -724,7 +736,8 @@
                                                     class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
                                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
                                                             d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
                                                     </svg>
                                                     @error('cara_bayar')
@@ -733,27 +746,29 @@
                                                 </div>
                                             @endif
                                         </div>
-        
-        
-        
-        
+
+
+
+
                                     </div>
-        
-                                    <label for="jumlah" class="block text-sm font-medium text-gray-400">Jumlah</label>
-                                    <input type="number" wire:model="jumlah" id="jumlah" name="jumlah" value="0"
+
+                                    <label for="jumlah"
+                                        class="block text-sm font-medium text-gray-400">Jumlah</label>
+                                    <input type="number" wire:model="jumlah" id="jumlah" name="jumlah"
+                                        value="0"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md">
-        
+
                                     <div class="flex justify-end mt-6">
                                         <button type="submit"
                                             class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                             Simpan
                                         </button>
                                     </div>
-        
+
                                 </div>
 
                             </div>
-        
+
                         </div>
             </form>
 
@@ -910,9 +925,9 @@
                             </svg>
                             <h2 class="text-l font-semibold">Data Pelanggan</h2>
                         </div>
-                        
+
                         <div class="bg-white p-4 rounded-lg shadow-md">
-                            
+
                             <p><span class="text-gray-400">Nama</span> <span class="ml-6">:
                                     {{ $booking->customer->nama }}</span></p>
 
@@ -1107,9 +1122,9 @@
                             </svg>
                             <h2 class="text-l font-semibold">Data Pelanggan</h2>
                         </div>
-                        
+
                         <div class="bg-white p-4 rounded-lg shadow-md">
-                            
+
                             <p><span class="text-gray-400">Nama</span> <span class="ml-6">:
                                     {{ $booking->customer->nama }}</span></p>
 
@@ -1210,11 +1225,11 @@
                             @enderror
                         </div>
                         <!-- Dropdown Metode Pembayaran -->
-                        
+
 
                         <!-- Input Jumlah Bayar -->
 
-                        
+
                     </div>
                 </div>
 
@@ -1240,9 +1255,9 @@
         </div>
         <div class="address-center text-center">
             <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
-            <p class="text-sm pb-2">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa
-                Timur
-                61257</p>
+            <p class="text-sm pb-2">Jl. Raya Kedung Turi No. 1, Kedung Turi,</p>
+            <p class="text-sm pb-2">Kec. Sidoarjo, Kabupaten Sidoarjo,</p>
+            <p class="text-sm pb-2">Jawa Timur 61257</p>
             <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
         </div>
         <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
@@ -1256,22 +1271,26 @@
 
 
         <div class="flex justify-center">
-            <table style="width: 100%;">
+            <table style="">
                 <tr>
                     <td class=" py-2">Nama</td>
-                    <td class="py-2">: {{ $booking->customer->nama }}</td>
+                    <td class="px-3">:</td>
+                    <td class="py-2">{{ $booking->customer->nama }}</td>
                 </tr>
                 <tr>
                     <td class=" py-2">No.HP</td>
-                    <td class="py-2">: {{ $booking->customer->no_hp }}</td>
+                    <td class="px-3">:</td>
+                    <td class="py-2">{{ $booking->customer->no_hp }}</td>
                 </tr>
                 <tr>
-                    <td class="py-2">Kendala</td>
-                    <td class="py-2">: {{ $booking->kendala }}</td>
+                    <td class="py-2 text-justify">Kendala</td>
+                    <td class="px-3">:</td>
+                    <td class="py-2 text-justify" style="word-wrap: break-word; max-width: 200px;">{{ $booking->kendala }}</td>
                 </tr>
                 <tr>
                     <td class="py-2">Teknisi</td>
-                    <td class="py-2">: {{ $booking->teknisi->nama }}</td>
+                    <td class="px-3">:</td>
+                    <td class="py-2">{{ $booking->teknisi->nama }}</td>
                 </tr>
                 {{-- <tr>
                     <td class="py-2"></td>
@@ -1321,7 +1340,7 @@
                         <td>
                             <h2 class="text-l font-semibold mt-4">TOTAL :</h2>
                         </td>
-                
+
                         <td class="px-4 text-right"></td>
                         <td class="px-4 py-2">
                             <h2 class="text-l font-semibold mt-4">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
@@ -1330,14 +1349,14 @@
 
                     <tr>
                         <td>Bayar</td>
-                
+
                         <td></td>
                         <td class="px-4 py-2">Rp.sekian</td>
                     </tr>
 
                     <tr>
                         <td>Kembali</td>
-                       
+
                         <td></td>
                         <td class="px-4 py-2">Rp.sekian</td>
                     </tr>
@@ -1362,23 +1381,20 @@
 
 
 <script>
+    function formatRupiah(angka) {
+        value = angka.value.replace(/\D/g, "");
 
+        if (value === "") {
+            angka.value = "";
+            return "";
+        }
+        console.log(value);
 
-
-function formatRupiah(angka){
-    value = angka.value.replace(/\D/g, "");
-
-    if(value === ""){
-        angka.value = "";
-        return "";
+        let reverse = value.split('').reverse().join('');
+        let formatted = reverse.match(/\d{1,3}/g).join('.').split('').reverse().join('');
+        // formatted = formatted;
+        angka.value = formatted;
     }
-    console.log(value);
-
-    let reverse = value.split('').reverse().join('');
-    let formatted = reverse.match(/\d{1,3}/g).join('.').split('').reverse().join('');
-    // formatted = formatted;
-    angka.value = formatted;
-}
     window.addEventListener('print-invoice', () => {
         printDiv('struk-pembayaran');
     });
