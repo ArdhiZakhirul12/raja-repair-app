@@ -56,6 +56,7 @@ Route::middleware([
         Route::group(['prefix' => 'servis', 'as' => 'servis.'], function () {
             Route::get('/', [AdminServisController::class, 'index'])->name('index');
             Route::post('/', [AdminServisController::class, 'store'])->name('store');
+            Route::put('/update', [ServiceController::class, 'update'])->name('update');
             Route::get('/get-services', [AdminServisController::class, 'getServices'])->name('getServices');
             Route::get('/add-services', [AdminServisController::class, 'create'])->name('create');
             Route::get('/test-route', function () {
@@ -78,7 +79,9 @@ Route::middleware([
             Route::get('/create-sparepart', [AdminSparepartController::class, 'create'])->name('create');
             Route::post('/create-sparepart', [AdminSparepartController::class, 'store'])->name('store');
             Route::get('/{id}', [AdminSparepartController::class, 'show'])->name('show');
-            Route::put('/{id}', [AdminSparepartController::class, 'update'])->name('update');
+            // Route::put('/{id}', [AdminSparepartController::class, 'update'])->name('update');
+            Route::put('/update', [SparepartController::class, 'update'])->name('update');
+
             // Route::get('/get-booking-diskon', [AdminSparepartController::class, 'getBooking'])->name('getBooking');
 
         });
@@ -130,7 +133,9 @@ Route::group([
             Route::get('/model-getall', [HpController::class, 'getHpModel'])->name('getHpModel');
             // Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
             Route::post('/merk-store', [HpController::class, 'merkStore'])->name('merkStore');
+            Route::put('/merk-update', [HpController::class, 'merkUpdate'])->name('merkUpdate');
             Route::post('/model-store', [HpController::class, 'modelStore'])->name('modelStore');
+            Route::put('/model-update', [HpController::class, 'modelUpdate'])->name('modelUpdate');
 });
 
 Route::middleware([

@@ -21,13 +21,13 @@ class HpController extends Controller
         // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
         $models = HpModel::with('hpMerk')->whereIn('hp_merk_id', $merkIds)->get();
         // dd($models);
-        return view('customer-service.hp.list',compact('merks','models'));
+        return view('customer-service.hp.list', compact('merks', 'models'));
         // return view('customer-service.hp.list');
     }
 
 
 
-                      /**
+    /**
      * Get all model data
      */
     public function getHpModel()
@@ -47,7 +47,7 @@ class HpController extends Controller
 
 
 
-                          /**
+    /**
      * Get all merk data
      */
     public function getHpMerk()
@@ -58,7 +58,7 @@ class HpController extends Controller
         // // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
         // $models = HpModel::whereIn('hp_merk_id', $merkIds)->get();
 
-    
+
         return DataTables::of($merks)
             // ->addColumn('action', function ($teknisi) {
             //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
@@ -83,10 +83,12 @@ class HpController extends Controller
         $auth = Auth::user();
         $validated = $request->validate([
             'merk' => 'required|string|min:2|unique:hp_merks,merk',
-        ]);        
+        ]);
         $validated['user_id'] = $auth->id;
         hpMerk::create($validated);
-        return redirect()->back()->with('success', 'Data Merk Hp berhasil ditambahkan!');;;
+        return redirect()->back()->with('success', 'Data Merk Hp berhasil ditambahkan!');
+        ;
+        ;
     }
     public function modelStore(Request $request)
     {
@@ -94,11 +96,34 @@ class HpController extends Controller
         $validated = $request->validate([
             'hp_merk_id' => 'required',
             'model' => 'required|string|min:2|unique:hp_models,model',
-        ]);        
+        ]);
         hpModel::create($validated);
-        return redirect()->back()->with('success', 'Data Model Hp berhasil ditambahkan!');;;
+        return redirect()->back()->with('success', 'Data Model Hp berhasil ditambahkan!');
+        ;
+        ;
     }
+    public function merkUpdate(Request $request)
+    {
 
+        $validated = $request->validate([
+            'merk' => 'required|string',
+            
+        ]);
+
+        hpMerk::where('id', $request->id)->update($validated);
+        return redirect()->back()->with('msg', 'berhasil mengedit Merk Hp');
+    }
+    public function modelUpdate(Request $request)
+    {
+
+        $validated = $request->validate([
+            'model' => 'required|string',
+            
+        ]);
+
+        hpModel::where('id', $request->id)->update($validated);
+        return redirect()->back()->with('msg', 'berhasil mengedit Model Hp');
+    }
     /**
      * Display the specified resource.
      */
