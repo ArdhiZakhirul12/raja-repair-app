@@ -38,7 +38,10 @@ class DashboardController extends Controller
             if (count($dates) === 2) {
                 $startDate = $dates[0] ;
                 $endDate = $dates[1];
-              
+                $sparepart
+                ->whereHas('booking', function ($query) {
+                    $query->where('status', 'selesai');
+                });
                 $sparepart->whereBetween('created_at', [
                     $startDate,
                     $endDate
@@ -87,7 +90,7 @@ class DashboardController extends Controller
             if (count($dates) === 2) {
                 $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', $dates[0])->format('Y-m-d');
                 $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', $dates[1])->format('Y-m-d');
-
+                $servis->where("status", "selesai");
                 $servis->whereBetween('created_at', [
                     $startDate,
                     $endDate
