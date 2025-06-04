@@ -7,13 +7,24 @@
     user-select: none;
   }
 
-.dark .dropdown-cabang{
-  background-color: #00000089 !important; /* Adjust color */
-
+.dropdown-cabang {
+  background-color: white !important; /* Adjust color */
 }
 
+.dark .dropdown-cabang{
+  background-color: #000000ed !important; /* Adjust color */
+
+}
 .dark .dropdown-cabang a {
   color: #ffffff !important; /* Adjust color */
+}
+
+.dark .dropdown-cabang a:hover {
+  color: #cccccc !important; /* Adjust hover color */
+}
+
+.dropdown-cabang a:hover {
+  color: #cccccc !important; /* Adjust hover color */
 }
   .multi-select .multi-select-header {
     border: 1px solid #dee2e6;

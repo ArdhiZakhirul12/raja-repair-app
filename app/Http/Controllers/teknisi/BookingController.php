@@ -5,7 +5,7 @@ namespace App\Http\Controllers\teknisi;
 use App\Http\Controllers\Controller;
 use App\Models\workTimeBooking;
 use Illuminate\Http\Request;
-use App\Models\Booking;
+use App\Models\booking;
 use App\Models\teknisi;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +24,7 @@ class BookingController extends Controller
         return view('teknisi.booking.teknisi-booking',compact('bookings'));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -45,7 +46,7 @@ class BookingController extends Controller
      */
     public function show(string $id)
     {
-        $booking = Booking::with(['hpModel','sparepart_booking','detailBooking'])
+        $booking = booking::with(['hpModel','sparepart_booking','detailBooking'])
             // ->where('teknisi_id', $teknisi_id)
             ->where('id', $id)
             ->first();

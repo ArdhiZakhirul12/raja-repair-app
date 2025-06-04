@@ -63,6 +63,12 @@ class BookingForm extends Component
         $this->merks = hpMerk::all();
         $this->models = HpModel::all();
         $this->services = dataService::where('user_id', auth()->id())->get();
+        $this->teknisiName = "";
+        $this->no_antri = antrian::where('user_id',auth()->id())->first()?->ditangani;
+        if (!$this->no_antri) {
+            session()->flash('message', 'Buka antrian terlebih dahulu.');
+            return; // Hentikan eksekusi Livewire agar tidak lanjut ke bawah
+        }
         // $query = dataService::with('user');
 
         // if ($request->has('cabang') && !empty($request->cabang)) {
@@ -73,6 +79,17 @@ class BookingForm extends Component
         $this->spareparts = sparepart::with('user')->get();
 
     }
+    public function updatedTeknisiId($value)
+    {
+        // Cari teknisi berdasarkan ID
+        $teknisi = teknisi::find($value);
+        if ($teknisi) {
+            $this->teknisiName = $teknisi->nama;
+        } else {
+            $this->teknisiName = '';
+        }
+    }
+
     public function updatedNohp($value)
     {
         // Cari customer berdasarkan nomor HP
@@ -167,7 +184,7 @@ class BookingForm extends Component
         $jam = Carbon::now()->format('H');        // Jam (00-23)
         $menit = Carbon::now()->format('i');      // Menit (00-59)
         $milidetik = Carbon::now()->format('v');  // Milidetik (000-999)
-        $teknisiName = teknisi::where('id', $validated['teknisiId'])->first()->nama;
+       
 
         $angka = substr($jam, 1, 1) . substr($menit, 0, 2) . substr($milidetik, 0, 2);
         $lastBooking = Booking::where('user_id', Auth::id())->latest()->first();

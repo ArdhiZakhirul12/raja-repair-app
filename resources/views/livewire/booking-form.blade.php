@@ -41,13 +41,14 @@
                     <h3 class="font-bold text-gray-800 mb-6 mx-2 pt-2 ">Data Pelanggan</h3>
                 </div>
 
-
                 @if (session()->has('message'))
                     <div class="p-4 mb-4 text-green-700 bg-green-100 rounded">
                         {{ session('message') }}
                         {{-- {{ session('inputData')['kendala'] }} --}}
-
                     </div>
+                    <script>
+                        printDiv('spk-print');
+                    </script>
                 @endif
                 @if (isset($feedbackMessage))
                     <div class="p-4 mb-4 text-blue-700 bg-blue-100 rounded">
@@ -562,10 +563,9 @@
             </div>
             <div class="address-center text-center">
                 <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
-                <p class="text-sm pb-2 px-4">Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten
-                    Sidoarjo,
-                    Jawa Timur
-                    61257</p>
+                <p class="text-sm pb-2 px-4">Jl. Raya Kedung Turi No. 1, Kedung Turi,</p>
+                <p class="text-sm pb-2 px-4">Kec. Sidoarjo, Kabupaten Sidoarjo,</p>
+                <p class="text-sm pb-2 px-4">Jawa Timur 61257</p>
                 <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
             </div>
             <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
@@ -639,6 +639,10 @@ function formatRupiah(angka){
     window.addEventListener('print-spk', () => {
         printDiv('spk-print');
     });
+
+    // if ({{ session()->has('message')}}) {
+    //     printDiv('spk-print');
+    // }
 
     function printDiv(divId) {
         let printContent = document.getElementById(divId).innerHTML;

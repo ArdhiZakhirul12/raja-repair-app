@@ -32,13 +32,13 @@
                     </div>
 
                     <div id="list-dropdown-cabang"
-                        class="dropdown-cabang origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+                        class="dropdown-cabang origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg hidden"
                         role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                         <div class="py-1" role="none">
                             <a 
                             @click="window.location.href='{{ route('admin.dashboard')}}'"
                 
-                            class="text-gray-700 block px-4 py-2 text-sm" 
+                            class="text-gray-700 block px-4 py-2 text-sm cursor-pointer dark:hover:text-white" 
                             role="menuitem" tabindex="-1">
                                 Seluruh Cabang
                             </a>
@@ -48,7 +48,7 @@
                                 <a 
                                 @click="window.location.href='{{ route('admin.dashboard', ['cabang' => $cabang->nama]) }}'"
                            
-                                class="text-gray-700 block px-4 py-2 text-sm" 
+                                class="text-gray-700 block px-4 py-2 text-sm cursor-pointer dark:hover:text-white" 
                                 role="menuitem" tabindex="-1">
                                     Cabang {{ $cabang->nama }}
                                 </a>

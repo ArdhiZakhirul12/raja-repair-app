@@ -15,18 +15,19 @@
 
             <!-- Right: Actions -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end">
-
+                <input type="text" name="date_range" class="rounded-lg"  value="{{ request('date_range') }}"/>
                 <!-- Filter button -->
                 {{-- <x-dropdown-filter align="right" />
                 <div class="mr-2"></div> --}}
                 <!-- Datepicker built with flatpickr -->
+                
                 {{-- <x-datepicker />
-                <div class="mr-2"></div>
+                <div class="mr-2"></div> --}}
                 <button type="submit"
-                    class="btn bg-blue-400 text-white hover:bg-gray-800  dark:text-gray-800 dark:hover:bg-white">
+                    class="btn ml-2 bg-blue-400 text-white hover:bg-gray-800  dark:text-gray-800 dark:hover:bg-white">
 
                     <span class="max-xs:sr-only">Sesuaikan</span>
-                </button> --}}
+                </button> 
 
             </div>
         </form>
@@ -40,7 +41,6 @@
             <x-dashboard.dashboard-card-06-uang title="Pendapatan Total" total="Rp {{ number_format($total_pendapatan, 0, ',', '.') }}" />
             <x-dashboard.dashboard-card-06-uang title="Pendapatan Servis" total="Rp {{ number_format($pendapatan_servis, 0, ',', '.') }}" />
             <x-dashboard.dashboard-card-06-uang title="Pendapatan Sparepart" total="Rp {{ number_format($pendapatan_sparepart, 0, ',', '.') }}" />
-
             
             <x-dashboard.dashboard-card-08 title="Pendapatan Sparepart per Bulan" total="0" :exMonths="$exMonths"
                 :exSales="$sparepartSales" :thisYearTotal="$sparepartThisYear"/>
@@ -63,4 +63,14 @@
 
         </div>
     </div>
+    <script>
+        $(function() {
+          $('input[name="date_range"]').daterangepicker({
+            opens: 'left'
+          }, function(start, end, label) {
+            
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+          });
+        });
+        </script>
 </x-app-layout>
