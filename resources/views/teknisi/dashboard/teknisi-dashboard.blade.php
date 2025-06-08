@@ -14,10 +14,10 @@
     <div class=" mx-6 my-3">
         <div class="grid grid-cols-9 gap-3">
 
-            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service" total="{{$totalBooking}}"/>
-            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service Garansi" total="{{$garansi}}"/>
+            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service" total="{{$totalBooking}}" detail=""/>
+            <x-dashboard.dashboard-card-01-teknisi title="Jumlah Service Garansi" total="{{$garansi}}" detail=""/>
 
-            <x-dashboard.dashboard-card-01-teknisi title="Total Pendapatan" total=" Rp{{number_format($total, 0, ',', '.')}}"/>
+            <x-dashboard.dashboard-card-01-teknisi title="Total Pendapatan" total=" Rp{{number_format($total, 0, ',', '.')}}" detail=""/>
             
             <x-dashboard.dashboard-card-08-teknisi title="Pelayanan servis per bulan" total="0" :exMonths=$bulanLabels :exSales=$jumlahServis />
           

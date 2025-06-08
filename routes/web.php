@@ -47,9 +47,11 @@ Route::middleware([
     'role:super-admin'
 ])->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-        Route::match(['get','post'],'/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::match(['get', 'post'], '/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::group(['prefix' => 'cabang', 'as' => 'cabang.'], function () {
             Route::get('/', [AdminCabangController::class, 'index'])->name('index');
+            Route::post('/list-teknisi', [AdminCabangController::class, 'listTeknisi'])->name('teknisi');
+            Route::get('/get-teknisi/{id}', [AdminCabangController::class, 'getTechnicians'])->name('getTechnicians');
             Route::get('/get-cabang', [AdminCabangController::class, 'getCabang'])->name('getCabang');
             Route::post('/', [AdminCabangController::class, 'store'])->name('store');
         });
@@ -71,7 +73,6 @@ Route::middleware([
             });
             Route::get('/{id}', [RequestDiskonController::class, 'show'])->name('show');
             Route::put('/{id}', [RequestDiskonController::class, 'update'])->name('update');
-
         });
         Route::group(['prefix' => 'sparepart', 'as' => 'sparepart.'], function () {
             Route::get('/', [AdminSparepartController::class, 'index'])->name('index');
@@ -107,8 +108,6 @@ Route::middleware([
             Route::get('/{id}', [TeknisiClaimController::class, 'show'])->name('show');
             Route::put('/{id}', [TeknisiClaimController::class, 'update'])->name('update');
         });
-
-
     });
 
 
@@ -124,18 +123,54 @@ Route::group([
     Route::post('/store', [MetodePembayaranController::class, 'store'])->name('store');
 });
 Route::group([
+    'prefix' => 'cs/booking',
+    'as' => 'cs.booking.',
+    'middleware' => 'role:cabang|super-admin'
+], function () {
+    Route::get('/', [BookingController::class, 'index'])->name('index');
+    Route::get('/get-booking', [BookingController::class, 'getBooking'])->name('getBooking');
+    Route::get('/create', [BookingController::class, 'create'])->name('create');
+    Route::post('/store', [BookingController::class, 'store'])->name('store');
+    Route::get('/{id}', [BookingController::class, 'show'])->name('show');
+    Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
+    Route::get('/detail/{id}', [BookingController::class, 'displayDetail'])->name('displayDetail');
+});
+Route::group([
+    'prefix' => 'cs/claim',
+    'as' => 'cs.claim.',
+    'middleware' => 'role:cabang|super-admin'
+], function () {
+    Route::get('/', [ClaimGaransiController::class, 'index'])->name('index');
+    Route::get('/create', [ClaimGaransiController::class, 'create'])->name('create');
+    Route::get('/get-claims', [ClaimGaransiController::class, 'getClaims'])->name('getClaims');
+    Route::get('/{id}', [ClaimGaransiController::class, 'show'])->name('show');
+});
+Route::group([
+    'prefix' => 'cs/teknisi',
+    'as' => 'cs.teknisi.',
+    'middleware' => 'role:cabang|super-admin'
+], function () {
+    Route::get('/', [TeknisiController::class, 'index'])->name('index');
+    Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
+    Route::get('/{id}', [TeknisiController::class, 'show'])->name('show');
+    Route::get('booking/{id}', [TeknisiController::class, 'bookingTeknisi'])->name('bookingTeknisi');
+    Route::get('getBooking/{id}', [TeknisiController::class, 'getBookingTeknisi'])->name('getBookingTeknisi');
+    Route::get('claim/{id}', [TeknisiController::class, 'claimTeknisi'])->name('claimTeknisi');
+    Route::get('getclaim/{id}', [TeknisiController::class, 'getClaimTeknisi'])->name('getClaimTeknisi');
+});
+Route::group([
     'prefix' => 'cs/hp',
     'as' => 'cs.hp.',
     'middleware' => 'role:cabang|super-admin'
 ], function () {
     Route::get('/', [HpController::class, 'index'])->name('index');
-            Route::get('/merk-getall', [HpController::class, 'getHpMerk'])->name('getHpMerk');
-            Route::get('/model-getall', [HpController::class, 'getHpModel'])->name('getHpModel');
-            // Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
-            Route::post('/merk-store', [HpController::class, 'merkStore'])->name('merkStore');
-            Route::put('/merk-update', [HpController::class, 'merkUpdate'])->name('merkUpdate');
-            Route::post('/model-store', [HpController::class, 'modelStore'])->name('modelStore');
-            Route::put('/model-update', [HpController::class, 'modelUpdate'])->name('modelUpdate');
+    Route::get('/merk-getall', [HpController::class, 'getHpMerk'])->name('getHpMerk');
+    Route::get('/model-getall', [HpController::class, 'getHpModel'])->name('getHpModel');
+    // Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
+    Route::post('/merk-store', [HpController::class, 'merkStore'])->name('merkStore');
+    Route::put('/merk-update', [HpController::class, 'merkUpdate'])->name('merkUpdate');
+    Route::post('/model-store', [HpController::class, 'modelStore'])->name('modelStore');
+    Route::put('/model-update', [HpController::class, 'modelUpdate'])->name('modelUpdate');
 });
 
 Route::middleware([
@@ -168,10 +203,8 @@ Route::middleware([
             Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
         Route::group(['prefix' => 'teknisi', 'as' => 'teknisi.'], function () {
-            Route::get('/', [TeknisiController::class, 'index'])->name('index');
-            Route::get('/get-teknisis', [TeknisiController::class, 'getTechnicians'])->name('getTechnicians');
+
             Route::post('/store', [TeknisiController::class, 'store'])->name('store');
-            Route::get('/{id}', [TeknisiController::class, 'show'])->name('show');
             Route::put('/update', [TeknisiController::class, 'update'])->name('update');
             // Route::get('/detail/{id}', [TeknisiController::class, 'displayDetail'])->name('displayDetail');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
@@ -182,16 +215,16 @@ Route::middleware([
         //     Route::get('/model-getall', [HpController::class, 'getHpModel'])->name('getHpModel');
         //     Route::post('/merk-store', [HpController::class, 'merkStore'])->name('merkStore');
         //     Route::post('/model-store', [HpController::class, 'modelStore'])->name('modelStore');
-            
+
         // });
         Route::group(['prefix' => 'booking', 'as' => 'booking.'], function () {
-            Route::get('/', [BookingController::class, 'index'])->name('index');
-            Route::get('/get-booking', [BookingController::class, 'getBooking'])->name('getBooking');
-            Route::get('/create', [BookingController::class, 'create'])->name('create');
-            Route::post('/store', [BookingController::class, 'store'])->name('store');
-            Route::get('/{id}', [BookingController::class, 'show'])->name('show');
-            Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
-            Route::get('/detail/{id}', [BookingController::class, 'displayDetail'])->name('displayDetail');
+            // Route::get('/', [BookingController::class, 'index'])->name('index');
+            // Route::get('/get-booking', [BookingController::class, 'getBooking'])->name('getBooking');
+            // Route::get('/create', [BookingController::class, 'create'])->name('create');
+            // Route::post('/store', [BookingController::class, 'store'])->name('store');
+            // Route::get('/{id}', [BookingController::class, 'show'])->name('show');
+            // Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
+            // Route::get('/detail/{id}', [BookingController::class, 'displayDetail'])->name('displayDetail');
             // Route::put('/update', [BookingController::class, 'update'])->name('update');
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
@@ -205,10 +238,10 @@ Route::middleware([
             // Route::post('/show', [SpendingController::class, 'show'])->name('show');
         });
         Route::group(['prefix' => 'claim', 'as' => 'claim.'], function () {
-            Route::get('/', [ClaimGaransiController::class, 'index'])->name('index');
-            Route::get('/create', [ClaimGaransiController::class, 'create'])->name('create');
-            Route::get('/get-claims', [ClaimGaransiController::class, 'getClaims'])->name('getClaims');
-            Route::get('/{id}', [ClaimGaransiController::class, 'show'])->name('show');
+            // Route::get('/', [ClaimGaransiController::class, 'index'])->name('index');
+            // Route::get('/create', [ClaimGaransiController::class, 'create'])->name('create');
+            // Route::get('/get-claims', [ClaimGaransiController::class, 'getClaims'])->name('getClaims');
+            // Route::get('/{id}', [ClaimGaransiController::class, 'show'])->name('show');
         });
         // Route::get('/', [SpendingController::class, 'index'])->name('spending');
 
@@ -223,7 +256,5 @@ Route::middleware([
         Route::post('/update-antrian', [AntrianController::class, 'update'])->name('antrian.update');
         Route::post('/update-antrianStatus', [AntrianController::class, 'status_update'])->name('antrianStatus.update');
         Route::get('/profile-cabang', [ProfileController::class, 'index'])->name('profile-cabang');
-
-
     });
 });
