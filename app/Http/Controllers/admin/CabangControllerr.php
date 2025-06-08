@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\cabang;
 use App\Models\User;
+use App\Models\teknisi;
 use Hash;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -60,5 +61,29 @@ class CabangControllerr extends Controller
         return DataTables::of($cabang)
         ->rawColumns(['action'])
         ->make(true);
+    }
+    
+    
+    public function listTeknisi(Request $request)
+    {
+        // $teknisis = teknisi::where('user_id', Auth::user()->id)->get();
+        $cabang_id = $request->id;
+        return view('admin.cabang.listTeknisi', compact('cabang_id'));
+    }
+
+
+    /**
+     * Get all service data
+     */
+    public function getTechnicians(String $id)
+    {
+        $teknisis = teknisi::where('cabang_id', $id)->get();
+
+        return DataTables::of($teknisis)
+            // ->addColumn('action', function ($teknisi) {
+            //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            // })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }

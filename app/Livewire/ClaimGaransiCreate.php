@@ -27,7 +27,7 @@ class ClaimGaransiCreate extends Component
     public function submit()
     {
         $validated = $this->validate([
-            'nota' => 'required|min:10',
+            'nota' => 'required|min:8',
             'noHp' => [
                 'required',
                 'numeric',
