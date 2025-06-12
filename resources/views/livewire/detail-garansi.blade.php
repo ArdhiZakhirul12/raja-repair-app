@@ -42,7 +42,7 @@
                 <p><strong>No HP: </strong> {{ $garansi->booking->customer->no_hp }}</p>
                 <p><strong>IMEI: </strong> {{ $garansi->booking->imei }}</p>
                 <p><strong>Kendala: </strong> {{ $garansi->booking->kendala }}</p>
-                <p><strong>Status: </strong> {{ $garansi->booking->status }}</p>
+                <p><strong>Status: </strong> {{ $garansi->status }}</p>
                 <p><strong>Total: </strong> Rp. {{ number_format($garansi->booking->total, 0, ',', '.') }}</p>
                 <p><strong>Nomor Antrian: </strong> {{ $garansi->booking->nomor_antrian }}</p>
                 <p><strong>Keterangan: </strong> {{ $garansi->booking->keterangan }}</p>
@@ -85,7 +85,7 @@
 
                 <p><strong>Kendala:</strong> {{ $garansi->kendala }}</p>
                 <p><strong>Waktu dibuat:</strong> {{ $garansi->created_at }}</p>
-                @if ($garansi->status == 'teknisi-selesai')
+                @if ($garansi->status == 'teknisi-selesai' && auth()->user()->hasRole('cabang'))
                     <button wire:click="$set('isModal', 1)"
                         class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-2">
                         Selesaikan

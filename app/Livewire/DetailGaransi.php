@@ -15,7 +15,8 @@ class DetailGaransi extends Component
     public $keterangan ;
     public function mount($id)
     {
-        $booking = booking::where('user_id', auth()->id())->get();
+        $booking = booking::whereHas('claimGaransi')->get();
+        // dd($booking);
         $this->garansi = claimGaransi::with('booking')->whereIn('booking_id', $booking->pluck('id'))->findOrFail($id);
     }
     public function render()

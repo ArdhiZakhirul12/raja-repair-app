@@ -6,6 +6,7 @@ use App\Models\teknisi;
 use App\Models\booking;
 use App\Models\rating;
 use App\Models\User;
+use App\Models\claimGaransi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
@@ -120,11 +121,12 @@ class TeknisiController extends Controller
         $bulanLabels = $data->pluck('bulan')->toArray();
         $jumlahServis = $data->pluck('jumlah_servis')->toArray();
 
-        $bookings = booking::with('detailBooking')->where('teknisi_id', $id)->get();
-      
+        $bookings = booking::with('detailBooking')->where('teknisi_id', $id)->where('status', 'selesai')->get();
         $teknisi = teknisi::find($id);
         // mendapatkan booking yang bergaransi
-        $garansi = $bookings->where('garansi', 1);
+        $garansi = booking::whereHas('claimGaransi')->where('teknisi_id', $id)->get();
+        // dd($garansi);
+
 
         // untuk mendapatkan total service dari teknisi
         $total = 0;
@@ -167,5 +169,39 @@ class TeknisiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function bookingTeknisi(String $id)
+    {
+        
+        // $bookings = booking::where('teknisi_id', $id)->get();
+
+        return view('customer-service.teknisi.booking-teknisi', compact( 'id'));
+    }
+
+    public function getBookingTeknisi(String $id)
+    {
+        $bookings = booking::with(['hpModel', 'user', 'detailBooking', 'customer'])->where('teknisi_id', $id)->where('status', 'selesai')->get();
+        return DataTables::of($bookings)
+            // ->addColumn('action', function ($teknisi) {
+            //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            // })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function claimTeknisi(String $id)
+    {
+        return view('customer-service.teknisi.claim-teknisi',compact('id'));
+    }
+
+    public function getClaimTeknisi(String $id)
+    {
+        $booking = booking::where('teknisi_id', $id)->get();
+        $garansi = claimGaransi::with('booking','booking.customer')->whereIn('booking_id', $booking->pluck('id'))->get();
+
+        return DataTables::of($garansi)
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }

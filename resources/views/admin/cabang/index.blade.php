@@ -112,50 +112,51 @@
                             tidak ada form yang kosong</p>
                     </div>
                     <div class="w-1/2 p-4"> --}}
-                        <h2 class="text-xl font-semibold mb-4">Tambah Cabang</h2>
-                        <form action="{{ route('admin.cabang.store') }}" method="POST">
-                            @csrf
-                            <div class="mb-4">
-                                <label for="nama_cabang" class="block text-sm font-medium text-gray-400">Nama
-                                    Cabang</label>
-                                <input type="text" name="nama_cabang" id="nama_cabang"
-                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                            </div>
-                            <div class="mb-4">
-                                <label for="nama" class="block text-sm font-medium text-gray-400">Nama</label>
-                                <input type="text" name="nama" id="nama"
-                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                            </div>
+                    <h2 class="text-xl font-semibold mb-4">Tambah Cabang</h2>
+                    <form action="{{ route('admin.cabang.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="nama_cabang" class="block text-sm font-medium text-gray-400">Nama
+                                Cabang</label>
+                            <input type="text" name="nama_cabang" id="nama_cabang"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="nama" class="block text-sm font-medium text-gray-400">Nama</label>
+                            <input type="text" name="nama" id="nama"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
 
-                            <div class="mb-4">
-                                <label for="no_hp" class="block text-sm font-medium text-gray-400">No WA</label>
-                                <input type="text" name="no_hp" id="no_hp"
-                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                            </div>
-                            <div class="mb-4">
-                                <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
-                                <textarea name="alamat" id="alamat" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
-                            </div>
-                            <div class="mb-4">
-                                <label for="link_map" class="block text-sm font-medium text-gray-400">Link Google Map</label>
-                                <textarea name="link_map" id="link_map" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
-                            </div>
-                            <div class="mb-4">
-                                <label for="email" class="block text-sm font-medium text-gray-400">email</label>
-                                <input type="email" name="email" id="email"
-                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                            </div>
-                            <div class="mb-4">
-                                <label for="password" class="block text-sm font-medium text-gray-400">password</label>
-                                <input type="password" name="password" id="password"
-                                    class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                            </div>
-                            <div class="flex justify-end">
-                                <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
-                                    onclick="document.getElementById('add-customer-modal').classList.add('hidden')">Kembali</button>
-                                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
-                            </div>
-                        </form>
+                        <div class="mb-4">
+                            <label for="no_hp" class="block text-sm font-medium text-gray-400">No WA</label>
+                            <input type="text" name="no_hp" id="no_hp"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
+                            <textarea name="alamat" id="alamat" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="link_map" class="block text-sm font-medium text-gray-400">Link Google
+                                Map</label>
+                            <textarea name="link_map" id="link_map" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-400">email</label>
+                            <input type="email" name="email" id="email"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="block text-sm font-medium text-gray-400">password</label>
+                            <input type="password" name="password" id="password"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                                onclick="document.getElementById('add-customer-modal').classList.add('hidden')">Kembali</button>
+                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
+                        </div>
+                    </form>
                     {{-- </div> --}}
                 </div>
             </div>
@@ -284,7 +285,16 @@
                     {
                         data: 'id',
                         render: function(data, type, row) {
-                            return `<button class="text-blue-500 hover:text-blue-700" 
+                            return `
+                            <div class="flex gap-x-2">
+                            <form action="/admin/cabang/list-teknisi" method="POST" style="display: inline;">
+                                @csrf
+                                <input type="hidden" name="id" value="${row.id}">
+                                <button type="submit" class="text-green-500 hover:text-blue-700">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </form>
+                            <button class="text-blue-500 hover:text-blue-700" 
                                             data-id="${row.id}" 
                                             data-nama_servis= "${row.nama_servis}"
                                             data-code="${row.code}"
@@ -293,9 +303,10 @@
                                             data-garansi_1="${row.garansi_1}"
                                             data-garansi_2="${row.garansi_2}"
                                             data-garansi_3="${row.garansi_3}"
-                                             onclick="openEditModal(this)">
+                                            onclick="openEditModal(this)">
                     <i class="fas fa-edit"></i>
-                </button>`;
+                </button>
+                </div>`;
                         }
                     },
                 ],
@@ -337,4 +348,6 @@
             });
         });
     </script>
+
+
 </x-app-layout>
