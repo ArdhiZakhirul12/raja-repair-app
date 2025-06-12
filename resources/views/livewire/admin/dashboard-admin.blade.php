@@ -16,9 +16,14 @@
 
                 <div class="relative inline-block text-left">
                     <div class="flex items-center space-x-4">
-                        <input type="text" id="selected-cabang"
-                            class="border border-gray-300 rounded-md px-4 py-2 text-sm" placeholder="Selected Cabang" 
-                            value="{{ $cabangNama ? 'Cabang ' . ($cabangNama ?? 'Tidak Diketahui') : 'Semua Cabang' }}" readonly>
+                        <input type="text" name="date_range" class="rounded-lg form-control cursor-pointer"
+                            wire:model.live="selectedDateRange" placeholder="Pilih Range Tanggal" readonly/>
+                        {{-- <input type="text" wire:model.live="searchTerm" class="form-control" /> --}}
+
+                        <input type="text" id="selected-cabang" wire:model="selectedCabang"
+                            class="border border-gray-300 rounded-md px-4 py-2 text-sm" placeholder="Selected Cabang"
+                            value="{{ $cabangNama ? 'Cabang ' . ($cabangNama ?? 'Tidak Diketahui') : 'Semua Cabang' }}"
+                            readonly>
                         <button type="button" id="menu-button-cabang"
                             class="bg-primary inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             aria-expanded="true" aria-haspopup="true">
@@ -36,27 +41,22 @@
                         class="dropdown-cabang origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg hidden"
                         role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                         <div class="py-1" role="none">
-                            <a 
-                            @click="window.location.href='{{ route('admin.dashboard')}}'"
-                
-                            class="text-gray-700 block px-4 py-2 text-sm cursor-pointer dark:hover:text-white" 
-                            role="menuitem" tabindex="-1">
+                            <a wire:click="$set('selectedCabang', 'Semua Cabang')"
+                                class="text-gray-700 block px-4 py-2 text-sm cursor-pointer dark:hover:text-white"
+                                role="menuitem" tabindex="-1">
                                 Seluruh Cabang
                             </a>
-                           
+
                             @foreach ($cabangs as $cabang)
-                            
-                                <a 
-                                @click="window.location.href='{{ route('admin.dashboard', ['cabang' => $cabang->nama]) }}'"
-                           
-                                class="text-gray-700 block px-4 py-2 text-sm cursor-pointer dark:hover:text-white" 
-                                role="menuitem" tabindex="-1">
+                                <a wire:click="$set('selectedCabang', 'Cabang {{ $cabang->nama }}')"
+                                    class="text-gray-700 block px-4 py-2 text-sm cursor-pointer dark:hover:text-white"
+                                    role="menuitem" tabindex="-1">
                                     Cabang {{ $cabang->nama }}
                                 </a>
                             @endforeach
                         </div>
                     </div>
-                    
+
                 </div>
 
             </div>
@@ -97,6 +97,41 @@
     </div>
 
     <script>
+        $(function() {
+            const input = $('input[name="date_range"]');
+
+            input.daterangepicker({
+                opens: 'left',
+                autoUpdateInput: false, // disable auto filling by plugin
+                locale: {
+                    format: 'YYYY-MM-DD',
+                    cancelLabel: 'Clear'
+                }
+            });
+
+            input.on('apply.daterangepicker', function(ev, picker) {
+                const formatted = picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format(
+                    'YYYY-MM-DD');
+
+                // Update input value
+                $(this).val(formatted);
+
+                // ✅ Explicitly update Livewire model
+                Livewire.find(document.querySelector('[wire\\:model\\.live="selectedDateRange"]').closest(
+                        '[wire\\:id]').getAttribute('wire:id'))
+                    .set('selectedDateRange', formatted);
+            });
+
+            input.on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+
+                // Clear in Livewire
+                Livewire.find(document.querySelector('[wire\\:model\\.live="selectedDateRange"]').closest(
+                        '[wire\\:id]').getAttribute('wire:id'))
+                    .set('selectedDateRange', '');
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             var menuItems = document.querySelectorAll('#list-dropdown-cabang a');
             var selectedCabangInput = document.getElementById('selected-cabang');
