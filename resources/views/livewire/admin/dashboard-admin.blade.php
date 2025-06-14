@@ -75,23 +75,15 @@
             <x-dashboard.dashboard-card-06-uang title="Pendapatan Sparepart"
                 total="Rp {{ number_format($pendapatan_sparepart, 0, ',', '.') }}" />
 
-            @if ($sparepartSales != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+           
                 <x-dashboard.dashboard-card-08 title="Pendapatan Sparepart per Bulan" total="0" :exMonths="$exMonths"
                     :exSales="$sparepartSales" :thisYearTotal="$sparepartThisYear" />
-                {{-- <p>{{ json_encode($sparepartSales) }}</p> --}}
-            @else
-                <x-dashboard.dashboard-card-08 title="Pendapatan Sparepart per Bulan (Kosong)" total="0"
-                    :exMonths="$exMonths" :exSales="$sparepartSales" :thisYearTotal="$sparepartThisYear" />
-            @endif
+  
 
-            @if ($servisSales != [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        
                 <x-dashboard.dashboard-card-08 title="Pelayanan servis per bulan" total="0" :exMonths="$exMonths"
                     :exSales="$servisSales" :thisYearTotal="$servisThisYear" />
-                {{-- <p>{{ json_encode($servisSales) }}</p>
-            @else
-                <x-dashboard.dashboard-card-08 title="Pelayanan servis per bulan (Kosong)" total="0" :exMonths="$exMonths"
-                :exSales="$servisSales" :thisYearTotal="$servisThisYear" /> --}}
-            @endif
+  
 
 
 

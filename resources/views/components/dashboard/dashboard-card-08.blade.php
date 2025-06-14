@@ -36,9 +36,9 @@
         </div>
     </div>
     <canvas id="{{ $chartId }}" class="p-3"></canvas>
-    @if($exSales != [0,0,0,0,0,0,0,0,0,0,0,0])
+    {{-- @if($exSales != [0,0,0,0,0,0,0,0,0,0,0,0])
         <p>{{ json_encode($exSales) }}</p>
-    @endif
+    @endif --}}
     {{-- @if ($title == 'Pelayanan servis per bulan')
         <canvas id="lineChart" class="p-3"></canvas>
     @elseif($title == 'Pendapatan per bulan')

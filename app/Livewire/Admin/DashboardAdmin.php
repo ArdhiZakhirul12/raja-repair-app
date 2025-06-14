@@ -42,8 +42,15 @@ class DashboardAdmin extends Component
     public $selectedDateRange;
 
 
-    public function mount()
+    public function mount($id,$dateRange,$cabang)
     {
+
+        // $this->selectedCabang = $cabang ? $cabang : 'Semua Cabang';
+        $clearValue = str_replace('Cabang ', '', $cabang);
+        $this->selectedCabang = $clearValue;
+        $selectedCabang = cabang::where('nama', $clearValue)->first();
+        $this->cabangNama = $selectedCabang ? $selectedCabang->nama : null;
+        $this->selectedDateRange = $dateRange ? $dateRange : null;
         $this->initializeCabangData();
         $this->initializeMonthYears();
         $this->initializeSparepartData();
@@ -59,31 +66,23 @@ class DashboardAdmin extends Component
 
     public function updatedSelectedDateRange($value)
     {
-        $this->selectedDateRange = $value;
-        $this->initializeSparepartData();
-        $this->initializeServisData();
-        $this->initializeTotalData();
-        $this->initializeRatingData();
-        $this->initializeMostOrderedServices();
-        $this->initializeMostOrderedModels();
-        $this->initializeMostOrderedCustomers();
+
+        return redirect()->route('admin.dashboard', ['id' => 'all', 'dateRange' => $value, 'cabang' => $this->selectedCabang]);
+     
 
     }
 
 
     public function updatedSelectedCabang($value)
     {
-        $clearValue = str_replace('Cabang ', '', $value);
-        $this->selectedCabang = $clearValue;
-        $selectedCabang = cabang::where('nama', $clearValue)->first();
-        $this->cabangNama = $selectedCabang ? $selectedCabang->nama : null;
-        $this->initializeSparepartData();
-        $this->initializeServisData();
-        $this->initializeTotalData();
-        $this->initializeRatingData();
-        $this->initializeMostOrderedServices();
-        $this->initializeMostOrderedModels();
-        $this->initializeMostOrderedCustomers();
+        return redirect()->route('admin.dashboard', ['id' => 'all', 'dateRange' => $this->selectedDateRange, 'cabang' => $value]);
+        // $this->initializeSparepartData();
+        // $this->initializeServisData();
+        // $this->initializeTotalData();
+        // $this->initializeRatingData();
+        // $this->initializeMostOrderedServices();
+        // $this->initializeMostOrderedModels();
+        // $this->initializeMostOrderedCustomers();
         // $this->dispatchBrowserEvent('updateChartData', [
         //     'months' => $this->exMonths,
         //     'sales' => $this->servisSales,
@@ -134,7 +133,11 @@ class DashboardAdmin extends Component
     
         $this->pendapatan_sparepart = $sparepart->sum('harga');
 
-        $sparepartMonths = $sparepart->groupBy(function ($date) {
+        $sparepartMonths = sparepart_booking::whereHas('booking', function ($query) use ($cabangId) {
+            if ($cabangId) {
+                $query->where('user_id', $cabangId);
+            }
+        })->get()->groupBy(function ($date) {
             return \Carbon\Carbon::parse($date->created_at)->format('M-Y');
         })->filter(function ($group, $key) {
             return \Carbon\Carbon::createFromFormat('M-Y', $key)->year == now()->year;
