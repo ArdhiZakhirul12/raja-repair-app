@@ -41,7 +41,11 @@
                 </h3>
 
                 @if (Auth::user()->hasRole('super-admin'))
-                    <a href="{{ route('admin.dashboard') }}" :active="request() - > routeIs('admin.dashboard')">
+                <a 
+                {{-- href="{{ route('admin.dashboard', ['id' => 'all', 'dateRange' => now()->toDateString(), 'cabang' => 'semua cabang']) }}"
+                    class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" --}}
+                    
+                    onclick="window.location.href='{{ route('admin.dashboard', ['id' => 'all', 'dateRange' => now()->toDateString(), 'cabang' => 'seluruh cabang']) }}'">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

@@ -17,7 +17,7 @@
                 <div class="relative inline-block text-left">
                     <div class="flex items-center space-x-4">
                         <input type="text" name="date_range" class="rounded-lg form-control cursor-pointer"
-                            wire:model.live="selectedDateRange" placeholder="Pilih Range Tanggal" readonly/>
+                            wire:model.live="selectedDateRange" placeholder="Pilih Range Tanggal" readonly />
                         {{-- <input type="text" wire:model.live="searchTerm" class="form-control" /> --}}
 
                         <input type="text" id="selected-cabang" wire:model="selectedCabang"
@@ -75,16 +75,40 @@
             <x-dashboard.dashboard-card-06-uang title="Pendapatan Sparepart"
                 total="Rp {{ number_format($pendapatan_sparepart, 0, ',', '.') }}" />
 
+           
+                <x-dashboard.dashboard-card-08 title="Pendapatan Sparepart per Bulan" total="0" :exMonths="$exMonths"
+                    :exSales="$sparepartSales" :thisYearTotal="$sparepartThisYear" />
+  
 
-            <x-dashboard.dashboard-card-08 title="Pendapatan Sparepart per Bulan" total="0" :exMonths="$exMonths"
-                :exSales="$sparepartSales" :thisYearTotal="$sparepartThisYear" />
-            <x-dashboard.dashboard-card-08 title="Pelayanan servis per bulan" total="0" :exMonths="$exMonths"
-                :exSales="$servisSales" :thisYearTotal="$servisThisYear" />
+        
+                <x-dashboard.dashboard-card-08 title="Pelayanan servis per bulan" total="0" :exMonths="$exMonths"
+                    :exSales="$servisSales" :thisYearTotal="$servisThisYear" />
+  
 
 
-            <x-dashboard.dashboard-card-06 title="10 Model terbanyak" :dataName="$hpModelTotalDataList[0]" :amountData="$hpModelTotalDataList[1]" />
-            <x-dashboard.dashboard-card-06 title="10 servis terbanyak" :dataName="$serviceMost10Data2D[0]" :amountData="$serviceMost10Data2D[1]" />
-            <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$customerTotalDataList2D[0]" :amountData="$customerTotalDataList2D[1]" />
+
+
+
+            @if ($hpModelTotalDataList != [[], []] && count($hpModelTotalDataList) > 0)
+                <x-dashboard.dashboard-card-06 title="10 Model terbanyak" :dataName="$hpModelTotalDataList[0]" :amountData="$hpModelTotalDataList[1]" />
+                {{-- <p>{{ json_encode($hpModelTotalDataList) }}</p> --}}
+            @else
+                <x-dashboard.dashboard-card-06 title="10 Model Terbanyak (Kosong)" :dataName="[]"
+                    :amountData="[]" />
+            @endif
+
+            @if ($serviceMost10Data2D != [[], []] && count($serviceMost10Data2D) > 0)
+                <x-dashboard.dashboard-card-06 title="10 servis terbanyak" :dataName="$serviceMost10Data2D[0]" :amountData="$serviceMost10Data2D[1]" />
+            @else
+                <x-dashboard.dashboard-card-06 title="10 servis terbanyak (Kosong)" :dataName="[]"
+                    :amountData="[]" />
+            @endif
+
+            @if ($customerTotalDataList2D != [[], []] && count($customerTotalDataList2D) > 0)
+                <x-dashboard.dashboard-card-06 title="Repeat Order" :dataName="$customerTotalDataList2D[0]" :amountData="$customerTotalDataList2D[1]" />
+            @else
+                <x-dashboard.dashboard-card-06 title="Repeat Order (Kosong)" :dataName="[]" :amountData="[]" />
+            @endif
 
 
             <x-dashboard.dashboard-card-06-data-cabang title="Customer" total="{{ count($totalCustomers) }}" />
@@ -97,6 +121,8 @@
     </div>
 
     <script>
+    
+
         $(function() {
             const input = $('input[name="date_range"]');
 

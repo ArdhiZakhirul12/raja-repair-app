@@ -3,7 +3,8 @@
 <div class="flex flex-col col-span-full sm:col-span-4 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
     <div class="px-4 py-4">
         {{-- <i class="fa-solid fa-user"></i> --}}
-        @if ($title == 'Servis')
+        <div class="flex justify-between items-start mb-2">
+            @if ($title == 'Servis')
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35"
                 viewBox="0 0 35 35" fill="none">
 
@@ -25,18 +26,28 @@
             <img src="{{ asset('images/Profit.svg') }}" alt="">
         @endif
 
+        @if ($title != 'Total Pendapatan' && !auth()->user()->hasRole('teknisi'))                                            
+        <form action="{{ $detail }}" method="GET" style="display: inline;">
+            <input type="hidden" name="id" value="id">
+            <button type="submit" class="text-green-500 hover:text-green-700">
+                <i class="fas fa-eye"></i> Lihat
+            </button>
+        </form>
+        @endif
+        </div>
+
         <header class="flex justify-between items-start mb-2">
 
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Total {{ $title }}</h2>
+            <h2 class="text-l font-semibold text-gray-800 dark:text-gray-100">Total {{ $title }}</h2>
             
-            @if ($title != 'Total Pendapatan' && !auth()->user()->hasRole('teknisi'))                                            
+            {{-- @if ($title != 'Total Pendapatan' && !auth()->user()->hasRole('teknisi'))                                            
             <form action="{{ $detail }}" method="GET" style="display: inline;">
                 <input type="hidden" name="id" value="id">
                 <button type="submit" class="text-green-500 hover:text-green-700">
                     <i class="fas fa-eye"></i> Lihat
                 </button>
             </form>
-            @endif
+            @endif --}}
             
             <!-- Menu button -->
             {{-- <div class="relative inline-flex" x-data="{ open: false }">

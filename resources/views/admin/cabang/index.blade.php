@@ -287,7 +287,7 @@
                         render: function(data, type, row) {
                             return `
                             <div class="flex gap-x-2">
-                            <form action="/admin/cabang/list-teknisi" method="POST" style="display: inline;">
+                            <form action="/admin/cabang/list-teknisi" style="display: inline;">
                                 @csrf
                                 <input type="hidden" name="id" value="${row.id}">
                                 <button type="submit" class="text-green-500 hover:text-blue-700">

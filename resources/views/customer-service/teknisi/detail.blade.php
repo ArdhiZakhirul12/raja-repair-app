@@ -2,13 +2,32 @@
     {{-- <p>jumlah service : {{$bookings->count()}}</p>
     <p>jumlah service garansi : {{$garansi->count()}}</p>
     <p>Total pendapatan : Rp{{number_format($total, 0, ',', '.')}}</p> --}}
-    <div class="sm:flex sm:justify-between sm:items-center ml-8">
-        <div class="sm:mb-0">
+    
+        <div class="sm:mb-0 flex items-center w-full sm:w-auto justify-between m-6">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                 Detail Teknisi
             </h1>
+            <form method="GET" action="{{ route('cs.teknisi.show', ['id' => request('id')]) }}">
+
+                <!-- Right: Actions -->
+                <input type="hidden" name="id" value={{ request('id') }}>
+                <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end">
+                    <input type="text" name="date_range" class="rounded-lg"  value="{{ request('date_range') }}"/>
+      
+                    <button type="submit"
+                        class="btn ml-2 bg-blue-400 text-white hover:bg-gray-800  dark:text-gray-800 dark:hover:bg-white">
+    
+                        <span class="max-xs:sr-only">Sesuaikan</span>
+                    </button> 
+    
+                </div>
+            </form>
+            {{-- <div>
+                <input type="text" name="date_range" class="rounded-lg form-control cursor-pointer"
+           placeholder="Pilih Range Tanggal" readonly />
+            </div> --}}
         </div>
-    </div>
+ 
     {{-- <p>{{ $bookings }}</p> --}}
 
     <div class=" mx-6 my-3">
@@ -136,6 +155,32 @@
             
         </div>
     </div>
+
+    <script>
+        $(function() {
+          $('input[name="date_range"]').daterangepicker({
+            opens: 'left',
+            locale: {
+            applyLabel: 'Pilih',        // Ganti label Apply jadi "Pilih"
+            cancelLabel: 'Batal',       // (Opsional) Ganti Cancel jadi "Batal"
+            format: 'YYYY-MM-DD'        // (Opsional) Format tanggal
+        }
+            
+          }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+          });
+
+          // Add clear button functionality
+          const clearButton = $('<button>')
+            .text('Clear')
+            .addClass('btn ml-2 bg-red-400 text-white hover:bg-red-600')
+            .on('click', function() {
+              $('input[name="date_range"]').val('');
+            });
+
+          $('input[name="date_range"]').after(clearButton);
+        });
+        </script>
 </x-app-layout>
 
 {{-- $bookings bisa buat tabel seluruh servis --}}
