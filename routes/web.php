@@ -52,7 +52,7 @@ Route::middleware([
 
         Route::group(['prefix' => 'cabang', 'as' => 'cabang.'], function () {
             Route::get('/', [AdminCabangController::class, 'index'])->name('index');
-            Route::post('/list-teknisi', [AdminCabangController::class, 'listTeknisi'])->name('teknisi');
+            Route::get('/list-teknisi', [AdminCabangController::class, 'listTeknisi'])->name('teknisi');
             Route::get('/get-teknisi/{id}', [AdminCabangController::class, 'getTechnicians'])->name('getTechnicians');
             Route::get('/get-cabang', [AdminCabangController::class, 'getCabang'])->name('getCabang');
             Route::post('/', [AdminCabangController::class, 'store'])->name('store');

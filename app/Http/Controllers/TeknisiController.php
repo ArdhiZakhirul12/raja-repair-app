@@ -85,19 +85,62 @@ class TeknisiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id , Request $request)
     {
+
+        $bookings = booking::with('detailBooking')->where('teknisi_id', $id)->where('status', 'selesai');
+        $teknisi = teknisi::find($id);
+        // mendapatkan booking yang bergaransi
+        $garansi = booking::whereHas('claimGaransi')->where('teknisi_id', $id);
+
+        $teknisi_id = teknisi::where('id', $id)->first()->user_id;
+
+        $rating_all = rating::where('user_id', $teknisi_id);
+
         $data = booking::with('detailBooking')
         ->select(booking::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan, COUNT(id) as jumlah_servis"))
         ->where('teknisi_id', $id)
         ->groupBy('bulan')
-        ->orderBy('bulan', 'asc')
-        ->get();
+        ->orderBy('bulan', 'asc');
+        
 
+        if ($request->has('date_range') && $request->date_range) {
 
-        $teknisi_id = teknisi::where('id', $id)->first()->user_id;
+            $dates = explode(' - ', $request->date_range);
+            
+            if (count($dates) === 2) {
+                $startDate = date('Y-m-d', strtotime($dates[0]));
+                $endDate = date('Y-m-d', strtotime($dates[1]));
+               
+                $data->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $bookings->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $garansi->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $rating_all->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+
+                
+            }
+        }
+
+        $data = $data->get();
+        $bookings = $bookings->get();
+        $garansi = $garansi->get();
+        $rating_all = $rating_all->get();
+        
+        
     
-        $rating_all = rating::where('user_id', $teknisi_id)->get();
+        
     $ratingCounts = $rating_all->groupBy('rating')->map(function ($group) {
         return $group->count();
     });
@@ -121,10 +164,7 @@ class TeknisiController extends Controller
         $bulanLabels = $data->pluck('bulan')->toArray();
         $jumlahServis = $data->pluck('jumlah_servis')->toArray();
 
-        $bookings = booking::with('detailBooking')->where('teknisi_id', $id)->where('status', 'selesai')->get();
-        $teknisi = teknisi::find($id);
-        // mendapatkan booking yang bergaransi
-        $garansi = booking::whereHas('claimGaransi')->where('teknisi_id', $id)->get();
+
         // dd($garansi);
 
 

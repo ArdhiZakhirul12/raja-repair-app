@@ -36,7 +36,7 @@ class DashboardAdmin extends Component
     public $pendapatan_servis;
     public $total_pendapatan;
     public $serviceMost10Data2D = [];
-    public $hpModelTotalDataList;
+    public $hpModelTotalDataList = [];
     public $customerTotalDataList2D;
     public $selectedCabang = 'Semua Cabang';
     public $selectedDateRange;
@@ -44,7 +44,6 @@ class DashboardAdmin extends Component
 
     public function mount()
     {
-        // $this->selectedDateRange = now()->format('Y-m-d');
         $this->initializeCabangData();
         $this->initializeMonthYears();
         $this->initializeSparepartData();
@@ -70,10 +69,7 @@ class DashboardAdmin extends Component
         $this->initializeMostOrderedCustomers();
 
     }
-    public function onDateRangeChanged($value)
-    {
-        // dd($value);
-    }
+
 
     public function updatedSelectedCabang($value)
     {
@@ -88,6 +84,10 @@ class DashboardAdmin extends Component
         $this->initializeMostOrderedServices();
         $this->initializeMostOrderedModels();
         $this->initializeMostOrderedCustomers();
+        // $this->dispatchBrowserEvent('updateChartData', [
+        //     'months' => $this->exMonths,
+        //     'sales' => $this->servisSales,
+        // ]); 
     }
 
     private function initializeCabangData()
@@ -122,12 +122,14 @@ class DashboardAdmin extends Component
                     $query->where('status', 'selesai')
                           ->whereBetween('created_at', [$startDate, $endDate]);
                 });
+                // dd($startDate,$endDate);
             }
         }
 
         
 
         $sparepart = $sparepart->get();
+ 
 
     
         $this->pendapatan_sparepart = $sparepart->sum('harga');
@@ -138,13 +140,28 @@ class DashboardAdmin extends Component
             return \Carbon\Carbon::createFromFormat('M-Y', $key)->year == now()->year;
         });
 
-        $tahun = now()->year;
+        
+        if ($this->selectedDateRange != null && $this->selectedDateRange != '') {
+            $dates = explode(' to ', $this->selectedDateRange);
+            $tahun = \Carbon\Carbon::parse($dates[0])->year;
+            
+        }else{
+            $tahun = now()->year;
+        }
+        $this->sparepartSales = [];
         foreach ($this->exMonths as $month) {
             $month = $month . '-' . $tahun;
             $this->sparepartSales[] = $sparepartMonths->has($month) ? $sparepartMonths[$month]->sum('harga') : 0;
+            // if($sparepartMonths->has($month) && $this->selectedDateRange != null && $this->selectedDateRange != ''){
+            //     dd($sparepartMonths[$month]->sum('harga'), $sparepartMonths[$month]);
+            // }
         }
 
         $this->sparepartThisYear = array_sum($this->sparepartSales);
+        
+        // if ($this->selectedDateRange != null && $this->selectedDateRange != '') {
+        //     dd($tahun,$sparepartMonths,$this->sparepartSales, $this->sparepartThisYear, $this->pendapatan_sparepart);
+        // }
     }
 
     private function initializeServisData()
@@ -181,13 +198,32 @@ class DashboardAdmin extends Component
             return \Carbon\Carbon::createFromFormat('M-Y', $key)->year == now()->year;
         });
 
-        $tahun = now()->year;
+        $getAllservis = detailBooking::whereHas('booking', function ($query) use ($cabangId) {
+            if ($cabangId) {
+            $query->where('user_id', $cabangId);
+            }
+        })->get()->groupBy(function ($date) {
+            return \Carbon\Carbon::parse($date->created_at)->format('M-Y');
+        })->filter(function ($group, $key) {
+            return \Carbon\Carbon::createFromFormat('M-Y', $key)->year == now()->year;
+        });
+
+        if ($this->selectedDateRange != null && $this->selectedDateRange != '') {
+            $dates = explode(' to ', $this->selectedDateRange);
+            $tahun = \Carbon\Carbon::parse($dates[0])->year;
+            
+        }else{
+            $tahun = now()->year;
+        }
+        $this->servisSales = [];
         foreach ($this->exMonths as $month) {
             $month = $month . '-' . $tahun;
-            $this->servisSales[] = $servisMonths->has($month) ? $servisMonths[$month]->sum('harga') : 0;
+            $this->servisSales[] = $getAllservis->has($month) ? $getAllservis[$month]->sum('harga') : 0;
         }
 
         $this->servisThisYear = array_sum($this->servisSales);
+
+   
     }
 
     private function initializeTotalData()
@@ -230,10 +266,10 @@ class DashboardAdmin extends Component
                     $startDate,
                     $endDate
                 ]);
-                $this->teknisis->whereBetween('created_at', [
-                    $startDate,
-                    $endDate
-                ]);
+                // $this->teknisis->whereBetween('created_at', [
+                //     $startDate,
+                //     $endDate
+                // ]);
 
                 
             }
@@ -341,7 +377,7 @@ class DashboardAdmin extends Component
                         $startDate,
                         $endDate
                     ]);
-    
+           
                     
                 }
               
@@ -349,13 +385,14 @@ class DashboardAdmin extends Component
         
         $hpModelCountsFullName = $hpModelCountsFullName->get();
            
-
+        
         $modelNames = $hpModelCountsFullName->pluck('full_model_name')->toArray();
         $totalsModel = $hpModelCountsFullName->pluck('total')->toArray();
         $this->hpModelTotalDataList = [
             $modelNames,
             $totalsModel
         ];
+ 
     }
 
     private function initializeMostOrderedCustomers()

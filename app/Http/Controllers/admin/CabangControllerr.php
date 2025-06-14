@@ -9,9 +9,10 @@ use App\Models\dataService;
 use App\Models\sparepart;
 use App\Models\User;
 use App\Models\teknisi;
-use Hash;
+// use Hash;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Hash;
 
 class CabangControllerr extends Controller
 {
