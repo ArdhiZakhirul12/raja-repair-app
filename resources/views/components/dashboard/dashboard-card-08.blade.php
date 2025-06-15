@@ -27,28 +27,12 @@
                 Rp {{ number_format($thisYearTotal, 0, ',', '.') }}
                 @endif
             </div>
-            {{-- @if ($title == 'Pelayanan servis per bulan')
-                <div class="text-sm font-medium text-green-700 px-1.5 bg-green-500/20 rounded-full">+10%</div>
-            @else
-                <div class="text-sm font-medium text-red-700 px-1.5 bg-red-500/20 rounded-full">-22%</div>
-            @endif --}}
+     
             </div>
         </div>
     </div>
     <canvas id="{{ $chartId }}" class="p-3"></canvas>
-    {{-- @if($exSales != [0,0,0,0,0,0,0,0,0,0,0,0])
-        <p>{{ json_encode($exSales) }}</p>
-    @endif --}}
-    {{-- @if ($title == 'Pelayanan servis per bulan')
-        <canvas id="lineChart" class="p-3"></canvas>
-    @elseif($title == 'Pendapatan per bulan')
-        <canvas id="pendapatanLineChart" class="p-3"></canvas>
-    @endif --}}
-
-
-    {{-- <div class="grow">
-        <canvas id="line-chart-dashboard-card-08" width="595" height="248"></canvas>
-    </div> --}}
+  
 
 
 </div>

@@ -165,7 +165,6 @@ class TeknisiController extends Controller
         $jumlahServis = $data->pluck('jumlah_servis')->toArray();
 
 
-        // dd($garansi);
 
 
         // untuk mendapatkan total service dari teknisi

@@ -14,32 +14,60 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         
         $teknisi_data = teknisi::where('user_id', Auth::user()->id)->first();
-        $id = Auth::user()->id;
+        $id = $teknisi_data->id;
+        $garansi = booking::whereHas('claimGaransi')->where('teknisi_id', $teknisi_data->id);
         $data = booking::with('detailBooking')
             ->select(booking::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan, COUNT(id) as jumlah_servis"))
             ->where('teknisi_id', $id)
             ->groupBy('bulan')
-            ->orderBy('bulan', 'asc')
-            ->get();
+            ->orderBy('bulan', 'asc');
 
-        // dd($data);
+        $bookings = booking::with('detailBooking')->where('teknisi_id', $teknisi_data->id)->where('status', 'selesai');
+
+        if ($request->has('date_range') && $request->date_range) {
+
+            $dates = explode(' - ', $request->date_range);
+            
+            if (count($dates) === 2) {
+                $startDate = date('Y-m-d', strtotime($dates[0]));
+                $endDate = date('Y-m-d', strtotime($dates[1]));
+               
+                $data->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $bookings->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $garansi->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+        
+            }
+        }
+
+        $data = $data->get();
+        $bookings = $bookings->get();
+        $garansi = $garansi->get();
 
         // Konversi data ke format array untuk chart
         $bulanLabels = $data->pluck('bulan')->toArray();
         $jumlahServis = $data->pluck('jumlah_servis')->toArray();
 
-        $bookings = booking::with('detailBooking', 'claimGaransi')->where('teknisi_id', $teknisi_data->id)->where('status', 'selesai')->get();
+       
 
 
-        $garansi = $bookings->sum(
-            fn($booking) =>
-            $booking->claimGaransi->where('status', 'selesai')->count()
-        );
-        $totalBooking = $bookings->count() + $garansi;
+        // $garansi = $bookings->sum(
+        //     fn($booking) =>
+        //     $booking->claimGaransi->where('status', 'selesai')->count()
+        // );
+        // $totalBooking = $bookings->count() + $garansi;
 
 
 
@@ -53,7 +81,7 @@ class DashboardController extends Controller
 
 
 
-        return view('teknisi.dashboard.teknisi-dashboard', compact('teknisi_data', 'bookings', 'garansi', 'total', 'bulanLabels', 'jumlahServis', 'totalBooking'));
+        return view('teknisi.dashboard.teknisi-dashboard', compact('teknisi_data', 'bookings', 'garansi', 'total', 'bulanLabels', 'jumlahServis'));
 
     }
 
