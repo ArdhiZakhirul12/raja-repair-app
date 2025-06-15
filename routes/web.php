@@ -53,6 +53,8 @@ Route::middleware([
         Route::group(['prefix' => 'cabang', 'as' => 'cabang.'], function () {
             Route::get('/', [AdminCabangController::class, 'index'])->name('index');
             Route::get('/list-teknisi', [AdminCabangController::class, 'listTeknisi'])->name('teknisi');
+            Route::get('/list-spending-cabang', [AdminCabangController::class, 'listAdminCabangSpending'])->name('listAdminCabangSpending');
+            Route::get('/get-list-spending-cabang/{id}', [AdminCabangController::class, 'getAdminCabangSpendings'])->name('getAdminCabangSpendings');
             Route::get('/get-teknisi/{id}', [AdminCabangController::class, 'getTechnicians'])->name('getTechnicians');
             Route::get('/get-cabang', [AdminCabangController::class, 'getCabang'])->name('getCabang');
             Route::post('/', [AdminCabangController::class, 'store'])->name('store');
@@ -175,6 +177,15 @@ Route::group([
     Route::put('/model-update', [HpController::class, 'modelUpdate'])->name('modelUpdate');
 });
 
+Route::group(['prefix' => 'cs/spending', 'as' => 'cs.spending.','middleware' => 'role:cabang|super-admin'], function () {
+    Route::get('/', [SpendingController::class, 'index'])->name('index');
+    Route::get('/create', [SpendingController::class, 'create'])->name('create');
+    Route::get('/get-spendings', [SpendingController::class, 'getSpendings'])->name('getSpendings');
+    Route::get('/{id}', [SpendingController::class, 'show'])->name('show');
+    // Route::get('/detail/{id}', [SpendingController::class, 'displayDetail'])->name('displayDetail');
+    // Route::post('/show', [SpendingController::class, 'show'])->name('show');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -231,14 +242,7 @@ Route::middleware([
             // Route::post('/update-status', [ServiceController::class, 'updateStatus'])->name('updateStatus');
         });
 
-        Route::group(['prefix' => 'spending', 'as' => 'spending.'], function () {
-            Route::get('/', [SpendingController::class, 'index'])->name('index');
-            Route::get('/create', [SpendingController::class, 'create'])->name('create');
-            Route::get('/get-spendings', [SpendingController::class, 'getSpendings'])->name('getSpendings');
-            Route::get('/{id}', [SpendingController::class, 'show'])->name('show');
-            // Route::get('/detail/{id}', [SpendingController::class, 'displayDetail'])->name('displayDetail');
-            // Route::post('/show', [SpendingController::class, 'show'])->name('show');
-        });
+     
         Route::group(['prefix' => 'claim', 'as' => 'claim.'], function () {
             // Route::get('/', [ClaimGaransiController::class, 'index'])->name('index');
             // Route::get('/create', [ClaimGaransiController::class, 'create'])->name('create');

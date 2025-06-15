@@ -9,6 +9,9 @@ use App\Models\dataService;
 use App\Models\sparepart;
 use App\Models\User;
 use App\Models\teknisi;
+use App\Models\pengeluaran;
+use App\Models\sparepart_booking;
+use App\Models\detailBooking;
 // use Hash;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -106,6 +109,42 @@ class CabangControllerr extends Controller
         // $teknisis = teknisi::where('user_id', Auth::user()->id)->get();
         $cabang_id = $request->id;
         return view('admin.cabang.listTeknisi', compact('cabang_id'));
+    }
+
+    public function listAdminCabangSpending(Request $request)
+    {
+        $cabang_id = $request->id;
+        $sparepart = sparepart_booking::whereHas('booking', function ($query)use ($cabang_id) {
+            $query->where('user_id', $cabang_id);
+        })->sum('harga');
+
+
+        $servis = detailBooking::whereHas('booking', function ($query) use ($cabang_id) {
+            $query->where('user_id', $cabang_id);
+        })->sum('harga');
+
+        $total_pendapatan = $sparepart + $servis;
+
+        $total_pengeluaran = pengeluaran::where('user_id', $cabang_id)->sum('harga');
+
+        $pendapatan_bersih = $total_pendapatan - $total_pengeluaran;
+        $spendings = pengeluaran::where('user_id', $cabang_id)->get();
+        // dd($sparepart,$sparepart_data, $servis, $total_pendapatan, $total_pengeluaran, $pendapatan_bersih);
+        // dd($spendings);
+        // dd($total_pendapatan, $total_pengeluaran, $pendapatan_bersih, $cabang_id, $sparepart, $servis);
+
+        return view('admin.cabang.listPengeluaran', compact('cabang_id','total_pendapatan','total_pengeluaran','pendapatan_bersih'));
+    }
+
+    public function getAdminCabangSpendings(String $id)
+    {
+
+        $spendings = pengeluaran::where('user_id', $id)->get();
+
+        return DataTables::of($spendings)
+   
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
 
