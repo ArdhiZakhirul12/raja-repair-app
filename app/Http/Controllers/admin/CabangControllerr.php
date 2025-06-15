@@ -116,22 +116,57 @@ class CabangControllerr extends Controller
         $cabang_id = $request->id;
         $sparepart = sparepart_booking::whereHas('booking', function ($query)use ($cabang_id) {
             $query->where('user_id', $cabang_id);
-        })->sum('harga');
-
+        });
 
         $servis = detailBooking::whereHas('booking', function ($query) use ($cabang_id) {
             $query->where('user_id', $cabang_id);
-        })->sum('harga');
+        });
+
+        
+
+        $total_pengeluaran = pengeluaran::where('user_id', $cabang_id);
+
+        
+        $spendings = pengeluaran::where('user_id', $cabang_id);
+
+
+        if ($request->has('date_range') && $request->date_range) {
+
+            $dates = explode(' - ', $request->date_range);
+            
+            if (count($dates) === 2) {
+                $startDate = date('Y-m-d', strtotime($dates[0]));
+                $endDate = date('Y-m-d', strtotime($dates[1]));
+               
+                $sparepart->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $servis->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $total_pengeluaran->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+                $spendings->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+
+                
+            }
+        }
+
+        $sparepart = $sparepart->sum('harga');
+        $servis = $servis->sum('harga');
+        $total_pengeluaran = $total_pengeluaran->sum('harga');
+        $spendings =$spendings->get();
 
         $total_pendapatan = $sparepart + $servis;
-
-        $total_pengeluaran = pengeluaran::where('user_id', $cabang_id)->sum('harga');
-
         $pendapatan_bersih = $total_pendapatan - $total_pengeluaran;
-        $spendings = pengeluaran::where('user_id', $cabang_id)->get();
-        // dd($sparepart,$sparepart_data, $servis, $total_pendapatan, $total_pengeluaran, $pendapatan_bersih);
-        // dd($spendings);
-        // dd($total_pendapatan, $total_pengeluaran, $pendapatan_bersih, $cabang_id, $sparepart, $servis);
+        
 
         return view('admin.cabang.listPengeluaran', compact('cabang_id','total_pendapatan','total_pengeluaran','pendapatan_bersih'));
     }
