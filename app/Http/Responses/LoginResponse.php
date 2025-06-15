@@ -13,7 +13,7 @@ class LoginResponse implements LoginResponseContract
 
         // Redirect berdasarkan role
         if ($user->hasRole('super-admin')) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard', ['id' => 'all', 'dateRange' => now()->toDateString(), 'cabang' => 'seluruh cabang']);
         } elseif ($user->hasRole('teknisi')) {
             return redirect()->route('teknisi.dashboard');
         }
