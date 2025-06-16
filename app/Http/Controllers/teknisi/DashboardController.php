@@ -60,9 +60,7 @@ class DashboardController extends Controller
         $bulanLabels = $data->pluck('bulan')->toArray();
         $jumlahServis = $data->pluck('jumlah_servis')->toArray();
 
-       
-
-
+    
         // $garansi = $bookings->sum(
         //     fn($booking) =>
         //     $booking->claimGaransi->where('status', 'selesai')->count()

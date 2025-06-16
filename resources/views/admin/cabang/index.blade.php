@@ -287,6 +287,13 @@
                         render: function(data, type, row) {
                             return `
                             <div class="flex gap-x-2">
+                                <form action="/admin/cabang/list-spending-cabang" style="display: inline;">
+                                @csrf
+                                <input type="hidden" name="id" value="${row.user_id}">
+                                <button type="submit" class="text-yellow-500 hover:text-yellow-900">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </button>
+                            </form>
                             <form action="/admin/cabang/list-teknisi" style="display: inline;">
                                 @csrf
                                 <input type="hidden" name="id" value="${row.id}">
