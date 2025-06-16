@@ -1,13 +1,9 @@
 <x-app-layout>
-    
-    
-    {{-- @foreach ($spendings as $spending)
-    <P>{{$spending}}</P>        
-    @endforeach --}}
- 
 
-    <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex justify-between mb-4 sm:mb-5">
+
+
+    <div class="max-w-9xl mx-auto sm:px-6 lg:px-8 mb-4">
+        <div class="flex justify-between my-4 sm:mb-5">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
                 Data Pengeluaran
             </h1>
@@ -16,14 +12,14 @@
                 <!-- Right: Actions -->
                 <input type="hidden" name="id" value={{ request('id') }}>
                 <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end">
-                    <input type="text" name="date_range" class="rounded-lg"  value="{{ request('date_range') }}"/>
-      
+                    <input type="text" name="date_range" class="rounded-lg" value="{{ request('date_range') }}" />
+
                     <button type="submit"
                         class="btn ml-2 bg-blue-400 text-white hover:bg-gray-800  dark:text-gray-800 dark:hover:bg-white">
-    
+
                         <span class="max-xs:sr-only">Sesuaikan</span>
-                    </button> 
-    
+                    </button>
+
                 </div>
             </form>
             {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
@@ -32,13 +28,16 @@
     </button> --}}
         </div>
         <div class="grid grid-cols-12 gap-4 mb-4">
-            <x-dashboard.dashboard-card-06-uang title="Pendapatan Bersih" total="Rp {{ number_format($pendapatan_bersih, 0, ',', '.') }}" />
-            <x-dashboard.dashboard-card-06-uang title="Total Pendapatan" total="Rp {{ number_format($total_pendapatan, 0, ',', '.') }}" />
-            <x-dashboard.dashboard-card-06-uang title="Total Pengeluaran" total="Rp {{ number_format($total_pengeluaran, 0, ',', '.') }}" />
+            <x-dashboard.dashboard-card-06-uang title="Pendapatan Bersih"
+                total="Rp {{ number_format($pendapatan_bersih, 0, ',', '.') }}" />
+            <x-dashboard.dashboard-card-06-uang title="Total Pendapatan"
+                total="Rp {{ number_format($total_pendapatan, 0, ',', '.') }}" />
+            <x-dashboard.dashboard-card-06-uang title="Total Pengeluaran"
+                total="Rp {{ number_format($total_pengeluaran, 0, ',', '.') }}" />
         </div>
         <div class="overflow-hidden shadow-xl sm:rounded-lg bg-white dark:bg-gray-800 dark:text-slate-300">
-     
-        
+
+
             <div class="p-6">
 
 
@@ -104,13 +103,13 @@
                                         </svg></a>
                                 </div>
                             </th>
-               
+
                             <th></th>
-                    
+
 
                         </tr>
                     </thead>
-                   
+
 
                 </table>
             </div>
@@ -119,15 +118,20 @@
 
     <script>
         //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
-        $(document).ready(function() {
+        let table = $(document).ready(function() {
             $('#admin-spending-table').DataTable({
                 dom: '<"flex mb-4 "<" "f> <""l>   <"flex-grow"B>> t <"row py-4"<"col-md-6"i><"col-md-6 text-end"p>>',
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route("admin.cabang.getAdminCabangSpendings", ["id" => $cabang_id]) }}',
+                ajax: {
+                    url: '{{ route('admin.cabang.getAdminCabangSpendings', ['id' => $cabang_id]) }}',
+                    data: function(d) {
+                        d.date_range = $('input[name="date_range"]')
+                    .val(); // get the date range value from input
+                    }
+                },
                 ordering: false,
-                columns: [
-                    {
+                columns: [{
                         data: 'id',
                         name: 'id',
                         render: function(data, type, row) {
@@ -140,7 +144,7 @@
                     {
                         data: 'referensi',
                         name: 'referensi',
-                  
+
                     },
                     {
                         data: 'metode_pembayaran_id',
@@ -154,7 +158,7 @@
 
 
                     },
-         
+
                     {
                         data: 'tanggal',
                         name: 'tanggal',
@@ -165,7 +169,10 @@
                         data: 'harga',
                         name: 'harga',
                         render: function(data) {
-                            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data);
+                            return new Intl.NumberFormat('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR'
+                            }).format(data);
                         }
                     },
 
@@ -225,27 +232,30 @@
 
 
         $(function() {
-          $('input[name="date_range"]').daterangepicker({
-            opens: 'left',
-            locale: {
-            applyLabel: 'Pilih',        // Ganti label Apply jadi "Pilih"
-            cancelLabel: 'Batal',       // (Opsional) Ganti Cancel jadi "Batal"
-            format: 'YYYY-MM-DD'        // (Opsional) Format tanggal
-        }
-            
-          }, function(start, end, label) {
-            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-          });
+            $('input[name="date_range"]').daterangepicker({
+                opens: 'left',
+                locale: {
+                    applyLabel: 'Pilih', // Ganti label Apply jadi "Pilih"
+                    cancelLabel: 'Batal', // (Opsional) Ganti Cancel jadi "Batal"
+                    format: 'YYYY-MM-DD' // (Opsional) Format tanggal
+                }
 
-          // Add clear button functionality
-          const clearButton = $('<button>')
-            .text('Clear')
-            .addClass('btn ml-2 bg-red-400 text-white hover:bg-red-600')
-            .on('click', function() {
-              $('input[name="date_range"]').val('');
+            }, function(start, end, label) {
+
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
+                    .format('YYYY-MM-DD'));
+
             });
 
-          $('input[name="date_range"]').after(clearButton);
+            // Add clear button functionality
+            const clearButton = $('<button>')
+                .text('Clear')
+                .addClass('btn ml-2 bg-red-400 text-white hover:bg-red-600')
+                .on('click', function() {
+                    $('input[name="date_range"]').val('');
+                });
+
+            $('input[name="date_range"]').after(clearButton);
         });
     </script>
 
@@ -253,5 +263,5 @@
 
 
 
- 
+
 </x-app-layout>

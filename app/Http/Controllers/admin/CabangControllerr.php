@@ -171,10 +171,31 @@ class CabangControllerr extends Controller
         return view('admin.cabang.listPengeluaran', compact('cabang_id','total_pendapatan','total_pengeluaran','pendapatan_bersih'));
     }
 
-    public function getAdminCabangSpendings(String $id)
+    public function getAdminCabangSpendings(String $id,Request $request)
     {
 
-        $spendings = pengeluaran::where('user_id', $id)->get();
+        $spendings = pengeluaran::where('user_id', $id);
+
+
+        if ($request->has('date_range') && $request->date_range) {
+
+            $dates = explode(' - ', $request->date_range);
+            
+            if (count($dates) === 2) {
+                $startDate = date('Y-m-d', strtotime($dates[0]));
+                $endDate = date('Y-m-d', strtotime($dates[1]));
+
+                
+                $spendings->whereBetween('created_at', [
+                    $startDate,
+                    $endDate
+                ]);
+
+
+            }
+        }
+
+        $spendings = $spendings->get();
 
         return DataTables::of($spendings)
    
