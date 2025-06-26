@@ -22,7 +22,7 @@
             </button>
             <!-- Logo -->
             <a class="block" href="{{ route('dashboard') }}">
-                <img class="w-20" src="{{ asset('images/fix_logo_raja.PNG') }}" alt="Logo">
+                <img class="w-30" src="{{ asset('images/reactive.png') }}" alt="Logo">
             </a>
         </div>
 

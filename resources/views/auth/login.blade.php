@@ -2,7 +2,7 @@
     <x-authentication-card>
         <x-slot name="logo">
             {{-- <x-authentication-card-logo /> --}}
-            <img src="{{ asset('images/raja_repair.svg') }}" alt="logo" class="h-20">
+            <img src="{{ asset('images/reactive_logo.png') }}" alt="logo" class="h-20">
         </x-slot>
 
         <x-validation-errors class="mb-4" />
