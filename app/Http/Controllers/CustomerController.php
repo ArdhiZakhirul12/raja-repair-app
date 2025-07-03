@@ -84,20 +84,45 @@ class CustomerController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
+ 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $customer = customer::findOrFail($request->id);
+        $auth = Auth::user();
+        $validated = $request->validate([
+            'nama' => 'required|string|min:3',
+            'no_hp' => [
+                'required',
+                'numeric',
+                'digits_between:11,13',
+                function ($attribute, $value, $fail) use ($customer) {
+                    // Skip validation if the input matches the existing value
+                    if ($value === $customer->no_hp) {
+                        return;
+                    }
+
+                    // Cek apakah nomor HP mengandung angka saja
+                    if (!preg_match('/^08[0-9]+$/', $value)) {
+                        $fail('Nomor HP harus dimulai dengan "08" dan hanya berisi angka.');
+                    }
+                },
+                Rule::unique('customers', 'no_hp')->where(function ($query) use ($customer) {
+                    return $query->where('user_id', auth()->id())->where('id', '!=', $customer->id);
+                }),
+            
+            ],
+            'alamat' => 'nullable',
+        ]);
+
+
+
+
+        $validated['user_id'] = $auth->id;
+        $customer->update($validated);
+        return redirect()->back()->with('success', 'Data pelanggan berhasil diubah!');
     }
 
     /**
