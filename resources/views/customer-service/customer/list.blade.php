@@ -74,71 +74,70 @@
                 <div class="p-6">
 
 
-           
-                   
-
-
-                 
-                            <table
-                                 class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"
-                                id="customers-table">
-                                <thead
-                                  >
-
-                                    <tr>
-                                        <th></th>
-                                        <th scope="col" class="px-6 py-3">
-                                            <div class="flex items-center">
-                                                Nama
-                                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                                    </svg></a>
-                                            </div>
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            <div class="flex items-center">
-                                                Nomor HP
-                                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                                    </svg></a>
-
-                                            </div>
-
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            <div class="flex items-center">
-                                                Alamat
-                                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                                    </svg></a>
-
-                                            </div>
-
-                                        </th>
-                                        <th>
-                                            {{-- <input type="checkbox" id="select-all"> --}}
-                                        </th>
-
-                                    </tr>
-                                </thead>
-
-                            </table>
-                       
 
 
 
 
 
-                  
+                    <table
+                        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"
+                        id="customers-table">
+                        <thead>
+
+                            <tr>
+                                <th></th>
+                                <th scope="col" class="px-6 py-3">
+                                    <div class="flex items-center">
+                                        Nama
+                                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                            </svg></a>
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <div class="flex items-center">
+                                        Nomor HP
+                                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                            </svg></a>
+
+                                    </div>
+
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <div class="flex items-center">
+                                        Alamat
+                                        <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                            </svg></a>
+
+                                    </div>
+
+                                </th>
+                                <th>
+                                    {{-- <input type="checkbox" id="select-all"> --}}
+                                </th>
+
+                            </tr>
+                        </thead>
+
+                    </table>
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -156,29 +155,62 @@
                         tidak ada form yang kosong</p>
                 </div>
                 <div class="w-1/2 p-4"> --}}
-                    <h2 class="text-xl font-semibold mb-4">Tambah Pelanggan</h2>
-                    <form action="{{ route('cs.customer.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="nama" class="block text-sm font-medium text-gray-400">Nama</label>
-                            <input type="text" name="nama" id="nama"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="no_hp" class="block text-sm font-medium text-gray-400">No WA</label>
-                            <input type="text" name="no_hp" id="no_hp"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
-                            <textarea name="alamat" id="alamat" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
-                        </div>
-                        <div class="flex justify-end">
-                            <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
-                                onclick="document.getElementById('add-customer-modal').classList.add('hidden')">Kembali</button>
-                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
-                        </div>
-                    </form>
+                <h2 class="text-xl font-semibold mb-4">Tambah Pelanggan</h2>
+                <form action="{{ route('cs.customer.store') }}" method="POST">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="nama" class="block text-sm font-medium text-gray-400">Nama</label>
+                        <input type="text" name="nama" id="nama"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="no_hp" class="block text-sm font-medium text-gray-400">No WA</label>
+                        <input type="text" name="no_hp" id="no_hp"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
+                        <textarea name="alamat" id="alamat" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                            onclick="document.getElementById('add-customer-modal').classList.add('hidden')">Kembali</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
+                    </div>
+                </form>
+                {{-- </div> --}}
+            </div>
+        </div>
+
+        <div id="edit-customer-modal"
+            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50"
+            onclick="if (event.target === this) this.classList.add('hidden')">
+            <div class="bg-current p-10 rounded-lg shadow-lg w-full max-w-xl">
+
+                <h2 class="text-xl font-semibold mb-4">Edit Pelanggan</h2>
+                <form action="{{ route('cs.customer.update') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" id="id">
+                    <div class="mb-4">
+                        <label for="nama" class="block text-sm font-medium text-gray-400">Nama</label>
+                        <input type="text" name="nama" id="nama"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="no_hp" class="block text-sm font-medium text-gray-400">No WA</label>
+                        <input type="text" name="no_hp" id="no_hp"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
+                        <textarea name="alamat" id="alamat" class="mt-1 p-2 w-full border border-gray-300 rounded" required></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                            onclick="document.getElementById('edit-customer-modal').classList.add('hidden')">Kembali</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Update</button>
+                    </div>
+                </form>
                 {{-- </div> --}}
             </div>
         </div>
@@ -204,14 +236,14 @@
                         //     searchable: false
                         // },
                         {
-                                data: null,
-                                name: 'iteration',
-                                render: function(data, type, row, meta) {
-                                    return meta.row + 1; // Menambahkan nomor urut
-                                },
-                                orderable: false,
-                                searchable: false
+                            data: null,
+                            name: 'iteration',
+                            render: function(data, type, row, meta) {
+                                return meta.row + 1; // Menambahkan nomor urut
                             },
+                            orderable: false,
+                            searchable: false
+                        },
 
                         {
                             data: 'nama',
@@ -231,14 +263,17 @@
                         },
                         {
                             data: 'id',
-                            render: function(data) {
-                                return `<a href="/customer/edit/${data}" class="text-blue-500 hover:text-blue-700">
-                            <i class="fas fa-edit"></i>
-                        </a>`;
-                            },
-                            orderable: false,
-                            searchable: false
+                            render: function(data, type, row) {
+                                return `<button class="text-blue-500 hover:text-blue-700" 
+                                            data-id="${row.id}" 
+                                            data-nama="${row.nama}"
+                                            data-no_hp="${row.no_hp}"
+                                            data-alamat="${row.alamat}"
+                                             onclick="openEditModal(this)">
+                    <i class="fas fa-edit"></i> </button>`;
+                            }
                         }
+                      
                     ],
                     buttons: [
 
@@ -327,6 +362,25 @@
                     }
                 }
             }
+
+            function openEditModal(button) {
+            // Ambil data dari tombol yang diklik
+            const id = button.getAttribute('data-id');
+            const nama = button.getAttribute('data-nama');
+            const no_hp = button.getAttribute('data-no_hp');
+            const alamat = button.getAttribute('data-alamat');
+
+            // Tampilkan modal
+            const modal = document.getElementById('edit-customer-modal');
+            modal.classList.remove('hidden');
+
+            // Isi data di modal
+            modal.querySelector('#id').value = id;
+            modal.querySelector('#nama').value = nama;
+            modal.querySelector('#no_hp').value = no_hp;
+            modal.querySelector('#alamat').value = alamat;
+        }
+
         </script>
 
 </x-app-layout>

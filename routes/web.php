@@ -199,6 +199,7 @@ Route::middleware([
             Route::get('/', [CustomerController::class, 'index'])->name('index');
             Route::get('/get-customers', [CustomerController::class, 'getCustomers'])->name('getCustomers');
             Route::post('/store', [CustomerController::class, 'store'])->name('store');
+            Route::post('/update', [CustomerController::class, 'update'])->name('update');
         });
 
         Route::group(['prefix' => 'sparepart', 'as' => 'sparepart.'], function () {
