@@ -22,8 +22,8 @@
 </head>
 
 <body body class="font-sans min-h-screen"
-    style="background-image: url('{{ asset('images/raja_repair_bg_login.svg') }}'); background-size: cover; background-position: center;">
-    <div class="absolute inset-0" style="background-color: #3D3480; opacity: 0.8;"></div>
+    style="background-image: url('{{ asset('images/bg_login_work.jpg') }}'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0" style="background-color: #43230ec8; opacity: 0.8;"></div>
     {{-- <div class=" flex items-start justify-center  ">
         <div class="items-center bg-white p-4 rounded-lg shadow-lg mt-8">
 
@@ -84,7 +84,7 @@
             <div class="flex-grow ml-4">
 
                 <div class="bg-white shadow-xl rounded-lg p-6 w-full max-w-md">
-                    <h1 class="text-2xl font-bold text-center mb-4" style="color: #302967;">
+                    <h1 class="text-2xl font-bold text-center mb-4 text-orange-600">
                         Antrian Service
                     </h1>
                     @if (!isset($antrian))
@@ -100,12 +100,12 @@
                             Klik "Ambil Antrian" untuk mendapatkan antrian
                         </h1>
                         <div class="bg-gray-100 p-6 rounded-lg shadow-md text-center">
-                            <h2 id="current-number" class="text-4xl font-bold" style="color: #3D3480;">
+                            <h2 id="current-number" class="text-4xl font-bold text-orange-600">
                                 {{ $antrian?->antrian }}
                             </h2>
                         </div>
                         <div class="flex justify-center mt-4 space-x-4">
-                            <button id="next-button" class="bg-[#5346AE] text-white px-4 py-2 rounded" onclick="next()">
+                            <button id="next-button" class="bg-orange-600 text-white px-4 py-2 rounded" onclick="next()">
                                 Ambil Antrian
                             </button>
                          

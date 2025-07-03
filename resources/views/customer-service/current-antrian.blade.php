@@ -20,11 +20,10 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 </head>
-
+    <div class="absolute inset-0" style="background-color: #43230ec8; opacity: 0.8;"></div>
 <body class="font-sans antialiased min-h-screen relative"
-    style="background-image: url('{{ asset('images/raja_repair_bg_login.svg') }}'); background-size: cover; background-position: center;">
-
-    <div class="absolute inset-0" style="background-color: #3D3480; opacity: 0.8;"></div>
+style="background-image: url('{{ asset('images/bg_login_work.jpg') }}'); background-size: cover; background-position: center;">
+<div class="absolute inset-0" style="background-color: #43230ec8; opacity: 0.8;"></div>
     <div class="flex items-center justify-center min-h-screen absolute inset-0 z-10">
         {{-- <div class="bg-white rounded-lg shadow-lg p-6 w-96">
             <h1 class="text-xl font-bold text-center mb-4" style="color: #302967;">
@@ -53,7 +52,7 @@
 
         </div> --}}
         <div class="bg-white rounded-lg shadow-lg p-10 w-96">
-            <h1 class="text-3xl font-bold text-center mb-4" style="color: #302967;">
+            <h1 class="text-3xl font-bold text-center mb-4 text-orange-600">
                 Antrian Ditangani
             </h1>
             <div id="current-antrian" class="text-center">
@@ -62,11 +61,11 @@
                 <h1 class="mt-4">NOMOR</h1>
                 <div class="flex flex-col items-center mt-4">
                     @if ($antrian)
-                        <h2 id="current-number" class="text-9xl font-bold" style="color: #3D3480;">
+                        <h2 id="current-number" class="text-9xl font-bold text-orange-600" >
                             {{ $antrian->ditangani }}
                         </h2>
                     @else
-                        <h2 id="current-number" class="text-4xl font-bold" style="color: #3D3480;">
+                        <h2 id="current-number" class="text-4xl font-bold text-orange-600" >
                             0
                         </h2>
                     @endif

@@ -1,6 +1,6 @@
 <div class="bg-white  rounded-lg shadow-xl w-full max-w-md flex flex-col items-center justify-center relative">
-    <div class="flex justify-center bg-white rounded-lg shadow-xl w-full max-w-md  pt-4">
-        <img src="{{ asset('images/raja_repair.svg') }}" alt="logo"
+    <div class="flex justify-center bg-white rounded-lg shadow-xl w-full max-w-md  py-4">
+        <img src="{{ asset('images/reactive.png') }}" alt="logo"
 
             class="w-[150px] bg-white p-2 \">
 
@@ -38,7 +38,7 @@
                         placeholder="Masukkan Nomor Nota">
 
                        <!-- Tombol untuk Validasi Nota -->
-            <button wire:click="validateNota" class="bg-[#5346AE] text-white p-2 rounded">
+            <button wire:click="validateNota" class="bg-orange-600 text-white p-2 rounded">
                 Validasi
             </button>
                 </div>
