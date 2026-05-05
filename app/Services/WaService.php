@@ -49,7 +49,7 @@ class WaService
 //       );
 
 // print($message->sid);
-
+        // dd($to);
         $response = Http::withHeaders([
             'Authorization' => $this->tokenFonnte,
         ])->post('https://api.fonnte.com/send', [

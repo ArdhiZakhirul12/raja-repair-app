@@ -15,6 +15,7 @@ class AdminSparepart extends Component
     public $nama_sparepart;
     public $harga;
     public $code;
+    public $harga_beli;
 
     public $harga_khusus = [];
 
@@ -37,6 +38,7 @@ class AdminSparepart extends Component
                 Rule::unique('spareparts', 'code')->where('user_id', $user_id),
             ],
             'harga' => 'required|integer',
+            'harga_beli'=> 'required|integer'
         ]);
         foreach ($cabangs as $cabang) {
             $save = $validated;
@@ -72,6 +74,8 @@ class AdminSparepart extends Component
         $this->nama_sparepart = null;
         $this->code = null;
         $this->harga = null;
+        $this->harga_beli = null;
         $this->harga_khusus = [];
+
     }
 }

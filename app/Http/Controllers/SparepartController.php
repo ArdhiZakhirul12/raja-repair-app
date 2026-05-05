@@ -67,6 +67,7 @@ class SparepartController extends Controller
         $validated = $request->validate([
             'nama_sparepart' => 'required|string|min:3',
             'harga' => 'required|integer',    
+            'harga_beli' => 'required|integer',    
             'code' => [
                 'required',
                 'string',
@@ -105,7 +106,8 @@ class SparepartController extends Controller
         
         $validated = $request->validate([
             'nama_sparepart' => 'required|string|min:3',
-            'harga' => 'required|integer',    
+            'harga' => 'required|integer', 
+            'harga_beli' => 'required|integer', 
             'code' => [
                 'required',
                 'string',

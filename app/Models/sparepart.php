@@ -19,4 +19,8 @@ class sparepart extends Model
     {
         return $this->hasMany(sparepart_booking::class);
     }
+    public function sparepartSale()
+    {
+        return $this->hasMany(sparepartSale::class);
+    }
 }

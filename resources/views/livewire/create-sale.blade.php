@@ -41,7 +41,7 @@
                             xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFIUlEQVR4nO2dW2gcZRSAT70j3sUK3luf1Af1QXySKlqsSlGKS/acTVooGsEblpo9ZxrLKCqIPkhVhKCQdvc/G9k3KxXqrUXESlFUKlYRbQXFS9EH6yWmauTfbJqYmsskM/PP/jMfnJc87M7/8e+Z/3oCUFBQUFBQUFBQUFBQUBCNB4e6LuZ6Za0YekEUd4ji16L0Mxs6JIq/suJ++3dWfJgb5Ssjfny+CQd6T2RD97DiB6I0GiVY8Y1qo3yZ6zZkm1FYxIp3iKEDUQVPkf2HKFZcNyeTyJaeM1lx+0IET5H9Nxu61XW7MkW1XjmPFb+IS/LhsL8MQ/ez4sr1te7FkGdE6XRR/Cx2yUdKH2bFzX2N8jmQy5xsaFvikv8r/FupV66CPMGKq1OVPCH7p35DF0IeuO/VFcez4jdORNuXpaGdkAcCQ3e6kjwe1UZ5OfiOKO5yLVqUXgefWV/rXpwByTZ9HFrXLJ0BvhIo3uZa8kR4PINkxafcC273asWnwVdY8a0Mid4OvsKKe1wLnhRfgq+InZ25FzwWhg6Ar3BrGTMzoofBV9jQQeeCDwf+Ar7Chj53L3gs7LOAr3CMC/wxpI43wVdEcWOGRD8CviKN8tXOBbcjUFwGPsOG9rqWzIpfhWF4FPgMG3rWtWhRfA58JjB0nd2ldi26tVNer1wLviKGtrqWPEn2y+ArnKG1Djb0MfgKG3rPteCJwF3gK6I04F5wOww9D74iijc7FzwejfIK8BlWfMe1ZDb0rj3EAz7TX+teIoofOZOs+CEPdV0EeYEVNzmQvAnyBiuuTF10o3wL5I2wWTpOFH9ITbSh73oHeo+FPCJKnF6Pxnshz3dWxNC+FHLznnDHsmMgz1Qb5eVJLjR5v4AUBTb0UIK5OXDdvqzdynopAclD3k9MolJqlo6OeWw9kNtRxlyIS/ScvizPSCG6EO0V0oE9uu/FtSeLodDem2RDf7KhH+3LfYOhKyCrSIeJtiuB0x+hwBEx1ANZRDpItJU8+8wWR7jWfTlkiaBeuT4u0UG9ck0as1p7/He2Z7FpBDJVq0Oj1+mYoXG7w8E1JyT93FVDN80mmw19D1kgrFdOsYVN4pI8qYHbuFk61bVsewAfnDIKi4J65fYkryzbc3aBoVVJT8VnlG3oE3B3sRPvTvPAoz14zop9QaN89nxffLNdbZ5eNm6ENIugiC1WYminGPorLcH/0+gRm1Kqindt2Lz63EijC0PDVmYk2YY+DZulkyBJgnrlUrtMyYq7xdA/7uROE61nmvkG7RFDuCiyDe1LbMe9OtR1iSg9kaX7KjJ9OnlsXuPkuci2GxqxS7YvNUOrsnA4RpKWHEF2rFQVb7QnM12LkzQlpyk7HFxzmigOupYmMUu2pYAibRgnKbt/qOv8LNxFEdeSJ8uOu6qNKC1t1wl1Lk6yIHlMdLyji3bhqdjWIyStMPTkTO3iLT0X2GoH8/v8VqdbCnEihp5xLk097smtB6p1LxkrKexenvjaky32KoJzceq55PYZud+dy1NP08U4onSDa3nic0+eEI2Pdojkx2fryXZ9el6/EsX9iV/JEEOvdYDkrTMt7mdecku0w8s9MjfJw0GzdFZHS7a4rI4rc5PxSkfm5KlkfcTBhtZ1dE/udFixVkhOAVF6P/PpwpP/I3CwkJww7Zdg0ZPT2GIr0kUKSL3yQJGTM1OEpXjxLRhWfHua8fFvY7tEqHaNfeHflHPY0N627AE7obEVZ1oTEEf3Dv8FYD/aWmoSqxwAAAAASUVORK5CYII=" />
 
                     </svg>
-                    <h3 class="font-bold text-gray-800 mb-6 mx-2 pt-2 ">Data Pelanggan</h3>
+                    <h3 class="font-bold text-gray-800 mb-6 mx-2 pt-2 ">Data Pembelian</h3>
                 </div>
 
                 @if (session()->has('message'))
@@ -122,92 +122,11 @@
                     @endif
 
                 </div>
-
-
-
-                <!-- Input No HP Alternatif -->
-                <div class="flex space-x-4 mb-4">
-
-                    {{-- @dd($teknisis) --}}
-                    <div class="w-1/2" x-data="{
-                        open: false,
-                        search: '',
-                        items: @js($teknisis),
-                        selectItem(item) {
-                            this.search = item.nama;
-                            @this.set('teknisiId', item.id);
-                            this.open = false;
-                        }
-                    }">
-                        <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih Teknisi</label>
-                        <input type="text" x-model="search" x-on:click="open = !open" x-on:input="open = true"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            placeholder="Cari Teknisi...">
-
-                        <!-- Dropdown -->
-                        <div x-show="open" x-transition x-on:click.away="open = false"
-                            class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
-                            <ul>
-                                <template
-                                    x-for="item in items.filter(i => i.nama.toLowerCase().includes(search.toLowerCase()))"
-                                    :key="item.id">
-                                    <li x-on:click="selectItem(item)"
-                                        class="cursor-pointer px-4 py-2 hover:bg-indigo-600 hover:text-white">
-                                        <span x-text="item.nama"></span>
-                                    </li>
-                                </template>
-                            </ul>
-                        </div>
-                        @if ($errors->has('teknisiId'))
-                            <div
-                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                </svg>
-                                @error('teknisiId')
-                                    <span>{{ $message }}</span>
-                                @enderror
-                            </div>
-                        @endif
-
-
-
-                    </div>
-                    <div class="w-1/2">
-                        <label for="no_hp_alternatif" class="block text-sm font-medium text-gray-400">No Hp
-                            Alternatif</label>
-                        <input type="text" id="no_hp_alternatif" wire:model="no_hp_alternatif"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        @if ($errors->has('no_hp_alternatif'))
-                            <div
-                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                </svg>
-                                @error('no_hp_alternatif')
-                                    <span>{{ $message }}</span>
-                                @enderror
-                            </div>
-                        @endif
-                    </div>
-                </div>
-
-
-
-
-
-
-
-                <!-- Input Kendala -->
-                <div>
-                    <label for="kendala" class="block text-sm font-medium text-gray-400">Kendala</label>
-                    <textarea id="kendala" wire:model="kendala" rows="5"
+                <div class="mb-4">
+                    <label for="keterangan" class="block text-sm font-medium text-gray-400">keterangan</label>
+                    <textarea id="keterangan" wire:model="keterangan" rows="3"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
-                    @if ($errors->has('kendala'))
+                    @if ($errors->has('keterangan'))
                         <div
                             class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -215,236 +134,14 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
                             </svg>
-                            @error('kendala')
+                            @error('keterangan')
                                 <span>{{ $message }}</span>
                             @enderror
                         </div>
                     @endif
+
                 </div>
-                {{-- <!-- Tombol Submit -->
-                    <div class="flex justify-end">
-                        <button type="submit"
-                            class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            Simpan
-                        </button>
-                    </div> --}}
-
-                {{-- </form> --}}
-
-            </div>
-
-
-
-            <div>
-                <div class="max-w-4xl mx-3 p-6 bg-white shadow-md rounded-lg">
-                    <div class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            width="30" height="30" viewBox="0 0 30 30" fill="none">
-
-                            <image id="image0_76_220" width="30" height="30"
-                                xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADZUlEQVR4nO2dsWpUQRiFB8So+AQm+AKCjU9ha/EfUwhapZCIViZWW7gzmyApLFNIwNJOUPEF1CgBIWwQbJx/USNYSURItTLXILjJ7t69O5s7x50D0ywL+32HyT83xXCNycnJyUkr1xufTovV23D+rVj/E067Ka3AJNZvwvpblx9+PGUYc/X+5/OwfrvuMlF+vZdmZ86w7WSykrt/y260ZwxL4PROAqV1qyxxftGwRKx/R1u09ZuGJXB+r+7CUHn5PcOS+svSsZZhSd1FIRettZc4FTvaJBYWTnoBkHDSC4CEk14AJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMKZnMC1B7tnxemqOP0m1n+B1RV50j2RGme01CEg1l+A053Dv+tbKXFGzXELSFNv9L26YXU3Fc7oGVVAGu2Z8GceSoHTr2EXlrlTEkYFnN/o93u56J4UJfcUJFafDyq7/6jIo6Pbr7SDndwtW/bAUfHvbn6UD8MSRRdlO/8yXD4K35O1zhlYXR9esP8lLV0wQzJ1MxrOtwYVJ05foOkvlRsVuhPGyiQ4/4/D0OmzEiUOm8cb4YCcFGdyqSIgxZOHf1qp4JKjIgZnUqkqINXK/iArnYvHyZlMxhGQUcq2+niUURGTM4mMKyDDyq44KmJz1p4YAtK/7MqjYhKctSaWgDTaM2K9C/+Wi/XfYf3aOKNiUpy1hUUAJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMI5sgBIlmFJ3UUhF621l5h3tBtawj6svzu/qrNhSUuXis9y0XF3mbR0qXdEidXlXHTkoq80/bneosNnuejIRc+v6uyhHd3szOWiY48Oq8tHPN3cy0XHP6T2Q9nFQfhnJ4eSp/0w5H3hjTj9YVhSvLougdJQZVl9bVgS3g9Ye2Gu6urcNCwJ14rDK+sId/PWwvrWScOUgwOLp2yrW0c9q1OkuIPi/KI4fZPmAen3xOmrMC7odnJOTo6ZgvwGAxegPr5PH1wAAAAASUVORK5CYII=" />
-
-                        </svg>
-                        <h3 class="font-bold text-gray-800 mb-6 mx-2 pt-2">Data Handphone</h3>
-                    </div>
-
-
-
-                    <div x-data="{
-                        openMerk: false,
-                        searchMerk: @entangle('searchMerk'),
-                        merkHpId: @entangle('merkHpId'),
-                        openModel: false,
-                        searchModel: @entangle('searchModel'),
-                        modelHpId: @entangle('modelHpId'),
-                        itemsMerk: @js($merks),
-                        itemsModel: @js($models),
-                        filteredModels() {
-                            return this.itemsModel.filter(i => i.hp_merk_id === this.merkHpId);
-                        },
-                        selectMerk(item) {
-                            this.searchMerk = item.merk;
-                            @this.set('merkHpId', item.id);
-                            this.openMerk = false;
-                        },
-                        selectModel(item) {
-                            this.searchModel = item.model;
-                            @this.set('modelHpId', item.id);
-                            this.openModel = false;
-                        }
-                    }">
-
-                        <div class="flex space-x-4 mb-3">
-                            <div class="w-1/2">
-                                <!-- Dropdown Merk HP -->
-                                <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih Merk
-                                    HP</label>
-                                <input type="text" x-model="searchMerk" x-on:click="openMerk = !openMerk"
-                                    x-on:input="openMerk = true"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Cari Merk Hp...">
-
-                                <!-- Dropdown Merk -->
-                                <div x-show="openMerk" x-transition x-on:click.away="openMerk = false"
-                                    class="mt-2 max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
-                                    <ul>
-                                        <template
-                                            x-for="item in itemsMerk.filter(i => i.merk.toLowerCase().includes(searchMerk.toLowerCase()))"
-                                            :key="item.id">
-                                            <li x-on:click="selectMerk(item)"
-                                                class="cursor-pointer px-4 py-2 hover:bg-indigo-600 hover:text-white">
-                                                <span x-text="item.merk"></span>
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </div>
-                                @if ($errors->has('merkHpId'))
-                                    <div
-                                        class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                        </svg>
-                                        @error('merkHpId')
-                                            <span>{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                @endif
-                            </div>
-
-
-
-
-                            <div class="w-1/2">
-                                <!-- Dropdown Model HP -->
-                                <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih Model
-                                    HP</label>
-                                <input type="text" x-model="searchModel" x-on:click="openModel = !openModel"
-                                    x-on:input="openModel = true"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Cari Model Hp..." :disabled="!merkHpId">
-
-                                <!-- Dropdown Model -->
-                                <div x-show="openModel && merkHpId" x-transition x-on:click.away="openModel = false"
-                                    class="mt-2 max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
-                                    <ul>
-                                        <template
-                                            x-for="item in filteredModels().filter(i => i.model.toLowerCase().includes(searchModel.toLowerCase()))"
-                                            :key="item.id">
-                                            <li x-on:click="selectModel(item)"
-                                                class="cursor-pointer px-4 py-2 hover:bg-indigo-600 hover:text-white">
-                                                <span x-text="item.model"></span>
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </div>
-                                @if ($errors->has('modelHpId'))
-                                    <div
-                                        class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                        </svg>
-                                        @error('modelHpId')
-                                            <span>{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
-
-
-                        <!-- Input Imei-->
-                        <div class="mb-3">
-                            <label for="imei" class="block text-sm font-medium text-gray-400">Imei</label>
-                            <input type="text" id="imei" wire:model="imei"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            @if ($errors->has('modelHpId'))
-                                <div
-                                    class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                    </svg>
-                                    @error('modelHpId')
-                                        <span>{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            @endif
-                        </div>
-
-
-
-
-
-
-
-                        <div class="mb-3" x-data="{
-                            open: false,
-                            search: '',
-                            selectedItems: [], // Menyimpan layanan yang dipilih
-                            items: @js($services), // Data layanan yang dikirim dari controller
-                            selectItem(item) {
-                                // Cek jika item sudah ada di selectedItems, jika sudah, hapus
-                                if (this.selectedItems.some(i => i.id === item.id)) {
-                                    this.selectedItems = this.selectedItems.filter(i => i.id !== item.id);
-                                } else {
-                                    // Tambahkan item yang dipilih ke selectedItems
-                                    this.selectedItems.push(item);
-                                }
-                                // Set state untuk mengupdate input field
-                                this.search = '';
-                                @this.set('service_id', this.selectedItems.map(i => i.id)); // Kirim array ID ke Livewire
-                                @this.set('harga_service', this.selectedItems.map(i => i.harga)); // Kirim array ID ke Livewire
-                                this.open = false;
-                            },
-                            get displayText() {
-                                // Menampilkan nama-nama layanan yang dipilih
-                                return this.selectedItems.map(i => `${i.nama_servis} - Rp${i.harga.toLocaleString()}`).join(', ') || 'Pilih Layanan';
-                            }
-                        }">
-                            <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih
-                                Layanan</label>
-                            <input type="text" x-model="search" x-on:click="open = !open"
-                                x-on:input="open = true"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                placeholder="Cari Layanan..." :value="displayText">
-
-                            <!-- Dropdown -->
-                            <div x-show="open" x-transition x-on:click.away="open = false"
-                                class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
-                                <ul>
-                                    <template
-                                        x-for="item in items.filter(i => i.nama_servis.toLowerCase().includes(search.toLowerCase()))"
-                                        :key="item.id">
-                                        <li x-on:click="selectItem(item)"
-                                            :class="{ 'bg-indigo-600 text-white': selectedItem && selectedItem.id === item.id }"
-                                            class="cursor-pointer px-4 py-2 hover:bg-indigo-600 hover:text-white">
-                                            <span
-                                                x-text="`${item.nama_servis} - Rp${item.harga.toLocaleString()}`"></span>
-
-                                        </li>
-                                    </template>
-                                </ul>
-                            </div>
-                            @error('service_id')
-                                <div
-                                    class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                    </svg>
-                                    <span>{{ $message }}</span>
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div x-data="{
+                <div x-data="{
                             open: false,
                             search: '',
                             selectedItems: [],
@@ -484,11 +181,6 @@
                                     <span>{{ $message }}</span>
                                 </div>
                             @enderror
-
-
-
-
-
                             <!-- Dropdown -->
                             <div x-show="open" x-transition x-on:click.away="open = false"
                                 class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
@@ -505,59 +197,15 @@
                                     </template>
                                 </ul>
                             </div>
-                            <div class="mb-3 mt-3">
-                                <label for="diskon" class="block text-sm font-medium text-gray-400">diskon</label>
-                                <input type="text" id="diskon" wire:model="diskon"
-                                    oninput="formatRupiah(this) "
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                @if ($errors->has('modelHpId'))
-                                    <div
-                                        class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
-                                        </svg>
-                                        @error('modelHpId')
-                                            <span>{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                @endif
                             </div>
-                            <div class="mb-4"></div>
-                            <div class="flex items-center">
-                                <input type="radio" name="garansi" wire:model="garansi" value="0"
-                                    id="garansi1_check">
-                                <label for="garansi1_check" class="ml-2">Tidak Garansi</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" name="garansi" wire:model="garansi" value="1"
-                                    id="garansi1_check">
-                                <label for="garansi1_check" class="ml-2">Garansi 14 Hari</label>
-                            </div>
-
-                            <div class="flex items-center">
-                                <input type="radio" name="garansi" wire:model="garansi" value="2"
-                                    id="garansi2_check">
-                                <label for="garansi2_check" class="ml-2">Garansi 30 Hari</label>
-                            </div>
-
-                            <div class="flex items-center">
-                                <input type="radio" name="garansi" wire:model="garansi" value="3"
-                                    id="garansi3_check">
-                                <label for="garansi3_check" class="ml-2">Garansi 90 Hari</label>
-                            </div>
-
-
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+                            
+                
 
             </div>
+
+
+
+            
             <div>
                 <div class="max-w-4xl mx-3 p-6 bg-white shadow-md rounded-lg">
                     <div class="flex">
@@ -571,16 +219,12 @@
                         <h3 class="font-bold text-gray-800 mb-6 mx-2 pt-2">Data Pembayaran</h3>
 
                     </div>
-                    <div class="bg-yellow-100 text-yellow-800 px-3 py-2 rounded mb-4">
-                        <h4 class="text-sm">
-                            Kosongi jika tidak ada pembayaran diawal
-                        </h4>
-                    </div>
+                   
                     <!-- Input Imei-->
 
 
 
-                    <!-- Jumlah Bayar -->
+                    {{-- <!-- Jumlah Bayar -->
                     <div class="mb-3">
                         <label class="block text-sm font-medium text-gray-400">Jumlah Bayar</label>
                         <input type="text" wire:model="jumlah_bayar" oninput="formatRupiah(this)"
@@ -591,7 +235,7 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <!-- Nominal Bayar -->
                     <div class="mb-3">
@@ -669,7 +313,7 @@
                         </div>
 
                         <div class="text-right">
-                            <span class="text-xs text-gray-400">Termasuk service & sparepart</span>
+                            <span class="text-xs text-gray-400">Termasuk harga sparepart</span>
                         </div>
 
                     </div>

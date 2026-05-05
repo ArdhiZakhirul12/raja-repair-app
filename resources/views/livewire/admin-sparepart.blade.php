@@ -49,8 +49,16 @@
                             <input type="text" name="harga" id="harga" wire:model="harga"
                                 class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
                         </div>
-                        
+                        <div class="w-1/2">
+                            <label for="harga" class="block text-sm font-medium text-gray-400">Harga Beli</label>
+                            <input type="text" name="harga_belli" id="harga_beli" wire:model="harga_beli"
+                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
+                        </div>
                     </div>
+                    {{-- <div class="mb-4 flex gap-4">
+                        
+                    </div> --}}
+                    
 
                     
                 </div>

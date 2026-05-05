@@ -20,8 +20,6 @@ class BookingController extends Controller
         return view('customer-service.booking.list', compact('bookings'));
     }
 
-
-
     public function getBooking(Request $request)
     {
         $query = booking::with(['hpModel', 'user', 'detailBooking', 'customer'])

@@ -78,11 +78,11 @@
                 @endphp
                 Selesai dalam {{ $formattedDuration }}
             @endif
-
+            {{-- @dd($booking) --}}
             <hr class="my-4 px-4">
             <h1 class="font-bold my-3">Pelanggan</h1>
             <h1 class="mb-3"><i class="fas fa-user mr-2 text-blue-500"></i> {{ $booking->customer->nama }}</h1>
-            <h1 class="mb-3"><i class="fas fa-phone mr-2 text-blue-500"></i> {{ $booking->no_hp_alternatif }}</h1>
+            {{-- <h1 class="mb-3"><i class="fas fa-phone mr-2 text-blue-500"></i> {{ $booking->users->no_hp }}</h1> --}}
             <h1 class="mb-3"><i class="fas fa-shield-alt mr-2 text-blue-500"></i> Klaim Garansi : @if ($booking->claim)
                     Iya
                 @else

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire;
+
 use App\Models\antrian;
 use App\Models\booking;
 use App\Models\customer;
@@ -10,20 +11,18 @@ use App\Models\hpMerk;
 use App\Models\hpModel;
 use App\Models\sparepart;
 use App\Models\sparepart_booking;
+use App\Models\sparepartSale;
 use App\Models\teknisi;
 use App\Models\metodePembayaran;
 use App\Models\pembayaranBooking;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-
-
 use Livewire\Component;
 
-class BookingForm extends Component
+class CreateSale extends Component
 {
-
-    protected $listeners = ['refreshComponent' => '$refresh'];
+     protected $listeners = ['refreshComponent' => '$refresh'];
     
     public $nohp;
     public $diskon;
@@ -61,6 +60,7 @@ class BookingForm extends Component
     public $nominal_bayar;
     public $metode_id;
     public $metode_nama;
+    public $keterangan;
 
 
     public function mount()
@@ -143,19 +143,18 @@ class BookingForm extends Component
 
     public function getKembalianProperty()
     {
-        $jumlah = (int) preg_replace('/[^0-9]/', '', $this->jumlah_bayar);
+        $totalSparepart = is_array($this->harga_sparepart) ? array_sum($this->harga_sparepart) : 0;
         $nominal = (int) preg_replace('/[^0-9]/', '', $this->nominal_bayar);
 
-        if ($nominal < $jumlah) {
+        if ($nominal < $totalSparepart) {
             return 0; // kalau kurang bayar, tidak ada kembalian
         }
 
-        return $nominal - $jumlah;
+        return $nominal - $totalSparepart;
     }
 
     public function submit()
     {
-        
         $validated = $this->validate([
             'nohp' => [
                 'required',
@@ -170,28 +169,23 @@ class BookingForm extends Component
             ],
             'nama' => 'required|min:3|string|max:255',
             'alamat' => 'required|string',
-            'kendala' => 'required|string',
-            'no_hp_alternatif' => [
+
+            'sparepart_id' => 'required',
+            'metode_id' => 'required',
+            'nominal_bayar' => [
                 'required',
                 'numeric',
-                'min:11',
                 function ($attribute, $value, $fail) {
-                    // Cek apakah nomor HP mengandung angka saja
-                    if (!preg_match('/^08[0-9]+$/', $value)) {
-                        $fail('Nomor HP harus dimulai dengan "08" dan hanya berisi angka.');
+                    $total = is_array($this->harga_sparepart) ? array_sum($this->harga_sparepart) : 0;
+                    $nominal = (int) str_replace('.', '', $value);
+                    if ($nominal < $total) {
+                        $fail('Jumlah bayar tidak boleh lebih kecil dari total.');
                     }
                 },
             ],
-            'teknisiId' => 'required',
-            'merkHpId' => 'required',
-            'modelHpId' => 'required',
-            'imei' => 'nullable',
-            'service_id' => 'required',
-            'sparepart_id' => 'nullable',
-            'garansi' => 'nullable',
-            'diskon' => 'nullable|integer',
 
         ]);
+        
         // dd($this->harga_service, $this->harga_sparepart);
 
         // jika customer baru dibuatkan customer baru
@@ -233,7 +227,7 @@ class BookingForm extends Component
             }
         }
         // dd($cab, $tanggal, $angka);
-        $kode_pesanan = strtoupper( $cab .'-'. $tanggal.'-' . $nextNumber);
+        $kode_pesanan = strtoupper( $cab .'SP-'. $tanggal.'-' . $nextNumber);
         // dd($kode_pesanan);
         $no_antri = antrian::where('user_id',auth()->id())->first()?->ditangani;
         if (!$no_antri) {
@@ -251,74 +245,33 @@ class BookingForm extends Component
         }else{
             $bayar = 0;
         }
+        $total = is_array($this->harga_sparepart) ? array_sum($this->harga_sparepart) : 0;
         //membuat booking
-        $createBook = booking::create(([
+        $totalSparepart = is_array($this->harga_sparepart) ? array_sum($this->harga_sparepart) : 0;
+        $nominal = (int) preg_replace('/[^0-9]/', '', $this->nominal_bayar);
+
+        if ($nominal < $totalSparepart) {
+            $kembalian= 0; // kalau kurang bayar, tidak ada kembalian
+        }
+        $nominal = (int) str_replace('.', '', $this->nominal_bayar);
+        $kembalian= $nominal - $totalSparepart;
+
+        if($this->keterangan == null){
+            $this->keterangan = 'belum ada keterangan';
+        }
+        $createBook = sparepartSale::create(([
             'kode_pesanan' => $kode_pesanan,
             'user_id' => auth()->id(),
-            'teknisi_id' => $validated['teknisiId'],
             'customer_id' => $this->customer,
-            'no_hp_alternatif' => $this->no_hp_alternatif,
-            'hp_model_id' => $this->modelHpId,
-            'imei' => $validated['imei'],
-            'kendala' => $validated['kendala'],
-            'garansi' => $this->garansi,
-            'status' => 'diproses',
-            'metode_pembayaran_id' => 1,
-            'total' => $bayar,
-            'claim' => 0,
-            'keterangan' => 'belum ada keterangan',
-            'nomor_antrian' => $no_antri,
-            'diskon' => $discount,
-            'diskon_status' => $diskonStatus
+            'status' => 'selesai',
+            'metode_pembayaran_id' => $this->metode_id,
+            'total' => $total,
+            'keterangan' => $this->keterangan,
+            'kembalian' => $kembalian,
+            'diskon' => 0,
+            'diskon_status' => 'tidak_diskon',
+            'nominal_bayar' => $nominal
         ]));
-        if ($this->service_id != null) {
-            $serviceIds = $validated['service_id'];
-            for ($i = 0; $i < count($serviceIds); $i++) {
-                $service = dataService::where('id', $serviceIds[$i])->first();
-                if($this->garansi == '0'){
-                    $harga = $service->harga;
-                }elseif($this->garansi == '1'){
-                    $harga = $service->garansi_1;
-                }elseif($this->garansi == '2'){
-                    $harga = $service->garansi_2;
-                }elseif($this->garansi == '3'){
-                    $harga = $service->garansi_3;
-                }
-                // dd($harga);
-                detailBooking::create([
-                    'booking_id' => $createBook['id'],
-                    'data_service_id' => $serviceIds[$i],
-                    'harga' => $harga,
-                ]);
-            }
-        }
-        if ($this->jumlah_bayar != null){
-            $kembalian = $this->nominal_bayar - $this->jumlah_bayar;
-            $jumlah = (int) str_replace('.', '', $this->jumlah_bayar);
-            $nominal = (int) str_replace('.', '', $this->nominal_bayar);
-            pembayaranBooking::create([
-                'booking_id' => $createBook['id'],
-                'metode_pembayaran_id' => $this->metode_id,
-                'statuss' => 'dp',
-                'jumlah'=> $jumlah,
-                'nominal_bayar'=> $nominal,
-                'kembalian' =>  $kembalian
-            ]);
-
-        }
-    //         public $jumlah_bayar;
-    // public $nominal_bayar;
-    // public $metode_id;
-        if ($this->sparepart_id != null) {
-            $sparepartIds = $validated['sparepart_id'];
-            for ($i = 0; $i < count($sparepartIds); $i++)
-                sparepart_booking::create([
-                    'booking_id' => $createBook['id'],
-                    'sparepart_id' => $sparepartIds[$i],
-                    'harga' => $this->harga_sparepart[$i],
-                    'harga_beli' => $this->harga_beli_sparepart[$i],
-                ]);
-        }
 
 
         $this->reset(); // Reset semua input
@@ -328,8 +281,9 @@ class BookingForm extends Component
         $this->dispatch('print-spk');
        
     }
+   
     public function render()
     {
-        return view('livewire.booking-form');
+        return view('livewire.create-sale');
     }
 }

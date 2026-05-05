@@ -19,4 +19,8 @@ class customer extends Model
     {
         return $this->hasMany(booking::class);
     }
+    public function sparepartSale()
+    {
+        return $this->hasMany(sparepartSale::class);
+    }
 }

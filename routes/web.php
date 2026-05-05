@@ -15,6 +15,7 @@ use App\Http\Controllers\PcAntrianController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SpendingController;
+use App\Http\Controllers\SparepartSaleController;
 use App\Http\Controllers\teknisi\DashboardController as TeknisiDashboardController;
 use App\Http\Controllers\teknisi\BookingController as TeknisiBookingController;
 use App\Http\Controllers\teknisi\ClaimGaransiController as TeknisiClaimController;
@@ -138,6 +139,19 @@ Route::group([
     Route::get('/{id}', [BookingController::class, 'show'])->name('show');
     Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
     Route::get('/detail/{id}', [BookingController::class, 'displayDetail'])->name('displayDetail');
+});
+Route::group([
+    'prefix' => 'cs/sale',
+    'as' => 'cs.sale.',
+    'middleware' => 'role:cabang|super-admin'
+], function () {
+    Route::get('/', [SparepartSaleController::class, 'index'])->name('index');
+    // Route::get('/get-booking', [BookingController::class, 'getBooking'])->name('getBooking');
+    Route::get('/create', [SparepartSaleController::class, 'create'])->name('create');
+    // Route::post('/store', [BookingController::class, 'store'])->name('store');
+    // Route::get('/{id}', [BookingController::class, 'show'])->name('show');
+    // Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
+    // Route::get('/detail/{id}', [BookingController::class, 'displayDetail'])->name('displayDetail');
 });
 Route::group([
     'prefix' => 'cs/claim',

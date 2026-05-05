@@ -100,13 +100,13 @@
             </h1>
 
             <div>
-                @if ($booking->status != 'selesai')
+                @if ($booking->status != 'selesai' && $booking->status != 'dibatalkan')
                     <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                         wire:click="$set('isModalOpen', true)">
                         Edit Service
                     </button>
                 @endif
-                @if ($booking->status == 'teknisi-selesai' && $booking->diskon_status != 1 && $dokumenStatus != 0)
+                @if ($booking->status == 'teknisi-selesai' && $booking->diskon_status != 1)
                     <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                         wire:click="$set('isModalDone', true)">
                         Selesaikan
@@ -173,8 +173,7 @@
             </span>
         </h1>      
         <h2 class="mt-2
-                text-xs md:text-sm text-gray-500
-                dark:text-gray-100 ">
+                text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
             Pesanan : {{ $booking->created_at }}
         </h2>
         
@@ -204,125 +203,178 @@
                             @elseif($booking->status == 'selesai') bg-green-500 @endif">
                             {{ $booking->status }}
                         </h2> --}}
-                        @if ($booking->diskon_status != 0) 
-                            <h2 class="text-xs md:text-sm text-white px-2 py-1 rounded        
+                           @if ($booking->diskon_status != 0)
+                <h2
+                    class="text-xs md:text-sm text-white px-2 py-1 rounded        
                             
                                     @if ($booking->diskon_status == '1') bg-yellow-500"> menunggu diskon disetujui                            
-                                    @elseif($booking->diskon_status == '2') bg-green-500"> diskon disetujui 
-                                    
-                                    @endif
+                                    @elseif($booking->diskon_status == '2') bg-green-500"> diskon disetujui @endif
                         
 
                             </h2>
-                        @endif
+@endif
                         </div>
                         
                         
                         <hr class="my-2">
-                <div class="flex justify-between">
+                    <div class="flex justify-between">
 
-                    <div id="keterangan" class="border-bottom pb-2 mb-3">
-                        <h2
-                            class="mt-1
+                        <div id="keterangan" class="border-bottom pb-2 mb-3">
+                            <h2
+                                class="mt-1
                                             text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                            Merk HP : {{ $booking->hpModel->hpMerk->merk }}
-                        </h2>
-                        <h2
-                            class="mt-1
+                                Merk HP : {{ $booking->hpModel->hpMerk->merk }}
+                            </h2>
+                            <h2
+                                class="mt-1
                                             text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                            Model HP : {{ $booking->hpModel->model }}
-                        </h2>
-                        <h2
-                            class="mt-1
+                                Model HP : {{ $booking->hpModel->model }}
+                            </h2>
+                            <h2
+                                class="mt-1
                                             text-xs md:text-sm text-gray-500 dark:text-gray-100 ">
-                            Imei : {{ $booking->imei }}
-                        </h2>
+                                Imei : {{ $booking->imei }}
+                            </h2>
+                        </div>
+                        <div>
+                            @if (in_array($booking['status'], ['teknisi-selesai', 'selesai']))
+                                @php
+                                    $duration = \Carbon\Carbon::parse($booking->workTimeBooking->end)->diff(
+                                        \Carbon\Carbon::parse($booking->workTimeBooking->start),
+                                    );
+                                    $formattedDuration = '';
+                                    if ($duration->h > 0) {
+                                        $formattedDuration .= $duration->h . ' jam ';
+                                    }
+                                    if ($duration->i > 0) {
+                                        $formattedDuration .= $duration->i . ' menit ';
+                                    }
+                                    if ($duration->s > 0) {
+                                        $formattedDuration .= $duration->s . ' detik';
+                                    }
+                                @endphp
+                                Selesai dalam {{ $formattedDuration }}
+                            @endif
+                        </div>
                     </div>
-                    <div>
-                        @if (in_array($booking['status'], ['teknisi-selesai', 'selesai']))
-                            @php
-                                $duration = \Carbon\Carbon::parse($booking->workTimeBooking->end)->diff(
-                                    \Carbon\Carbon::parse($booking->workTimeBooking->start),
-                                );
-                                $formattedDuration = '';
-                                if ($duration->h > 0) {
-                                    $formattedDuration .= $duration->h . ' jam ';
-                                }
-                                if ($duration->i > 0) {
-                                    $formattedDuration .= $duration->i . ' menit ';
-                                }
-                                if ($duration->s > 0) {
-                                    $formattedDuration .= $duration->s . ' detik';
-                                }
-                            @endphp
-                            Selesai dalam {{ $formattedDuration }}
 
-                        @endif
+                    <div class="flex items-center mb-2">
+
+                        <h2 class="text-l text-blue-500">Rincian Servis</h2>
                     </div>
-                </div>
-
-                <div class="flex items-center mb-2">
-
-                    <h2 class="text-l text-blue-500">Rincian Servis</h2>
-                </div>
 
 
-                <table class="min-w-full table-auto rounded-lg overflow-hidden">
-                    <thead class="bg-blue-100">
-                        <tr>
-                            <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
-                            <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
-                            <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe Servis</th>
-                            <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
-                        </tr>
-                    </thead>
-                    <tbody class="border-bottom">
-                        @foreach ($booking->detailBooking as $item)
-                            <tr class="">
-                                <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th>
-                                <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
-                                <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }} </td>
-                                <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                    <table class="min-w-full table-auto rounded-lg overflow-hidden">
+                        <thead class="bg-blue-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Code</th>
+                                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Servis/Sparepart</th>
+                                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Tipe Servis</th>
+                                <th class="px-4 py-2 text-left text-gray-500 font-semibold text-l">Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody class="border-bottom">
+                            @foreach ($booking->detailBooking as $item)
+                                <tr class="">
+                                    <th class="px-4 py-2 text-gray-500">{{ $item->dataService->code }} </th>
+                                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->nama_servis }} </td>
+                                    <td class="px-4 py-2 text-gray-500">{{ $item->dataService->jenis_servis }} </td>
+                                    <td class="px-4 py-2 text-gray-500">
+                                        Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                                    </td>
+                                </tr>
+                            @endforeach
+                            @foreach ($booking->sparepart_booking as $item)
+                                <tr class="">
+                                    <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th>
+                                    <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
+                                    <td class="px-4 py-2 text-gray-500">Sparepart </td>
+                                    <td class="px-4 py-2 text-gray-500">
+                                        Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                                    </td>
+                                </tr>
+                            @endforeach
+                            <tr class="border-top ">
+                                <td></td>
+                                <td></td>
+                                <td class="px-4 text-right">
+                                    <h2 class="text-l font-semibold">Diskon :</h2>
+                                </td>
+                                <td class="px-4 py-2">
+                                    <h2 class="text-l font-semibold">
+                                        Rp{{ number_format($booking->diskon, 0, ',', '.') }},-
+                                    </h2>
                                 </td>
                             </tr>
-                        @endforeach
-                        @foreach ($booking->sparepart_booking as $item)
-                            <tr class="">
-                                <th class="px-4 py-2 text-gray-500">{{ $item->sparepart->code }} </th>
-                                <td class="px-4 py-2 text-gray-500">{{ $item->sparepart->nama_sparepart }} </td>
-                                <td class="px-4 py-2 text-gray-500">Sparepart </td>
-                                <td class="px-4 py-2 text-gray-500">Rp{{ number_format($item->harga, 0, ',', '.') }},-
+                            <tr class="border-top ">
+                                <td></td>
+                                <td></td>
+                                <td class="px-4 text-right">
+                                    <h2 class="text-l font-semibold">Total :</h2>
+                                </td>
+                                <td class="px-4 py-2">
+                                    <h2 class="text-l font-semibold">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
                                 </td>
                             </tr>
-                        @endforeach
-                        <tr class="border-top ">
-                            <td></td>
-                            <td></td>
-                            <td class="px-4 text-right">
-                                <h2 class="text-l font-semibold">Diskon :</h2>
-                            </td>
-                            <td class="px-4 py-2">
-                                <h2 class="text-l font-semibold">Rp{{ number_format($booking->diskon, 0, ',', '.') }},-
-                                </h2>
-                            </td>
-                        </tr>
-                        <tr class="border-top ">
-                            <td></td>
-                            <td></td>
-                            <td class="px-4 text-right">
-                                <h2 class="text-l font-semibold">Total :</h2>
-                            </td>
-                            <td class="px-4 py-2">
-                                <h2 class="text-l font-semibold">Rp{{ number_format($total, 0, ',', '.') }},-</h2>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <tr class="border-top ">
+                                <td></td>
+                                <td></td>
+                                <td class="px-4 text-right">
+                                    <h2 class="text-l font-semibold">Total Dibayar :</h2>
+                                </td>
+                                <td class="px-4 py-2">
+                                    <h2 class="text-l font-semibold">
+                                        Rp{{ number_format($total_dibayar, 0, ',', '.') }},-</h2>
+                                </td>
+                            </tr>
+                            <tr class="border-top ">
+                                <td></td>
+                                <td></td>
+                                <td class="px-4 text-right">
+                                    <h2 class="text-l font-semibold">Sisa Bayar :</h2>
+                                </td>
+                                <td class="px-4 py-2">
+                                    <h2
+                                        class="text-l font-semibold @if ($total - $total_dibayar > 0) text-red-500 @else text-green-600 @endif">
+                                        Rp{{ number_format($total - $total_dibayar, 0, ',', '.') }},-</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
 
     </div>
 
 </div>
+<div class="mt-4 bg-white p-4 rounded shadow">
+    <h3 class="font-bold mb-2">History Pembayaran</h3>
 
+    <table class="w-full text-sm">
+        <thead>
+            <tr class="border-b">
+                <th>Tanggal</th>
+                <th>Waktu</th>
+                <th>Status</th>
+                <th>Metode pembayaran</th>
+                <th>Jumlah pembayaran</th>
+                {{-- <th>Kembalian</th> --}}
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($booking->pembayaran_booking ?? [] as $bayar)
+                {{-- @dd($bayar) --}}
+                <tr class="border-b">
+                    <td>{{ $bayar->created_at->format('d-m-Y') }}</td>
+                    <td>{{ $bayar->created_at->format('H:i') }}</td>
+                    <td>{{ $bayar->statuss }}</td>
+                    <td>{{ $bayar->metodePembayaran?->metode }}</td>
+                    <td>Rp {{ number_format($bayar->jumlah, 0, ',', '.') }}</td>
+                    {{-- <td>Rp {{ number_format($bayar->kembalian, 0, ',', '.') }}</td> --}}
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -439,6 +491,28 @@
                 </div>
             @endif
         @endif
+
+
+    </div>
+    <div class="bg-white rounded shadow-md p-4 mb-3">
+        <div class="flex items-center ">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30"
+                height="30" fill="none">
+
+                <image id="image0_76_221" width="30" height="30"
+                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFIUlEQVR4nO2dW2gcZRSAT70j3sUK3luf1Af1QXySKlqsSlGKS/acTVooGsEblpo9ZxrLKCqIPkhVhKCQdvc/G9k3KxXqrUXESlFUKlYRbQXFS9EH6yWmauTfbJqYmsskM/PP/jMfnJc87M7/8e+Z/3oCUFBQUFBQUFBQUFBQUBCNB4e6LuZ6Za0YekEUd4ji16L0Mxs6JIq/suJ++3dWfJgb5Ssjfny+CQd6T2RD97DiB6I0GiVY8Y1qo3yZ6zZkm1FYxIp3iKEDUQVPkf2HKFZcNyeTyJaeM1lx+0IET5H9Nxu61XW7MkW1XjmPFb+IS/LhsL8MQ/ez4sr1te7FkGdE6XRR/Cx2yUdKH2bFzX2N8jmQy5xsaFvikv8r/FupV66CPMGKq1OVPCH7p35DF0IeuO/VFcez4jdORNuXpaGdkAcCQ3e6kjwe1UZ5OfiOKO5yLVqUXgefWV/rXpwByTZ9HFrXLJ0BvhIo3uZa8kR4PINkxafcC273asWnwVdY8a0Mid4OvsKKe1wLnhRfgq+InZ25FzwWhg6Ar3BrGTMzoofBV9jQQeeCDwf+Ar7Chj53L3gs7LOAr3CMC/wxpI43wVdEcWOGRD8CviKN8tXOBbcjUFwGPsOG9rqWzIpfhWF4FPgMG3rWtWhRfA58JjB0nd2ldi26tVNer1wLviKGtrqWPEn2y+ArnKG1Djb0MfgKG3rPteCJwF3gK6I04F5wOww9D74iijc7FzwejfIK8BlWfMe1ZDb0rj3EAz7TX+teIoofOZOs+CEPdV0EeYEVNzmQvAnyBiuuTF10o3wL5I2wWTpOFH9ITbSh73oHeo+FPCJKnF6Pxnshz3dWxNC+FHLznnDHsmMgz1Qb5eVJLjR5v4AUBTb0UIK5OXDdvqzdynopAclD3k9MolJqlo6OeWw9kNtRxlyIS/ScvizPSCG6EO0V0oE9uu/FtSeLodDem2RDf7KhH+3LfYOhKyCrSIeJtiuB0x+hwBEx1ANZRDpItJU8+8wWR7jWfTlkiaBeuT4u0UG9ck0as1p7/He2Z7FpBDJVq0Oj1+mYoXG7w8E1JyT93FVDN80mmw19D1kgrFdOsYVN4pI8qYHbuFk61bVsewAfnDIKi4J65fYkryzbc3aBoVVJT8VnlG3oE3B3sRPvTvPAoz14zop9QaN89nxffLNdbZ5eNm6ENIugiC1WYminGPorLcH/0+gRm1Kqindt2Lz63EijC0PDVmYk2YY+DZulkyBJgnrlUrtMyYq7xdA/7uROE61nmvkG7RFDuCiyDe1LbMe9OtR1iSg9kaX7KjJ9OnlsXuPkuci2GxqxS7YvNUOrsnA4RpKWHEF2rFQVb7QnM12LkzQlpyk7HFxzmigOupYmMUu2pYAibRgnKbt/qOv8LNxFEdeSJ8uOu6qNKC1t1wl1Lk6yIHlMdLyji3bhqdjWIyStMPTkTO3iLT0X2GoH8/v8VqdbCnEihp5xLk097smtB6p1LxkrKexenvjaky32KoJzceq55PYZud+dy1NP08U4onSDa3nic0+eEI2Pdojkx2fryXZ9el6/EsX9iV/JEEOvdYDkrTMt7mdecku0w8s9MjfJw0GzdFZHS7a4rI4rc5PxSkfm5KlkfcTBhtZ1dE/udFixVkhOAVF6P/PpwpP/I3CwkJww7Zdg0ZPT2GIr0kUKSL3yQJGTM1OEpXjxLRhWfHua8fFvY7tEqHaNfeHflHPY0N627AE7obEVZ1oTEEf3Dv8FYD/aWmoSqxwAAAAASUVORK5CYII=" />
+
+            </svg>
+            <h2 class="text-l font-semibold ">Keterangan</h2>
+        </div>
+        <hr class="my-2">
+        <div class="flex mb-2">
+            <i class="fa-solid fa- text-red-500 mr-4"></i>
+            <p class="text-black-500">{{ $booking->keterangan }}
+            </p>
+        </div>
+
+
 
 
     </div>
@@ -1011,6 +1085,19 @@
                                 <td class="border border-gray-300 px-4 py-2 text-right">
                                     Rp{{ number_format($total, 0, ',', '.') }},-</td>
                             </tr>
+                            <tr class="bg-gray-200 font-bold">
+                                <td class="border border-gray-300 px-4 py-2" colspan="2">Total Dibayar</td>
+                                <td class="border border-gray-300 px-4 py-2 text-right">
+                                    Rp{{ number_format($total_dibayar, 0, ',', '.') }},-</td>
+                            </tr>
+                            <tr class="bg-red-50 font-bold">
+                                <td class="border border-red-200 px-4 py-2 text-red-700" colspan="2">
+                                    Kurang Bayar
+                                </td>
+                                <td class="border border-red-200 px-4 py-2 text-right text-red-700">
+                                    Rp{{ number_format($total - $total_dibayar, 0, ',', '.') }},-
+                                </td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
@@ -1059,7 +1146,7 @@
                         <!-- Input Jumlah Bayar -->
 
                         <div>
-                            <label for="amount-paid" class="block text-sm font-medium text-gray-400">Jumlah
+                            <label for="amount-paid" class="block text-sm font-medium text-gray-400">Nominal
                                 Bayar</label>
                             <input type="text" id="amount-paid" wire:model="bayar"
                                 class="w-full border-gray-300 rounded-lg shadow-sm"
@@ -1285,7 +1372,8 @@
                 <tr>
                     <td class="py-2 text-justify">Kendala</td>
                     <td class="px-3">:</td>
-                    <td class="py-2 text-justify" style="word-wrap: break-word; max-width: 200px;">{{ $booking->kendala }}</td>
+                    <td class="py-2 text-justify" style="word-wrap: break-word; max-width: 200px;">
+                        {{ $booking->kendala }}</td>
                 </tr>
                 <tr>
                     <td class="py-2">Teknisi</td>

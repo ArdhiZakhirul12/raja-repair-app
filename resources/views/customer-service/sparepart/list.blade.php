@@ -149,6 +149,7 @@
                                           </svg></a>
                                     </div>
                                 </th>
+                                <th scope="col" class="px-6 py-3">Code</th>
                                 <th  scope="col" class="px-6 py-3">
                                     <div class="flex items-center">
                                         Harga
@@ -297,6 +298,14 @@
                 return `<a class="main-item-data text-black dark:text-white hover:text-black-500 font-bold">${data}</a>`;
         
             }},
+            {
+                        data: 'code',
+                        name: 'code',
+                        render: function(data, type, row) {
+                            return `<a class="main-item-data text-black hover:text-black-500 font-bold">${data}</a>`;
+
+                        }
+                    },
             { data: 'harga', name: 'harga', render: function(data) {
                         return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(data);
                     }},

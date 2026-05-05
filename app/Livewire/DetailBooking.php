@@ -8,6 +8,7 @@ use App\Models\metodePembayaran;
 use App\Models\pengeluaran;
 use App\Models\sparepart;
 use App\Models\teknisi;
+use App\Models\pembayaranBooking;
 use App\Services\WaService;
 use Http;
 use Livewire\Component;
@@ -49,6 +50,8 @@ class DetailBooking extends Component
     public $harga;
     public $jumlah;
     public $dokumenStatus ;
+    public $total_dibayar;
+    
 
 
     protected $rules = [
@@ -61,7 +64,8 @@ class DetailBooking extends Component
     {
         
         $this->bookingId = $id;
-        $this->booking = booking::with(['sparepart_booking', 'detailBooking'])->where('id', $id)->first();
+        $this->booking = booking::with(['sparepart_booking', 'detailBooking','pembayaran_booking', 'pembayaran_booking.metodePembayaran'])->where('id', $id)->first();
+        // dd($this->booking);
         if ($this->booking->pengeluaran){
             $this->dokumenStatus = 1;
         }elseif(count($this->booking->sparepart_booking) == 0) 
@@ -71,6 +75,9 @@ class DetailBooking extends Component
         }else {
             $this->dokumenStatus = 0;
         }
+
+        $this->total_dibayar = $this->booking->pembayaran_booking?->sum('jumlah');
+        
         
         $this->serviceOld = $this->booking->detailBooking;
         $this->serviceId = $this->booking->detailBooking->pluck('data_service_id');
@@ -160,6 +167,7 @@ class DetailBooking extends Component
     public function selesaikan()
     {
         // dd($this->booking->customer->no_hp);
+        
         $this->validate([
             'catatan' => 'string',
             'metodeSelected' => 'required',
@@ -167,13 +175,14 @@ class DetailBooking extends Component
                 'required',
                 'numeric',
                 function ($attribute, $value, $fail) {
-                    if ($value < $this->total) {
+                    $kurang_bayar = $this->total - $this->total_dibayar;
+                    if ($value < $kurang_bayar) {
                         $fail('Jumlah bayar tidak boleh lebih kecil dari total.');
                     }
                 },
             ],
         ]);
-
+        // dd($this->total);
         $saveBooking = [
             'status' => 'selesai',
             'total' => $this->total,
@@ -198,8 +207,17 @@ class DetailBooking extends Component
             # code...
             sparepart::where('id', $detail->sparepart_id)->increment('terjual');
         }
-
-        $kembalian = $this->bayar - $this->total;
+        $kurang_bayar = $this->total - $this->total_dibayar;
+        $kembalian = $this->bayar - $kurang_bayar;
+     
+        pembayaranBooking::create([
+            'booking_id' => $this->bookingId,
+            'metode_pembayaran_id' => $this->metodeSelected,
+            'statuss' => 'pelunasan',
+            'jumlah'=> $kurang_bayar,
+            'nominal_bayar'=> $this->bayar,
+            'kembalian' =>  $kembalian
+        ]);
         $metodeNow = metodePembayaran::where('id', $this->metodeSelected)->first();
         $log = auth()->user();
         $message = "*📌 Nota Elektronik*\n"
@@ -224,7 +242,7 @@ class DetailBooking extends Component
         $wa->sendMessage($this->booking->customer->no_hp, $message);
 
         // Http::withHeaders([
-        //     'Authorization' => env('FONNTE_TOKEN')
+        //     'Authorization' => "XXVYq31@7wamVjUqbFHt"
         // ])->post('https://api.fonnte.com/send', [
         //             'target' => $this->booking->customer->no_hp, // Ganti dengan nomor tujuan dari database atau input user
         //             'message' => $message,
@@ -232,9 +250,9 @@ class DetailBooking extends Component
         //         ]);
 
         // Redirect atau tampilkan notifikasi
-        // session()->flash('message', 'Pesan WA terkirim!');
+        session()->flash('message', 'Pesan WA terkirim!');
 
-        $kembalian = $this->total - $this->bayar;
+        $kembalian = $kurang_bayar - $this->bayar;
         $this->isModalDone = false;
         // return response()->json(env('FONNTE_TOKEN'));
 
