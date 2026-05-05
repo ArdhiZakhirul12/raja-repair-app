@@ -255,8 +255,9 @@ class DetailBooking extends Component
         $kembalian = $kurang_bayar - $this->bayar;
         $this->isModalDone = false;
         // return response()->json(env('FONNTE_TOKEN'));
-
+        return redirect()->route('print.nota', $this->bookingId);
         session()->flash('doneMsg', 'Berhasil menyelesaikan servis! Kembalian Rp' . $kembalian);
+
         // $this-> dispatch("print-invoice");
 
 

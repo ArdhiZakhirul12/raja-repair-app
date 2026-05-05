@@ -694,16 +694,15 @@
                 <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
             </div>
             <div class="address-center text-center">
-                <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
-                <p class="text-sm pb-2 px-4">Jl. Raya Kedung Turi No. 1, Kedung Turi,</p>
-                <p class="text-sm pb-2 px-4">Kec. Sidoarjo, Kabupaten Sidoarjo,</p>
-                <p class="text-sm pb-2 px-4">Jawa Timur 61257</p>
+                <h1 class="text-2xl font-bold pb-3">FIX & RELAX</h1>
+                <p class="text-sm pb-2 px-4">Manukan Kerto 6 no 1,</p>
+                <p class="text-sm pb-2 px-4">Surabaya,Jawa Timur</p>
                 <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
             </div>
-            <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+            <hr style="border: none; border-top: 2px dashed rgba(78, 30, 30, 0.413); margin: 20px 0;">
             <div class="text-center">
-                <h3 class="text-l font-bold pb-3">#kodepemesanan</h3>
-                <h3 class="text-l ">Pemesanan: 12-20-2024</h3>
+                <h3 class="text-l font-bold pb-3">{{$kode_pesanan}}</h3>
+                <h3 class="text-l ">{{$booking?->created_at}}</h3>
             </div>
 
             <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
@@ -735,7 +734,7 @@
                 <p class="px-3 pb-4">{{ $kendala }}
                 </p>
                 <h2 class="text-s font-semibold pb-4">Teknisi : {{ $teknisiName }}</h2>
-                <h2 class="text-l font-bold ">Nomor Urut</h2>
+                <h2 class="text-l font-bold ">Nomor Antrian</h2>
                 <h2 class="text-7xl font-bold ">{{ $no_antri }}</h2>
             </div>
 
@@ -766,10 +765,10 @@
         angka.value = formatted;
     }
 
-
     window.addEventListener('print-spk', () => {
         printDiv('spk-print');
     });
+    
 
     // if ({{ session()->has('message') }}) {
     //     printDiv('spk-print');
@@ -816,6 +815,7 @@
         }, 500); // Mengembalikan halaman ke tampilan awal
     }
 </script>
+
 
 
 

@@ -61,6 +61,8 @@ class BookingForm extends Component
     public $nominal_bayar;
     public $metode_id;
     public $metode_nama;
+    public $kode_pesanan;
+    public $booking;
 
 
     public function mount()
@@ -251,6 +253,7 @@ class BookingForm extends Component
         }else{
             $bayar = 0;
         }
+        $this->kode_pesanan = $kode_pesanan;
         //membuat booking
         $createBook = booking::create(([
             'kode_pesanan' => $kode_pesanan,
@@ -296,7 +299,7 @@ class BookingForm extends Component
             $kembalian = $this->nominal_bayar - $this->jumlah_bayar;
             $jumlah = (int) str_replace('.', '', $this->jumlah_bayar);
             $nominal = (int) str_replace('.', '', $this->nominal_bayar);
-            pembayaranBooking::create([
+            $bayar = pembayaranBooking::create([
                 'booking_id' => $createBook['id'],
                 'metode_pembayaran_id' => $this->metode_id,
                 'statuss' => 'dp',
@@ -319,13 +322,17 @@ class BookingForm extends Component
                     'harga_beli' => $this->harga_beli_sparepart[$i],
                 ]);
         }
+        $this->booking = $createBook;
+        
+        $spk = $this->booking->id;
 
-
+        // $this->dispatch('print-spk');
         $this->reset(); // Reset semua input
         session()->flash('inputData', $createBook);
         session()->flash('message', 'Booking berhasil dibuat.');
+        return redirect()->route('print.spk', $spk);
 
-        $this->dispatch('print-spk');
+        // $this->dispatch('print-spk');
        
     }
     public function render()

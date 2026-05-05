@@ -25,6 +25,9 @@ use App\Http\Controllers\admin\ServisController as AdminServisController;
 use App\Http\Controllers\admin\RequestDiskonController;
 use App\Http\Controllers\admin\SparepartController as AdminSparepartController;
 use GuzzleHttp\Middleware;
+use App\Models\booking;
+use App\Models\pembayaranBooking;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +43,69 @@ use GuzzleHttp\Middleware;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Route::get('/print-spk/{id}/{bayar_id?}', function ($id) {
+    $booking = Booking::with([
+        'detailBooking',
+        'sparepart_booking',
+        'pembayaran_booking'
+    ])->findOrFail($id);
+
+    // total service (detail booking)
+    $totalDetail = $booking->detailBooking->sum('harga') ?? 0;
+
+    // total sparepart (opsional)
+    $totalSparepart = $booking->sparepart_booking?->sum('harga') ?? 0;
+
+    // total keseluruhan tagihan
+    $total = $totalDetail + $totalSparepart;
+
+    // total pembayaran (opsional)
+    $totalBayar = $booking->pembayaran_booking?->sum('jumlah') ?? 0;
+    $sisaBayar = $total - $totalBayar;
+
+    // if($spk[1] != 0){
+    //     $pembayaran = pembayaranBooking::find($spk[1]);
+    // }
+
+    return view('customer-service.print.print-spk', compact(
+        'booking',
+        'total',
+        'totalBayar',
+        'sisaBayar',
+        // 'pembayaran'
+    ));
+})->name('print.spk');
+Route::get('/print-nota/{id}', function ($id) {
+
+    $booking = Booking::with([
+        'detailBooking',
+        'sparepart_booking',
+        'pembayaran_booking'
+    ])->findOrFail($id);
+    
+
+    // total service (detail booking)
+    $totalDetail = $booking->detailBooking->sum('harga') ?? 0;
+
+    // total sparepart (opsional)
+    $totalSparepart = $booking->sparepart_booking?->sum('harga') ?? 0;
+
+    // total keseluruhan tagihan
+    $total = $totalDetail + $totalSparepart;
+    
+
+    // total pembayaran (opsional)
+    $totalBayar = $booking->pembayaran_booking?->sum('jumlah') ?? 0;
+    $sisaBayar = $total - $totalBayar;
+
+    return view('customer-service.print.print-nota', compact(
+        'booking',
+        'total',
+        'totalBayar',
+        'sisaBayar'
+    ));
+})->name('print.nota');
 
 Route::middleware([
     'auth:sanctum',
