@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Models\antrian;
-use Auth;
+use App\Models\booking;
+use App\Models\rating;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PcAntrianController extends Controller
 {
+    public $no_nota ;
     /**
      * Display a listing of the resource.
      */
@@ -14,6 +17,12 @@ class PcAntrianController extends Controller
     {
         $antrian = antrian::where('user_id', Auth::user()?->id)->first();
         return view('customer-service.pc-antrian', compact('antrian'));
+    }
+
+    public function antrianDitangani()
+    {
+        $antrian = antrian::where('user_id', Auth::user()?->id)->first();
+        return view('customer-service.current-antrian', compact('antrian'));
     }
 
     /**
@@ -47,6 +56,47 @@ class PcAntrianController extends Controller
     {
         //
     }
+    public function checkNota(Request $request)
+    {
+        $nota = $request->input('nota');
+        $this->no_nota = $nota;
+        $exists = booking::where('kode_pesanan', $nota)->exists();
+       
+
+        return response()->json(['valid' => $exists]);
+        // return response()->json(['valid' => true]);
+
+    }
+    public function submitReview(Request $request)
+    {
+        // Validate the request if needed
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        // Process the review submission
+        $rating = $request->input('rating');
+
+        // Save the review to the database or perform other actions
+
+        return response()->json(['success' => true, 'message' => 'Review submitted successfully!', 'rating' => $rating]);
+    }
+    public function rating(Request $request)
+    {
+        $exists = booking::where('kode_pesanan', $this->no_nota)->first();
+        
+        $validator = $request->validate([
+            'rating' => 'required'
+        ], [
+            'rating.required' => 'Silakan pilih rating sebelum mengirimkan formulir.'
+        ]);
+        rating::create([
+            'user_id' => auth()->id(),
+            'booking_id' => $exists->id,
+            'rating' => $validator['rating']
+        ]);
+        return back()->with('success', 'Terima kasih atas rating Anda!');
+    }
 
     /**
      * Update the specified resource in storage.
@@ -59,7 +109,7 @@ class PcAntrianController extends Controller
         ]);
 
         $antrian = antrian::find($validated['id']);
-        if ($antrian->status == 'tutup'){
+        if ($antrian->status == 'tutup') {
             return response()->json(['success' => false, 'message' => 'Antrian tidak ditemukan']);
 
         }

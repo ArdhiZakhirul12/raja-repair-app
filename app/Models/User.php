@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -17,6 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -71,4 +73,37 @@ class User extends Authenticatable
     {
         return $this->hasMany(dataService::class);
     }
+    public function teknisis()
+    {
+        return $this->hasOne(teknisi::class);
+    }
+    public function cabang()
+    {
+        return $this->hasOne(cabang::class);
+    }
+    public function metodePembayaran()
+    {
+        return $this->hasMany(metodePembayaran::class);
+    }
+    public function pengeluaran()
+    {
+        return $this->hasMany(pengeluaran::class);
+    }
+    public function hpMerk()
+    {
+        return $this->hasMany(hpMerk::class);
+    }
+    public function booking()
+    {
+        return $this->hasMany(booking::class);
+    }
+    public function sale()
+    {
+        return $this->hasMany(sparepartSale::class);
+    }
+    public function rating()
+    {
+        return $this->hasMany(rating::class);
+    }
+    
 }

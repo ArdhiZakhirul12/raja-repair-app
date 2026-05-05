@@ -1,0 +1,472 @@
+<div class=" my-4  mx-10 py-7 py-4 
+{{-- shadow-md rounded-lg " --}}
+">
+
+    <style>
+        @media print {
+
+            /* Atur ukuran kertas menjadi Legal (216mm x 356mm) */
+            @page {
+                size: Legal;
+                margin: 10mm;
+                /* Sesuaikan margin sesuai kebutuhan */
+            }
+
+            /* Sesuaikan elemen agar mengikuti ukuran kertas */
+            body {
+                transform: scale(1.4);
+                /* Skala 140% */
+                transform-origin: top left;
+                /* Pastikan skala dari kiri atas */
+            }
+
+            /* Kontainer yang akan dicetak */
+            #print-spk {
+                width: 100%;
+                margin: auto;
+                overflow: hidden;
+            }
+        }
+    </style>
+
+    <form wire:submit.prevent="submit" class="space-y-6">
+        <div class="flex justify-center">
+            <div class="max-w-3xl mx-3 p-6 bg-white shadow-md rounded-lg">
+
+                <div class="flex ">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30"
+                        height="30" viewBox="0 0 30 30" fill="none">
+
+                        <image id="image0_76_221" width="30" height="30"
+                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFIUlEQVR4nO2dW2gcZRSAT70j3sUK3luf1Af1QXySKlqsSlGKS/acTVooGsEblpo9ZxrLKCqIPkhVhKCQdvc/G9k3KxXqrUXESlFUKlYRbQXFS9EH6yWmauTfbJqYmsskM/PP/jMfnJc87M7/8e+Z/3oCUFBQUFBQUFBQUFBQUBCNB4e6LuZ6Za0YekEUd4ji16L0Mxs6JIq/suJ++3dWfJgb5Ssjfny+CQd6T2RD97DiB6I0GiVY8Y1qo3yZ6zZkm1FYxIp3iKEDUQVPkf2HKFZcNyeTyJaeM1lx+0IET5H9Nxu61XW7MkW1XjmPFb+IS/LhsL8MQ/ez4sr1te7FkGdE6XRR/Cx2yUdKH2bFzX2N8jmQy5xsaFvikv8r/FupV66CPMGKq1OVPCH7p35DF0IeuO/VFcez4jdORNuXpaGdkAcCQ3e6kjwe1UZ5OfiOKO5yLVqUXgefWV/rXpwByTZ9HFrXLJ0BvhIo3uZa8kR4PINkxafcC273asWnwVdY8a0Mid4OvsKKe1wLnhRfgq+InZ25FzwWhg6Ar3BrGTMzoofBV9jQQeeCDwf+Ar7Chj53L3gs7LOAr3CMC/wxpI43wVdEcWOGRD8CviKN8tXOBbcjUFwGPsOG9rqWzIpfhWF4FPgMG3rWtWhRfA58JjB0nd2ldi26tVNer1wLviKGtrqWPEn2y+ArnKG1Djb0MfgKG3rPteCJwF3gK6I04F5wOww9D74iijc7FzwejfIK8BlWfMe1ZDb0rj3EAz7TX+teIoofOZOs+CEPdV0EeYEVNzmQvAnyBiuuTF10o3wL5I2wWTpOFH9ITbSh73oHeo+FPCJKnF6Pxnshz3dWxNC+FHLznnDHsmMgz1Qb5eVJLjR5v4AUBTb0UIK5OXDdvqzdynopAclD3k9MolJqlo6OeWw9kNtRxlyIS/ScvizPSCG6EO0V0oE9uu/FtSeLodDem2RDf7KhH+3LfYOhKyCrSIeJtiuB0x+hwBEx1ANZRDpItJU8+8wWR7jWfTlkiaBeuT4u0UG9ck0as1p7/He2Z7FpBDJVq0Oj1+mYoXG7w8E1JyT93FVDN80mmw19D1kgrFdOsYVN4pI8qYHbuFk61bVsewAfnDIKi4J65fYkryzbc3aBoVVJT8VnlG3oE3B3sRPvTvPAoz14zop9QaN89nxffLNdbZ5eNm6ENIugiC1WYminGPorLcH/0+gRm1Kqindt2Lz63EijC0PDVmYk2YY+DZulkyBJgnrlUrtMyYq7xdA/7uROE61nmvkG7RFDuCiyDe1LbMe9OtR1iSg9kaX7KjJ9OnlsXuPkuci2GxqxS7YvNUOrsnA4RpKWHEF2rFQVb7QnM12LkzQlpyk7HFxzmigOupYmMUu2pYAibRgnKbt/qOv8LNxFEdeSJ8uOu6qNKC1t1wl1Lk6yIHlMdLyji3bhqdjWIyStMPTkTO3iLT0X2GoH8/v8VqdbCnEihp5xLk097smtB6p1LxkrKexenvjaky32KoJzceq55PYZud+dy1NP08U4onSDa3nic0+eEI2Pdojkx2fryXZ9el6/EsX9iV/JEEOvdYDkrTMt7mdecku0w8s9MjfJw0GzdFZHS7a4rI4rc5PxSkfm5KlkfcTBhtZ1dE/udFixVkhOAVF6P/PpwpP/I3CwkJww7Zdg0ZPT2GIr0kUKSL3yQJGTM1OEpXjxLRhWfHua8fFvY7tEqHaNfeHflHPY0N627AE7obEVZ1oTEEf3Dv8FYD/aWmoSqxwAAAAASUVORK5CYII=" />
+
+                    </svg>
+                    <h3 class="font-bold text-gray-800 mb-6 mx-2 pt-2 ">Data Pembelian</h3>
+                </div>
+
+                @if (session()->has('message'))
+                    <div class="p-4 mb-4 text-green-700 bg-green-100 rounded">
+                        {{ session('message') }}
+                        {{-- {{ session('inputData')['kendala'] }} --}}
+                    </div>
+                    <script>
+                        printDiv('spk-print');
+                    </script>
+                @endif
+                @if (isset($feedbackMessage))
+                    <div class="p-4 mb-4 text-blue-700 bg-blue-100 rounded">
+                        {{ $feedbackMessage }}
+                    </div>
+                @endif
+
+
+                <!-- Input Nomor HP -->
+                <div class="flex space-x-4 mb-4">
+                    <div class="w-1/2">
+                        <label for="no_hp" class="block text-sm font-medium text-gray-400">Nomor HP</label>
+                        <input type="text" id="nohp" wire:model="nohp"
+                            class="input_group mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        @if ($errors->has('nohp'))
+                            <div
+                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                </svg>
+                                @error('nohp')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+                    </div>
+
+                    <!-- Input Nama -->
+                    <div class="w-1/2">
+                        <label for="nama" class="block text-sm font-medium text-gray-400">Nama</label>
+                        <input type="text" id="nama" wire:model="nama"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        @if ($errors->has('nama'))
+                            <div
+                                class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                </svg>
+                                @error('nama')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Input Alamat -->
+                <div class="mb-4">
+                    <label for="alamat" class="block text-sm font-medium text-gray-400">Alamat</label>
+                    <textarea id="alamat" wire:model="alamat" rows="3"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                    @if ($errors->has('alamat'))
+                        <div
+                            class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                            </svg>
+                            @error('alamat')
+                                <span>{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endif
+
+                </div>
+                <div class="mb-4">
+                    <label for="keterangan" class="block text-sm font-medium text-gray-400">keterangan</label>
+                    <textarea id="keterangan" wire:model="keterangan" rows="3"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                    @if ($errors->has('keterangan'))
+                        <div
+                            class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                            </svg>
+                            @error('keterangan')
+                                <span>{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endif
+
+                </div>
+                <div x-data="{
+                            open: false,
+                            search: '',
+                            selectedItems: [],
+                            items: @js($spareparts),
+                            selectItem(item) {
+                                if (this.selectedItems.some(i => i.id === item.id)) {
+                                    this.selectedItems = this.selectedItems.filter(i => i.id !== item.id);
+                                } else {
+                                    this.selectedItems.push(item);
+                                }
+                                this.search = '';
+                                @this.set('sparepart_id', this.selectedItems.map(i => i.id));
+                                @this.set('harga_sparepart', this.selectedItems.map(i => i.harga));
+                                @this.set('harga_beli_sparepart', this.selectedItems.map(i => i.harga_beli));
+                                this.open = false;
+                            },
+                            get displayText() {
+                                return this.selectedItems.map(i => `${i.nama_sparepart} - Rp${i.harga.toLocaleString()}`).join(', ') || 'Pilih Sparepart';
+                            }
+                        }">
+                            <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih
+                                Sparepart</label>
+                            <input type="text" x-model="search" x-on:click="open = !open"
+                                x-on:input="open = true" {{-- wire:model.defer="sparepart_id" --}}
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Cari Sparepart..." :value="displayText">
+
+                            <!-- Tampilkan error jika ada -->
+                            @error('sparepart_id')
+                                <div
+                                    class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01M12 5a7 7 0 110 14 7 7 0 010-14z"></path>
+                                    </svg>
+                                    <span>{{ $message }}</span>
+                                </div>
+                            @enderror
+                            <!-- Dropdown -->
+                            <div x-show="open" x-transition x-on:click.away="open = false"
+                                class="mt-2  max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-current absolute z-10">
+                                <ul>
+                                    <template
+                                        x-for="item in items.filter(i => i.nama_sparepart.toLowerCase().includes(search.toLowerCase()))"
+                                        :key="item.id">
+                                        <li x-on:click="selectItem(item)"
+                                            :class="{ 'bg-indigo-600 text-white': selectedItems.some(i => i.id === item.id) }"
+                                            class="cursor-pointer px-4 py-2 hover:bg-indigo-600 hover:text-white">
+                                            <span
+                                                x-text="`${item.nama_sparepart} - Rp${item.harga.toLocaleString()}`"></span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                            </div>
+                            
+                
+
+            </div>
+
+
+
+            
+            <div>
+                <div class="max-w-4xl mx-3 p-6 bg-white shadow-md rounded-lg">
+                    <div class="flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="30" height="30" viewBox="0 0 30 30" fill="none">
+
+                            <image id="image0_76_220" width="30" height="30"
+                                xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADZUlEQVR4nO2dsWpUQRiFB8So+AQm+AKCjU9ha/EfUwhapZCIViZWW7gzmyApLFNIwNJOUPEF1CgBIWwQbJx/USNYSURItTLXILjJ7t69O5s7x50D0ywL+32HyT83xXCNycnJyUkr1xufTovV23D+rVj/E067Ka3AJNZvwvpblx9+PGUYc/X+5/OwfrvuMlF+vZdmZ86w7WSykrt/y260ZwxL4PROAqV1qyxxftGwRKx/R1u09ZuGJXB+r+7CUHn5PcOS+svSsZZhSd1FIRettZc4FTvaJBYWTnoBkHDSC4CEk14AJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMKZnMC1B7tnxemqOP0m1n+B1RV50j2RGme01CEg1l+A053Dv+tbKXFGzXELSFNv9L26YXU3Fc7oGVVAGu2Z8GceSoHTr2EXlrlTEkYFnN/o93u56J4UJfcUJFafDyq7/6jIo6Pbr7SDndwtW/bAUfHvbn6UD8MSRRdlO/8yXD4K35O1zhlYXR9esP8lLV0wQzJ1MxrOtwYVJ05foOkvlRsVuhPGyiQ4/4/D0OmzEiUOm8cb4YCcFGdyqSIgxZOHf1qp4JKjIgZnUqkqINXK/iArnYvHyZlMxhGQUcq2+niUURGTM4mMKyDDyq44KmJz1p4YAtK/7MqjYhKctSaWgDTaM2K9C/+Wi/XfYf3aOKNiUpy1hUUAJJz0AiDhpBcACSe9AEg46QVAwkkvABJOegGQcNILgISTXgAknPQCIOGkFwAJJ70ASDjpBUDCSS8AEk56AZBw0guAhJNeACSc9AIg4aQXAAknvQBIOOkFQMI5sgBIlmFJ3UUhF621l5h3tBtawj6svzu/qrNhSUuXis9y0XF3mbR0qXdEidXlXHTkoq80/bneosNnuejIRc+v6uyhHd3szOWiY48Oq8tHPN3cy0XHP6T2Q9nFQfhnJ4eSp/0w5H3hjTj9YVhSvLougdJQZVl9bVgS3g9Ye2Gu6urcNCwJ14rDK+sId/PWwvrWScOUgwOLp2yrW0c9q1OkuIPi/KI4fZPmAen3xOmrMC7odnJOTo6ZgvwGAxegPr5PH1wAAAAASUVORK5CYII=" />
+
+                        </svg>
+                        <h3 class="font-bold text-gray-800 mb-6 mx-2 pt-2">Data Pembayaran</h3>
+
+                    </div>
+                   
+                    <!-- Input Imei-->
+
+
+
+                    {{-- <!-- Jumlah Bayar -->
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-400">Jumlah Bayar</label>
+                        <input type="text" wire:model="jumlah_bayar" oninput="formatRupiah(this)"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+
+                        @error('jumlah_bayar')
+                            <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div> --}}
+
+                    <!-- Nominal Bayar -->
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-400">Nominal Bayar</label>
+                        <input type="text" wire:model="nominal_bayar" oninput="formatRupiah(this)"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+
+                        @error('nominal_bayar')
+                            <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+
+                    <!-- Dropdown Metode Pembayaran -->
+                    <div class="mb-3" x-data="{
+                        open: false,
+                        search: '',
+                        selectedItem: null,
+                        items: @js($metode_pembayaran),
+                    
+                        selectItem(item) {
+                            this.selectedItem = item;
+                            this.search = item.metode;
+                            this.open = false;
+                    
+                            @this.set('metode_id', item.id);
+                            @this.set('metode_nama', item.metode);
+                        }
+                    }">
+                        <label class="block text-sm font-medium text-gray-400">Metode Pembayaran</label>
+
+                        <input type="text" x-model="search" x-on:click="open = true" x-on:input="open = true"
+                            placeholder="Pilih metode pembayaran..."
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+
+                        <!-- Dropdown -->
+                        <div x-show="open" x-transition x-on:click.away="open = false"
+                            class="mt-2 max-h-60 overflow-auto border border-gray-300 rounded-md shadow-lg bg-white absolute z-10 w-full">
+                            <ul>
+                                <template
+                                    x-for="item in items.filter(i => i.metode.toLowerCase().includes(search.toLowerCase()))"
+                                    :key="item.id">
+                                    <li @click="selectItem(item)"
+                                        class="cursor-pointer px-4 py-2 hover:bg-indigo-600 hover:text-white">
+                                        <span x-text="item.metode"></span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+
+                        @error('metode_id')
+                            <div class="mt-1 p-2 bg-yellow-100 border border-yellow-400 text-yellow-900 text-xs rounded">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Kembalian</p>
+                        <h2 class="text-xl font-bold text-green-600">
+                            Rp {{ number_format($this->kembalian, 0, ',', '.') }}
+                        </h2>
+                    </div>
+                </div>
+                <div class="max-w-4xl mx-3 mt-4">
+                    <div
+                        class="bg-indigo-50 border border-indigo-100 rounded-lg p-4 flex justify-between items-center shadow-sm">
+
+                        <div>
+                            <p class="text-sm text-gray-500">Total Yang Harus Dibayarkan</p>
+                            <h2 class="text-2xl font-bold text-indigo-700">
+                                Rp {{ number_format($this->totalBayar, 0, ',', '.') }}
+                            </h2>
+                        </div>
+
+                        <div class="text-right">
+                            <span class="text-xs text-gray-400">Termasuk harga sparepart</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="flex justify-end mr-4 mt-4">
+                    <button {{-- onclick="if (document.getElementById('nohp').value && document.getElementById('nama').value && document.getElementById('alamat').value && document.getElementById('no_hp_alternatif').value && document.getElementById('kendala').value && document.getElementById('diskon').value) { printDiv('spk-print'); }"  --}} type="submit"
+                        class="px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Simpan
+                    </button>
+
+                </div>
+            </div>
+    </form>
+
+
+    {{-- DESAI STRUK SPK --}}
+
+    <div class="bg-white rounded shadow-md p-4 my-3 w-10" id="spk-print" style="width:80mm;display:none">
+        <div class="struk-header">
+            <div class="logo-center justify-center text-center">
+                <img src="{{ asset('images/logo_raja.png') }}" alt="logo" class="w-20 h-20 mx-auto">
+            </div>
+            <div class="address-center text-center">
+                <h1 class="text-2xl font-bold pb-3">Raja Servis HP</h1>
+                <p class="text-sm pb-2 px-4">Jl. Raya Kedung Turi No. 1, Kedung Turi,</p>
+                <p class="text-sm pb-2 px-4">Kec. Sidoarjo, Kabupaten Sidoarjo,</p>
+                <p class="text-sm pb-2 px-4">Jawa Timur 61257</p>
+                <p class="text-sm font-bold">Telp. 0812-3456-7890</p>
+            </div>
+            <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+            <div class="text-center">
+                <h3 class="text-l font-bold pb-3">#kodepemesanan</h3>
+                <h3 class="text-l ">Pemesanan: 12-20-2024</h3>
+            </div>
+
+            <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+
+            <div class="flex justify-center">
+                <table>
+                    <tr>
+                        <td class="px-4 py-2">Nama</td>
+                        <td class="px-4 py-2">
+                            {{ $nama }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">No.HP</td>
+                        <td class="px-4 py-2">
+                            {{ $nohp }}
+                            {{-- : {{ $booking->customer->no_hp }} --}}
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+            <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 5px 0;">
+            <div class="text-center py-2">
+                <h2 class="text-l font-semibold ">Kendala:</h2>
+                <p class="px-3 pb-4">{{ $kendala }}
+                </p>
+                <h2 class="text-s font-semibold pb-4">Teknisi : {{ $teknisiName }}</h2>
+                <h2 class="text-l font-bold ">Nomor Urut</h2>
+                <h2 class="text-7xl font-bold ">{{ $no_antri }}</h2>
+            </div>
+
+
+            <hr style="border: none; border-top: 2px dashed rgba(0, 0, 0, 0.413); margin: 20px 0;">
+            <h2 class="text-center text-2xl py-2 text-l font-semibold ">Terimakasih</h2>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script>
+    function formatRupiah(angka) {
+        value = angka.value.replace(/\D/g, "");
+
+        if (value === "") {
+            angka.value = "";
+            return "";
+        }
+        console.log(value);
+
+        let reverse = value.split('').reverse().join('');
+        let formatted = reverse.match(/\d{1,3}/g).join('.').split('').reverse().join('');
+        // formatted = formatted;
+        angka.value = formatted;
+    }
+
+
+    window.addEventListener('print-spk', () => {
+        printDiv('spk-print');
+    });
+
+    // if ({{ session()->has('message') }}) {
+    //     printDiv('spk-print');
+    // }
+
+    function printDiv(divId) {
+        let printContent = document.getElementById(divId).innerHTML;
+        let originalContent = document.body.innerHTML;
+        // Create a hidden print-only container
+        let printArea = document.createElement("div");
+        printArea.id = "print-area";
+        printArea.innerHTML = printContent;
+        document.body.appendChild(printArea);
+
+        // Add print styles to hide everything else
+        let style = document.createElement("style");
+        style.innerHTML = `
+            @media print {
+            body * { visibility: hidden; }
+            #print-area, #print-area * { visibility: visible; }
+            #print-area {
+                position: absolute;
+                top: 0;
+                left: 35%;
+                transform: translateX(-50%);
+                width: 80%; /* Adjust width as needed */
+                max-width: 800px; /* Optional, to prevent content from stretching too wide */
+                margin: 0 auto;
+                padding: 0;
+                text-align: center; /* Ensure text is centered */
+            }
+        }
+        `;
+        document.head.appendChild(style);
+
+        // Trigger print
+        window.print();
+
+        // Cleanup after printing
+        setTimeout(() => {
+            document.body.removeChild(printArea);
+            document.head.removeChild(style);
+            window.livewire.emit('refreshComponent'); // Refresh Livewire component
+        }, 500); // Mengembalikan halaman ke tampilan awal
+    }
+</script>
+
+
+
+
+
+<script>
+    window.addEventListener('customer-not-found', event => {
+        alert(event.detail.message);
+    });
+</script>

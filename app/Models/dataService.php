@@ -14,4 +14,9 @@ class dataService extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function detailBooking()
+    {
+        return $this->hasMany(detailBooking::class);
+    }
+    
 }

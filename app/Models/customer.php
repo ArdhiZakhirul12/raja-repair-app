@@ -15,4 +15,12 @@ class customer extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function booking()
+    {
+        return $this->hasMany(booking::class);
+    }
+    public function sparepartSale()
+    {
+        return $this->hasMany(sparepartSale::class);
+    }
 }

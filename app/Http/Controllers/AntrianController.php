@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\antrian;
-use Auth;
+use App\Models\rating;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 class AntrianController extends Controller
 {
-  
+
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {           
-        $antrian = antrian::with('user')->where('user_id', Auth::user()?->id)->first();        
+    {
+        
+        $antrian = antrian::with('user')->where('user_id', Auth::user()?->id)->first();
         return view('customer-service.antrian-ditangani', compact('antrian'));
     }
 
@@ -32,15 +35,18 @@ class AntrianController extends Controller
      */
     public function store(Request $request)
     {
-
+        $cekAntrian = antrian::where('user_id', Auth::user()?->id)->first();
+        if ($cekAntrian) {
+            return redirect()->back();
+        }
         antrian::create([
             'user_id' => Auth::user()?->id,
-            'antrian' => 1,
-            'ditangani' => 0, 
+            'antrian' => 0,
+            'ditangani' => 0,
             'status' => 'buka',
         ]);
 
-        return redirect()->route('cs.antrian-ditangani');
+        return redirect()->back();
     }
 
     /**
@@ -62,48 +68,50 @@ class AntrianController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,)
+    public function update(Request $request, )
     {
         $validated = $request->validate([
             'id' => 'required|integer',
-            'ditangani' =>'required|integer',
-            'antrian' =>'nullable|integer'
+            'ditangani' => 'required|integer',
+            'antrian' => 'nullable|integer'
         ]);
 
         $antrian = antrian::find($validated['id']);
 
-        if($antrian){
-            if($validated['ditangani'] <= $antrian->antrian){                  
-            if(isset($validated['antrian'])){
-                $antrian->antrian = $validated['antrian'];
+        if ($antrian) {
+            if ($validated['ditangani'] <= $antrian->antrian) {
+                if (isset($validated['antrian'])) {
+                    $antrian->antrian = $validated['antrian'];
+                }
+
+                $antrian->ditangani = $validated['ditangani'];
+                $antrian->save();
+
+                return response()->json(['success' => true, 'message' => 'Antrian berhasil diperbarui']);
             }
-            
-            $antrian->ditangani = $validated['ditangani'];
-            $antrian->save();
-            
-            return response()->json(['success' => true, 'message' => 'Antrian berhasil diperbarui']);
-            } 
             return response()->json(['success' => false, 'message' => 'Antrian sudah habis']);
         }
         return response()->json(['success' => false, 'message' => 'Antrian tidak ditemukan']);
     }
-    public function status_update(Request $request,)
+    public function status_update(Request $request)
     {
         $validated = $request->validate([
             'id' => 'required|integer',
-            'status' =>'required| in:buka,tutup'
+            'status' => 'required| in:buka,tutup'
         ]);
 
         $antrian = antrian::find($validated['id']);
 
-        if($antrian){                        
+        if ($antrian) {
             $antrian->status = $validated['status'];
             $antrian->save();
-            
+
             return redirect()->route('cs.antrian-ditangani');
         }
-        
+
     }
+
+   
 
     /**
      * Remove the specified resource from storage.

@@ -14,9 +14,15 @@ return new class extends Migration
         Schema::create('data_services', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('code');
             $table->string('nama_servis');
             $table->enum('jenis_servis', ['hardware', 'software']);
             $table->integer('harga');
+            $table->integer('garansi_1')->nullable();
+            $table->integer('garansi_2')->nullable();
+            $table->integer('garansi_3')->nullable();
+            $table->enum('status',[1,0]);
+            $table->integer('booking')->default(0);
             $table->timestamps();
         });
     }

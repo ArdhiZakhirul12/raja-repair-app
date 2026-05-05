@@ -1,0 +1,830 @@
+/* GLOBAL CSS */
+/* Warna latar belakang baris ganjil */
+.dataTable tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* bg-white */
+}
+
+/* Warna latar belakang baris genap */
+.dataTable tbody tr:nth-child(even) {
+    background-color: #f3f4f6; /* bg-gray-100 */
+}
+
+.dark .dataTable thead tr {
+    background-color: #1a232faf; /* Tailwind's gray-800 */
+    color: #ffffff; /* White text */
+}
+
+.dark .dataTable tbody tr:nth-child(odd) {
+    background-color: #1f293765; /* Tailwind's gray-800 */
+}
+
+.dark .dataTable tbody tr:nth-child(even) {
+    background-color: #37415166; /* Tailwind's gray-700 */
+}
+
+.dataTable tbody tr:hover {
+    background-color: #e2e8f0a3 !important; /* Light gray for hover effect */
+    transition: background-color 0.3s ease !important; /* Smooth transition */
+}
+
+.dark .main-item-data {
+    color: #ffffff !important;
+    
+}
+
+.dark .dataTable tbody tr:hover {
+    background-color: #4b5563 !important; /* Tailwind's gray-600 for dark mode hover */
+    transition: background-color 0.3s ease !important; /* Smooth transition */
+}
+
+
+/* Styling Pagination */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 2px;
+    background: #007bff;
+    color: white !important;
+    border-radius: 5px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 2px;
+    background: white;
+    color: gray !important;
+    border-radius: 5px;
+}
+
+/* Atur agar pagination tetap rata kanan */
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+}
+
+/* Atur agar search box tetap rata kanan */
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+}
+
+.btn-secondary {
+    background-color: #007bff;
+}
+.dataTables_length select {
+    width:70px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.dt-buttons {
+
+    float: right;
+}
+
+
+
+
+
+
+
+
+/* CUSTOMER TABLE CSS */
+
+#customers-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+
+/* Atur lebar setiap kolom */
+#customers-table th:nth-child(1),
+#customers-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#customers-table th:nth-child(2),
+#customers-table td:nth-child(2) {
+    width: 35%; /* Kolom kedua lebih besar */
+}
+
+#customers-table th:nth-child(3),
+#customers-table td:nth-child(3) {
+    width: 20%;
+}
+
+#customers-table th:nth-child(4),
+#customers-table td:nth-child(4) {
+    width: 40%;
+}
+
+/* Gaya Hover Row */
+#customers-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#customers-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#customers-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#customers-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+
+
+
+
+
+
+
+/* CSS FOR SERVICE TABLE*/
+
+#services-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#services-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#services-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#services-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#services-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#services-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#services-table th:nth-child(1),
+#services-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#services-table th:nth-child(2),
+#services-table td:nth-child(2) {
+    width: 30%; /* Kolom kedua lebih besar */
+}
+
+#services-table th:nth-child(3),
+#services-table td:nth-child(3) {
+    width: 20%;
+}
+
+#services-table th:nth-child(4),
+#services-table td:nth-child(4) {
+    width: 25%;
+}
+
+#services-table th:nth-child(5),
+#services-table td:nth-child(5) {
+    width: 20%;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* CSS FOR TEKNISI TABLE */
+
+#teknisi-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#teknisi-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#teknisi-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#teknisi-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#teknisi-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#teknisi-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#teknisi-table th:nth-child(1),
+#teknisi-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#teknisi-table th:nth-child(2),
+#teknisi-table td:nth-child(2) {
+    width: 30%; /* Kolom kedua lebih besar */
+}
+
+#teknisi-table th:nth-child(3),
+#teknisi-table td:nth-child(3) {
+    width: 15%;
+}
+
+#teknisi-table th:nth-child(4),
+#teknisi-table td:nth-child(4) {
+    width: 35%;
+}
+
+#teknisi-table th:nth-child(5),
+#teknisi-table td:nth-child(5) {
+    width: 15%;
+}
+
+
+
+
+
+
+/* CSS FOR SPAREPART TABLE */
+#hp-merk-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#hp-merk-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#hp-merk-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#hp-merk-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#hp-merk-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#hp-merk-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#hp-merk-table th:nth-child(1),
+#hp-merk-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#hp-merk-table th:nth-child(2),
+#hp-merk-table td:nth-child(2) {
+    width: 70%; /* Kolom kedua lebih besar */
+}
+
+#hp-merk-table th:nth-child(3),
+#hp-merk-table td:nth-child(3) {
+    width: 5%;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* CSS FOR MERK TABLE */
+#spareparts-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#spareparts-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#spareparts-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#spareparts-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#spareparts-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#spareparts-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#spareparts-table th:nth-child(1),
+#spareparts-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#spareparts-table th:nth-child(2),
+#spareparts-table td:nth-child(2) {
+    width: 30%; /* Kolom kedua lebih besar */
+}
+
+#spareparts-table th:nth-child(3),
+#spareparts-table td:nth-child(3) {
+    width: 20%;
+}
+
+#spareparts-table th:nth-child(4),
+#spareparts-table td:nth-child(4) {
+    width: 20%;
+}
+
+#spareparts-table th:nth-child(5),
+#spareparts-table td:nth-child(5) {
+    width: 20%;
+}
+
+
+
+
+
+
+
+
+
+
+/* CSS FOR model hp TABLE */
+#hp-model-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#hp-model-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#hp-model-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#hp-model-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#hp-model-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#hp-model-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#hp-model-table th:nth-child(1),
+#hp-model-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#hp-model-table th:nth-child(2),
+#hp-model-table td:nth-child(2) {
+    width: 10%; /* Kolom kedua lebih besar */
+}
+
+#hp-model-table th:nth-child(3),
+#hp-model-table td:nth-child(3) {
+    width: 60%;
+}
+
+#hp-model-table th:nth-child(4),
+#hp-model-table td:nth-child(4) {
+    width: 5%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CSS FOR model hp TABLE */
+#booking-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#booking-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#booking-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#booking-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#booking-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#booking-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#booking-table th:nth-child(1),
+#booking-table td:nth-child(1) {
+    width: 15%; /* Kolom pertama lebih kecil */
+}
+
+#booking-table th:nth-child(2),
+#booking-table td:nth-child(2) {
+    width: 30%; /* Kolom kedua lebih besar */
+}
+
+#booking-table th:nth-child(3),
+#booking-table td:nth-child(3) {
+    width: 20%;
+}
+
+#booking-table th:nth-child(4),
+#booking-table td:nth-child(4) {
+    width: 15%;
+}
+
+#booking-table th:nth-child(5),
+#booking-table td:nth-child(5) {
+    width: 15%;
+}
+
+#booking-table th:nth-child(6),
+#booking-table td:nth-child(6) {
+    width: 5%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* #spending-table */
+#spending-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#spending-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#spending-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#spending-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#spending-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#spending-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#spending-table th:nth-child(1),
+#spending-table td:nth-child(1) {
+    width: 5%; /* Kolom pertama lebih kecil */
+}
+
+#spending-table th:nth-child(2),
+#spending-table td:nth-child(2) {
+    width: 30%; /* Kolom kedua lebih besar */
+}
+
+#spending-table th:nth-child(3),
+#spending-table td:nth-child(3) {
+    width: 20%;
+}
+
+#spending-table th:nth-child(4),
+#spending-table td:nth-child(4) {
+    width: 20%;
+}
+
+#spending-table th:nth-child(5),
+#spending-table td:nth-child(5) {
+    width: 10%;
+}
+
+#spending-table th:nth-child(6),
+#spending-table td:nth-child(6) {
+    width: 15%;
+}
+
+#spending-table th:nth-child(7),
+#spending-table td:nth-child(7) {
+    width: 15%;
+}
+#spending-table th:nth-child(8),
+#spending-table td:nth-child(8) {
+    width: 5%;
+}
+
+
+
+
+
+/* claim-table */
+#claim-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#claim-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#claim-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#claim-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#claim-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#claim-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#claim-table th:nth-child(1),
+#claim-table td:nth-child(1) {
+    width: 20%; /* Kolom pertama lebih kecil */
+}
+
+#claim-table th:nth-child(2),
+#claim-table td:nth-child(2) {
+    width: 25%; /* Kolom kedua lebih besar */
+}
+
+#claim-table th:nth-child(3),
+#claim-table td:nth-child(3) {
+    width: 20%;
+}
+
+#claim-table th:nth-child(4),
+#claim-table td:nth-child(4) {
+    width: 20%;
+}
+
+#claim-table th:nth-child(5),
+#claim-table td:nth-child(5) {
+    width: 5%;
+}
+
+#claim-table th:nth-child(6),
+#claim-table td:nth-child(6) {
+    width: 5%;
+}
+
+
+
+
+
+
+/* #diskon-table */
+#diskon-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#diskon-table thead {
+    background-color: rgb(227, 239, 252);
+    color: rgb(111, 111, 111);
+    font-weight: bold;
+}
+
+/* Gaya Hover Row */
+#diskon-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+#diskon-table tbody tr td {
+    padding: 15px 15px; /* Atur padding atas-bawah & kiri-kanan */
+}
+
+
+#diskon-table_filter input {
+    width: 200px;
+    border-radius: 5px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+}
+
+
+#diskon-table_filter {
+    margin-right: 20px
+}
+
+#custom-table-length {
+    margin-left: 10px
+}
+
+#diskon-table th:nth-child(1),
+#diskon-table td:nth-child(1) {
+    width: 20%; /* Kolom pertama lebih kecil */
+}
+
+#diskon-table th:nth-child(2),
+#diskon-table td:nth-child(2) {
+    width: 25%; /* Kolom kedua lebih besar */
+}
+
+#diskon-table th:nth-child(3),
+#diskon-table td:nth-child(3) {
+    width: 20%;
+}
+
+#diskon-table th:nth-child(4),
+#diskon-table td:nth-child(4) {
+    width: 10%;
+}
+
+#diskon-table th:nth-child(5),
+#diskon-table td:nth-child(5) {
+    width: 15%;
+}
+
+#diskon-table th:nth-child(6),
+#diskon-table td:nth-child(6) {
+    width: 5%;
+}

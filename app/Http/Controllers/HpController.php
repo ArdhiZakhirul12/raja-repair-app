@@ -1,0 +1,158 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\hpMerk;
+use App\Models\hpModel;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Http\Request;
+
+class HpController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $merks = hpMerk::all();
+        $merkIds = $merks->pluck('id'); // Mengambil hanya ID
+
+        // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
+        $models = HpModel::with('hpMerk')->whereIn('hp_merk_id', $merkIds)->get();
+        // dd($models);
+        return view('customer-service.hp.list', compact('merks', 'models'));
+        // return view('customer-service.hp.list');
+    }
+
+
+
+    /**
+     * Get all model data
+     */
+    public function getHpModel()
+    {
+        $merks = hpMerk::all();
+        $merkIds = $merks->pluck('id'); // Mengambil hanya ID
+
+        // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
+        $models = HpModel::with('hpMerk')->whereIn('hp_merk_id', $merkIds)->get();
+
+        // dd($models);
+        return DataTables::of($models)
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+
+
+
+    /**
+     * Get all merk data
+     */
+    public function getHpMerk()
+    {
+        $merks = hpMerk::all();
+        // $merkIds = $merks->pluck('id'); // Mengambil hanya ID
+
+        // // Ambil Model yang hp_merk_id-nya ada di daftar ID Merk
+        // $models = HpModel::whereIn('hp_merk_id', $merkIds)->get();
+
+
+        return DataTables::of($merks)
+            // ->addColumn('action', function ($teknisi) {
+            //     return '<a href="/teknisi/edit/'.$teknisi->id.'" class="btn btn-sm btn-primary">Edit</a>';
+            // })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function merkStore(Request $request)
+    {
+        $auth = Auth::user();
+        $validated = $request->validate([
+            'merk' => 'required|string|min:2|unique:hp_merks,merk',
+        ]);
+        $validated['user_id'] = $auth->id;
+        hpMerk::create($validated);
+        return redirect()->back()->with('success', 'Data Merk Hp berhasil ditambahkan!');
+        ;
+        ;
+    }
+    public function modelStore(Request $request)
+    {
+
+        $validated = $request->validate([
+            'hp_merk_id' => 'required',
+            'model' => 'required|string|min:2|unique:hp_models,model',
+        ]);
+        hpModel::create($validated);
+        return redirect()->back()->with('success', 'Data Model Hp berhasil ditambahkan!');
+        ;
+        ;
+    }
+    public function merkUpdate(Request $request)
+    {
+
+        $validated = $request->validate([
+            'merk' => 'required|string',
+            
+        ]);
+
+        hpMerk::where('id', $request->id)->update($validated);
+        return redirect()->back()->with('msg', 'berhasil mengedit Merk Hp');
+    }
+    public function modelUpdate(Request $request)
+    {
+
+        $validated = $request->validate([
+            'model' => 'required|string',
+            
+        ]);
+
+        hpModel::where('id', $request->id)->update($validated);
+        return redirect()->back()->with('msg', 'berhasil mengedit Model Hp');
+    }
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}
