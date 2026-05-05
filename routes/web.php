@@ -63,11 +63,6 @@ Route::get('/print-spk/{id}/{bayar_id?}', function ($id) {
     // total pembayaran (opsional)
     $totalBayar = $booking->pembayaran_booking?->sum('jumlah') ?? 0;
     $sisaBayar = $total - $totalBayar;
-
-    // if($spk[1] != 0){
-    //     $pembayaran = pembayaranBooking::find($spk[1]);
-    // }
-
     return view('customer-service.print.print-spk', compact(
         'booking',
         'total',
@@ -106,6 +101,8 @@ Route::get('/print-nota/{id}', function ($id) {
         'sisaBayar'
     ));
 })->name('print.nota');
+
+Route::get('/print-sale/{id}',[SparepartSaleController::class, 'printSale'])->name('print.sale');
 
 Route::middleware([
     'auth:sanctum',
@@ -212,7 +209,7 @@ Route::group([
     'middleware' => 'role:cabang|super-admin'
 ], function () {
     Route::get('/', [SparepartSaleController::class, 'index'])->name('index');
-    // Route::get('/get-booking', [BookingController::class, 'getBooking'])->name('getBooking');
+    Route::get('/get-sale', [SparepartSaleController::class, 'getSale'])->name('getSale');
     Route::get('/create', [SparepartSaleController::class, 'create'])->name('create');
     // Route::post('/store', [BookingController::class, 'store'])->name('store');
     // Route::get('/{id}', [BookingController::class, 'show'])->name('show');

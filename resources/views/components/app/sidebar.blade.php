@@ -315,7 +315,7 @@
                                             href="{{ route('cs.sale.index') }}">
                                             <span
                                                 class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">List
-                                                Pemesanan</span>
+                                                Penjualan</span>
                                         </a>
                                     </li>
                                     <li class="mb-1 last:mb-0">

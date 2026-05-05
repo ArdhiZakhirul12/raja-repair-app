@@ -4,7 +4,7 @@
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between mb-2 mt-5 sm:mb-5">
             <h1 class="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
-                Data Transaksi
+                Data Penjualan Sparepart
             </h1>
             {{-- <button   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-grdeen-700"
         onclick="document.getElementById('add-sparepart-modal').classList.remove('hidden')">
@@ -47,7 +47,7 @@
                                         </svg></a>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            {{-- <th scope="col" class="px-6 py-3">
                                 <div class="flex items-center">
                                     Kendala
                                     <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
@@ -56,9 +56,9 @@
                                                 d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
                                         </svg></a>
                                 </div>
-                            </th>
+                            </th> --}}
                             <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">Model Hp</th>
+                            {{-- <th scope="col" class="px-6 py-3">Model Hp</th> --}}
 
                             <th scope="col" class="px-6 py-3"></th>
 
@@ -69,8 +69,10 @@
             </div>
         </div>
     </div>
-
-    <script>
+    
+    
+    {{-- <script>
+        
         //fungsi untuk memanggil datatable dan mengatur fitur-fitur yang ada
         $(document).ready(function() {
            var table = $('#booking-table').DataTable({
@@ -78,24 +80,27 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route('cs.booking.getBooking') }}',
+                    url: '{{ route('cs.sale.getSale') }}',
                     data: function(d) {
                         d.status = $('#statusFilter').val(); // Get the selected status filter
                     }
                 },
                 ordering: false,
-                columns: [
-
+                columns: [  
+                
 
                     {
                         data: 'kode_pesanan',
                         name: 'kode_pesanan',
                         render: function(data, type, row) {
-                            let url = "{{ route('cs.booking.show', ['id' => '__ID__']) }}";
-                            url = url.replace('__ID__', row.id);
-                            return `<a href="${url}" class="text-black-900 hover:text-black-400 font-bold">${data}</a>`;
+                            return `<a href="" class="text-black-500 hover:text-black-500 ">${data}</a>`;
+
+                            // let url = "{{ route('cs.booking.show', ['id' => '__ID__']) }}";
+                            // url = url.replace('__ID__', row.id);
+                            // return `<a href="${url}" class="text-black-900 hover:text-black-400 font-bold">${data}</a>`;
 
                         }
+                        
                     },
                     {
                         data: 'customer_id',
@@ -206,6 +211,41 @@
             table.ajax.reload();
         });
         });
-    </script>
+    </script> --}}
+
+    <script>
+$(document).ready(function () {
+
+    $('#booking-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('cs.sale.getSale') }}',
+
+        ordering: false,
+
+        columns: [
+            {
+                data: 'kode_pesanan',
+                defaultContent: '-'
+            },
+            {
+                data: 'customer',
+                render: function (data) {
+                    return data ? data.nama : '-';
+                }
+            },
+            {
+                data: 'status',
+                defaultContent: '-'
+            },
+            {
+                data: 'created_at',
+                defaultContent: '-'
+            }
+        ]
+    });
+
+});
+</script>
 
 </x-app-layout>
