@@ -77,3 +77,10 @@
     <h3>TERIMA KASIH</h3>
 
 </div>
+<script>
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        window.print();
+    }, 300); // kasih waktu render
+});
+</script>

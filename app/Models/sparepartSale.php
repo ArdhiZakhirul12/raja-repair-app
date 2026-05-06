@@ -24,6 +24,6 @@ class sparepartSale extends Model
     }
     public function detailSale()
     {
-        return $this->hasMany(detailSale::class);
+        return $this->hasMany(detailSale::class, 'sparepart_sales_id');
     }
 }

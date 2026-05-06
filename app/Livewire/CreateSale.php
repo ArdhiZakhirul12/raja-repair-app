@@ -12,6 +12,7 @@ use App\Models\hpModel;
 use App\Models\sparepart;
 use App\Models\sparepart_booking;
 use App\Models\sparepartSale;
+use App\Models\detailSale;
 use App\Models\teknisi;
 use App\Models\metodePembayaran;
 use App\Models\pembayaranBooking;
@@ -273,12 +274,23 @@ class CreateSale extends Component
             'nominal_bayar' => $nominal
         ]));
 
+     
+            $sparepartIds = $validated['sparepart_id'];
+            for ($i = 0; $i < count($sparepartIds); $i++)
+                detailSale::create([
+                    'sparepart_sales_id' => $createBook['id'],
+                    'sparepart_id' => $sparepartIds[$i],
+                    'harga' => $this->harga_sparepart[$i],
+                    'harga_beli' => $this->harga_beli_sparepart[$i],
+                ]);
+        
+
 
         $this->reset(); // Reset semua input
         session()->flash('inputData', $createBook);
         session()->flash('message', 'Booking berhasil dibuat.');
-
-        $this->dispatch('print-spk');
+    return redirect()->route('print.sale', $createBook->id);    
+        // $this->dispatch('print-spk');
        
     }
    

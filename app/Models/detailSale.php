@@ -10,9 +10,9 @@ class detailSale extends Model
     use HasFactory;
     protected $guarded = ['id'];
     
-    public function booking()
+    public function sparepartSale()
     {
-        return $this->belongsTo(booking::class);
+        return $this->belongsTo(sparepartSale::class);
     }
     public function sparepart()
     {
