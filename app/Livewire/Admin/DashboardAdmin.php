@@ -3,7 +3,7 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
-use App\Models\Cabang;
+use App\Models\cabang;
 use App\Models\sparepart_booking;
 use App\Models\detailBooking;
 use App\Models\booking;
