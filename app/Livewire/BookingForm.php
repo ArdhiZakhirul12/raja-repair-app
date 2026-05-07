@@ -91,6 +91,7 @@ class BookingForm extends Component
         $this->metode_pembayaran = metodePembayaran::all();
 
     }
+    
     public function updatedTeknisiId($value)
     {
         // Cari teknisi berdasarkan ID
@@ -137,10 +138,36 @@ class BookingForm extends Component
     }
     public function getTotalBayarProperty()
     {
-        $totalService = is_array($this->harga_service) ? array_sum($this->harga_service) : 0;
-        $totalSparepart = is_array($this->harga_sparepart) ? array_sum($this->harga_sparepart) : 0;
+        $totalService = 0;
+
+        $garansiField = match ($this->garansi) {
+            '0' => 'harga',
+            '1' => 'garansi_1',
+            '2' => 'garansi_2',
+            '3' => 'garansi_3',
+            default => null,
+        };
+
+        if ($garansiField && is_array($this->service_id)) {
+            foreach ($this->service_id as $serviceId) {
+                $service = dataService::find($serviceId);
+
+                if ($service) {
+                    $totalService += $service->$garansiField ?? 0;
+                }
+            }
+        }
+
+        $totalSparepart = is_array($this->harga_sparepart)
+            ? array_sum($this->harga_sparepart)
+            : 0;
 
         return $totalService + $totalSparepart;
+        
+    }
+    public function updatedGaransi()
+    {
+        $this->getTotalBayarProperty();
     }
 
     public function getKembalianProperty()

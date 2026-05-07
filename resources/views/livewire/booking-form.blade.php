@@ -409,7 +409,7 @@
                         }">
                             <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih
                                 Layanan</label>
-                            <input type="text" x-model="search" x-on:click="open = !open"
+                            <input type="text" x-model="search" wire:change="getTotalBayarProperty" x-on:click="open = !open"
                                 x-on:input="open = true"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="Cari Layanan..." :value="displayText">
@@ -467,7 +467,7 @@
                         }">
                             <label for="dropdown" class="block text-sm font-medium text-gray-400">Pilih
                                 Sparepart</label>
-                            <input type="text" x-model="search" x-on:click="open = !open"
+                            <input type="text" x-model="search" x-on:click="open = !open" wire:change="getTotalBayarProperty"
                                 x-on:input="open = true" {{-- wire:model.defer="sparepart_id" --}}
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="Cari Sparepart..." :value="displayText">
@@ -526,24 +526,24 @@
                             </div>
                             <div class="mb-4"></div>
                             <div class="flex items-center">
-                                <input type="radio" name="garansi" wire:model="garansi" value="0"
+                                <input type="radio" name="garansi" wire:change="getTotalBayarProperty" wire:model="garansi" value="0"
                                     id="garansi1_check">
-                                <label for="garansi1_check" class="ml-2">Tidak Garansi</label>
+                                <label for="garansi0_check" class="ml-2">Tidak Garansi</label>
                             </div>
                             <div class="flex items-center">
-                                <input type="radio" name="garansi" wire:model="garansi" value="1"
+                                <input type="radio" name="garansi" wire:change="getTotalBayarProperty" wire:model="garansi" value="1"
                                     id="garansi1_check">
                                 <label for="garansi1_check" class="ml-2">Garansi 14 Hari</label>
                             </div>
 
                             <div class="flex items-center">
-                                <input type="radio" name="garansi" wire:model="garansi" value="2"
+                                <input type="radio" name="garansi" wire:change="getTotalBayarProperty" wire:model="garansi" value="2"
                                     id="garansi2_check">
                                 <label for="garansi2_check" class="ml-2">Garansi 30 Hari</label>
                             </div>
 
                             <div class="flex items-center">
-                                <input type="radio" name="garansi" wire:model="garansi" value="3"
+                                <input type="radio" name="garansi" wire:change="getTotalBayarProperty" wire:model="garansi" value="3"
                                     id="garansi3_check">
                                 <label for="garansi3_check" class="ml-2">Garansi 90 Hari</label>
                             </div>
