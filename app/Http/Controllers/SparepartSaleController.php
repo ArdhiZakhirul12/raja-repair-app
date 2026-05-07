@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\sparepartSale;
 use App\Models\detailSale;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class SparepartSaleController extends Controller
 {

@@ -63,7 +63,7 @@
                             <label for="garansi_1" class="block text-sm font-medium text-gray-400">Harga Garansi 14
                                 Hari</label>
                             <input type="text" name="garansi_1" id="garansi_1" wire:model="garansi_1"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
+                                class="mt-1 p-2 w-full border border-gray-300 rounded"  oninput="formatRupiah(this)">
                         </div>
                     </div>
 
@@ -72,13 +72,13 @@
                             <label for="garansi_2" class="block text-sm font-medium text-gray-400">Harga Garansi 30
                                 Hari</label>
                             <input type="text" name="garansi_2" id="garansi_2" wire:model="garansi_2"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
+                                class="mt-1 p-2 w-full border border-gray-300 rounded"  oninput="formatRupiah(this)">
                         </div>
                         <div class="w-1/2">
                             <label for="garansi_3" class="block text-sm font-medium text-gray-400">Harga Garansi 90
                                 Hari</label>
                             <input type="text" name="garansi_3" id="garansi_3" wire:model="garansi_3"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded" required  oninput="formatRupiah(this)">
+                                class="mt-1 p-2 w-full border border-gray-300 rounded"  oninput="formatRupiah(this)">
                         </div>
                     </div>
                 </div>
