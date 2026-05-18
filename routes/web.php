@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AddServiceControler;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ClaimGaransiController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HpController;
@@ -180,6 +181,15 @@ Route::middleware([
 
 
     // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+Route::group([
+    'prefix' => 'tagihan',
+    'as' => 'billing.',
+    'middleware' => 'role:cabang|super-admin'
+], function () {
+    Route::get('/', [BillingController::class, 'index'])->name('index');
+    Route::put('/percentage', [BillingController::class, 'updatePercentage'])->name('percentage.update');
 });
 
 Route::group([

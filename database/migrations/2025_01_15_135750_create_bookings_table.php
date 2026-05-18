@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('no_hp_alternatif')->nullable();
             $table->foreignId('hp_model_id')->constrained()->onDelete('cascade');
             $table->foreignId('metode_pembayaran_id')->constrained()->onDelete('cascade')->nullable();
-            $table->string('imei');
+            $table->string('imei')->nullable();
             $table->longText('kendala');
             $table->string('status');
             $table->integer('claim')->default(0);

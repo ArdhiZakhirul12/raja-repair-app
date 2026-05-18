@@ -137,6 +137,15 @@
                             </div>
                         </div>
                     </a>
+                    <a href="{{ route('billing.index') }}" :active="request() - > routeIs('billing.index')">
+                        <div class="flex items-center justify-between p-3">
+                            <div class="flex items-center">
+                                <i class="fa fa-file-invoice-dollar text-blue-500"></i>
+                                <span
+                                    class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Tagihan</span>
+                            </div>
+                        </div>
+                    </a>
                 @elseif (Auth::user()->hasRole('teknisi'))
                     {{-- <p>Halo, Teknisi!</p> --}}
 
@@ -507,6 +516,16 @@
                                         </svg>
                                         <span
                                             class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sparepart</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="{{ route('billing.index') }}" :active="request() - > routeIs('billing.index')">
+                                <div class="flex items-center justify-between p-3">
+                                    <div class="flex items-center">
+                                        <i class="fa fa-file-invoice-dollar text-blue-500"></i>
+                                        <span
+                                            class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Tagihan</span>
                                     </div>
                                 </div>
                             </a>
