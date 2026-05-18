@@ -214,12 +214,19 @@ class BookingForm extends Component
             'teknisiId' => 'required',
             'merkHpId' => 'required',
             'modelHpId' => 'required',
-            'imei' => 'nullable',
+            'imei' => 'nullable|string|max:255',
             'service_id' => 'required',
             'sparepart_id' => 'nullable',
             'garansi' => 'nullable',
             'diskon' => 'nullable|integer',
+            'jumlah_bayar' => 'nullable|required_with:nominal_bayar,metode_id',
+            'nominal_bayar' => 'nullable|required_with:jumlah_bayar,metode_id',
+            'metode_id' => 'nullable|required_with:jumlah_bayar,nominal_bayar',
 
+        ], [
+            'jumlah_bayar.required_with' => 'Jumlah bayar wajib diisi jika pembayaran DP digunakan.',
+            'nominal_bayar.required_with' => 'Nominal bayar wajib diisi jika pembayaran DP digunakan.',
+            'metode_id.required_with' => 'Metode pembayaran wajib diisi jika pembayaran DP digunakan.',
         ]);
         // dd($this->harga_service, $this->harga_sparepart);
 
@@ -275,7 +282,7 @@ class BookingForm extends Component
             $diskonStatus = 0;
         }
         $discount = (int) str_replace('.', '', $this->diskon);
-        if ($this->jumlah_bayar != null){
+        if (! blank($this->jumlah_bayar)){
             $bayar = (int) str_replace('.', '', $this->jumlah_bayar);
         }else{
             $bayar = 0;
@@ -289,7 +296,7 @@ class BookingForm extends Component
             'customer_id' => $this->customer,
             'no_hp_alternatif' => $this->no_hp_alternatif,
             'hp_model_id' => $this->modelHpId,
-            'imei' => $validated['imei'],
+            'imei' => blank($validated['imei'] ?? null) ? null : $validated['imei'],
             'kendala' => $validated['kendala'],
             'garansi' => $this->garansi,
             'status' => 'diproses',
@@ -322,10 +329,10 @@ class BookingForm extends Component
                 ]);
             }
         }
-        if ($this->jumlah_bayar != null){
-            $kembalian = $this->nominal_bayar - $this->jumlah_bayar;
+        if (! blank($this->jumlah_bayar) && ! blank($this->nominal_bayar) && ! blank($this->metode_id)){
             $jumlah = (int) str_replace('.', '', $this->jumlah_bayar);
             $nominal = (int) str_replace('.', '', $this->nominal_bayar);
+            $kembalian = $nominal - $jumlah;
             $bayar = pembayaranBooking::create([
                 'booking_id' => $createBook['id'],
                 'metode_pembayaran_id' => $this->metode_id,
