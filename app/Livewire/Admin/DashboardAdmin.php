@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\cabang;
 use App\Models\sparepart_booking;
 use App\Models\detailBooking;
+use App\Models\detailSale;
 use App\Models\booking;
 use App\Models\customer;
 use App\Models\dataService;
@@ -111,6 +112,11 @@ class DashboardAdmin extends Component
                 $query->where('user_id', $cabangId);
             }
         });
+        $sparepartSale = detailSale::whereHas('sparepartSale', function ($query) use ($cabangId) {
+            if ($cabangId) {
+                $query->where('user_id', $cabangId);
+            }
+        });
 
         if ($this->selectedDateRange != null && $this->selectedDateRange != '') {
             $dates = explode(' to ', $this->selectedDateRange);
@@ -121,6 +127,10 @@ class DashboardAdmin extends Component
                     $query->where('status', 'selesai')
                           ->whereBetween('created_at', [$startDate, $endDate]);
                 });
+                $sparepartSale->whereHas('sparepartSale', function ($query) use ($startDate, $endDate) {
+                    $query->where('status', 'selesai')
+                          ->whereBetween('created_at', [$startDate, $endDate]);
+                });
                 // dd($startDate,$endDate);
             }
         }
@@ -128,12 +138,22 @@ class DashboardAdmin extends Component
         
 
         $sparepart = $sparepart->get();
+        $sparepartSale = $sparepartSale->get();
  
 
     
-        $this->pendapatan_sparepart = $sparepart->sum('harga');
+        $this->pendapatan_sparepart = $sparepart->sum('harga') + $sparepartSale->sum('harga');
 
         $sparepartMonths = sparepart_booking::whereHas('booking', function ($query) use ($cabangId) {
+            if ($cabangId) {
+                $query->where('user_id', $cabangId);
+            }
+        })->get()->groupBy(function ($date) {
+            return \Carbon\Carbon::parse($date->created_at)->format('M-Y');
+        })->filter(function ($group, $key) {
+            return \Carbon\Carbon::createFromFormat('M-Y', $key)->year == now()->year;
+        });
+        $sparepartSaleMonths = detailSale::whereHas('sparepartSale', function ($query) use ($cabangId) {
             if ($cabangId) {
                 $query->where('user_id', $cabangId);
             }
@@ -154,7 +174,9 @@ class DashboardAdmin extends Component
         $this->sparepartSales = [];
         foreach ($this->exMonths as $month) {
             $month = $month . '-' . $tahun;
-            $this->sparepartSales[] = $sparepartMonths->has($month) ? $sparepartMonths[$month]->sum('harga') : 0;
+            $sparepartBookingTotal = $sparepartMonths->has($month) ? $sparepartMonths[$month]->sum('harga') : 0;
+            $sparepartSaleTotal = $sparepartSaleMonths->has($month) ? $sparepartSaleMonths[$month]->sum('harga') : 0;
+            $this->sparepartSales[] = $sparepartBookingTotal + $sparepartSaleTotal;
             // if($sparepartMonths->has($month) && $this->selectedDateRange != null && $this->selectedDateRange != ''){
             //     dd($sparepartMonths[$month]->sum('harga'), $sparepartMonths[$month]);
             // }
