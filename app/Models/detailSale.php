@@ -12,7 +12,7 @@ class detailSale extends Model
     
     public function sparepartSale()
     {
-        return $this->belongsTo(sparepartSale::class);
+        return $this->belongsTo(sparepartSale::class, 'sparepart_sales_id');
     }
     public function sparepart()
     {

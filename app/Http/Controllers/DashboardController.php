@@ -10,6 +10,7 @@ use App\Models\teknisi;
 use App\Models\customer;
 use App\Models\dataService;
 use App\Models\detailBooking;
+use App\Models\detailSale;
 use App\Models\sparepart;
 use App\Models\sparepart_booking;
 use App\Models\hpModel;
@@ -31,6 +32,9 @@ class DashboardController extends Controller
         $sparepart = sparepart_booking::whereHas('booking', function ($query) {
             $query->where('user_id', auth()->id());
         });
+        $sparepartSale = detailSale::whereHas('sparepartSale', function ($query) {
+            $query->where('user_id', auth()->id());
+        });
 
          if ($request->has('date_range') && $request->date_range) {
            
@@ -46,6 +50,10 @@ class DashboardController extends Controller
                     $startDate,
                     $endDate
                 ]);
+                $sparepartSale->whereHas('sparepartSale', function ($query) use ($startDate, $endDate) {
+                    $query->where('status', 'selesai')
+                        ->whereBetween('created_at', [$startDate, $endDate]);
+                });
 
                 
             }
@@ -55,13 +63,19 @@ class DashboardController extends Controller
         
 
         $sparepart = $sparepart->get();
+        $sparepartSale = $sparepartSale->get();
 
 
-        $pendapatan_sparepart = $sparepart->sum('harga');
+        $pendapatan_sparepart = $sparepart->sum('harga') + $sparepartSale->sum('harga');
 
 
 
         $sparepartMonths = $sparepart->groupBy(function ($date) {
+            return \Carbon\Carbon::parse($date->created_at)->format('M-Y');
+        })->filter(function ($group, $key) {
+            return \Carbon\Carbon::createFromFormat('M-Y', $key)->year == now()->year;
+        });
+        $sparepartSaleMonths = $sparepartSale->groupBy(function ($date) {
             return \Carbon\Carbon::parse($date->created_at)->format('M-Y');
         })->filter(function ($group, $key) {
             return \Carbon\Carbon::createFromFormat('M-Y', $key)->year == now()->year;
@@ -71,7 +85,9 @@ class DashboardController extends Controller
         $sparepartSales = [];
         foreach ($exMonths as $month) {
             $month = $month . '-' . $tahun;
-            $sparepartSales[] = $sparepartMonths->has($month) ? $sparepartMonths[$month]->sum('harga') : 0;
+            $sparepartBookingTotal = $sparepartMonths->has($month) ? $sparepartMonths[$month]->sum('harga') : 0;
+            $sparepartSaleTotal = $sparepartSaleMonths->has($month) ? $sparepartSaleMonths[$month]->sum('harga') : 0;
+            $sparepartSales[] = $sparepartBookingTotal + $sparepartSaleTotal;
         }
 
         $sparepartThisYear = array_sum($sparepartSales);
