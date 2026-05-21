@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\PcAntrianController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FinancialReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SpendingController;
 use App\Http\Controllers\SparepartSaleController;
@@ -193,6 +194,14 @@ Route::group([
 });
 
 Route::group([
+    'prefix' => 'laporan-keuangan',
+    'as' => 'financial-report.',
+    'middleware' => 'role:cabang|super-admin'
+], function () {
+    Route::get('/', [FinancialReportController::class, 'index'])->name('index');
+});
+
+Route::group([
     'prefix' => 'cs/pembayaran',
     'as' => 'cs.pembayaran.',
     'middleware' => 'role:cabang|super-admin'
@@ -221,6 +230,7 @@ Route::group([
     Route::get('/', [SparepartSaleController::class, 'index'])->name('index');
     Route::get('/get-sale', [SparepartSaleController::class, 'getSale'])->name('getSale');
     Route::get('/create', [SparepartSaleController::class, 'create'])->name('create');
+    Route::get('/{id}', [SparepartSaleController::class, 'show'])->name('show');
     // Route::post('/store', [BookingController::class, 'store'])->name('store');
     // Route::get('/{id}', [BookingController::class, 'show'])->name('show');
     // Route::post('/cust/{nohp}', [BookingController::class, 'searchCustomer'])->name('nohp');
