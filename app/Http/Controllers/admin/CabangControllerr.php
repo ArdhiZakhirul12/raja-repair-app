@@ -16,6 +16,7 @@ use App\Models\detailBooking;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class CabangControllerr extends Controller
 {
@@ -45,54 +46,83 @@ class CabangControllerr extends Controller
             'email' => 'required|email',
             'password' => 'required | min:5'
         ]);
-        $user = User::create([
-            'name' => $request->nama,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        $user->assignRole('cabang');
 
-        cabang::create([
-            'user_id' => $user->id,
-            'no_hp' => $request->no_hp,
-            'nama' => $request->nama_cabang,
-            'alamat' => $request->alamat,
-            'link_map' => $request->link_map
-        ]);
+        DB::transaction(function () use ($request) {
+            $user = User::create([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            $user->assignRole('cabang');
 
-        $services = dataService::all()->unique('code')->values();
-
-
-        foreach ($services as $service) {
-            $createService = [ 
+            cabang::create([
                 'user_id' => $user->id,
-                'code' => $service->code,
-                'nama_servis' => $service->nama_servis,
-                'jenis_servis' => $service->jenis_servis,
-                'harga' => $service->harga,
-                'garansi_1' => $service->garansi_1,
-                'garansi_2' => $service->garansi_2,
-                'garansi_3' => $service->garansi_3,
-                'status' => 1,
-                'booking' => 0,
-            ];
-            dataService::create($createService);
-        }
-        $spareparts = sparepart::all()->unique('code')->values();
+                'no_hp' => $request->no_hp,
+                'nama' => $request->nama_cabang,
+                'alamat' => $request->alamat,
+                'link_map' => $request->link_map
+            ]);
 
-        foreach ($spareparts as $sparepart){
-            $createSparepart = [
-                'user_id' => $user->id,
-                'code' => $sparepart->code,
-                 'nama_sparepart' => $sparepart->nama_sparepart,
-                'harga' => $sparepart->harga,                
-                'status' => 1,
-                'terjual' => 0,
-            ];
-            sparepart::create($createSparepart);
-        }
+            $this->copyServicesToBranch($user->id);
+            $this->copySparepartsToBranch($user->id);
+        });
 
         return redirect()->back()->with('success', 'Cabang Baru berhasil ditambahkan!');
+    }
+
+    private function copyServicesToBranch(int $userId): void
+    {
+        $services = dataService::query()
+            ->where('user_id', '!=', $userId)
+            ->latest('updated_at')
+            ->get()
+            ->unique('code')
+            ->values();
+
+        foreach ($services as $service) {
+            dataService::firstOrCreate(
+                [
+                    'user_id' => $userId,
+                    'code' => $service->code,
+                ],
+                [
+                    'nama_servis' => $service->nama_servis,
+                    'jenis_servis' => $service->jenis_servis,
+                    'harga' => $service->harga,
+                    'garansi_1' => $service->garansi_1,
+                    'garansi_2' => $service->garansi_2,
+                    'garansi_3' => $service->garansi_3,
+                    'status' => 1,
+                    'booking' => 0,
+                ]
+            );
+        }
+    }
+
+    private function copySparepartsToBranch(int $userId): void
+    {
+        $spareparts = sparepart::query()
+            ->where('user_id', '!=', $userId)
+            ->latest('updated_at')
+            ->get()
+            ->unique('code')
+            ->values();
+
+        foreach ($spareparts as $sparepart) {
+            sparepart::firstOrCreate(
+                [
+                    'user_id' => $userId,
+                    'code' => $sparepart->code,
+                ],
+                [
+                    'nama_sparepart' => $sparepart->nama_sparepart,
+                    'harga' => $sparepart->harga,
+                    'harga_beli' => $sparepart->harga_beli,
+                    'status' => 1,
+                    'terjual' => 0,
+                ]
+            );
+        }
     }
     public function getCabang()
     {

@@ -37,8 +37,8 @@ class DetailGaransi extends Component
             'status' => 'selesai'
         ]);
         $message = "*📌 Nota Elektronik Claim Garansi*\n"
-        ."🏠 *Raja Repair*\n"
-        ."📍 Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61257\n\n"
+        . "🏠 *{$log->cabang->nama}* \n"
+        . "📍 {$log->cabang->alamat}\n\n"
         
         ."🔖 *Kode Pemesanan:* {$this->garansi->booking->kode_pesanan}\n"
         ."👤 *Nama:* {$this->garansi->booking->customer->nama}\n"
