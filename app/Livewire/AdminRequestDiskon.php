@@ -159,8 +159,8 @@ class AdminRequestDiskon extends Component
         $metodeNow = metodePembayaran::where('id', $this->metodeSelected)->first();
 
         $message = "*📌 Nota Elektronik*\n"
-            . "🏠 *Raja Repair*\n"
-            . "📍 Jl. Raya Kedung Turi No. 1, Kedung Turi, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61257\n\n"
+            . "🏠 *{$log->cabang->nama}* \n"
+            . "📍 {$log->cabang->alamat}\n\n"
 
             . "🔖 *Kode Pemesanan:* {$this->booking->kode_pesanan}\n"
             . "👤 *Nama:* {$this->booking->customer->nama}\n"

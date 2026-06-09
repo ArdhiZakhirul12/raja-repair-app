@@ -221,7 +221,7 @@ class DetailBooking extends Component
         $metodeNow = metodePembayaran::where('id', $this->metodeSelected)->first();
         $log = auth()->user();
         $message = "*📌 Nota Elektronik*\n"
-            . "🏠 *Raja Repair {$log->cabang->nama}* \n"
+            . "🏠 *{$log->cabang->nama}* \n"
             . "📍 {$log->cabang->alamat}\n\n"
 
             . "🔖 *Kode Pemesanan:* {$this->booking->kode_pesanan}\n"
